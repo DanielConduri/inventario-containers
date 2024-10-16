@@ -1,0 +1,112 @@
+<div class="body">
+  <div class="container-Nav">
+    <nav class="navBienes">
+      <div class="container-NavOptions">
+        <!-- Opcion Bien Estados -->
+        <div class="container-Btn">
+          <button
+          class="nav-link {{this.menuTabSelected === 6 ? 'active' : isValue === 9}}"
+          (click)="mostrarEstados()"
+          type="button">
+            Estados
+          </button>
+        </div>
+
+        <!-- Opcion bien Proveedores -->
+        <div class="container-Btn">
+          <button
+          class="nav-link {{this.menuTabSelected === 7 ? 'active' : isValue === 10}}"
+          (click)="mostrarProveedores()"
+          type="button"
+          >
+            Proveedores
+          </button>
+        </div>
+
+        <!-- Opcion Bien Marcas -->
+        <div class="container-Btn">
+          <button
+          class="nav-link {{this.menuTabSelected === 8 ? 'active' : isValue === 11}}"
+          (click)="mostrarMarcas()"
+          type="button">
+            Marcas
+          </button>
+        </div>
+
+        <!-- Opcion Bien Catalogo -->
+        <div class="container-Btn">
+          <button
+          class="nav-link {{this.menuTabSelected === 9 ? 'active' : isValue === 12}}"
+          (click)="mostrarCatalogo()"
+          type="button">
+            Catalogos
+          </button>
+        </div>
+
+      </div>
+    </nav>
+  </div>
+
+  <div class="container-Body">
+    <!-- Vistas de Botones -->
+
+    <!-- Apartado Vista Mostrar Estados -->
+    <div
+    class="tab-pane fade"
+    *ngIf="this.menuTabSelected === 6"
+    typeView = true;
+    >
+      <app-mostrar-estados></app-mostrar-estados>
+    </div>
+    <!-- Apartado Vista Mostrar Proveedores -->
+    <div
+    class="tab-pane fade"
+    *ngIf="this.menuTabSelected === 7"
+    typeView = true;
+    >
+      <app-mostrar-proveedor ></app-mostrar-proveedor>
+    </div>
+
+    <!-- Apartado Vista mostrar Marcas -->
+    <div
+      class="tab-pane fade"
+      *ngIf="this.menuTabSelected === 8"
+      typeView = true;
+    >
+      <app-mostrar-marca></app-mostrar-marca>
+    </div>
+
+
+    <!-- Apartado Vista mostrar Catalogo -->
+    <div
+      class="tab-pane fade"
+      *ngIf="this.menuTabSelected === 9"
+      typeView = true;
+    >
+      <app-mostrar-catalogo></app-mostrar-catalogo>
+    </div>
+
+    <!-- Informacion del Contenido -->
+    <div
+    class="container-Welcome"
+    *ngIf="this.menuTabSelected === 0"
+    >
+      <div class="container-Left">
+        <h1>
+          Características de
+          <span>Bienes</span>
+        </h1>
+        <p>
+          Apartado donde podrá gestionar las características que se pueden asignar a los diferentes bienes del sistema asi como tener la posibilidad de crearlos y editarlos.
+        </p>
+      </div>
+
+      <!-- Contenedor de Logos/Imagenes_SVG -->
+      <div class="container-Right">
+        <img class="logo-Espoch" src="../../../../assets/img/logo-espoch.svg" alt="logo-espoch">
+        <img class="logo-Inventory" src="../../../../assets/img/characteristics.svg" alt="logo-characteristics">
+      </div>
+    </div>
+  </div>
+
+</div>

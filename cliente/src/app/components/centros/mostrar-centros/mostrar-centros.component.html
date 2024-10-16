@@ -1,0 +1,145 @@
+<app-filter [options]="options" (search)="handleSearch($event)"></app-filter>
+
+
+<div class="tabla-cuerpo">
+
+
+    <div *ngIf="isLoading && isData">
+        <table class="table table-striped tabla-estilos">
+
+            <thead>
+                <tr class="encabezado">
+                    <th class="th-head">
+                        <div class="d-flex"> # </div>
+                    </th>
+                    <th class="th-head">
+                        <div class="d-flex">Nombre</div>
+                    </th>
+                    <th class="th-head">
+                        <div class="d-flex">Tipo</div>
+                    </th>
+                    <th class="th-head">
+                        <div class="d-flex">Sede</div>
+                    </th>
+                    <th class="th-head">
+                        <div class="d-flex">Dependencia</div>
+                    </th>
+                    <th class="th-head">
+                        <div class="d-flex">Estado</div>
+                    </th>
+                    <th class="th-head" *ngIf="permisoEliminar('centros') || permisoEditar('centros')" >
+                        <div class="d-flex">Acciones</div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let center of srvCentros.datosCentros , let i = index">
+                    <td (click)="detalles(center.int_centro_id)" >{{i+1}}</td>
+
+                    <td (click)="detalles(center.int_centro_id)">
+                        <div class="content-td">
+                            <i class="material-icons"> person </i>
+                            <label>
+                                {{center.str_centro_nombre.toUpperCase()}}
+                            </label>
+                        </div>
+                    </td>
+
+                    <td (click)="detalles(center.int_centro_id)">{{center.str_centro_tipo_nombre}}</td>
+                    <td (click)="detalles(center.int_centro_id)"> {{center.str_centro_nombre_sede}}</td>
+                    <td *ngIf="center.str_centro_nombre_dependencia != null" (click)="detalles(center.int_centro_id)"> {{center.str_centro_nombre_dependencia}}</td>
+                    
+                    <td *ngIf="center.str_centro_nombre_dependencia === null" (click)="detalles(center.int_centro_id)"> {{center.str_centro_cod_facultad}} </td>
+
+                    <td *ngIf="center.str_centro_estado==='ACTIVO'">
+                        <div class="estado">
+                            <div class="activo">
+                                {{center.str_centro_estado}}
+                            </div>
+                        </div>
+                    </td>
+                    <td *ngIf="center.str_centro_estado==='INACTIVO'">
+                        <div class="estado">
+                            <div class="inactivo">
+                                {{center.str_centro_estado}}
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <button class="btn btn-primary" *ngIf="permisoEditar('centros')"
+                            (click)="modifyCenter(center.int_centro_id, 'Editar Centros', 'editarCentros')">
+                            <i class="material-icons">create</i>
+                        </button>
+
+
+                        <button class="btn btn-danger" *ngIf="center.str_centro_estado==='ACTIVO' && permisoEliminar('centros')"
+                                (click)="deleteCenter(center.int_centro_id)"><i class="material-icons"> delete </i>
+                            </button>
+                            <button class="btn btn-loop" *ngIf="center.str_centro_estado==='INACTIVO' && permisoEliminar('centros')"
+                                (click)="deleteCenter(center.int_centro_id)"><i class="material-icons"> loop </i>
+                            </button>
+                        <!-- <button class="btn btn-danger"
+                        ><i class="material-icons" (click)="deleteRol(rol.int_rol_id)"> delete </i> </button> -->
+                        <!-- <div class="delete">
+                            
+                        </div> -->
+
+
+                    </td>
+                </tr>
+
+                <!-- <tr *ngFor="let usuario of elementsForm, let i = index">
+                    <td>{{i+1}}</td>
+                    <td class="user"> <i class="material-icons"> person </i> {{usuario.usuario}}</td>
+                    <td >  {{usuario.correo}}</td>
+      
+                    <td *ngIf="usuario.estado==='Activo'">
+                        <div class="estado"  >
+                            <div class="activo">
+                                {{usuario.estado}}
+                            </div>
+      
+                        </div>
+                    </td>
+                    <td *ngIf="usuario.estado==='Inactivo'">
+                        <div class="estado "  >
+                            <div class="inactivo">
+                                {{usuario.estado}}
+                            </div>
+      
+                        </div>
+                    </td>
+      
+                    <td>
+                        <button class="btn btn-primary"
+                        > <i class="material-icons"> create </i> </button>
+                        <button class="btn btn-danger"
+                        ><i class="material-icons"> delete </i> </button>
+                    </td>
+      
+                </tr> -->
+            </tbody>
+
+        </table>
+    </div>
+
+    <div class="containerNoData" *ngIf="!isLoading && !isData">
+
+        <div _ngcontent-lne-c77="" class="mx-auto" style="margin-top: 64px; margin-bottom: 64px;">
+            <svg _ngcontent-lne-c77="" xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 48 48">
+                <path _ngcontent-lne-c77=""
+                    d="M38.7 40.85 26.65 28.8q-1.5 1.3-3.5 2.025-2 .725-4.25.725-5.4 0-9.15-3.75T6 18.75q0-5.3 3.75-9.05 3.75-3.75 9.1-3.75 5.3 0 9.025 3.75 3.725 3.75 3.725 9.05 0 2.15-.7 4.15-.7 2-2.1 3.75L40.95 38.7q.45.4.45 1.025 0 .625-.5 1.125-.45.45-1.1.45-.65 0-1.1-.45Zm-19.85-12.3q4.05 0 6.9-2.875Q28.6 22.8 28.6 18.75t-2.85-6.925Q22.9 8.95 18.85 8.95q-4.1 0-6.975 2.875T9 18.75q0 4.05 2.875 6.925t6.975 2.875Z">
+                </path>
+            </svg>
+            <h5 _ngcontent-lne-c77="" class="mt-2">Resultado sin datos</h5>
+            <h6 _ngcontent-lne-c77="">No se encontraron elementos para esta lista.</h6>
+        </div>
+    </div>
+    <div class="pagi">
+        <app-pagination 
+        (nextPage)="pasarPagina($event)"
+        ></app-pagination>
+    </div>
+
+
+</div>

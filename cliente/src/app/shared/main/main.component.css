@@ -1,0 +1,65 @@
+.pFather{
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.pHeader{
+    width: 100%;
+    height: 56px;
+    border-bottom: 1px solid  rgb(180, 26, 18);
+}
+
+.pAside-body{
+  transition: all .2s ease;
+    position: relative;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+}
+
+.pFooter{
+    height: 32px;
+    width: 100%;
+    background-color: rgb(180, 26, 18);
+    color: white;
+    /* transition: width 0.3s ease; */
+}
+
+
+
+/* ///////////////////////////////////////////////// */
+
+
+@media (min-width: 992px) {
+
+    .icon {
+      position: relative;
+
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 991px) {
+  }
+
+  @media (max-width: 767px) {
+    .pAside.close {
+      width: 0%; 
+      left: 0;
+      transition: all .3s ease;
+      /* display: none;     */
+
+    }
+    /* .pAside.close i {
+      display: none;
+    } */
+    .pAside{
+      width: 260px; 
+      /* left: 0; */
+      transition: all .3s ease;
+      /* display: block;     */
+    }
+    /* width: 0; */
+  
+  }

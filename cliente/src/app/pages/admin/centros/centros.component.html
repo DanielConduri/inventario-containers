@@ -1,0 +1,36 @@
+<div class="father">
+  <div class="containerBody">
+
+    <!-- Seccion Titulo 'Pantalla de Configuracion' -->
+    <div class="titleConfiguration">
+      <div class="titleButton">
+        <div class="title">
+          <h1>Pantalla de
+            <span style="color:#B41A12 ;">
+              Centros
+            </span>
+          </h1>
+          <span style="color:rgb(160, 160, 160);
+            font-family: 'Roboto', Arial, sans-serif;
+            font-size: 14px;">
+            Listado de Centros
+          </span>
+        </div>
+
+        <div class="buttonAgg" *ngIf="permisoCrear('centros')">
+          <app-button [form]="'nuevoCentro'" [title]="'Agregar Centro'"></app-button>
+          <!-- <app-button [form]="'importarCentro'" [title]="'importar Centro'"></app-button> -->
+
+        </div>
+      </div>
+
+
+      <div class="showCenter">
+
+        <app-mostrar-centros></app-mostrar-centros>
+      </div>
+
+
+    </div>
+  </div>
+</div>

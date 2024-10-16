@@ -1,0 +1,86 @@
+h1, h2, h3, h4, h5, h6, p {
+    font-family: "Roboto",Arial,sans-serif;
+    margin-top: 5px;
+
+}
+.container-per-rol{
+    margin: 0 auto;
+    padding: 0;
+    height: 100%;
+    overflow: auto;
+}
+.container-info{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+.int-name{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 500px;
+    justify-content: center;
+    align-items: center;
+}
+.user-inf{
+    justify-content: center;
+    align-items: center;
+
+}
+.icon{
+    height: 90px;
+    /* padding: 10px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+}
+.fullname{
+    font-size: 12px;
+    font-family: "Roboto",Arial,sans-serif;
+    /* display: flex;
+    align-items: center; */
+}
+.email{
+    margin-top: 5px;
+    font-size: 13px;
+    justify-content: center;
+    /* align-items: center;
+    display: flex; */
+}
+.icon i {
+    font-size: 90px !important;
+}
+
+.title-add{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.subtitle{
+    font-weight: 600;
+
+}
+
+.tabla-cuerpo{
+    padding-top: 20px;
+    height: auto;
+}
+.btn-usuario{
+    display: flex;
+    align-items: center;
+    margin-top: 25px;
+
+}
+
+.profile-Info{
+    padding: 20px;
+    font-size: 13px;
+}
+.email h4{
+    font-weight: normal;
+}
+.p-Title p {
+    font-weight: 500
+
+}

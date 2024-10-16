@@ -1,0 +1,102 @@
+<div class="body" #miElemento>
+
+  <!-- Apartado Mostrar Bien -->
+  <div
+      class="tab-pane fade"
+      *ngIf="this.menuTabSelected === 3 "
+      typeView = true;
+    >
+      <app-mostrar-bien *ngIf="typeViewMenu " ></app-mostrar-bien>
+  </div>
+
+  <!-- Menu de Opciones para Bienes -->
+  <div class="container-Options" *ngIf="menuTabSelected != 3 && (permisoCrear('bienes/inventario') || permisoVer('bienes/inventario'))">
+
+    <div class="container-BtnProcess" *ngIf="permisoCrear('bienes/inventario')" >
+      <button mat-stroked-button
+        (click)="importarBien()"
+        [disabled]="this.disabledButtons"
+      >
+        Cargar Bienes
+      </button>
+    </div>
+
+    <div class="container-BtnProcess" *ngIf="permisoCrear('bienes/inventario')" >
+      <button mat-stroked-button
+        (click)="insertarBien()"
+        [disabled]="this.disabledButtons"
+      >
+        Agregar Bien
+      </button>
+    </div>
+
+    <div class="container-BtnProcess" *ngIf="permisoVer('bienes/inventario')" >
+      <button
+      class="nav-link {{this.menuTabSelected === 3 ? 'active' : isValue === 5}}"
+      (click)="mostrarOtros()"
+      [disabled]="this.disabledButtons"
+      mat-stroked-button>Mostrar Bienes
+      </button>
+    </div>
+    
+    <div class="container-BtnProcess" *ngIf="permisoCrear('bienes/inventario')" >
+      <button mat-stroked-button
+        (click)="mostrarHistorial()"
+        [disabled]="this.disabledButtons"
+      >
+        Historial de archivos
+      </button>
+    </div>
+
+    <div class="container-BtnProcess">
+      <button
+        mat-flat-button color="warn"
+        (click)="cancelarButton()"
+        [disabled]="!this.disabledButtons"
+        >
+          Cancelar
+        </button>
+    </div>
+
+  </div>
+
+  <div class="container-Body" *ngIf="menuTabSelected != 3">
+
+    <div
+    class="container-Welcome"
+    *ngIf="this.menuTabSelected === 0"
+    >
+      <div class="container-Left">
+        <h1>
+          Inventario de
+          <br>
+          <span>Bienes</span>
+        </h1>
+        <p>
+          Apartado de Bienes donde podra gestionar los productos Software y Hardware que se encuentran disponibles, asi como tener la posibilidad de importarlos y editarlos.
+        </p>
+      </div>
+
+      <div class="container-Right">
+        <img class="logo-Espoch" src="../../../../assets/img/logo-espoch.svg" alt="logo-espoch">
+        <img class="logo-Inventory" src="../../../../assets/img/inventory.svg" alt="logo-inventory">
+      </div>
+    </div>
+
+    <!-- Apartado de Carga de Bienes -->
+    <div *ngIf="this.menuTabSelected === 4">
+      <app-importar-bien></app-importar-bien>
+    </div>
+
+    <!-- Apartado de Ingreso de Bien -->
+    <div *ngIf="this.menuTabSelected === 5">
+      <app-agregar-bien></app-agregar-bien>
+    </div>
+
+    <div *ngIf="this.menuTabSelected === 6">
+      <app-historial-archivos></app-historial-archivos>
+    </div>
+
+  </div>
+
+</div>

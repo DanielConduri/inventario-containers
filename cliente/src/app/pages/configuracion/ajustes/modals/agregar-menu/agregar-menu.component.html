@@ -1,0 +1,63 @@
+<div class="body-Form">
+
+    <form [formGroup]="myForm" class="formFather">
+  
+        <div class="container-DataInfoFind">
+    
+              <div class="containerInfo">
+                <label for="dependencia">Nombre</label>
+                <div class="container-Input">
+                  <input type="text" required formControlName="str_menu_nombre"
+                   placeholder="Ingrese el Nombre del Menú" >
+                </div>
+              </div>
+
+              <div class="containerInfo">
+                <label>Path</label>
+                <div class="container-Input">
+                  <input type="text"required formControlName="str_menu_path"
+                   placeholder="Ingrese la Dirección URL del Menú">
+                </div>
+              </div>
+
+              <div class="containerInfo">
+                <label for="dependencia">Descripción</label>
+                <div class="container-Input">
+                  <input type="text" name="dependencia" id="dependencia" required formControlName="str_menu_descripcion"
+                   placeholder="Ingrese la Descripción del Menú" >
+                </div>
+              </div>
+    
+              <div *ngIf="typeViewMenu"  class="containerInfo">
+                <label for="dependencia">Icono</label>
+                <div class="container-Select">
+                    <select  (change)="onIconSelect($event)" formControlName="str_menu_icono"> 
+                       <option value="default" selected hidden>Seleccione una Opción</option>
+                      <option *ngFor="let op of srvMenu.icons">
+                       {{op}}
+                      </option> 
+                    </select>
+                    <i class="material-icons"> {{myForm.value.str_menu_icono}} </i>
+                  </div>
+              </div>
+
+              <div *ngIf="!typeViewMenu"  class="containerInfo">
+                <label for="dependencia">Menú Padre</label>
+                <div class="container-Select">
+                    <select formControlName="int_menu_padre" id="menuPadreSelect" > 
+                      <option value="default" selected hidden>Seleccione una Opción</option>
+                      <option [value]="_idMenu">{{ menuPadre.nombre }}</option>
+                    </select>
+                  </div>
+              </div>
+    
+        </div>
+    
+    
+          <div class="cont">
+            <button  (keydown.enter)="agregarMenu()" type="submit" class="btn-primary-add" (click)="agregarMenu()"
+            [disabled]="myForm.invalid">Guardar</button>
+          </div>
+    
+      </form>
+  </div>

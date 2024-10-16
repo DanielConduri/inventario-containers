@@ -1,0 +1,174 @@
+<!-- <div class="tabla-cuerpo">
+  <div class="tableBo" *ngIf="isLoading && isData">
+    <table class="table table-striped tabla-estilos">
+
+      <thead>
+        <tr class="encabezado">
+          <th>
+            <div class="d-flex"> # </div>
+          </th>
+          <th>
+            <div class="d-flex">Soporte</div>
+          </th>
+          <th>
+            <div class="d-flex">Fecha Creacion</div>
+          </th>
+          <th>
+            <div class="d-flex">Estado</div>
+          </th>
+          <th>
+            <div class="d-flex">Acciones</div>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let tipo of srvRegistro.datosRegistro , let i = index">
+          <td> {{i+1}}</td>
+          <td>{{tipo.int_soporte_id}}</td>
+          <td> {{tipo.str_registro_fecha.substring(0, 10)}} </td>
+          <td *ngIf="tipo.str_registro_estado==='ACTIVO'">
+            <div class="estado">
+              <div class="activo">
+                {{tipo.str_registro_estado}}
+              </div>
+            </div>
+          </td>
+          <td *ngIf="tipo.str_registro_estado==='INACTIVO'">
+            <div class="estado">
+              <div class="inactivo">
+                {{tipo.str_registro_estado}}
+              </div>
+            </div>
+          </td>
+          <td>
+            <button class="btn btn-primary" *ngIf="permisoEditar('centros')"
+              (click)="modifyRegistro(tipo. int_registro_id, 'Editar Centros', 'editarCentros')">
+              <i class="material-icons">create</i>
+            </button>
+
+
+            <button class="btn btn-danger" *ngIf="tipo.str_registro_estado==='ACTIVO' && permisoEliminar('centros')"
+              (click)="deleteRegistro(tipo. int_registro_id)"><i class="material-icons"> delete </i>
+            </button>
+            <button class="btn btn-loop" *ngIf="tipo.str_registro_estado==='INACTIVO' && permisoEliminar('centros')"
+              (click)="deleteRegistro(tipo. int_registro_id)"><i class="material-icons"> loop </i>
+            </button>
+
+
+
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+  <div class="pagi">
+    <app-pagination (nextPage)="pasarPagina($event)"></app-pagination>
+  </div>
+
+</div> -->
+
+<div class="body">
+  <div class="container-Nav">
+      <nav class="navBienes">
+          <div class="container-NavOptions">
+              <div class="container-Btn">
+                  <button class="nav-link {{this.menuTabSelect.id === 6 ? 'active' : isValue === 9}}"
+                      (click)="mostrarSoporte()" type="button">
+                      Correctivo
+                  </button>
+              </div>
+
+              <div class="container-Btn">
+                  <button class="nav-link {{this.menuTabSelect.id === 7 ? 'active' : isValue === 10}}"
+                      (click)="mostrarTipo()" type="button">
+                      Preventivo
+                  </button>
+              </div>
+
+              <!-- <div class="container-Btn">
+                  <button class="nav-link {{this.menuTabSelect.id === 8 ? 'active' : isValue === 11}}"
+                      (click)="mostrarNivel()" type="button">
+                      Nivel
+                  </button>
+              </div>
+
+              <div class="container-Btn">
+                  <button class="nav-link {{this.menuTabSelect.id === 9 ? 'active' : isValue === 12}}"
+                      (click)="mostrarEstado()" type="button">
+                      Estado
+                  </button>
+              </div> -->
+
+              <!-- <div class="container-Btn">
+                  <button class="nav-link {{this.menuTabSelect.id === 10 ? 'active' : isValue === 13}}"
+                      (click)="mostrarRegistro()" type="button">
+                      Registro
+                  </button>
+              </div>
+
+              <div class="container-Btn">
+                  <button class="nav-link {{this.menuTabSelect.id === 11 ? 'active' : isValue === 14}}"
+                      (click)="mostrarPlanificacion()" type="button">
+                      Planificacion
+                  </button>
+              </div> -->
+
+
+          </div>
+      </nav>
+  </div>
+
+  <div class="container-Body">
+      
+
+      <div class="tab-pane fade" *ngIf="this.menuTabSelect.id=== 6" typeView=true;>
+          <!-- <<app-tipo-soporte></app-tipo-soporte>> -->
+          <app-mostrar-registro-c></app-mostrar-registro-c>
+      </div>
+
+      <div class="tab-pane fade" *ngIf="this.menuTabSelect.id === 7" typeView=true;>
+          <!-- <app-tipo-mantenimiento></app-tipo-mantenimiento> -->
+          <app-mostrar-registro-p></app-mostrar-registro-p>
+      </div>
+
+      <!-- <div class="tab-pane fade" *ngIf="this.menuTabSelect.id === 8" typeView=true;>
+          <app-nivel-mantenimiento></app-nivel-mantenimiento>
+      </div>
+
+      <div class="tab-pane fade" *ngIf="this.menuTabSelect.id === 9" typeView=true;>
+          <app-estado-mantenimiento></app-estado-mantenimiento>
+      </div> -->
+
+      <!-- <div class="tab-pane fade" *ngIf="this.menuTabSelect.id === 10" typeView=true;>
+          <app-registro-mantenimiento></app-registro-mantenimiento>
+      </div>
+
+      <div class="tab-pane fade" *ngIf="this.menuTabSelect.id === 11" typeView=true;>
+          <app-planificacion-mantenimiento></app-planificacion-mantenimiento>
+      </div> -->
+
+      <!-- Informacion del Contenido -->
+      <div class="container-Welcome" *ngIf="this.menuTabSelect.id === 0">
+          <div class="container-Left">
+              <h1>
+                  Características de administración de 
+                  <span>Mantenimiento</span>
+              </h1>
+              <p>
+                  Apartado donde podrá gestionar las características que se pueden asignar a los procesos de 
+                  mantenimientos del sistema asi como tener la posibilidad de crearlos y editarlos.
+              </p>
+          </div>
+
+          <!-- Contenedor de Logos/Imagenes_SVG -->
+          <div class="container-Right">
+              <img class="logo-Espoch" src="../../../../assets/img/logo-espoch.svg" alt="logo-espoch">
+              <img class="logo-Inventory" src="../../../../assets/img/characteristics.svg" alt="logo-characteristics">
+          </div>
+      </div>
+  </div>
+
+</div>

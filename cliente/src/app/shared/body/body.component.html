@@ -1,0 +1,115 @@
+<div class="father">
+
+  <div class="containerBody">
+
+    <!-- Seccion Titulo 'Pantalla de Configuracion' -->
+    <div class="titleConfiguration">
+      <h1>Pantalla de
+        <span style="color:#B41A12 ;">
+          Configuración
+        </span>
+      </h1>
+      <span style="color:rgb(160, 160, 160);
+        font-family: 'Roboto', Arial, sans-serif;
+        font-size: 14px;">
+        Configuraciones de tu cuenta
+      </span>
+
+    </div>
+
+    <!-- Seccion NavTab -->
+    <nav class="navSection">
+
+      <div class="containerNavOptions" id="menu">
+
+        <div class="container-button" id="nav-home-tab">
+          <button class="nav-link" id="nav-home-tab"
+          type="button" [ngClass]="{ 'active' : isValue == 1 }" (click)="toggle1()"
+          (click)="tabChange('nav-home-tab','','')">
+          Mi cuenta
+          </button>
+        </div>
+
+        <div class="container-button" id="nav-profile-tab">
+          <button class="nav-link" id="nav-profile-tab"
+          type="button" [ngClass]="{ 'active' : isValue == 2 }" (click)="toggle2()"
+          (click)="tabChange('nav-profile-tab','','')">
+          Menús
+          </button>
+        </div>
+
+        <div class="container-button"id="nav-contact-tab">
+          <button class="nav-link" id="nav-contact-tab"
+          type="button" [ngClass]="{ 'active' : isValue == 3 }" (click)="toggle3()"
+          (click)="tabChange('nav-contact-tab','Agregar Usuario','nuevoUsuario')">
+          Usuarios
+        </button>
+        </div>
+
+        <div class="container-button" id="nav-roles-tab">
+          <button class="nav-link" id="nav-roles-tab"
+          type="button" [ngClass]="{ 'active' : isValue == 4 }" (click)="toggle4()"
+          (click)="tabChange('nav-roles-tab','Agregar Rol','nuevoRol')">
+            Roles
+          </button>
+        </div>
+
+      </div>
+
+      <!-- <hr class="hr-cd"> -->
+
+
+    </nav>
+
+    <!-- Seccion Contenido a mostrar del navTab -->
+    <div class="containerContent">
+
+      <div class="tab-pane fade" id="nav-home" *ngIf="id === 'nav-home-tab'">
+        <app-mostrar-cuenta></app-mostrar-cuenta>
+
+      </div>
+
+      <div class="tab-pane fade" id="nav-profile" *ngIf="id === 'nav-profile-tab'">
+        <!-- Parte de Menus -->
+
+      </div>
+
+      <div class="tab-pane fade" id="nav-contact" *ngIf="id === 'nav-contact-tab'" typeView=true>
+
+        <div class="containerBtnAgregar" *ngIf="id === 'nav-contact-tab'">
+
+          <div class="btn-agg-Users" *ngIf="typeView">
+            <app-button [form]="'nuevoUsuario'" [title]="'Agregar Usuario'"></app-button>
+            <app-button [form]="'importarUsuario'" [title]="'Importar Usuarios'"></app-button>
+
+          </div>
+
+          <div class="component">
+            <app-mostrar-usuarios *ngIf="typeView"></app-mostrar-usuarios>
+            <app-mostrar-per-rol *ngIf="!typeView"></app-mostrar-per-rol>
+          </div>
+
+
+
+        </div>
+
+      </div>
+
+      <div class="tab-pane fade" id="nav-roles" *ngIf="id === 'nav-roles-tab'">
+
+        <div class="btn-agg">
+          <app-button id="rolButton"  class="btn-agg-Users" [form]="'nuevoRol'" [title]="'Agregar Rol'"></app-button>
+        </div>
+
+        <div class="containerBtnAgregar">
+          <app-mostrar-roles></app-mostrar-roles>
+        </div>
+
+
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,121 @@
+<!-- <p>editar-centros works!</p> -->
+<div class="container-Form">
+    <form [formGroup]="myForm" action="formCenterAdd" (ngSubmit)="update()">
+
+        <div class="containerItems">
+            <div class="cont-Center_Name">
+                <div class="container-Name">
+
+                    <div class="centerName-Text">
+                        <label class="lbl-info" for="nombre">Nombre del Centro:</label>
+                    </div>
+                    <div class="centerNambe-Input">
+                        <input class="inp-info" type="text" id="nombre" placeholder="Nombre del Centro"
+                            formControlName="centro_nombre" required="">
+                    </div>
+                </div>
+            </div>
+            <div class="cont search type" (change)="cambio()" >
+                <div>
+                    <div class="search-Label">
+                        <label for="text">Tipo de Centro</label>
+                    </div>
+
+                    <div class="search-BarBtn theselect">
+                        <select formControlName="centro_tipo" [attr.disabled]="true">
+                            <option [selected]="true" select disabled>Seleccione un tipo</option>
+                            <option>ACADÉMICO</option>
+                            <option>ADMINISTRATIVO</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="admin">
+                    <div class="search-Label">
+                        <label for="text">Cede</label>
+                    </div>
+
+                    <div class="search-BarBtn theselect ">
+                        <select formControlName="centro_sede" [attr.disabled]="true">
+                            <option [selected]="true" select disabled>Seleccione una cede</option>
+                            <option>MATRIZ RIOBAMBA</option>
+                            <option>ESPOCH - SEDE MORONA SANTIAGO</option>
+                            <option>ESPOCH - SEDE ORELLANA</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="containerItems" *ngIf="myForm.value.centro_tipo == 'ACADÉMICO'">
+
+                <div class="academico">
+                    <div class="cont search">
+                        <div class="search-Label">
+                            <label for="text">Facultad</label>
+                        </div>
+    
+                        <div class="search-BarBtn theselect">
+                            <select formControlName="nombre_facultad"   [attr.disabled]="true">
+                                <option [selected]="true" >{{myForm.value.nombre_facultad}}</option>
+                                <!-- <option *ngFor="let op of facultad.facult">{{op}}</option> -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="cont search">
+                        <div class="search-Label">
+                            <label for="text">Carrera</label>
+                        </div>
+    
+                        <div class="search-BarBtn theselect">
+                            <select formControlName="nombre_carrera"  [attr.disabled]="true">
+                                <option [selected]="true" >{{myForm.value.nombre_carrera}}</option>
+                                <!-- <option *ngFor="let op of carrera.carrera">{{op}}</option> -->
+                            </select>
+                        </div>
+                    </div>
+    
+                </div>
+    
+            </div>
+
+            <div class="containerItems" *ngIf="myForm.value.centro_tipo == 'ADMINISTRATIVO'">
+            
+        
+                <div class="administrativo">
+                    <div class="cont search">
+                        <div class="search-Label">
+                            <label for="text">Dependencia</label>
+                        </div>
+    
+                        <div class="search-BarBtn theselect">
+                            <select formControlName="nombre_dependencia"  [attr.disabled]="true">
+                                <option [selected]="true" >{{myForm.value.nombre_dependencia}}</option>
+                                <!-- <option *ngFor="let op of dependencia.depen">{{op}}</option> -->
+                            </select>
+                        </div>
+                    </div>
+                    <div class="cont search">
+                        <div class="search-Label">
+                            <label for="text">Ubicación</label>
+                        </div>
+    
+                        <div class="search-BarBtn theselect">
+                            <select formControlName="nombre_ubicacion" [attr.disabled]="true">
+                                <option [selected]="true" >{{myForm.value.nombre_ubicacion}}</option>
+                                <!-- <option *ngFor="let op of ubicacion.ubica">{{op}}</option> -->
+                            </select>
+                        </div>
+                    </div>
+    
+                </div>
+                
+    
+            </div>
+
+        </div>
+        <button class="btn-primary-add" type="submit"[disabled]=" !myForm.valid ">Guardar</button>
+
+    </form>
+
+</div>

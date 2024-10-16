@@ -1,0 +1,65 @@
+<link
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  rel="stylesheet"
+/>
+<!-- {{srvMenu.menuItems}} -->
+<!-- //////////////////////////////// -->
+<div class="father">
+  <div class="pContainer">
+    <aside id="pSidebar"></aside>
+    <main id="pMain-content">
+      <button id="toggle-sidebar" (click)="toggleSidebar()">
+        <i class="material-icons" id="icon-menu">swap_horiz</i>
+      </button>
+    </main>
+  </div>
+
+  <div class="sidebar close">
+    <ul class="nav-links">
+      <div class="link-opcion">
+        <li *ngFor="let item of srvMenu.menuItems" class="link-opcion">
+          <div class="icon-link">
+            <a [routerLink]="item.str_menu_path">
+              <i d="toggle-sidebar" class="material-icons icon-opcion">{{
+                item.str_menu_icono
+              }}</i>
+              <span class="link_name">{{ item.str_menu_nombre }}</span>
+            </a>
+            <i
+              *ngIf="item.submenus && item.submenus.length > 0"
+              class="material-icons bxs-down arrow"
+              >expand_more</i            >
+          </div>
+          <ul class="sub-menu">
+            <li>
+              <a class="link_name" [routerLink]="item.str_menu_path">
+                {{ item.str_menu_nombre }}
+              </a>
+            </li>
+            <li *ngFor="let child of item.submenus" >
+              <a class="sub-opcions" [routerLink]="child.str_menu_path"> {{ child.str_menu_nombre }} </a>
+            </li>
+          </ul>
+        </li>
+      </div>
+    </ul>
+    <ul class="nav-links">
+      <div class="link-opcion">
+        <li class="link-opcion" >
+          <div class="icon-link">
+            <a [routerLink]="srvMenu.ajustesMenu.str_menu_path">
+              <i d="toggle-sidebar" class="material-icons icon-opcion">{{
+                srvMenu.ajustesMenu.str_menu_icono
+              }}</i>
+              <span class="link_name">{{ srvMenu.ajustesMenu.str_menu_nombre }}</span>
+            </a>
+          </div>
+          <ul class="sub-menu">
+            <li><a class="link_name" [routerLink]="srvMenu.ajustesMenu.str_menu_path"> Ajustes </a></li>
+          </ul>
+        </li>
+      </div>
+    </ul>
+  </div>
+
+</div>

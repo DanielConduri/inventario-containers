@@ -1,0 +1,51 @@
+
+<div class="body-Form">
+
+  <form [formGroup]="myForm" action="">
+    <div class="container-DataInfo">
+      <div class="container-Left">
+
+        <div class="containerInfo">
+          <label>Nombre del Estado</label>
+          <div class="container-Input">
+            <input
+              type="text"
+              placeholder="Ingrese nombre del estado"
+              formControlName="str_estado_bien_nombre"
+              name="nombre"
+              required>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="container-Right">
+
+        <div class="containerInfo">
+          <label>Estado</label>
+          <div class="container-Input">
+            <input
+              type="text"
+              placeholder="ACTIVO"
+              name="estado"
+              formControlName="str_estado_bien_estado"
+              [attr.disabled]="true">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container-Btns">
+      <button
+        class="btn-primary-add"
+        (click)="agregarEstado()"
+        type="submit"
+        [disabled]="!myForm.valid"
+        >
+        Guardar
+      </button>
+    </div>
+  </form>
+
+</div>

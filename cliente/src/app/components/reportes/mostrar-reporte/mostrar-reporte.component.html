@@ -1,0 +1,144 @@
+
+<div class="body-Form" style="display: grid; gap: 5%;">
+    <form [formGroup]="myForm" action="formCenterAdd">
+        <div class="containerItems">
+
+
+            <div class="cont-Center_Name">
+                <div class="container-Name" style="display: flex; gap: 10px; align-items: baseline;">
+
+                    <div class="search-Label">
+                        <label for="nombre">Elegir parametros para el reporte:</label>
+                    </div>
+
+
+                    <div class="containerInfo" style="width: 25%;"> 
+                        <div class="container-Select">
+                            <select (change)="onCheckboxChange($event)">
+                                <option [selected]="true" select disabled>Seleccione una opcion</option>
+                                <option value="1">Origen de ingreso</option>
+                                <option value="2">Tipo de ingreso</option>
+                                <option value="3">Fecha compra</option>
+                                <option value="4">Bienes con garantia</option>
+                                <option value="5">Bienes por catálogo</option>
+                                <option value="6">Bienes por marca</option>
+                                <option value="7">Bienes por ubicacion</option>
+                                <option value="8">Bienes por historial</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="containerInfo" *ngIf="fechaCompra" style="display: flex; gap: 10px; width: 25%; align-items: baseline;">
+                        <div>
+                            <label for="">Eliga una opción</label>
+                        </div>
+
+                        <div class="container-Select">
+                            <select (change)="fechCompra($event)">
+                            <option [selected]="true" select disabled>Seleccione una opcion</option>
+                            <option value="1">Por cantidad</option>
+                            <option value="2">Por año</option>
+                        </select>
+                        </div>
+                        
+
+                    </div>
+
+                    <div *ngIf="garant">
+                        <input type="checkbox" name="" id="SelectD" (change)="funcionPrincipalG()"> Seleccionar fecha
+                    </div>
+
+                    <div *ngIf="auxG" style="display: flex; gap: 10px;">
+                        <div class="check-box-template date">
+                            <div>
+                                <label for="date">Fecha Inicio</label>
+                            </div>
+
+                            <div>
+                                <input class="inp-info" type="date" id="dateI" max={{fechaUsar2}}
+                                    (change)="getFechaG($event)">
+                            </div>
+
+
+                        </div>
+                        <div class="check-box-template date">
+                            <div>
+                                <label for="date">Fecha Fin</label>
+                            </div>
+
+                            <div>
+                                <input class="inp-info" type="date" id="dateF" max={{fechaUsar2}}
+                                    (change)="getFechaG($event)">
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <div *ngIf="garant">
+                        <button class="btn-primary-add" type="submit" (click)="funcionGarantia()"
+                            style="margin-top: 0px;">Crear</button>
+                    </div>
+
+
+                    <div class="containerInfo" *ngIf="catalog" style="display: flex; align-items: baseline;">
+                        <div style="width: 45%;">
+                            <app-filter [options]="options" (search)="handleSearch($event)"></app-filter>
+                        </div>
+                        <div *ngIf="_catalog" class="container-Select" style="width: 45%;">
+                            <select (change)="getIdCatalogo($event)" >
+                                <option [selected]="true" select disabled >Seleccione un Catalogo</option>
+                                <option *ngFor="let op of dataCatalogo" id="{{op.int_catalogo_bien_id}}">{{op.str_catalogo_bien_descripcion}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="containerInfo" *ngIf="marc" style="display: flex; align-items: baseline;">
+                        <div style="width: 45%;">
+                            <app-filter [options]="options1" (search)="handleSearch($event)"></app-filter>
+                        </div>
+                        <div *ngIf="_marc" class="container-Select" style="width: 45%;">
+                            <select (change)="getIdMarca($event)" >
+                                <option [selected]="true" select disabled  >Seleccione una Marca</option>
+                                <option *ngFor="let op of dataMarca" id="{{op.int_marca_id}}" >{{op.str_marca_nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="containerInfo" *ngIf="ubic" style="display: flex; align-items: baseline;">
+                        <div style="width: 45%;">
+                            <app-filter [options]="options2" (search)="handleSearch($event)" ></app-filter>
+                        </div>
+                        <div *ngIf="_ubic" class="container-Select" style="width: 45%;">
+                            <select (change)="getIdUbicacion($event)">
+                                <option [selected]="true" select disabled >Seleccione una Ubicacion</option>
+                                <option *ngFor="let op of dataUbicacion" id="{{op.int_ubicacion_id}}" >{{op.str_ubicacion_nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="containerInfo" *ngIf="histo" style="display: flex; align-items: baseline;">
+                        <div style="width: 45%;">
+                            <app-filter [options]="options3" (search)="handleSearch($event)" ></app-filter>
+                        </div>
+                        <div *ngIf="_histo" class="container-Select" style="width: 45%;" >
+                            <select (change)="getIdHistorial($event)"  >
+                                <option [selected]="true" select disabled  >Seleccione un Bien</option>
+                                <option *ngFor="let op of dataHistorial" id="{{op.str_codigo_bien}}" >{{op.str_bien_nombre}} - {{op.str_codigo_bien}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+        <!-- <button class="btn-primary-add" type="submit" 
+            [disabled]="!myForm.valid">Guardar</button> -->
+
+    </form>
+
+    <div id="ver-pdf-solicitud" style="width: 100%; height: 600px"></div>
+</div>

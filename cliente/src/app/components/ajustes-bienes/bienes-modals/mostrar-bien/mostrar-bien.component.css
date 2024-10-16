@@ -1,0 +1,21 @@
+
+.btn-usuario{
+  margin-bottom: 15px !important;
+}
+
+.container-Btns{
+  display: flex;
+  justify-content: space-between;
+}
+
+.garantiaSi{
+  color: var(--color-secondary);
+}
+
+.garantiNo{
+  color: var(--color-primary);
+}
+
+.th-Header, .td-Name{
+  width: 265px;
+}

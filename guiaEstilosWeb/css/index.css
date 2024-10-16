@@ -1,0 +1,184 @@
+:root{
+    /* COLORES */
+    --color-primary: rgb(180, 26, 18);
+    --color-secondary: rgb(48, 147, 53);
+    --color-accent: rgb(180, 159, 97);
+    --color-black: rgb(12, 12, 12);
+    --color-bg: #fff;
+
+    /* BORDER */
+    --border-color: rgba(0, 0, 0, 0.1);
+    --border-width: 0.5px;
+    --border-style: solid;
+
+     /* ROUNDED */
+    --border-radius: 12px;
+    --border-radius-sm: 6px;
+    --border-radius-full: 999px;
+    
+    /* FONT */
+    --font-family: sans-serif;
+    --font-size: 1rem;
+    --font-weight: 400;
+    --line-height: 1.5;
+    --letter-spacing: 0;
+    --text-align: left;
+    --text-decoration: none;
+    --text-transform: none;
+    --text-indent: 0;
+    --text-shadow: none;
+    --text-overflow: clip;
+    --text-overflow-ellipsis: "...";
+    
+    /* SHADOW */
+    --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+body{
+    display: flex;
+    overflow-x: hidden;
+}
+
+.border{
+    border: var(--border-width) var(--border-style) var(--border-color);
+}
+
+.shadow{
+    box-shadow: var(--shadow) !important;
+}
+
+.container-body{
+    padding: 48px 0;
+    max-width: 800px;
+    margin: auto;
+    height: 100%;
+    background-color: var(--bg-color);
+}
+
+/* @font-face {
+    font-family: Helveticas;
+    src: url(./assets/fonts/HelveticaNeueLTStd-BdCn.otf) ;
+} */
+
+/* latin*/
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../assets/fonts/Roboto-Regular.woff2') format('woff2');
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/roboto/v30/KFOlCnqEu92Fr1MmWUlfBBc4AMP6lQ.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+h1 {
+    font-family: Helvetica, Arial, sans-serif;
+    margin: 0;
+}
+
+h2, h3, h4, h5, h6, p, label {
+    font-family:  'Roboto', Arial, sans-serif; 
+    margin: 0 !important;
+}
+
+h2, h4, h6 {
+    color: rgb(160, 160, 160)
+}
+
+/* h3, h5 {
+    font-weight: bold;
+} */
+
+
+
+/* @import url("./card.css"); */
+
+.card{
+    width: 100px;
+    height: 100px;
+    border: none;
+    border-radius: var(--border-radius);
+}
+.text-primary{
+    color: var(--color-primary) !important;
+}
+
+.color-primary{
+    background-color: var(--color-primary) !important;
+}
+
+.color-secondary{
+    background-color: var(--color-secondary) !important;
+}
+
+.color-accent{
+    background-color: var(--color-accent) !important;
+}
+
+.container-card{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap:16px;
+    align-items: center;
+    align-content: center;
+}
+
+.content-abc{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    align-content: center;
+    gap: 24px;
+}
+
+hr {
+    opacity: .3;
+}
+
+.button{
+    background-color: rgb(12, 12, 12);
+    color: white;
+    font-family: 'Roboto', Arial, sans-serif;
+    font-size: 14px;
+    border-radius: 999px;
+    padding: 8px 16px;
+    border: none;
+}
+
+.button:hover{
+    background-color: rgba(12, 12, 12, 0.75);
+    
+}
+
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    --bs-table-accent-bg: rgb(204 193 193 / 9%);
+    color: var(--bs-table-striped-color);
+}
+
+.pagination a {
+    color: black;
+}
+
+.pagination a:hover {
+    color: rgb(165, 165, 165);
+}
+
+.pagination {
+    margin: 0 !important;
+    font-size: 12px;
+}
+
+@media (min-width: 576px){
+    .modal-dialog {
+        max-width: 800px;
+        margin: 1.75rem auto;
+    }
+}

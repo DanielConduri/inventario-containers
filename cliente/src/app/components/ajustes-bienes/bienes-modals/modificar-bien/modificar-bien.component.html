@@ -1,0 +1,212 @@
+<div class="body-Form">
+  <form [formGroup]="myForm">
+
+    <input
+    type="text"
+    formControlName="valorLLeno"
+    hidden
+    >
+
+    <h3>Información Adicional del Bien</h3>
+    <form [formGroup]="jsonForm">
+
+      <div class="cont search">
+
+        <div class="containerInfo">
+          <label for="text">Buscar Cédula:</label>
+        </div>
+
+        <div class="search-BarBtn">
+          <input id="cedula_user" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-control" placeholder="0000000000" />
+          <button type="submit" class="btnSearch"
+           (click)="obtenerDatosCentralizada($event)">
+          <i class="material-icons">search</i>
+          </button>
+        </div>
+
+      </div>
+
+
+      <div class="container-DataInfoFind">
+        <div class="container-BodyData">
+
+          <div class="container-Left">
+            <div class="containerInfo">
+              <label for="">Caraterística</label>
+              <div class="container-Input">
+                <input
+                  type="text"
+                  formControlName="caracteristica"
+                  #inputCaracteristica
+                  id="caracteristica"
+                  placeholder="CLAVE INFORMACIÓN"
+                  required
+                  >
+              </div>
+            </div>
+
+            <div class="containerInfo">
+              <label for="">Encargado</label>
+              <div class="container-Input">
+                <input type="text"
+                  formControlName="encargado"
+                  #inputEncargado
+                  id="encargado"
+                  placeholder="ENCARGADO INFORMACIÓN"
+                  [value]="this.encargadoValue"
+                  [attr.disabled]="true"
+                >
+              </div>
+            </div>
+
+          </div>
+
+          <div class="container-Right">
+            <div class="containerInfo">
+              <label for="">Descripción</label>
+              <div class="container-Input">
+                <input
+                  type="text"
+                  #inputDescripcion
+                  formControlName="descripcion"
+                  id="descripcion"
+                  placeholder="VALOR INFORMACIÓN"
+                  required
+                  >
+              </div>
+            </div>
+
+            <div class="containerInfo">
+              <label for="">Fecha</label>
+              <div class="container-Input">
+                <input
+                  type="date"
+                  formControlName="fecha"
+                  #inputFecha
+                  id="fecha"
+                  placeholder="{{ fechaActual }}"
+                  [attr.disabled]="true"
+                  value="{{ fechaActual }}"
+                >
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="container-Btns">
+          <button
+            type="submit"
+            class="btn-primary-add"
+            (click)="onSubmit()"
+            [disabled]="jsonForm.invalid"
+            *ngIf="this.disableBtn"
+            >
+              Añadir
+          </button>
+
+          <button
+          class="btn-primary-add"
+          type="submit"
+          (click)="guardarCambios()"
+          [disabled]="jsonForm.invalid"
+          *ngIf="!this.disableBtn"
+          >
+            Guardar Cambios
+          </button>
+
+        </div>
+
+        <!-- <div>
+          <h3>Informacion Adicional Actual</h3>
+          <div class="container-Table">
+            <table class="table-Fill">
+              <thead>
+                <tr>
+                  <th class="table-Left">Clave</th>
+                  <th class="table-Left">Valor</th>
+                  <th class="table-Left">Encargado</th>
+                  <th class="table-Left">Fecha</th>
+                  <th class="table-Left">Acciones</th>
+                </tr>
+              </thead>
+              <tbody class="tablo-Hover">
+                <tr *ngFor="let item of valItems; let i = index">
+                  <td class="text-Left">{{ getKey(item) }}</td>
+                  <td class="text-Left">{{ getValue(item) }}</td>
+                  <td class="text-Left">{{ item.encargado }}</td>
+                  <td class="text-Left">{{ item.fecha }}</td>
+                  <td class="table-Left">
+                    <div class="container-Actions">
+
+                      <button
+                        class="btn-Danger"
+                        (click)="eliminarItemActual(i)"
+                        [disabled]="!this.disableBtn"
+                        >
+                        <i class="material-icons">delete</i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div> -->
+
+        <span>Valores a Agregar</span>
+        <div class="container-Table">
+          <table class="table-Fill" *ngIf="this.items.length > 0">
+            <thead>
+              <tr>
+                <th class="table-Left">Clave</th>
+                <th class="table-Left">Valor</th>
+                <th class="table-Left">Encargado</th>
+                <th class="table-Left">Fecha</th>
+                <th class="table-Left">Accion</th>
+              </tr>
+            </thead>
+            <tbody class="tablo-Hover">
+              <tr *ngFor="let item of items; let i = index">
+                <td class="text-Left">{{ item[0].value }}</td>
+                <td class="text-Left">{{ item[1].value }}</td>
+                <td class="text-Left">{{ item[2].value }}</td>
+                <td class="text-Left">{{ item[3].value }}</td>
+
+                <td class="text-Left">
+                  <div class="container-Actions">
+
+                    <button
+                      class="btn-Danger"
+                      (click)="eliminarItem(item)"
+                      [disabled]="!this.disableBtn"
+                      >
+                      <i class="material-icons">delete</i>
+                    </button>
+
+                    <button class="btn-Edit" (click)="editarItem(item)">
+                      <i class="material-icons">edit</i>
+                    </button>
+
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </form>
+    <div class="container-Btns">
+      <button
+        class="btn-primary-add"
+        (click)="modifyBien()"
+        type="submit"
+        [disabled]="myForm.invalid"
+        >
+        Guardar
+      </button>
+    </div>
+</form>
+</div>

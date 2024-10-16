@@ -1,0 +1,76 @@
+<!-- Pantalla de Carga App Loader -->
+
+<div class="fullBodyLoading" *ngIf="!isLoading">
+  <div class="loadingLine"></div>
+
+  <div class="content">
+
+    <div class="containerMainLoading">
+      <div class="imagesContent">
+        <img class="img-logoEspoch" src="../../../assets/img/logo-espoch.svg" alt="">
+        <div class="loadingio-spinner-rolling-gqquah35iba">
+          <div class="ldio-bno65jzfe5">
+            <div></div>
+          </div>
+        </div>
+        <img class="img-fraseEspoch" src="../../../assets/img/logo-hacemos-historia-1.png" alt="">
+      </div>
+    </div>
+
+    <div class="footerLoading">
+      <app-footer></app-footer>
+    </div>
+
+  </div>
+</div>
+
+<!-- Contenido Cargado -->
+
+<div class="fullBodyHome" *ngIf="isLoading">
+
+  <div class="fill"></div>
+
+  <div class="background">
+    <img class="imgBackGroundOne" src="https://oficina.espoch.edu.ec/dtic/images/1.jpg" alt="imgBackgroundOne">
+    <img class="imgBackGroundTwo" src="https://oficina.espoch.edu.ec/dtic/images/2.jpg" alt="imgBackgroundTwo">
+  </div>
+
+  <div class="content">
+    <div class="containerHeader">
+      <div class="containerInfo">
+        <img class="logoEspoch" src="https://oficina.espoch.edu.ec/dtic/images/icons/logo_espoch.png" alt="logo-espoch">
+        <div class="logo-sistema">
+          <p>
+            SISTEMA GESTIÓN
+            <br>
+            DE INVENTARIO
+          </p>
+        </div>
+      </div>
+      <div class="containerButtonLogin">
+        <button class="btnLogin" (click)="autenticar()">INICIAR</button>
+      </div>
+    </div>
+
+
+    <div class="containerMain">
+      <div class="Description">
+        <p class="title">
+          SISTEMA GESTIÓN
+          <br>
+          <span>DE INVENTARIO</span>
+        </p>
+      </div>
+
+    <div class="ButtonLoginResponsive">
+        <button class="btnLogin" (click)="autenticar()">INICIAR</button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <app-footer></app-footer>
+    </div>
+
+  </div>
+</div>
+

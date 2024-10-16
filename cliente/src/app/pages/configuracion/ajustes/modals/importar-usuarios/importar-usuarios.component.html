@@ -1,0 +1,174 @@
+<div class="container-file">
+
+    <form [formGroup]="myForm" #FileUpload enctype="multipart/form-data" *ngIf="tablaInfo===false">
+
+        <button class="btn-usuario" (click)="fileInput.click()">
+            Seleccionar Archivo
+        </button>
+        <input type="file" formControlName="archivo" required (change)="selectFile($event)" accept=".csv" #fileInput
+            style="display:none">
+ 
+        <div class="impor">
+            <button class="btn-usuario" (click)="importFile()" [disabled]="myForm.invalid">
+                Importar
+            </button>
+        </div>
+    </form>
+
+
+
+    <div class="presentacion" *ngIf="table">
+        <table>
+            <thead>
+                <tr>
+                    <th *ngFor="let i of colums, let c = index">
+                        {{data[0][c]?.toUpperCase()}}
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="tdbody">
+                <tr *ngFor="let row of data, let ca =index">
+                    <td *ngFor="let c of colums, let i = index">
+                        <div class="content-td" *ngIf="ca!==0">
+                            {{row[i]?.toUpperCase()}}
+                        </div>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="info" class="more-info">
+        <p> Para mayor información de la importación del Archivo</p>
+
+        <button class="btn-info" (click)="moreInformation()" *ngIf="info">
+            Más Información
+        </button>
+    </div>
+
+    <div>
+
+        <div *ngIf="tablaInfo" class="information">
+            <p> <strong> USUARIOS NO INGRESADOS:</strong>  {{result.info.usuariosNoIngresados.cantidad}} </p>
+            <div class="conteInfo">
+                <table *ngIf="result.info.usuariosNoIngresados.cantidad>0" class="table table-striped tabla-estilos">
+                    <thead>
+                        <tr class="encabezado">
+                            <th>
+                                <div class="d-flex"> # </div>
+                            </th>
+                            <th>
+                                <div class="d-flex"> Cédulas </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let noIngre of result.info.usuariosNoIngresados.cedulas, let i = index ">
+
+                            <td>
+                                <div class="content-td">
+                                    {{i+1}}
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="content-td">
+                                    {{noIngre}}
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        
+                <br>
+            <div class="mid">
+                <p> <strong>CÉDULAS INVALIDAS:</strong>  {{result.info.cedulasInvalidas.cantidad}} </p>
+                <div class="conteInfo">
+                    <table *ngIf="result.info.cedulasInvalidas.cantidad>0" class="table table-striped tabla-estilos">
+                        <thead class="encabezado">
+                            <tr>
+                                <th>
+                                    <div class="d-flex">
+                                    #
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="d-flex">
+                                    Cédulas
+    
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let noIngre of result.info.cedulasInvalidas.cedulas, let i = index ">
+                                <td>
+                                    <div class="content-td">
+                                    {{i+1}}
+    
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="content-td">
+                                    {{noIngre}}
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+           
+
+            <!-- <br> -->
+
+            <p> <strong> USUARIOS NO PERTENECIENTES A LA ESPOCH:</strong>  {{result.info.usuariosSinCorreo.cantidad}} </p>
+            <div class="conteInfo">
+                <table *ngIf="result.info.usuariosSinCorreo.cantidad>0" class="table table-striped tabla-estilos">
+                    <thead class="encabezado">
+                        <tr>
+                            <th>
+                                <div class="d-flex">
+                                #
+
+                                </div>
+                            </th>
+                            <th>
+                                <div class="d-flex">
+                                Cédulas
+
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let noIngre of result.info.usuariosSinCorreo.cedulas, let i = index ">
+                            <td>
+                                <div class="content-td">
+                                {{i+1}}
+
+                                </div>
+                            </td>
+                            <td>
+                                <div class="content-td">
+                                {{noIngre}}
+
+                                </div>
+                            </td>
+                           
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+
+        </div>
+    </div>
+
+    <button (click)="returnView()" *ngIf="tablaInfo" class="btn-info">
+        Regresar</button>
+
+</div>

@@ -1,0 +1,36 @@
+<div class="body-Form">
+    <form [formGroup]="myForm" action="" (ngSubmit)="send()">
+        <div class="containerItems">
+
+            <div class="cont-Center_Name">
+                <div class="container-Name">
+
+                    <div class="centerName-Text">
+                        <label class="lbl-info" for="nombre">Nombre del Tipo:</label>
+                    </div>
+                    <div class="centerNambe-Input">
+                        <input class="inp-info" type="text" id="nombre" placeholder="Nombre del Tipo"
+                            formControlName="str_tipo_documento_nombre" required="">
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="cont-Center_Name">
+                <div class="container-Name">
+
+                    <div class="centerName-Text">
+                        <label class="lbl-info" for="nombre">Descripcion del Tipo:</label>
+                    </div>
+                    <div class="centerNambe-Input">
+                        <input class="inp-info" type="text" id="nombre" placeholder="Descripcion del tipo"
+                            formControlName="str_tipo_documento_descripcion" required="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-Btns">
+            <button class="btn-primary-add" type="submit"[disabled]="!myForm.valid">Guardar</button>
+    
+        </div>
+    </form>
+</div>

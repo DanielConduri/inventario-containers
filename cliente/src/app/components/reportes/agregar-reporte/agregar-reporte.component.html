@@ -1,0 +1,52 @@
+
+<div class="body-Form">
+    <form [formGroup]="myForm" action="formCenterAdd" (ngSubmit)="send()">
+        <div class="containerItems">
+
+            
+            <div class="cont-Center_Name">
+                <div class="container-Name">
+
+                    <div class="search-Label">
+                        <label  for="nombre">Elegir parametros para el reporte:</label>
+                    </div>
+                    <br>
+                    
+
+                    <div>
+                        <select (change)="onCheckboxChange($event)">
+                            <option [selected]="true" select disabled>Seleccione una opcion</option>
+                            <option value="1" >Origen de ingreso</option>
+                            <option value="2" >color</option>
+                            <option value="3" >material</option>
+                            <option value="4" >condicion</option>
+                            <option value="5" >estado</option>
+                            <option value="6" >bodega</option>
+                            <option value="7" >origen</option>
+                            <option value="8" >custodios</option>
+                        </select>
+                    </div>
+
+                    <div class="check-box-template date">
+                        <div>
+                            <input class="inp-info" type="date" id="date" placeholder="Nombre del Centro"
+                            formControlName="reporte_fecha_ingreso"  (change)="onCheckboxChange($event)">
+                        </div>
+                        <div>
+                            <label for="date">Fecha de ingreso</label>
+                        </div>
+                         
+                    </div>
+                    
+                </div>
+            </div>
+            
+
+           
+
+
+        </div>
+        <button class="btn-primary-add" type="submit" 
+            [disabled]="!myForm.valid">Guardar</button>
+
+    </form>

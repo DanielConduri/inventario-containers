@@ -1,0 +1,100 @@
+<div class="body">
+    <div class="container-Nav">
+        <nav class="navBienes">
+            <div class="container-NavOptions">
+                <div class="container-Btn">
+                    <button class="nav-link {{this.menuTabSelect.id === 6 ? 'active' : isValue === 9}}"
+                        (click)="mostrarSoporte()" type="button">
+                        Soporte
+                    </button>
+                </div>
+
+                <div class="container-Btn">
+                    <button class="nav-link {{this.menuTabSelect.id === 7 ? 'active' : isValue === 10}}"
+                        (click)="mostrarTipo()" type="button">
+                        Tipo Mantenimiento
+                    </button>
+                </div>
+
+                <div class="container-Btn">
+                    <button class="nav-link {{this.menuTabSelect.id === 8 ? 'active' : isValue === 11}}"
+                        (click)="mostrarNivel()" type="button">
+                        Nivel
+                    </button>
+                </div>
+
+                <div class="container-Btn">
+                    <button class="nav-link {{this.menuTabSelect.id === 9 ? 'active' : isValue === 12}}"
+                        (click)="mostrarEstado()" type="button">
+                        Estado
+                    </button>
+                </div>
+
+                <!-- <div class="container-Btn">
+                    <button class="nav-link {{this.menuTabSelect.id === 10 ? 'active' : isValue === 13}}"
+                        (click)="mostrarRegistro()" type="button">
+                        Registro
+                    </button>
+                </div>
+
+                <div class="container-Btn">
+                    <button class="nav-link {{this.menuTabSelect.id === 11 ? 'active' : isValue === 14}}"
+                        (click)="mostrarPlanificacion()" type="button">
+                        Planificacion
+                    </button>
+                </div> -->
+
+
+            </div>
+        </nav>
+    </div>
+
+    <div class="container-Body">
+        
+
+        <div class="tab-pane fade" *ngIf="this.menuTabSelect.id=== 6" typeView=true;>
+            <app-tipo-soporte></app-tipo-soporte>
+        </div>
+
+        <div class="tab-pane fade" *ngIf="this.menuTabSelect.id === 7" typeView=true;>
+            <app-tipo-mantenimiento></app-tipo-mantenimiento>
+        </div>
+
+        <div class="tab-pane fade" *ngIf="this.menuTabSelect.id === 8" typeView=true;>
+            <app-nivel-mantenimiento></app-nivel-mantenimiento>
+        </div>
+
+        <div class="tab-pane fade" *ngIf="this.menuTabSelect.id === 9" typeView=true;>
+            <app-estado-mantenimiento></app-estado-mantenimiento>
+        </div>
+
+        <!-- <div class="tab-pane fade" *ngIf="this.menuTabSelect.id === 10" typeView=true;>
+            <app-registro-mantenimiento></app-registro-mantenimiento>
+        </div>
+
+        <div class="tab-pane fade" *ngIf="this.menuTabSelect.id === 11" typeView=true;>
+            <app-planificacion-mantenimiento></app-planificacion-mantenimiento>
+        </div> -->
+
+        <!-- Informacion del Contenido -->
+        <div class="container-Welcome" *ngIf="this.menuTabSelect.id === 0">
+            <div class="container-Left">
+                <h1>
+                    Características de administración de 
+                    <span>Mantenimiento</span>
+                </h1>
+                <p>
+                    Apartado donde podrá gestionar las características que se pueden asignar a los procesos de 
+                    mantenimientos del sistema asi como tener la posibilidad de crearlos y editarlos.
+                </p>
+            </div>
+
+            <!-- Contenedor de Logos/Imagenes_SVG -->
+            <div class="container-Right">
+                <img class="logo-Espoch" src="../../../../assets/img/logo-espoch.svg" alt="logo-espoch">
+                <img class="logo-Inventory" src="../../../../assets/img/characteristics.svg" alt="logo-characteristics">
+            </div>
+        </div>
+    </div>
+
+</div>

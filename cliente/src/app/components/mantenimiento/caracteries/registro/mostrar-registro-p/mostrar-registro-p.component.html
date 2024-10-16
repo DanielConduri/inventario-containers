@@ -1,0 +1,87 @@
+<div class="tabla-cuerpo">
+  <div class="tableBo" *ngIf="isLoading && isData">
+    <table class="table table-striped tabla-estilos">
+
+      <thead>
+        <tr class="encabezado">
+          <th>
+            <div class="d-flex"> # </div>
+          </th>
+          <!-- <th>
+            <div class="d-flex">Soporte</div>
+          </th> -->
+          <!-- <th>
+              <div class="d-flex">Tipo Mantenimiento</div>
+            </th> -->
+          <th>
+            <div class="d-flex">Fecha Mantenimiento</div>
+          </th>
+          <th>
+            <div class="d-flex">Centro</div>
+          </th>
+          <th>
+            <div class="d-flex">Tipo</div>
+          </th>
+          <th>
+            <div class="d-flex">Acciones</div>
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let tipo of srvRegistroP.datosRegistroPreventivo, let i = index">
+          <td> {{i+1}}</td>
+          <!-- <td>{{tipo.int_preventivo_id}}</td> -->
+          <!-- <td> {{tipo.int_tipoMantenimiento_id}} </td> -->
+          <!-- <td>{{tipo.str_documento_id}} </td> -->
+          <td> {{tipo.dt_fecha_mantenimiento.substring(0, 10)}} </td>
+          <td>{{tipo.str_preventivo_centro}}</td>
+          <td>{{tipo.str_preventivo_tipo}}</td>
+          <!-- <td *ngIf="tipo.str_preventivo_estado==='ACTIVO'">
+            <div class="estado">
+              <div class="activo">
+                {{tipo.str_preventivo_estado}}
+              </div>
+            </div>
+          </td>
+          <td *ngIf="tipo.str_preventivo_estado==='INACTIVO'">
+            <div class="estado">
+              <div class="inactivo">
+                {{tipo.str_preventivo_estado}}
+              </div>
+            </div>
+          </td> -->
+          <td>
+            <button class="btn btn-primary" *ngIf="permisoEditar('mantenimiento/administracion')"
+              (click)="modifyRegistro(tipo. int_preventivo_id, 'Editar Centros', 'editarCentros')">
+              <i class="material-icons">create</i>
+            </button>
+
+
+            <!-- <button class="btn btn-danger"
+              *ngIf="tipo.str_preventivo_estado==='ACTIVO' && permisoEliminar('mantenimiento/administracion')"
+              (click)="deleteRegistro(tipo. int_preventivo_id)"><i class="material-icons"> delete </i>
+            </button>
+            <button class="btn btn-loop"
+              *ngIf="tipo.str_preventivo_estado==='INACTIVO' && permisoEliminar('mantenimiento/administracion')"
+              (click)="deleteRegistro(tipo. int_preventivo_id)"><i class="material-icons"> loop </i>
+            </button> -->
+            <!-- <button class="btn btn-danger"
+                        ><i class="material-icons" (click)="deleteRol(rol.int_rol_id)"> delete </i> </button> -->
+            <!-- <div class="delete">
+                            
+                        </div> -->
+
+
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+
+  <div class="pagi">
+    <app-pagination (nextPage)="pasarPagina($event)"></app-pagination>
+  </div>
+
+</div>

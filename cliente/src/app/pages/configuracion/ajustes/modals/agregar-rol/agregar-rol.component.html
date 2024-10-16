@@ -1,0 +1,29 @@
+<div class="body-Form">
+  <form [formGroup]="myForm" action="formRolAdd" (ngSubmit)="send()">
+
+  <div class="container-DataInfoFind">
+
+      <div class="containerInfo">
+          <label class="lbl-info" for="nombre">Rol Nombre:</label>
+        <div class="container-Input">
+          <input type="text" name="nombre" id="nombre" placeholder="Nombre del Rol" formControlName="rol_nombre" required="">
+        </div>
+      </div>
+
+
+    <div class="containerInfo">
+        <label class="lbl-info" for="nombre">Descripción:</label>
+      <div class="container-Input">
+        <input type="text" name="nombre" id="nombre" placeholder="Descripción del Rol" formControlName="rol_descripcion" required>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="cont">
+
+  <button  class="btn-primary-add" type="submit" [disabled]="!myForm.valid">Guardar</button>
+  </div>
+  
+  </form>
+</div>

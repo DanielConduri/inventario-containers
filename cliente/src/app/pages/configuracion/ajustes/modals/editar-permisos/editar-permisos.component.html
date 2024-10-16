@@ -1,0 +1,116 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+<div class="edit-permisos">
+    <div class="fatherModal" >
+        <div class="sidebar">
+            <p>Previsualización</p>
+            <ul class="nav-links">
+                <div class="link-opcion">
+                  <li *ngFor="let item of nuevosPermisos" class="link-opcion">
+                    <div *ngIf="item.bln_ver === 'checked'" class="icon-link">
+                      <a *ngIf="item.str_menu_icono != 'subdirectory_arrow_right'">
+                        <i d="toggle-sidebar" class="material-icons icon-opcion">{{
+                          item.str_menu_icono
+                        }}</i>
+                        <span class="link_name">{{ item.str_menu_nombre }}</span>
+                      </a>
+                    </div>
+                  </li>
+                </div>
+              </ul>
+        </div>
+        <div class="table">
+            <table class="table tabla-estilos">
+                <thead>
+                    <tr class="encabezado">
+                        <th >
+                            <div class="d-flex"> MENÚ  </div>
+                        </th>
+                        <th>
+                            <div class="d-flex">VER</div>
+                        </th>
+                        <th>
+                            <div class="d-flex">CREAR</div>
+                        </th>
+                        <th>
+                            <div class="d-flex">EDITAR</div>
+                        </th>
+                        <th>
+                            <div class="d-flex">ELIMNAR</div>
+                        </th>
+                    </tr>  
+                </thead>
+                <tbody class="tdbody">
+                    <tr *ngFor=" let item of nuevosPermisos, let i = index" >
+                        <td>  
+                            <div class="content-td">
+                                <i class="material-icons"> {{item.str_menu_icono}} </i>
+                                {{ item.str_menu_nombre }}
+                            </div>
+                           <!-- <div class="cont-sub-menu" *ngIf="item.children && item.children.length > 0" >
+                                <td *ngFor="let child of item.children">
+                                    <div class="content-td">
+                                        <i class="material-icons"> subdirectory_arrow_right</i>
+                                        {{ child.label }}
+                                    </div>
+                                </td>
+                            </div>  -->
+                        </td>
+    
+                        <td>   
+                            <div class="content-td check">
+                                <input type="checkbox" [checked]="item.bln_ver=== 'checked'" (change)="onChange($event, i, 1)">
+                            </div>                        
+                            <!-- <div  class="cont-sub-menu" *ngIf="item.children && item.children.length > 0" >
+                                <td *ngFor="let child of item.children, let j = index">
+                                    <div class="content-td check">
+                                        <input type="checkbox" [checked]="child.status" (change)="onChange($event, i, j)">  
+                                    </div>
+                                </td>
+                            </div>  -->
+                        </td>
+                        <td>
+                            <div class="content-td check">
+                                <input type="checkbox" [checked]="item.bln_crear=== 'checked'" (change)="onChange($event, i, 2)">
+                            </div>                        
+                            <!-- <div class="cont-sub-menu" *ngIf="item.children && item.children.length > 0" >
+                                <td *ngFor="let child of item.children">
+                                    <div class="content-td check">
+                                        <input type="checkbox" [checked]="child.status">
+                                    </div>
+                                </td>
+                            </div>  -->
+                        </td>
+                        <td>
+                            <div class="content-td check">
+                                <input type="checkbox" [checked]="item.bln_editar=== 'checked'" (change)="onChange($event, i, 3)">
+                            </div>                        
+                            <!-- <div class="cont-sub-menu" *ngIf="item.children && item.children.length > 0" >
+                                <td *ngFor="let child of item.children">
+                                    <div class="content-td check">
+                                        <input type="checkbox" [checked]="child.status">
+                                    </div>
+                                </td>
+                            </div>  -->
+                        </td>
+                        <td>
+                            <div class="content-td check">
+                                <input type="checkbox" [checked]="item.bln_eliminar === 'checked'" (change)="onChange($event, i, 4)">
+                            </div>                        
+                            <!-- <div class="cont-sub-menu" *ngIf="item.children && item.children.length > 0" >
+                                <td *ngFor="let child of item.children">
+                                    <div class="content-td check">
+                                        <input type="checkbox" [checked]="child.status">
+                                    </div>
+                                </td>
+                            </div>  -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="cont">
+        <button  type="submit" class="btn-primary-add" (click)="addPermiso()"
+        >Guardar</button>
+    </div>
+</div>

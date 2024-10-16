@@ -1,0 +1,134 @@
+<div class="containerRolUser">
+  <div class="dropdown-Roles" (click)="toggleDropdownRoles()">
+    <div class="container-btn">
+      <button class="dropbtn">
+        {{nameRol}}
+        <i class="material-icons">keyboard_arrow_down</i>
+      </button>
+    </div>
+    <div class="dropdown-content" [ngClass]="{ 'show': showDropdownRoles }">
+      <ul id="list-roles" class="hide" >
+        <li class="options" *ngFor="let item of roles, let i = index" [value] ="item">
+          <div class="container-items">
+            <a (click)="getRolName(item)">{{item}}</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="dropdown" (click)="toggleDropdown()">
+    <div class="container-btn">
+      <button class="dropbtn">
+        {{srvPersona.dataMe.str_per_email}}
+        <i class="material-icons">keyboard_arrow_down</i>
+      </button>
+
+    </div>
+    <div class="dropdown-content" [ngClass]="{ 'show': showDropdown }">
+      <ul id="list" class="hide" >
+        <li class="options">
+          <div class="container-items">
+            <a class="et-a" href="https://servicios.espoch.edu.ec/ServicioEspoch/">
+              <i class="material-icons">cloud</i>
+              Servicios ESPOCH
+            </a>
+          </div>
+        </li>
+        <li class="options">
+          <div class="container-items">
+            <a class="et-a" href="https://login.microsoftonline.com/?whr=espoch.edu.ec">
+              <i class="material-icons">email</i>
+              Correo Institucional
+            </a>
+          </div>
+        </li>
+        <li class="options">
+          <div class="container-items">
+            <a class="et-a" routerLink="/ajustes">
+              <i class="material-icons">settings</i>
+              Ajustes
+            </a>
+          </div>
+        </li>
+        <li class="options">
+          <div class="container-items">
+            <button class="btn-logOut" (click)="salirDelSistema()">
+              <i class="material-icons">transfer_within_a_station</i>
+              Log Out
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Apartado Responsivo -->
+<div class="containerMenu" id="containerResponsive">
+
+  <div class="dropdown-Roles" (click)="toggleDropdownRoles()">
+    <div class="container-btn">
+      <button class="dropbtn">{{nameRol}}</button>
+      <i class="material-icons">keyboard_arrow_down</i>
+    </div>
+    <div class="dropdown-content" [ngClass]="{ 'show': showDropdownRoles }">
+      <ul id="list-RolesResponsive" class="hide" >
+        <li class="options" *ngFor="let item of roles, let i = index" [value] ="item">
+          <div class="container-items">
+            <a class="rl-a" (click)="getRolName(item)">{{item}}</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="dropdown" (click)="toggleDropdown()">
+    <div class="container-btn">
+      <button class="dropbtn">
+        {{srvPersona.dataMe.str_per_email}}
+        <i class="material-icons">keyboard_arrow_down</i>
+      </button>
+
+    </div>
+    <div class="dropdown-content" [ngClass]="{ 'show': showDropdown }">
+      <ul id="list-SettingsResponsive" class="hide" >
+        <li class="options">
+          <div class="container-items">
+            <a class="et-a" href="https://servicios.espoch.edu.ec/ServicioEspoch/">
+              <i class="material-icons">cloud</i>
+              Servicios ESPOCH
+            </a>
+          </div>
+        </li>
+        <li class="options">
+          <div class="container-items">
+            <a class="et-a" href="https:/.microsoftonline.com/?whr=espoch.edu.ec">
+              <i class="material-icons">email</i>
+              Correo Institucional
+            </a>
+          </div>
+        </li>
+        <li class="options">
+          <div class="container-items">
+            <a class="et-a" routerLink="/ajustes">
+              <i class="material-icons">settings</i>
+              Ajustes
+            </a>
+          </div>
+        </li>
+        <li class="options">
+          <div class="container-items">
+            <button class="btn-logOut" (click)="salirDelSistema()">
+              <i class="material-icons">transfer_within_a_station</i>
+              Log Out
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+

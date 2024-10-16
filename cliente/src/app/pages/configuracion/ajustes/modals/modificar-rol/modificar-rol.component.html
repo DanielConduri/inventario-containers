@@ -1,0 +1,50 @@
+
+<div class="container-Form">
+  <form [formGroup]="myForm" action="formRolAdd" >
+
+  <div class="containerItems">
+
+    <div class="cont-Rol_Name">
+
+      <div class="container-Name">
+        <!--Div text-RolName -->
+        <div class="rolName-Text">
+          <label class="lbl-info" for="nombre">Rol Nombre:</label>
+        </div>
+        <!-- Div input-RolName -->
+        <div class="rolName-Input">
+          <input class="inp-info" type="text" name="nombre" id="nombre" placeholder="Nombre del Rol" formControlName="rol_nombre" required="">
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="cont-Rol_Description">
+
+      <!-- Div Text-RolDescription -->
+      <div class="rolDescription-Text">
+        <label class="lbl-info" for="nombre">Descripción:</label>
+      </div>
+      <!-- Div Input-RolDescription -->
+      <div class="rolDescription-Input">
+        <input class="inp-info" type="text" name="nombre" id="nombre" placeholder="Descripción del Rol" formControlName="rol_descripcion" required>
+      </div>
+
+    </div>
+
+
+    <!-- <label for="nombre">Rol</label>
+    <input type="text" name="nombre" id="nombre" placeholder="Nombre de Rol" formControlName="rol_nombre" >
+    <br>
+    <label for="nombre">Codigo de Rol:</label>
+    <input type="text" name="nombre" id="nombre" placeholder="Nombre de Rol" formControlName="rol_cod" >
+    <br>
+    <label for="nombre">Descripcion:</label>
+    <input type="text" name="nombre" id="nombre" placeholder="Nombre" formControlName="rol_descripcion" required> -->
+  </div>
+
+  <button class="btn-primary-add" (click)="modifyRol(id)" >Guardar</button>
+  </form>
+</div>

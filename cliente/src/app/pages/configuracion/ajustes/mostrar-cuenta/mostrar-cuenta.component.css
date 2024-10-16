@@ -1,0 +1,97 @@
+
+
+/* Disenio profileTitle */
+
+.profileTitle{
+  font-family: "Roboto", Arial, sans-serif;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+/* Disenio containerProfile */
+.containerProfile{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+/* Disenio profile-Photo */
+
+.profile-Photo{
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  place-content: center;
+}
+
+/* Disenio profile-Name */
+
+.profile-Name{
+  display: grid;
+  place-content: center;
+}
+
+/* Disenio profile-Info */
+
+.profile-Info{
+  display: grid;
+  place-content: center;
+}
+
+
+ /* -------------------------------------------------------------------------- */
+
+
+/* Disenio del profile-IMG */
+.profile-IMG{
+  width: 150px;
+  height: 150px;
+  display: grid;
+  place-items: center;
+}
+
+
+/* Disenio Contenido profile-Name */
+
+.profile-Name p, h1{
+  font-family: Arial, Helvetica, sans-serif
+}
+
+.profile-Name p{
+  font-size: 16px;
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family);
+  color: var(--color-primary);
+}
+
+.profile-Name h1{
+  font-size: 32px;
+  font-family: var(--font-family);
+  color: var(--bs-gray);
+}
+
+/* Disenio Contenido profile-Info */
+.profile-Info p{
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+
+.profile-Info .p-Title{
+  font-size: 14px;
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family);
+  color: var(--color-primary);
+}
+
+.profile-Info .p-Content{
+  font-size: 16px;
+  font-weight: var(--font-weight-bold);
+  color: var(--bs-gray);
+}
+
+/* Disenio material-icons */
+.material-icons{
+  font-size: 200px !important;
+  padding: 0;
+  color: var(--bs-gray);
+}

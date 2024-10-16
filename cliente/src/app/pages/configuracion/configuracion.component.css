@@ -1,0 +1,152 @@
+/* Estructuracion del Cuerpo */
+.father{
+    width: auto;
+    padding: 2rem;
+    min-width: 250px;
+    display: flex;
+}
+
+.containerBody{
+  width: 100%;
+  height: 100%;
+}
+
+.titleConfiguration{
+  /* width: 100%; */
+  height: 10%;
+  float: left;
+}
+
+
+
+.containerContent{
+  width: 100%;
+  height: 83%;
+  /* overflow: auto; */
+  padding-top: 15px;
+}
+
+/* Disenio Title */
+.titleConfiguration h1{
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  color:rgb(12, 12, 12);
+}
+
+
+/* Disenio NavTab */
+.containerNavOptions{
+  display: flex;
+  padding-top: 20px;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.container-button{
+  height: 100%;
+  display: flex;
+}
+
+.container-button button.active{
+  border-bottom: 1px solid;
+}
+
+.container-button .menu{
+  width: 5%;
+  height: 100%;
+}
+
+
+.containerNavOptions button{
+  background: none;
+  margin-right: 20px;
+  display: flex;
+  border: none;
+  align-items: center;
+  font-size: 14px;
+  padding-bottom: 5px;
+  width: 73px;
+}
+
+.containerNavOptions button:hover{
+  background: none;
+  display: flex;
+  border: none;
+  align-items: center;
+  color: #B41A12;
+  position: relative;
+  cursor: pointer;
+  /* z-index: 2; */
+}
+
+.containerNavOptions button.active{
+  color: #B41A12;
+  font-weight: 500;
+  border-bottom: solid 1px #B41A12;
+  /* z-index: 2; */
+}
+
+.container-button:focus{
+  border-bottom: #B41A12;
+  border: solid 2px #B41A12;
+  position: relative
+}
+
+.containerNavOptions button::-moz-focus-inner{
+  background: none;
+  display: flex;
+  border: none;
+  align-items: center;
+  border-bottom: solid 1px #B41A12;
+  font-weight: 600;
+  border-bottom: solid 1px #B41A12;
+  color: #B41A12;
+  cursor: pointer;
+}
+
+.btn-agg-Users{
+  display: flex;
+    /* margin: 15px 0; */
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.containerBtnAgregar{
+  justify-content: center;
+  width: inherit;
+  /* overflow: auto; */
+  height: 100%;
+}
+
+.btn-agg{
+  float: right;
+  display: flex;
+
+}
+.component{
+  float: left;
+  width: 100%;
+  height: 100%;
+}
+
+.tab-pane.fade{
+  width: 100%;
+  height: 100%;
+  /* overflow: auto; */
+}
+
+
+.set{
+  display: flex;
+  justify-content: space-between;
+}
+
+.tableBo{
+  overflow-y: hidden;
+  overflow-x: auto;
+}

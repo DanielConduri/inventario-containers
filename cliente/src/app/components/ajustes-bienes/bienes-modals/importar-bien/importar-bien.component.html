@@ -1,0 +1,232 @@
+<div class="body-Form">
+  <form [formGroup]="myForm">
+    <mat-stepper [linear]="!isLinear" #stepper>
+
+
+      
+
+
+      <mat-step [stepControl]="myForm">
+        <form [formGroup]="myForm" #FileUpload enctype="multipart/form-data" *ngIf="tablaInfo===false">
+
+
+
+          <!-- Primer STEP: CARGAR -->
+          <ng-template color="accent" matStepLabel>Cargar</ng-template>
+          <div class="container-Import">
+            <button class="btn-usuario" (click)="fileInput.click()">
+              Seleccionar Archivo
+            </button>
+            <input type="file" formControlName="archivo" required (change)="selectFile($event)" accept=".csv" #fileInput
+              style="display:none">
+          </div>
+          <!-- Tabla donde se mostrara el contenido -->
+          <div class="container-Table">
+            <label *ngIf="dataLength > 0">Cantidad de Bienes: {{dataLength - 1}} </label>
+            <table class="table-Fill" id="miTabla" *ngIf="table">
+              <thead>
+                <tr>
+                  <th *ngFor="let i of colums, let c = index">
+                    {{data[0][c]?.toUpperCase()}}
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="tablo-Hover">
+                <tr *ngFor="let row of data | slice:0:10; let ca =index">
+                  <td *ngFor="let c of colums, let i = index">
+                    <div class="content-td" *ngIf="ca!==0">
+                      {{row[i]?.toUpperCase()}}
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="container-Import">
+            <button class="btn-usuario" matStepperNext>Next</button>
+          </div>
+          
+        </form>
+      </mat-step>
+
+
+
+      <!-- Segundo STEP: INSERTAR -->
+      <mat-step [stepControl]="secondFormGroup" label="Insertar" #stepperDos>
+        <form [formGroup]="secondFormGroup">
+
+          <div class="containerInfo" style="padding-bottom: 30px;">
+            <label for="nombre">Agregar Resolución</label>
+            <div class="container-Input">
+              <input  type="text" name="nombre" id="nombre" formControlName="resolucion">
+            </div>
+          </div>
+
+          <!-- Boton que se encarga de Cargar los datos del archivo importado -->
+          <div class="container-Import">
+            <button class="btn-usuario"  (click)="importFile()" [disabled]="unDisabled">
+              Importar
+            </button>
+          </div>
+          <!-- Mensaje y Animacion de Proceso de Carga -->
+          <div class="container-Process" *ngIf="isLinear">
+            <label for="">
+              Cargando los Bienes a la Base de Datos....
+              <br>
+              Esto podrá llevar unos minutos
+            </label>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </div>
+          <input type="hidden" formControlName="secondCtrl" placeholder="hola" required>
+          <div class="container-Table" style="padding-top: 20px;" *ngIf="mostrarTable">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <div>
+                      Nombre del archivo
+                    </div>
+                  </th>
+                  <th>
+                    <div>
+                      Resolucion
+                    </div>
+                  </th>
+                  <th>
+                    <div>
+                      Cantidad de bienes
+                    </div>
+                  </th>
+                  
+                </tr>
+              </thead>
+                
+                
+              <tbody>
+                <tr>
+                  <td>
+                    <div>
+                      {{filName}}
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      {{dataLength - 1}}
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </mat-step>
+
+
+
+      <!-- Tercer STEP: PROCESAR -->
+      <mat-step [stepControl]="thirdFormGroup" label="Procesar" #stepperDos>
+        <form [formGroup]="thirdFormGroup">
+          <!-- Boton que se encarga de Cargar los datos del archivo importado -->
+          <div class="container-Import">
+            <button class="btn-usuario" (click)="ProcessFile()">
+              Procesar
+            </button>
+          </div>
+          <div class="container-Process" *ngIf="isProcess">
+            <label for="">
+              Procesando los Bienes a la Base de Datos....
+              <br>
+              Esto podrá llevar unos minutos.
+            </label>
+            <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+          </div>
+          <input type="hidden" formControlName="thirdCtrl" placeholder="hola" required>
+          <div class="container-Table" style="padding-top: 20px;" *ngIf="mostrarTable">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    <div>
+                      Nombre del archivo
+                    </div>
+                  </th>
+                  <th>
+                    <div>
+                      Resolucion
+                    </div>
+                  </th>
+                  <th>
+                    <div>
+                      Cantidad de bienes
+                    </div>
+                  </th>
+                  <th>
+                    <div>
+                      Cantidad de bienes Insertados
+                    </div>
+                  </th>
+                  <th>
+                    <div>
+                      Cantidad de bienes no Insertados
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+                <tr>
+                  <td>
+                    <div>
+                      {{filName}}
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      {{dataLength - 1}}
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      {{dataLength - 1}}
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      0
+                    </div>
+                  </td>
+                  
+                </tr>
+                
+              <tbody>
+
+              </tbody>
+            </table>
+          </div>
+        </form>
+      </mat-step>
+
+      <!-- Cuarto STEP: FINALIZADO -->
+      <mat-step #stepper>
+        <ng-template matStepLabel>Finalizado</ng-template>
+        <div class="container-Process">
+          <label for="">
+            Los Bienes se han Insertado Correctamente!
+          </label>
+        </div>
+        <div>
+          <button mat-flat-button color="warn" (click)="stepperFinalizado()">SALIR</button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+
+  </form>
+</div>

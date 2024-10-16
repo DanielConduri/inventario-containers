@@ -1,0 +1,143 @@
+<div class="container-per-rol" >
+    <div >
+        <button class="btn-usuario"  (click)="returnView()" > <i class="material-icons"> arrow_back </i> Regresar</button>
+    </div>
+    <div class="container-info" >
+
+            <div class="cont int-name" >
+                <div class="cont icon" > 
+                    <i class="material-icons">{{srvMenu.datosSubMenu[0].str_menu_icono}}</i>
+                </div>  
+                <div class="cont fullname">
+                    <div class="profile-Name">
+                        <p>Nombre</p>
+                        <h1 class="names" >
+                            {{srvMenu.datosSubMenu[0].str_menu_nombre}}
+                        </h1>
+                    </div>
+                    <div class="cont email">
+                        <h4>
+                           {{srvMenu.datosSubMenu[0].str_menu_descripcion}}
+                        </h4>
+                    </div>  
+                </div>
+            </div> 
+       
+        <div class="profile-Info">
+
+            <div class="cont subtitle" >
+                <p class="p-Title">Path</p>
+            </div>
+
+            <div>
+                <p class="p-Content"> {{srvMenu.datosSubMenu[0].str_menu_path}} </p>
+            </div>
+
+            <div class="cont subtitle" >
+                <p class="p-Title">Estado</p>
+            </div>
+
+            <div>
+                <p class="p-Content"> {{srvMenu.datosSubMenu[0].str_menu_estado}} </p>
+            </div>
+
+            <div class="cont subtitle" >
+                <p class="p-Title">Fecha de Creación</p>
+            </div>
+
+            <div>
+              <p class="p-Content"> {{srvMenu.datosSubMenu[0].dt_fecha_creacion.slice(0,10)}} </p>
+            </div>
+
+            <div class="cont subtitle" >
+                <p class="p-Title">Fecha de Modificación</p>
+            </div>
+
+            <div>
+              <p class="p-Content"> {{srvMenu.datosSubMenu[0].dt_fecha_actualizacion.slice(0,10)}} </p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="cont title-add" >
+        <div class="cont title-table" >  
+            <p *ngIf="(srvMenu.dataSubMenu).length>0">
+                Submenus de {{srvMenu.datosSubMenu[0].str_menu_nombre}}
+            </p>
+        </div>
+
+        <button *ngIf="permiso.bln_crear"  class="btn-usuario" (click)="addMenu('Agregar Menú', 'nuevoMenu')">
+            <i class="material-icons"> add </i> Agregar Submenú
+        </button>
+    </div>
+
+    <div class="tabla-cuerpo" *ngIf="(srvMenu.dataSubMenu).length>0">
+        <table class="table table-striped tabla-estilos">
+            
+            <thead>
+                <tr class="encabezado">
+                    <th >
+                        <div class="d-flex">   #   </div>
+                    </th>
+                    <th>
+                        <div class="d-flex">Nombre</div> 
+                    </th>
+                    <th>
+                        <div class="d-flex">Ícono</div> 
+                    </th>
+                    <th>
+                        <div class="d-flex">Path</div> 
+                    </th>
+                    <th>
+                        <div class="d-flex">Descripción</div> 
+                    </th>
+                    <th>
+                        <div class="d-flex">Estado</div>  
+                    </th>
+                    <th *ngIf="permiso.bln_eliminar || permiso.bln_editar">
+                        <div class="d-flex">Acciones</div>  
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of srvMenu.dataSubMenu, let i = index " >
+                    
+                    <td> {{i+1}} </td>
+                    <td  > {{ item.str_menu_nombre }} </td>
+                    <td> {{ item.str_menu_icono }} </td>
+                    <td> {{item.str_menu_path }} </td>
+                    <td> {{ item.str_menu_descripcion }} </td>
+                    <td *ngIf="item.str_menu_estado==='ACTIVO'" > 
+                        <div class="estado">
+                            <div class="activo">
+                                {{item.str_menu_estado }} 
+                            </div>
+                        </div>
+                    </td>
+                    <td *ngIf="item.str_menu_estado==='INACTIVO'" > 
+                        <div class="estado">
+                            <div class="inactivo">
+                                {{item.str_menu_estado }} 
+                            </div>
+                        </div>
+                    </td>
+    
+                    <td *ngIf="permiso.bln_eliminar || permiso.bln_editar">
+                        <button *ngIf="permiso.bln_editar"  class="btn btn-primary"
+                        (click)="editarSubmenu(item.int_menu_id )">
+                        <i class="material-icons"> create </i>
+                      </button>
+    
+                        <button class="btn btn-danger" (click)="cambiarEstado(item.int_menu_id)" 
+                        *ngIf="permiso.bln_eliminar && item.str_menu_estado==='ACTIVO'"
+                        ><i class="material-icons"> delete </i> </button>
+                        <button class="btn btn-loop" (click)="cambiarEstado(item.int_menu_id)"
+                        *ngIf="permiso.bln_eliminar && item.str_menu_estado==='INACTIVO'"
+                        ><i class="material-icons"> loop </i> </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+</div>

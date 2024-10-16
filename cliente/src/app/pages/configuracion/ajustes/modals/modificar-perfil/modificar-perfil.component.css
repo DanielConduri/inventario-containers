@@ -1,0 +1,128 @@
+/* Definir las caracteristicas */
+/* .container-form{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+      height: 100%;
+    /* background-color: aquamarine; 
+  }
+  
+  .fomrFather{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+      height: 100%;
+  }
+  
+  .fullContainer{
+    margin: 0;
+    padding: 0;
+      width: 100%;
+          height: 100%;
+    /* background-color: blueviolet; 
+  } */
+  
+  /* label{
+    font-size: 12px;
+    font-weight: 600;
+    font-family: "Roboto", Arial, sans-serif;
+  } */
+  
+  .search-BarBtn{
+    border: solid 1px var(--bs-gray-500);
+    background: #FFF;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding-left: 10px;
+    margin-bottom: 10px;
+    height: 30px;
+  }
+  
+  .search-BarBtn input{
+    height: 100%;
+    width: 90%;
+    background: none;
+    border: none;
+  }
+  
+  .form-control:focus{
+    border: none;
+    outline: none;
+  }
+
+  /* .side-Info{
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin-top: 15px;
+      width: 100%;
+      height: 250px;
+  } */
+  /* .derecha{
+      width: 100%;
+      height: 100%;
+  
+  }
+  .izquierda{
+      width: 100%;
+      height: 100%;
+  }
+  
+  
+  .theinput, .theselect{
+      border: solid 1px var(--bs-gray-500);
+      height: 30px;
+      border-radius: 10px;
+      background: none;
+      width: 100%;
+      padding-left: 10px;
+      margin-bottom: 10px;
+  
+  }
+  
+  
+  .theinput input, .theselect select{
+      height: 100%;
+      width: 90%;
+      background: none;
+      border: none;
+  } */
+  /*
+  .theselect :focus{
+      border: none;
+      outline: none;
+  }
+  
+  .theinput input:focus{
+    border: none;
+    outline: none;
+  }
+  .btn-primary{
+    background-color: #007bff;
+    color: #fff;
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    margin-top: 20px;
+  }
+
+  button{
+    margin-top: 5px;
+    width: 70px;
+    height: 30px;
+    border-radius: 5px;
+  }
+  
+  button:hover{
+    cursor: pointer;
+  }
+  */
+
+   .dependy input{
+    border: none;
+    outline: none;
+    width: 99%;
+    border-radius: 10px;
+  } 

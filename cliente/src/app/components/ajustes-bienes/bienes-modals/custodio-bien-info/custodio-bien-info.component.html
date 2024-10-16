@@ -1,0 +1,89 @@
+<div class="body-Form">
+
+  <label for="">Custodio Actual</label>
+
+  <div class="tableBo">
+    <table class="table table-striped tabla-estilos">
+      <thead>
+        <tr class="encabezado">
+
+          <th>
+            <div class="d-flex">Cedula Custodio</div>
+          </th>
+
+          <th>
+            <div class="d-flex">Nombres y Apellidos</div>
+          </th>
+          <th>
+            <div class="d-flex">Fecha Creacion</div>
+          </th>
+          <th>
+            <div class="d-flex">Estado</div>
+          </th>
+
+
+      </thead>
+
+      <tbody>
+        <tr class="container-Row" *ngFor="let custodio of srvCustodio.datosCustodios, let i = index">
+          <td *ngIf="this.custodio.str_persona_bien_activo == true">
+            {{this.custodio.str_custodio_cedula}}
+          </td>
+          <td *ngIf="this.custodio.str_persona_bien_activo == true">
+            {{this.custodio.str_custodio_nombre}}
+          </td>
+          <td *ngIf="this.custodio.str_persona_bien_activo == true">
+            {{this.custodio.dt_fecha_creacion | date: 'dd/MM/yyyy'}}
+          </td>
+          <td *ngIf="this.custodio.str_persona_bien_activo == true">
+            ACTIVO
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+<br>
+  <label for="">Custodios Anteriores</label>
+  <div class="tableBo">
+    <table class="table table-striped tabla-estilos">
+      <thead>
+        <tr class="encabezado">
+
+          <th>
+            <div class="d-flex">Cedula Custodio</div>
+          </th>
+
+          <th>
+            <div class="d-flex">Nombres y Apellidos</div>
+          </th>
+          <th>
+            <div class="d-flex">Fecha Creacion</div>
+          </th>
+          <th>
+            <div class="d-flex">Estado</div>
+          </th>
+
+
+      </thead>
+
+      <tbody>
+        <tr class="container-Row" *ngFor="let custodio of srvCustodio.datosCustodios, let i = index">
+          <td *ngIf="this.custodio.str_persona_bien_activo == false">
+            {{this.custodio.str_custodio_cedula}}
+          </td>
+          <td *ngIf="this.custodio.str_persona_bien_activo == false">
+            {{this.custodio.str_custodio_nombre}}
+          </td>
+          <td *ngIf="this.custodio.str_persona_bien_activo == false">
+            {{this.custodio.dt_fecha_creacion | date: 'dd/MM/yyyy'}}
+          </td>
+          <td *ngIf="this.custodio.str_persona_bien_activo == false">
+            INACTIVO
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="body-Form">
+
+  <form [formGroup]="myForm" action="">
+    <div class="container-DataInfo">
+      <div class="container-Left">
+        <div class="containerInfo">
+          <label>Nombre</label>
+          <div class="container-Input">
+            <input
+              type="text"
+              placeholder="Ingrese el nombre de la marca"
+              formControlName="str_marca_nombre"
+              name="nombre"
+              required>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="container-Right">
+        <div class="containerInfo">
+          <label>Estado</label>
+          <div class="container-Input">
+            <input
+              type="text"
+              placeholder="str_marca_estado"
+              name="estado"
+              formControlName="str_marca_estado"
+              [attr.disabled]="true">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container-Btns">
+      <button
+        class="btn-primary-add"
+        type="submit"
+        [disabled]="!myForm.valid"
+        (click)="modifyMarca()"
+        >
+        Guardar
+      </button>
+    </div>
+  </form>
+
+</div>
+

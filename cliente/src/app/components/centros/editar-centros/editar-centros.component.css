@@ -1,0 +1,69 @@
+.cont-Center_Name {
+    width: 100%;
+    height: 65px;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  
+  .cont-Rol_Description {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .lbl-info {
+    font-size: 12px;
+    font-weight: 600;
+    font-family: "Roboto", Arial, sans-serif;
+  }
+  
+  .inp-info {
+    height: 90%;
+    width: 100%;
+    background: none;
+    border: none;
+    border-radius: var(--border-radius-sm);
+  }
+  
+  .inp-info:focus {
+    background: none;
+    border: none;
+    outline: none;
+  }
+  
+  .rolName-Text,
+  .rolCode-Text,
+  .rolDescription-Text {
+    margin-bottom: 5px;
+  }
+  
+  .rolName-Input,
+  .rolCode-Input,
+  .rolDescription-Input {
+    height: 30px;
+    border: solid 1px var(--bs-gray-500);
+    background: #fff;
+    width: 99%;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+  }
+  .type{
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .admin{
+    width: 65%;
+    padding-left: 10px
+  }
+
+  .centerNambe-Input{
+    height: 30px;
+  border: solid 1px var(--bs-gray-500);
+  background: #fff;
+  width: 99%;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  }

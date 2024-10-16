@@ -1,0 +1,4 @@
+.tabla-estilos tbody tr {
+    cursor: pointer;
+    border-top-width: 0.5px;
+  }

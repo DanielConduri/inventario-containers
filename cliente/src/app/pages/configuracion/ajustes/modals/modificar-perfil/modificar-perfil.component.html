@@ -1,0 +1,39 @@
+<div class="body-Form">
+
+    <form [formGroup]="myForm" class="formFather">
+  
+      <div class="container-DataInfoFind">
+  
+        <div class="containerInfo">
+            <label for="text">Rol:</label>
+          <div class="container-Input">
+            <input type="text" class="form-control" [attr.disabled]="true"  placeholder="Ingrese el nombre del rol" formControlName="str_rol_nombre" />
+          </div>
+        </div>
+            <div class="containerInfo">
+              <label for="descripcion-rol">Descripción del Rol</label>
+              <div class="container-Input">
+                <input type="text" name="descripcion" id="descripcion" [attr.disabled]="true"  formControlName="str_rol_descripcion"
+                  >
+              </div>
+            </div>
+  
+            <div class="containerInfo">
+              <label for="dependencia">Dependencia</label>
+              <div class="container-Input">
+                <input type="text" name="dependencia" id="dependencia" 
+                 placeholder="Ingrese la Dependencia" formControlName="str_perfil_dependencia">
+              </div>
+            </div>
+  
+      </div>
+  
+  
+        <div class="cont">
+          <button (keydown.enter)="modifyProfile()" type="submit" class="btn-primary-add" (click)="modifyProfile()"
+          [disabled]="myForm.invalid">Guardar</button>
+        </div>
+  
+    </form>
+  </div>
+  

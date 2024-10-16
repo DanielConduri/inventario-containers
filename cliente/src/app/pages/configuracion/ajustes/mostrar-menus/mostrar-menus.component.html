@@ -1,0 +1,127 @@
+<div class="cont-menu">
+    <div class="father">
+        <div class="pContainer">
+          <aside id="pSidebar"></aside>
+          <main id="pMain-content">
+            <button id="toggle-sidebar">
+              <i class="material-icons" id="icon-menu">swap_horiz</i>
+            </button>
+          </main>
+        </div>
+      
+        <div class="sidebar">
+          <ul class="nav-links">
+            <div class="link-opcion">
+              <li *ngFor="let item of srvMenu.datosMenu" class="link-opcion">
+                <div class="icon-link">
+                  <a>
+                    <i d="toggle-sidebar" class="material-icons icon-opcion">{{
+                      item.str_menu_icono
+                    }}</i>
+                    <span class="link_name">{{ item.str_menu_nombre }}</span>
+                  </a>
+                </div>
+              </li>
+            </div>
+          </ul>
+        </div>
+
+    </div>
+    <div class="tableBo" *ngIf="isData">
+        <table class="table table-striped tabla-estilos">
+            <thead>
+                <tr class="encabezado">
+                    <th>
+                        <div class="d-flex"> # </div>
+                    </th>
+                    <th>
+                        <div class="d-flex">Nombre</div>
+                    </th>
+                    <th>
+                        <div class="d-flex">Ícono</div>
+                    </th>
+                    <th>
+                        <div class="d-flex">Path</div>
+                    </th>
+                    <th>
+                        <div class="d-flex">Descripción</div>
+                    </th>
+                    <th>
+                        <div class="d-flex">Estado</div>
+                    </th>
+                    <th *ngIf="permiso.bln_eliminar || permiso.bln_editar">
+                      <div class="d-flex">Acciones</div>
+                  </th>
+                </tr>
+            </thead>
+            
+            <tbody >
+                 <tr *ngFor="let item of srvMenu.datosMenu, let i = index">
+                   <td (click)="selectView(item.int_menu_id)">
+                    <div class="content-linea">
+                        {{i+1}}
+                    </div>
+                    </td>
+
+                    <td (click)="selectView(item.int_menu_id)">
+                        <div class="content-linea">
+                            {{item.str_menu_nombre}}
+                        </div>
+                    </td>
+                        
+                    <td (click)="selectView(item.int_menu_id)">
+                        <div class="content-td">
+                          <i class="material-icons"> {{item.str_menu_icono}} </i>
+                             {{item.str_menu_icono}}
+                        </div>
+                    </td>
+
+                    <td (click)="selectView(item.int_menu_id)">
+                        <div class="content-linea">
+                            {{item.str_menu_path}}
+                        </div>
+                    </td>
+
+                    <td (click)="selectView(item.int_menu_id)">
+                        <div class="content-linea">
+                            {{item.str_menu_descripcion}}
+                        </div>
+                    </td>
+
+                    <td (click)="selectView(item.int_menu_id)" *ngIf="item.str_menu_estado==='ACTIVO'">
+                      <div class="estado">
+                        <div class="activo">
+                            {{item.str_menu_estado}}
+                        </div>
+                    </div>
+                    </td>
+
+                    <td (click)="selectView(item.int_menu_id)" *ngIf="item.str_menu_estado==='INACTIVO'">
+                      <div class="estado">
+                        <div class="inactivo">
+                            {{item.str_menu_estado}}
+                        </div>
+                    </div>
+                  </td>
+
+                  <td *ngIf="permiso.bln_eliminar || permiso.bln_editar">
+                    <button *ngIf="permiso.bln_eliminar || permiso.bln_editar" class="btn btn-primary" 
+                        (click)="editarMenu(item.int_menu_id )"> <i
+                            class="material-icons"> create </i>
+                    </button>
+
+
+                    <button class="btn btn-danger" *ngIf="permiso.bln_eliminar && item.str_menu_estado==='ACTIVO'"
+                        (click)="cambiarEstado(item.int_menu_id)"><i class="material-icons"> delete </i> </button>
+                    <button class="btn btn-loop" *ngIf="permiso.bln_eliminar && item.str_menu_estado==='INACTIVO'"
+                        (click)="cambiarEstado(item.int_menu_id)"><i class="material-icons"> loop </i> </button>
+                  </td>
+               
+                </tr>
+
+            </tbody>
+
+        </table>
+          
+    </div>
+</div>

@@ -1,0 +1,143 @@
+<!-- <p>reportes works!</p> -->
+<!-- <iframe title="prueba power bi proyecto" width="1080" height="500" src="https://app.powerbi.com/view?r=eyJrIjoiMzQxMzcwMjktZjcyYS00NzRiLWJkYjEtNjc3YzI5OWQyYWY3IiwidCI6ImQ3Zjg2NzEwLTAxZTEtNDYxZC04NTk5LTc1OGRlNDU0MmUyYiIsImMiOjR9&pageName=ReportSection" frameborder="0" allowFullScreen="true"></iframe> -->
+<!-- <iframe src="https://showcase3.qlik.com/single/?appid=4309fb5b-b8a1-4217-bf5c-b8f7f4d0accf&obj=83a1410b-9c39-47a1-a063-3e043ebacf65&theme=breeze&opt=ctxmenu,currsel&select=Team1::Team,Texas%20A%26M%20CC&select=SeedTeam::Team,Alabama&select=Team2::Team,Southeast%20Missouri%20St&select=$::Team,Gonzaga" style="border:none;width:100%;height:100%;"></iframe> -->
+<!-- <iframe title="prueba power bi proyecto" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=77d434fc-c055-4e5b-93b3-82943929452e&autoAuth=true&ctid=d7f86710-01e1-461d-8599-758de4542e2b" frameborder="0" allowFullScreen="true"></iframe> -->
+
+<div class="father">
+    <div class="containerBody">
+  
+      <!-- Seccion Titulo 'Pantalla de Configuracion' -->
+      <div class="titleConfiguration">
+        <div class="titleButton">
+          <div class="title">
+            <h1>Pantalla de
+              <span style="color:#B41A12 ;">
+                Reportes
+              </span>
+            </h1>
+            <span style="color:rgb(160, 160, 160);
+              font-family: 'Roboto', Arial, sans-serif;
+              font-size: 14px;">
+              Listado de Reportes e Informes
+            </span>
+          </div>
+  
+          <!-- <div class="buttonAgg" *ngIf="this.menuTabsSelected === 0 && permisoCrear('reportes/reporte')" >
+            <app-button [form]="'nuevoReporte'" [title]="'Agregar Reporte'"></app-button>
+  
+          </div> -->
+          <div class="buttonAgg" *ngIf="this.menuTabsSelected === 1 && this.srvInformes.typeviw && permisoCrear('reportes/informe') ">
+            <app-button [form]="''" [title]="'Agregar Informe'"></app-button>
+            <!-- <app-button [form]="'importarCentro'" [title]="'importar Centro'"></app-button> -->
+  
+          </div>
+          <div class="buttonAgg" *ngIf="this.menuTabsSelected === 2 && permisoCrear('reportes/tipo')">
+            <app-button [form]="'nuevoTipo'" [title]="'Agregar Tipo de Informe'"></app-button>
+            <!-- <app-button [form]="'importarCentro'" [title]="'importar Centro'"></app-button> -->
+  
+          </div>
+        </div>
+  
+  
+        <!-- <div class="showCenter">
+  
+          <app-mostrar-reporte></app-mostrar-reporte>
+        </div> -->
+  
+        <nav class="navSection">
+
+          <div class="containerNavOptions" id="menu">
+    
+            <div class="container-button" id="nav-Report" *ngIf="permisoVer('reportes/reporte')">
+              <button 
+                class="nav-link {{this.menuTabsSelected === 0 ? 'active' : isValue == 0  }} " 
+                id="nav-report"
+                [routerLink]="'/reportes/'+ baseUrl + 'reporte'" 
+                type="button">
+    
+                Reportes
+              </button>
+            </div>
+    
+            <div class="container-button" id="nav-Inform" *ngIf="permisoVer('reportes/informe')" >
+              <button 
+              class="nav-link {{this.menuTabsSelected === 1 ? 'active' : isValue == 1 }}" 
+              id="nav-inform"
+              [routerLink]="'/reportes/'+ baseUrl + 'informe'"
+              type="button">
+                Informes
+              </button>
+            </div>
+
+            <div class="container-button" id="nav-Inform" *ngIf="permisoVer('reportes/tipo')">
+              <button 
+              class="nav-link {{this.menuTabsSelected === 2 ? 'active' : isValue == 2 }}" 
+              id="nav-inform"
+              [routerLink]="'/reportes/'+ baseUrl + 'tipo'"
+              type="button">
+                Tipo
+              </button>
+            </div>
+    
+            <!-- <div class="container-button" id="nav-contact-tab" >
+              <button class="nav-link {{this.menuTabsSelected === 2 ? 'active' : isValue == 3}}" id="nav-contact-tab"
+                [routerLink]="'/ajustes/'+baseUrl+'usuarios'" type="button">
+                Usuarios
+              </button>
+            </div> -->
+    
+            <!-- <div class="container-button" id="nav-roles-tab" 
+    
+            >
+              <button class="nav-link {{this.menuTabsSelected === 3 ? 'active' : isValue == 4 }}" id="nav-roles-tab"
+                [routerLink]="'/ajustes/'+baseUrl+'roles'" type="button"
+    
+                >
+    
+                Roles
+              </button>
+            </div> -->
+    
+          </div>
+    
+          <!-- <hr class="hr-cd"> -->
+    
+    
+        </nav>
+
+        <div class="containerContent">
+
+          <div class="tab-pane fade" id="nav-report" *ngIf=" this.menuTabsSelected === 0">
+            <app-mostrar-reporte></app-mostrar-reporte>
+          </div>
+    
+          <div class="tab-pane fade" id="nav-inform" *ngIf="this.menuTabsSelected === 1" typeView=true>
+            <app-mostrar-informe *ngIf="this.srvInformes.typeviw"></app-mostrar-informe>
+            <app-agregar-informe *ngIf="!this.srvInformes.typeviw && !srvInformes.typeview"></app-agregar-informe>
+            <app-modificar-informe *ngIf="!this.srvInformes.typeviw && srvInformes.typeview"></app-modificar-informe>
+
+            <!-- <div class="containerBtnAgregar" *ngIf=" this.menuTabsSelected === 1">
+    
+    
+    
+              <div class="component">
+                
+              </div>
+    
+    
+            </div> -->
+    
+          </div>
+          <div class="tab-pane fade" id="nav-report" *ngIf=" this.menuTabsSelected === 2">
+            <app-tipo-informe></app-tipo-informe>
+          </div>
+    
+          
+    
+          
+    
+        </div>
+
+      </div>
+    </div>
+  </div>

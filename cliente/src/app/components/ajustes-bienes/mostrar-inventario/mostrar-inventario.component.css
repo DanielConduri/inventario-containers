@@ -1,0 +1,131 @@
+.body{
+  width: 100%;
+  display: flex;
+  margin-top: 15px;
+  height: 56vh;
+  /* flex-direction: row; */
+}
+
+.container-Options{
+  gap: 25px;
+}
+
+.container-BtnProcess{
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin: 25px;
+}
+
+.container-Body{
+  border: 0.5px solid var(--bs-gray-ccc);
+  width: 100%;
+  overflow: auto;
+  padding: 5px;
+}
+
+.container-Options{
+  border-top: 0.5px solid var(--bs-gray-ccc);
+  border-bottom: 0.5px solid var(--bs-gray-ccc);
+  border-left: 0.5px solid var(--bs-gray-ccc);
+}
+
+
+
+h1{
+  font-size: 50px;
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-bold);
+  color: var(--bs-gray-600);
+}
+
+span{
+  color: var( --color-accent);
+}
+
+p{
+  font-size: 14px;
+  font-family: var(--font-family);
+  text-align: left;
+}
+
+.container-Right{
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-Espoch, .logo-Inventory{
+  width: 150px;
+  height: 150px;
+}
+
+.container-Welcome{
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  margin-top: 25px;
+}
+
+.container-Right{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+
+/* .navBienes{
+  background-color: var(--bs-gray-100);
+}
+
+.container-NavOptions{
+  display: flex;
+  height: 25px;
+  align-items: flex-end;
+  margin-left: 15px;
+  gap: 25px;
+  position: relative;
+}
+
+.container-NavOptions button{
+  border: none;
+  background: none;
+  font-size: 14px;
+  font-family: var(--font-family);
+}
+
+.container-NavOptions button:hover{
+  color: var(--color-primary);
+  cursor: pointer;
+  position: relative;
+}
+
+.container-NavOptions button.active{
+  color: var(--color-primary);
+  border-bottom: solid 1px var(--color-primary);
+}
+
+.container-Btn:focus{
+  border-bottom: var(--color-primary);
+  border: solid 2px var(--color-primary);
+  position: relative
+}
+
+.container-NavOptions buttom::-moz-focus-inner{
+  background: none;
+  display: flex;
+  border: none;
+  align-items: center;
+  border-bottom: solid 1px var(--color-primary);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  cursor: pointer;
+} */
+
+
+
+
+
+
+
+

@@ -1,0 +1,145 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+.body-Denied{
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  }
+
+  .main-Denied{
+  width: 100%;
+  height: 95%;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  }
+
+  .footer-Denied{
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  }
+
+  .containerMessage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 0px 0px 0px 50px;
+  }
+
+h1{
+  font-size: 200px;
+  font-family: var(--font-family);
+  color: var( --bs-dark);
+
+}
+
+h4{
+  font-family: 'Poppins', sans-serif;
+  font-size: 20px;
+  color: var(--bs-gray-ccc);
+}
+
+p{
+  font-family: 'Ubuntu', sans-serif;
+  font-size: 20px;
+}
+
+  .containerImage{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  a{
+    display: flex;
+      align-items: center;
+      width: 155px;
+      height: 50px;
+      border-radius: 4px;
+      border: solid 0.5px var(--bs-gray-ccc);
+      cursor: pointer;
+      font-family: var(--font-family);
+      text-decoration: var(--text-decoration);
+      color: #1D1D1B;
+  }
+
+  a i {
+    font-size: 20px !important;
+    border-right: solid 0.5px var(--bs-gray-ccc);
+    line-height: 44px;
+    margin-right: 2px;
+  }
+
+  a:hover{
+    background-color: #1D1D1B;
+    color: var(--color-bg);
+  }
+
+  .a-responsive{
+    display: none;
+  }
+
+  @media screen and (max-width: 768px){
+    .main-Denied{
+      flex-direction: column;
+      align-items: center;
+      gap: 0px;
+      justify-content: space-evenly;
+      }
+
+      .a-noResponsive{
+        display: none;
+      }
+
+      .a-responsive{
+        display: flex;
+        align-items: center;
+        width: 155px;
+        height: 50px;
+        border-radius: 4px;
+        border: solid 0.5px var(--bs-gray-ccc);
+        cursor: pointer;
+        font-family: var(--font-family);
+        text-decoration: var(--text-decoration);
+        color: #1D1D1B;
+      }
+
+      h1{
+        font-size: 100px;
+        font-family: var(--font-family);
+        color: var( --bs-dark);
+
+      }
+
+      h4{
+        font-family: 'Poppins', sans-serif;
+        font-size: 20px;
+        color: var(--bs-gray-ccc);
+      }
+
+      p{
+        font-family: 'Ubuntu', sans-serif;
+        font-size: 20px;
+      }
+
+
+      .containerImage{
+        gap: 20px;
+      }
+
+      .containerImage .logo-espoch{
+        width: 100px
+      }
+
+      .containerImage .logo-historia{
+        width: 115px;
+      }
+  }

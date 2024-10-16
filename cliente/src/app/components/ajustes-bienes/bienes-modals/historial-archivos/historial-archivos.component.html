@@ -1,0 +1,61 @@
+<div class="tabla-cuerpo">
+    <div class="tableBo" *ngIf="isLoading && isData">
+      <table class="table table-striped tabla-estilos">
+  
+        <thead>
+          <tr class="encabezado">
+            <th>
+              <div class="d-flex"> # </div>
+            </th>
+            <th>
+              <div class="d-flex">Nombre</div>
+            </th>
+            <th>
+              <div class="d-flex">Resolucion</div>
+            </th>
+            <th>
+              <div class="d-flex">Fecha</div>
+            </th>
+            <th>
+              <div class="d-flex">Total</div>
+            </th>
+            <th>
+                <div class="d-flex">Insertados</div>
+            </th>
+          </tr>
+        </thead>
+  
+        <tbody>
+          <tr *ngFor="let infor of srvInventario.archivos, let i = index">
+            <td> {{i+1}}</td>
+            <td> {{infor.str_registro_nombre}} </td>
+            <td>{{infor.str_registro_resolucion}} </td>
+            <td> {{infor.dt_fecha_creacion.substring(0, 10)}} </td>
+            <td>
+                {{infor.int_registro_num_filas_total}}
+              <!-- <button class="btn btn-primary"> <i class="material-icons"(click)="edidInf(infor.int_documento_id)"> create </i>
+              </button>
+              <button class="btn btn-primary"> <i class="material-icons" (click)="mostrarPDF(infor.int_documento_id, 'Informe' ,'mostrar-pdf')"> local_printshop </i>
+              </button> -->
+              <!-- <button class="btn btn-danger" ><i class="material-icons"> delete </i> 
+              </button> -->
+              <!-- <button class="btn btn-loop"><i class="material-icons"> loop </i> 
+              </button> -->
+            </td>
+            <td>
+                {{infor.int_registro_num_filas_insertadas}}
+            </td>
+          </tr>
+        </tbody>
+  
+      </table>
+    </div>
+  
+    <!-- <div class="pagi">
+      <app-pagination 
+      (nextPage)="pasarPagina($event)"
+      ></app-pagination>
+  </div> -->
+  
+  </div>
+

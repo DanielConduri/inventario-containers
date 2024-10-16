@@ -1,0 +1,85 @@
+<div class="body-Form">
+
+  <!-- Inicio del Formulario -->
+  <form action="" [formGroup]="myForm">
+    <div class="container-DataInfo">
+
+      <!-- Contenedor de la Izquierda -->
+      <div class="container-Left">
+        <!-- Codigo del Catalogo -->
+        <div class="containerInfo">
+          <label for="">Código de Catálogo</label>
+          <div class="container-Input">
+            <input
+              type="text"
+              placeholder="Ingrese Código"
+              formControlName="str_catalogo_bien_id_bien"
+              name="identificador"
+              required=""
+            >
+          </div>
+        </div>
+
+        <!-- Iem presupuestario -->
+        <div class="containerInfo">
+          <label for="">Item Presupuestario</label>
+          <div class="container-Input">
+            <input
+              type="text"
+              placeholder="Ingrese item presupuestario"
+              formControlName = "int_catalogo_bien_item_presupuestario"
+              name="item_presupuestario"
+              required=""
+              >
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Contenido de la Derecha -->
+      <div class="container-Right">
+
+        <!-- Descripcion del catalogo -->
+        <div class="containerInfo">
+          <label for="">Descripción de Catálogo</label>
+          <div class="container-Input">
+            <input
+              type="text"
+              placeholder="Ingrese Descripción"
+              formControlName = "str_catalogo_bien_descripcion"
+              required
+            >
+          </div>
+        </div>
+
+        <!-- Cuenta Contable -->
+        <div class="containerInfo">
+          <label for="">Cuenta Contable</label>
+          <div class="container-Input">
+            <input
+              type="text"
+              placeholder="Ingrese Cuenta Contable"
+              formControlName = "str_catalogo_bien_cuenta_contable"
+              required
+            >
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Boton Para Guarda Catalogo -->
+    <div class="container-Btns">
+      <button
+        class="btn-primary-add"
+        (click)="agregarCatalogo()"
+        type="submit"
+        [disabled]="!myForm.valid"
+      >
+        Guardar
+      </button>
+    </div>
+
+  </form>
+</div>

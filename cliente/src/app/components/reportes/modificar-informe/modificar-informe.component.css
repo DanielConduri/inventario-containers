@@ -1,0 +1,98 @@
+
+.profile-Name p, h4{
+  font-family: Arial, Helvetica, sans-serif
+}
+
+.profile-Name p{
+  font-size: 16px;
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family);
+  /* color: var(--color-primary); */
+}
+
+.profile-Name h4{
+  /* font-size: 32px; */
+  font-family: var(--font-family);
+  color: var(--bs-gray);
+}
+
+/* Disenio Contenido profile-Info */
+.profile-Info p{
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+
+.profile-Info .p-Title{
+  font-size: 10px;
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-family);
+  /* color: var(--color-primary); */
+}
+
+.profile-Info .p-Content{
+  font-size: 14px;
+  font-weight: var(--font-weight-bold);
+  /* color: var(--bs-gray); */
+}
+
+/* Disenio material-icons */
+/* .material-icons{
+  font-size: 200px !important;
+  padding: 0;
+  color: var(--bs-gray);
+} */
+
+
+.btn-usuario:hover {
+  color: var(--color-black);
+  background-color: var(--color-accent);
+  cursor: pointer;
+}
+
+.buttons-action{
+display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 15px;
+}
+.description{
+/* width: 100px; */
+height: 100px;
+}
+
+textarea{
+border: 0.5px solid var(--bs-gray-ccc);
+border-radius: 4px;
+padding-left: 5px;
+height: 100px;
+width: 100%;
+}
+
+.tabla-check{
+overflow: auto;
+  height: 250px;
+  margin-top: 10px;
+  font-family: var(--font-family);
+}
+
+#flexCheckDefaultAll {
+height: 15px;
+}
+
+.flexCheck {
+height: 15px;
+}
+
+table tr{
+cursor: pointer;
+}
+
+table td {
+padding: 10px 0;
+}
+
+.back{
+margin: 10px 0px 10px 0px;
+}
+
+.container-Input{
+height: 31px;
+}

@@ -1,0 +1,114 @@
+.pFather{
+  display: flex;
+  width: 100vw;
+  align-items: center;
+}
+
+.pLogo {
+    background: var(--color-primary);
+    width: 56px;
+    height: 56px;
+    display: grid;
+    place-content: center;
+    align-items: center;
+    color: var(--color-bg);
+}
+
+.pTitle {
+  display: grid;
+  align-items: center;
+  place-content: center;
+}
+
+.pTitle h1{
+  font-family: var(--font-family);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.pLogo{
+    height: 56px;
+    width: 59px;
+}
+
+.containerInformation{
+  width: 100%;
+  height: 100%;
+}
+
+.containerInformation{
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 20px 0px 20px;
+}
+
+
+
+/* Estilizacion del Select de rolUser */
+
+/* Nuevo Estilos Para los Select */
+
+.dropdown-Roles{
+  width: 200px;
+  cursor: pointer;
+}
+
+.dropbtn {
+  color: var(--color-black);
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  font-size: 12px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.ronsponsive-RolUser{
+  display: none;
+}
+
+.containerMenu{
+  display: none;
+}
+
+.containerRolUserResponsive{
+  display: none;
+}
+
+@media screen and (max-width: 768px){
+
+  .containerRolUserResponsive{
+    height: 56px;
+    display: flex;
+    gap: 15px;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .containerRolUser{
+    display: none;
+  }
+
+  .ronsponsive-RolUser{
+    display:flex;
+    align-items: center;
+  }
+
+  .ronsponsive-RolUser button{
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
+  #burgerMenu{
+    font-size: 25px;
+    color: #1D1D1B;
+  }
+
+}
+

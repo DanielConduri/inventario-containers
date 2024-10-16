@@ -1,0 +1,150 @@
+.presentacion{
+  overflow: auto;
+  height: 250px;
+  margin-top: 10px;
+  font-family: var(--font-family);
+
+}
+
+.tdbody{
+  background-color: rgb(234, 233, 231);
+  border: 1px solid;
+
+}
+
+.content-td{
+  /* margin: 15px; */
+  margin: 0px;
+  /* padding: 10px; */
+  padding-top: 5px;
+  padding-bottom: 5px;
+  /* border: 0.5px solid black; */
+  
+}
+
+table tbody tr:nth-child(even){
+  margin-top: 15px;
+  width: 100%;
+  background-color: var(--bs-white);
+
+}
+
+th{
+  border-bottom: 0.5px solid;
+
+}
+td{
+  border-bottom: 0.5px solid;
+
+}
+
+input[type="file"] {
+  /* border: none; */
+/* color: #1C1C1C; */
+/* font-weight: 600; */
+font-family: "Roboto", Arial, sans-serif;
+background-color: #1C1C1C;
+/* display: none; */
+}
+
+/* .input{
+  padding: 10px;
+  background: red; 
+  display: table;
+  color: #fff;
+} */
+
+.file-upload-input {
+  width: 300px;
+  color: #fff;
+  font-size: 16px;
+  padding: 11px 17px;
+  border: none;
+  -moz-transition: all 0.2s ease-in;
+  -o-transition: all 0.2s ease-in;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  float: left;
+  /* IE 9 Fix */
+}
+
+form{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+table{
+  width: 100%;
+}
+
+.btn-more-info{
+  border: none;
+    background: chocolate;
+    border-radius: 10px;
+    width: 25px;
+}
+
+.cont-message{
+  display: flex;
+}
+
+.btn-usuario{
+  display: flex;
+  align-items: center;
+  /* margin-top: 25px; */
+}
+
+.conteInfo{
+  height: 80px;
+  overflow: auto;
+  margin-bottom: 15px;
+}
+
+.btn-info {
+  background-color: var(--color-accent);
+  border: none;
+  color: var(--color-black);
+  font-weight: 600;
+  border-radius: var(--border-radius-sm);
+  padding: 10px;
+  font-size: var(--font-size);
+  font-family: "Roboto", Arial, sans-serif;
+  /* display: flex;
+  align-items: center; */
+}
+
+.btn-info:hover {
+  color: #fff;
+  /* background: #3c3c3c; */
+  background-color: var(--color-black);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.information{
+  height: 330px;
+  padding-bottom: 15px;
+  font-family: var(--font-family);
+}
+
+.more-info{
+  display: grid;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.userNo{
+  /* padding-top: 10px; */
+    /* padding-bottom: 10px; */
+    display: flex;
+    justify-content: space-around;
+}
+
+
+
+p{
+  font-size: var(--font-size);
+  padding-bottom: 10px;
+  font-family: var(--font-family);
+}

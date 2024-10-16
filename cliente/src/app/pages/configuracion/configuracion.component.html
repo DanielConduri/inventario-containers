@@ -1,0 +1,129 @@
+<div class="father">
+
+  <div class="containerBody">
+
+    <!-- Seccion Titulo 'Pantalla de Configuracion' -->
+    <div class="set">
+      <div class="titleConfiguration">
+        <h1>Pantalla de
+          <span style="color:#B41A12 ;">
+            Configuración
+          </span>
+        </h1>
+        <span style="color:rgb(160, 160, 160);
+          font-family: 'Roboto', Arial, sans-serif;
+          font-size: 14px;">
+          Configuraciones de tu cuenta
+        </span>
+
+      </div>
+      <div class="buttonSettings">
+        <div class="btn-agg" *ngIf="this.menuTabsSelected === 3 && permisoCrear('ajustes/roles') ">
+          <app-button id="rolButton" class="btn-agg-Users" [form]="'nuevoRol'" [title]="'Agregar Rol'"></app-button>
+        </div>
+
+        <div class="btn-agg-Users" *ngIf="(typeView && this.menuTabsSelected === 2 )&& permisoCrear('ajustes/usuarios')">
+          <app-button [form]="'nuevoUsuario'" [title]="'Agregar Usuario'"></app-button>
+          <app-button [form]="'importarUsuario'" [title]="'Importar Usuarios'"></app-button>
+
+        </div>
+
+        <div class="btn-agg" *ngIf="(typeViewMenu && this.menuTabsSelected === 1) && permisoCrear('ajustes/menus')">
+          <app-button class="btn-agg-Users" [form]="'nuevoMenu'" [title]="'Agregar Menú'"></app-button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Seccion NavTab -->
+    <nav class="navSection">
+
+      <div class="containerNavOptions" id="menu"  >
+
+        <div class="container-button" id="nav-home-tab">
+          <button class="nav-link {{this.menuTabsSelected === 0 ? 'active' : isValue == 1  }} " id="nav-home-tab" *ngIf="permisoVer('ajustes/cuenta')"
+            [routerLink]="'/ajustes/'+ baseUrl + 'cuenta'" type="button">
+
+            Mi cuenta
+          </button>
+        </div>
+
+        <div class="container-button" id="nav-profile-tab">
+          <button class="nav-link {{this.menuTabsSelected === 1 ? 'active' : isValue == 2 }}" id="nav-profile-tab" *ngIf="permisoVer('ajustes/menus')"
+          [routerLink]="'/ajustes/'+ baseUrl + 'menus'"
+          type="button">
+            Menús
+          </button>
+        </div>
+
+        <div class="container-button" id="nav-contact-tab">
+          <button class="nav-link {{this.menuTabsSelected === 2 ? 'active' : isValue == 3}}" id="nav-contact-tab" *ngIf="permisoVer('ajustes/usuarios')"
+            [routerLink]="'/ajustes/'+baseUrl+'usuarios'" type="button">
+            Usuarios
+          </button>
+        </div>
+
+        <div class="container-button" id="nav-roles-tab"
+
+        >
+          <button class="nav-link {{this.menuTabsSelected === 3 ? 'active' : isValue == 4 }}" id="nav-roles-tab" *ngIf="permisoVer('ajustes/roles')"
+            [routerLink]="'/ajustes/'+baseUrl+'roles'" type="button"
+
+            >
+
+            Roles
+          </button>
+        </div>
+
+      </div>
+
+    </nav>
+
+    <!-- Seccion Contenido a mostrar del navTab -->
+    <div class="containerContent">
+
+      <div class="tab-pane fade" id="nav-home" *ngIf=" this.menuTabsSelected === 0">
+        <app-mostrar-cuenta></app-mostrar-cuenta>
+      </div>
+
+      <div class="tab-pane fade" id="nav-profile" *ngIf="this.menuTabsSelected === 1" typeViewMenu=true>
+        <div class="containerBtnAgregar" *ngIf=" this.menuTabsSelected === 1">
+
+
+
+          <div class="component">
+            <app-mostrar-menus *ngIf="typeViewMenu"></app-mostrar-menus>
+            <app-mostrar-submenu *ngIf="!typeViewMenu "></app-mostrar-submenu>
+          </div>
+
+
+
+        </div>
+
+      </div>
+
+      <div class="tab-pane fade" id="nav-contact" *ngIf="this.menuTabsSelected === 2" typeView=true>
+
+        <div class="containerBtnAgregar" *ngIf=" this.menuTabsSelected === 2 ">
+
+          <div class="component">
+            <app-mostrar-usuarios *ngIf="typeView"></app-mostrar-usuarios>
+            <app-mostrar-per-rol *ngIf="!typeView "></app-mostrar-per-rol>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="tab-pane fade" id="nav-roles" *ngIf="this.menuTabsSelected === 3">
+
+        <div class="containerBtnAgregar">
+          <app-mostrar-roles></app-mostrar-roles>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

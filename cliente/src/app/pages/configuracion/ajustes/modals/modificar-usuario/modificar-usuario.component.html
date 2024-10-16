@@ -1,0 +1,70 @@
+<div class="body-Form">
+
+    <form [formGroup]="myForm" class="formFather" >
+
+      <div class="container-DataInfoFind">
+
+        <div class="container-BodyData">
+
+          <div class="container-Left">
+
+            <div class="containerInfo">
+              <label for="nombre">Nombres</label>
+              <div class="container-Input">
+                <input type="text" formControlName="per_nombre" name="nombre" id="nombre"
+                [attr.disabled]="true"  required>
+              </div>
+            </div>
+
+            <div class="containerInfo">
+              <label for="correo">Correo</label>
+              <div class="container-Input">
+                <input type="text" formControlName="per_email" name="correo"  id="correo"
+                [attr.disabled]="true" placeholder="Ingrese el correo" required>
+              </div>
+            </div>
+
+            <div class="containerInfo">
+              <label for="cargo">Cargo</label>
+              <div class="container-Input">
+                <input type="text" class="inp-info" formControlName="per_cargo" placeholder="Ingrese el cargo" required >
+               
+              </div>
+            </div>
+
+          </div>
+
+          <div class="container-Right">
+
+            <div class="containerInfo">
+                <label for="apellido">Apellidos</label>
+                <div class="container-Input">
+                  <input type="text" formControlName="per_apellidos" name="apellido" id="apellido"
+                  [attr.disabled]="true"  required>
+                </div>
+
+            </div>
+
+            <div class="containerInfo">
+              <label for="telefono">Teléfono</label>
+              <div class="container-Input">
+                <input class="inp-info" oninput="this.value = this.value.replace(/[^0-9]/g, '')" type="text" name="telefono" id="telefono" formControlName="per_telefono" placeholder="Ingrese el teléfono" required>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+        <div class="cont">
+          <button type="submit" class="btn-primary-add"
+            [disabled]="myForm.invalid"
+            (click)="modifyUsuario()" >Guardar</button>
+        </div>
+
+
+
+    </form>
+  </div>

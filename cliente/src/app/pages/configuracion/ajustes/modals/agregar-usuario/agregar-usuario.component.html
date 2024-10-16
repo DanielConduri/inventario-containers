@@ -1,0 +1,91 @@
+<div class="body-Form">
+
+  <form [formGroup]="myForm" class="formFather">
+
+    <div class="container-DataInfoFind">
+
+      <div class="cont search">
+
+        <div class="containerInfo">
+          <label for="text">Buscar Cédula:</label>
+        </div>
+
+        <div class="search-BarBtn">
+          <input type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-control" placeholder="0000000000" formControlName="per_cedula" />
+          <button type="submit" class="btnSearch"
+          [disabled]="!myForm.value.per_cedula" (click)="obtenerDatosCentralizada(myForm.get('per_cedula')!.value)">
+          <i class="material-icons">search</i>
+          </button>
+        </div>
+
+      </div>
+
+
+      <div class="container-BodyData">
+        <div class="container-Left">
+          <div class="containerInfo">
+            <label for="nombre">Nombres</label>
+            <div class="container-Input">
+              <input type="text" name="nombre" id="nombre" formControlName="per_nombre"
+              [attr.disabled]="true"  required>
+            </div>
+          </div>
+
+          <div class="containerInfo">
+            <label for="correo">Correo</label>
+            <div class="container-Input">
+              <input type="text" name="correo" id="correo" formControlName="per_correo"
+              [attr.disabled]="true" required>
+            </div>
+          </div>
+
+          <div class="containerInfo">
+            <label for="cargo">Cargo</label>
+            <div class="container-Input">
+              <input type="text" class="inp-info" formControlName="per_cargo" placeholder="Ingrese el cargo" required >
+            </div>
+          </div>
+
+        </div>
+
+        <div class="container-Right">
+          <div class="containerInfo">
+            <label for="apellido">Apellidos</label>
+            <div class="container-Input">
+              <input type="text" name="apellido" id="apellido" formControlName="per_apellidos"
+              [attr.disabled]="true"  required>
+            </div>
+          </div>
+
+          <div class="containerInfo">
+            <label for="text">Estado</label>
+            <div class="container-Select">
+              <select name="estado" id="estado" [attr.disabled]="true">
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="containerInfo">
+            <label for="telefono">Teléfono</label>
+            <div class="container-Input">
+              <input class="inp-info" oninput="this.value = this.value.replace(/[^0-9]/g, '')" type="text" name="telefono" id="telefono" formControlName="per_telefono" placeholder="Ingrese el teléfono">
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+      <div class="cont">
+        <button  type="submit" class="btn-primary-add" (click)="agregarUsuario()"
+          [disabled]="myForm.invalid">Guardar</button>
+      </div>
+
+
+  </form>
+</div>

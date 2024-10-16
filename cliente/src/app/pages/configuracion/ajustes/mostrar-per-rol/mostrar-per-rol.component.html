@@ -1,0 +1,149 @@
+<div class="container-per-rol" >
+    <div >
+        <button class="btn-usuario"  (click)="returnView(true)" > <i class="material-icons"> arrow_back </i> Regresar</button>
+    </div>
+    <div class="container-info" >
+
+            <div class="cont int-name" >
+                <div class="cont icon" > 
+                    <i class="material-icons">account_circle</i>
+                </div>  
+                <div class="cont fullname">
+                    <div class="profile-Name">
+                        <p>Nombre</p>
+                        <h1 class="names" >
+                            {{srvPersonas.datosUser.str_per_nombres}}
+                        </h1>
+                    </div>
+                    <div>
+                        <h1 class="lastname" >
+                            {{srvPersonas.datosUser.str_per_apellidos}}
+                        </h1>
+                    </div>
+                    <div class="cont email">
+                        <h4>
+                           {{srvPersonas.datosUser.str_per_email}}
+                        </h4>
+                    </div>  
+                </div>
+            </div> 
+       
+        <div class="profile-Info">
+
+            <div class="cont subtitle" >
+                <p class="p-Title">Cargo</p>
+            </div>
+
+            <div>
+                <p class="p-Content"> {{srvPersonas.datosUser.str_per_cargo}} </p>
+            </div>
+
+            <div class="cont subtitle" >
+                <p class="p-Title">Cédula</p>
+            </div>
+
+            <div>
+                <p class="p-Content"> {{srvPersonas.datosUser.str_per_cedula}} </p>
+            </div>
+
+            <div class="cont subtitle" >
+                <p class="p-Title">Tipo</p>
+            </div>
+
+            <div>
+              <p class="p-Content"> {{srvPersonas.datosUser.str_per_tipo}} </p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="cont title-add" >
+        <div class="cont title-table" >  
+            <p>
+                Roles del Usuario
+            </p>
+        </div>
+        
+        <button *ngIf="permiso.bln_crear" class="btn-usuario" (click)="addRol('Agregar Rol', 'rolPerfil')" >
+            <i class="material-icons"> add </i> Agregar Rol
+        </button>
+       </div>
+<!--
+    CONTENEDERORES PARA LA TABLA
+-->
+        
+<div class="tabla-cuerpo">
+    <table class="table table-striped tabla-estilos">
+        
+        <thead>
+            <tr class="encabezado">
+                <th >
+                    <div class="d-flex">   #   </div>
+                </th>
+                <th>
+                    <div class="d-flex">Rol</div> 
+                </th>
+                <th>
+                    <div class="d-flex">Descripción Rol</div> 
+                </th>
+                <th>
+                    <div class="d-flex">Dependencia</div> 
+                </th>
+                <th>
+                    <div class="d-flex">Estado</div> 
+                </th>
+                <th *ngIf="permiso.bln_eliminar || permiso.bln_editar">
+                    <div class="d-flex">Acciones</div>  
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let perf of srvPersonas.datosPerfiles, let i = index " >
+                
+                <td> {{i+1}} </td>
+                <td  > {{perf.str_rol_nombre }} </td>
+                <td> {{perf.str_rol_descripcion }} </td>
+                <td> {{perf.str_perfil_dependencia }} </td>
+                <td *ngIf="perf.str_perfil_estado==='ACTIVO'" > 
+                    <div class="estado">
+                        <div class="activo">
+                            {{perf.str_perfil_estado }} 
+                        </div>
+                    </div>
+                </td>
+                <td *ngIf="perf.str_perfil_estado==='INACTIVO'" > 
+                    <div class="estado">
+                        <div class="inactivo">
+                            {{perf.str_perfil_estado }} 
+                        </div>
+                    </div>
+                </td>
+
+                <td *ngIf="permiso.bln_eliminar || permiso.bln_editar">   
+                    
+                    <button *ngIf="permiso.bln_editar" class="btn btn-primary" 
+                     (click)="editPermissions(perf.int_perfil_id, 'Edición de Permisos','editarPermisos')" >
+                         <i class="material-icons"> more_horiz </i>
+                    </button>
+
+                    <button *ngIf="permiso.bln_editar" class="btn btn-primary"
+                    (click)="editPorfile(perf.int_perfil_id, 'Modificar Perfil', 'editarPerfil' )"
+    
+                    > <i class="material-icons"> create </i>
+                  </button>
+
+                    <button class="btn btn-danger" 
+                    *ngIf="permiso.bln_eliminar && perf.str_perfil_estado==='ACTIVO'"
+                    (click)="changeStatus(perf.int_perfil_id)" 
+                    ><i class="material-icons"> delete </i> </button>
+                    <button class="btn btn-loop" 
+                    *ngIf="permiso.bln_eliminar && perf.str_perfil_estado==='INACTIVO'"
+                    (click)="changeStatus(perf.int_perfil_id)" 
+                    ><i class="material-icons"> loop </i> </button>
+                </td>
+            </tr>
+        </tbody>
+    
+    </table>
+    </div>
+</div>

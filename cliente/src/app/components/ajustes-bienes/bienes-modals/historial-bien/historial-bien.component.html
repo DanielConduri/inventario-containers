@@ -1,0 +1,356 @@
+<div class="body-Form">
+  <div class="tableBo">
+    <h3>Informacion del Bien - {{this.codBien}}</h3>
+    <!-- <table class="table table-striped table-estilos" *ngFor="let info of srvInventario.historicoBien, let i = index">
+      <thead>
+        <tr class="encabezado">
+          <th>
+            <div class="d-flex">Titulo</div>
+          </th>
+          <th>
+            <div class="d-flex">Descripcion</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="container-Row">
+          <td>Codigo del Bien</td>
+          <td>{{info.str_codigo_bien_cod}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Numero de Acta</td>
+          <td>{{info.int_bien_numero_acta}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>BLD / BCA</td>
+          <td>{{info.str_bien_bld_bca}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Nombre del Bien</td>
+          <td >{{info.str_catalogo_bien_descripcion}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>ID de Catalogo</td>
+          <td>{{info.str_catalogo_bien_id_bien}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Serie del Bien</td>
+          <td >{{info.str_bien_serie}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Modelo del Bien</td>
+          <td >{{info.str_bien_modelo}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Marca del Bien</td>
+          <td >{{info.str_marca_nombre}}</td>
+        </tr>
+        <tr>
+          <td>Critico</td>
+          <td>{{info.str_bien_critico}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Numero de Compromiso</td>
+          <td>{{info.str_bien_numero_compromiso}}</td>
+        </tr>
+        <tr>
+          <td>Valor Compra</td>
+          <td>{{info.str_bien_valor_compra}}</td>
+        </tr>
+        <tr>
+          <td>Recompra</td>
+          <td>{{info.str_bien_recompra}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Color del Bien</td>
+          <td >{{info.str_bien_color}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Material del Bien</td>
+          <td >{{info.str_bien_material}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Dimensiones del Bien</td>
+          <td >{{info.str_bien_dimensiones}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Condicion del Bien</td>
+          <td >{{info.str_condicion_bien_nombre}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Disponibilidad del Bien</td>
+          <td >{{info.str_bien_habilitado}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Estado Acta del Bien</td>
+          <td >{{info.str_bien_estado_acta}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Acta Contabilizada</td>
+          <td>{{info.str_bien_contabilizado_acta}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Bien Contabilizado</td>
+          <td>{{info.str_bien_contabilizado_bien}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Origen de Ingreso</td>
+          <td >{{info.str_bien_origen_ingreso}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Estado</td>
+          <td>{{info.str_bien_estado}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Tipo de Ingreso</td>
+          <td >{{info.str_bien_tipo_ingreso}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Serie del Bien</td>
+          <td > {{info.str_bien_serie}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Estado Logico del Bien</td>
+          <td >{{info.str_bien_estado_logico}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Fecha Compra del Bien</td>
+          <td >{{info.dt_bien_fecha_compra}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Fecha Compra Interno del Bien</td>
+          <td>{{info.dt_bien_fecha_compra_interno}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Fecha de registro del Bien</td>
+          <td >{{info.dt_bien_fecha_compra}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Descripcion de Condicion</td>
+          <td > {{info.str_condicion_bien_nombre}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Custodio Activo</td>
+          <td>{{info.str_custodio_activo}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Cedula Custodio</td>
+          <td>{{info.str_custodio_cedula}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Custodio Nombres</td>
+          <td>{{info.str_custodio_nombre}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Custodio Interno Nombres</td>
+          <td>{{info.str_custodio_nombre_interno}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Descripcion del Bien</td>
+          <td>{{info.str_bien_descripcion}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Nombre de Bodega</td>
+          <td>{{info.str_bodega_nombre}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Ubicacion del Bien</td>
+          <td >{{info.str_ubicacion_nombre}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Ubicacion Interna del Bien</td>
+          <td >{{info.str_ubicacion_nombre_interno}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Garantia</td>
+          <td>{{info.str_bien_garantia}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Años de Garantia</td>
+          <td>{{info.int_bien_anios_garantia}}</td>
+        </tr>
+      </tbody>
+    </table> -->
+    <mat-accordion *ngFor="let info of srvInventario.historicoBien, let i = index">
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Historico del Bien #{{i+1}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <table class="table table-striped table-estilos">
+          <thead>
+            <tr class="encabezado">
+              <th>
+                <div class="d-flex">Titulo</div>
+              </th>
+              <th>
+                <div class="d-flex">Descripcion</div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="container-Row">
+              <td>Codigo del Bien</td>
+              <td>{{info.str_codigo_bien_cod}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Numero de Acta</td>
+              <td>{{info.int_bien_numero_acta}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>BLD / BCA</td>
+              <td>{{info.str_bien_bld_bca}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Nombre del Bien</td>
+              <td >{{info.str_catalogo_bien_descripcion}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>ID de Catalogo</td>
+              <td>{{info.str_catalogo_bien_id_bien}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Serie del Bien</td>
+              <td >{{info.str_bien_serie}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Modelo del Bien</td>
+              <td >{{info.str_bien_modelo}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Marca del Bien</td>
+              <td >{{info.str_marca_nombre}}</td>
+            </tr>
+            <tr>
+              <td>Critico</td>
+              <td>{{info.str_bien_critico}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Numero de Compromiso</td>
+              <td>{{info.str_bien_numero_compromiso}}</td>
+            </tr>
+            <tr>
+              <td>Valor Compra</td>
+              <td>{{info.str_bien_valor_compra}}</td>
+            </tr>
+            <tr>
+              <td>Recompra</td>
+              <td>{{info.str_bien_recompra}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Color del Bien</td>
+              <td >{{info.str_bien_color}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Material del Bien</td>
+              <td >{{info.str_bien_material}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Dimensiones del Bien</td>
+              <td >{{info.str_bien_dimensiones}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Condicion del Bien</td>
+              <td >{{info.str_condicion_bien_nombre}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Disponibilidad del Bien</td>
+              <td >{{info.str_bien_habilitado}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Estado Acta del Bien</td>
+              <td >{{info.str_bien_estado_acta}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Acta Contabilizada</td>
+              <td>{{info.str_bien_contabilizado_acta}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Bien Contabilizado</td>
+              <td>{{info.str_bien_contabilizado_bien}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Origen de Ingreso</td>
+              <td >{{info.str_bien_origen_ingreso}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Estado</td>
+              <td>{{info.str_bien_estado}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Tipo de Ingreso</td>
+              <td >{{info.str_bien_tipo_ingreso}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Serie del Bien</td>
+              <td > {{info.str_bien_serie}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Estado Logico del Bien</td>
+              <td >{{info.str_bien_estado_logico}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Fecha Compra del Bien</td>
+              <td >{{info.dt_bien_fecha_compra}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Fecha Compra Interno del Bien</td>
+              <td>{{info.dt_bien_fecha_compra_interno}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Fecha de registro del Bien</td>
+              <td >{{info.dt_bien_fecha_compra}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Descripcion de Condicion</td>
+              <td > {{info.str_condicion_bien_nombre}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Custodio Activo</td>
+              <td>{{info.str_custodio_activo}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Cedula Custodio</td>
+              <td>{{info.str_custodio_cedula}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Custodio Nombres</td>
+              <td>{{info.str_custodio_nombre}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Custodio Interno Nombres</td>
+              <td>{{info.str_custodio_nombre_interno}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Descripcion del Bien</td>
+              <td>{{info.str_bien_descripcion}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Nombre de Bodega</td>
+              <td>{{info.str_bodega_nombre}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Ubicacion del Bien</td>
+              <td >{{info.str_ubicacion_nombre}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Ubicacion Interna del Bien</td>
+              <td >{{info.str_ubicacion_nombre_interno}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Garantia</td>
+              <td>{{info.str_bien_garantia}}</td>
+            </tr>
+            <tr class="container-Row">
+              <td>Años de Garantia</td>
+              <td>{{info.int_bien_anios_garantia}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</div>

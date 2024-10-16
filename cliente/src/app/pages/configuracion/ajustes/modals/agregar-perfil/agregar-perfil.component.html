@@ -1,0 +1,37 @@
+<div class="body-Form">
+
+  <form [formGroup]="myForm" class="formFather">
+
+    <div class="container-DataInfoFind">
+
+      <div class="containerInfo">
+        <label for="text"> Seleccione un Rol:</label>
+        <div class="container-Select">
+          <select formControlName="str_rol_nombre">
+            <option [selected]="true" placeholder="Seleccione un Rol" select disabled>Seleccione un Rol</option>
+            <option *ngFor="let op of rolNombre, let i = index " [value]="op">
+              {{op}}
+            </option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="containerInfo">
+        <label for="dependencia">Dependencia</label>
+        <div class="container-Input">
+          <input type="text" name="dependencia" id="dependencia" required placeholder="Ingrese la Dependencia"
+            formControlName="str_rol_dependencia">
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="cont">
+      <button (keydown.enter)="addProfile()" type="submit" class="btn-primary-add" (click)="addProfile()"
+        [disabled]="myForm.invalid">Guardar</button>
+    </div>
+
+  </form>
+</div>

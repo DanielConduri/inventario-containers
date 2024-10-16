@@ -1,0 +1,964 @@
+<div class="body-Form">
+  <form [formGroup]="myForm" action="">
+
+    <h3>Información Ubicacion</h3>
+    <div class="container-DataInfoFind">
+
+      <div class="container-Find filtradoContainer">
+        <div class="containerInfo">
+          <label for="">Buscar Centro</label>
+          <div class="container-Input">
+            <input
+              class=""
+              id="inp-Centro"
+              type="text"
+              autocomplete="off"
+              (input)="changeCentro($event)"
+              placeholder="DIGITE NOMBRE CENTRO"
+              formControlName="str_centro_nombre"
+              required
+              >
+          </div>
+        </div>
+      </div>
+
+      <div class="container-BodyData">
+
+        <div class="container-Left">
+
+          <div class="containerInfo">
+            <label for="">Tipo Centro*</label>
+            <div class="container-Input">
+              <input
+              type="text"
+              placeholder="TIPO DE CENTRO"
+              formControlName="str_centro_tipo_nombre"
+              [attr.disabled]="true"
+
+              >
+            </div>
+          </div>
+
+          <div class="containerInfo">
+            <label for="">Nombre Centro*</label>
+            <div class="container-Input">
+              <input
+              type="text"
+              placeholder="NOMBRE DEL CENTRO"
+              formControlName="str_centro_nombre"
+              [attr.disabled]="true"
+              required
+              >
+            </div>
+          </div>
+
+          <div class="containerInfo" *ngIf="dataCentros.str_centro_tipo_nombre === 'ACADÉMICO'">
+            <label for="">Facultad*</label>
+            <div class="container-Input">
+              <input
+              type="text"
+              placeholder="FACULTAD"
+              formControlName="str_centro_nombre_facultad"
+              [attr.disabled]="true"
+
+              >
+            </div>
+          </div>
+
+          <div class="containerInfo" *ngIf="dataCentros.str_centro_tipo_nombre === 'ADMINISTRATIVO'">
+            <label for="">Dependencia*</label>
+            <div class="container-Input">
+              <input
+              type="text"
+              placeholder="DEPENDENCIA"
+              formControlName="str_centro_nombre_dependencia"
+              [attr.disabled]="true"
+
+              >
+            </div>
+          </div>
+
+        </div>
+
+        <div class="container-Right">
+
+          <div class="containerInfo">
+            <label for="">Sede Centro*</label>
+            <div class="container-Input">
+              <input
+              type="text"
+              placeholder="SEDE DEL CENTRO"
+              formControlName="str_centro_nombre_sede"
+              [attr.disabled]="true"
+
+              >
+            </div>
+          </div>
+
+          <div class="containerInfo" *ngIf="dataCentros.str_centro_tipo_nombre === 'ACADÉMICO'">
+            <label for="">Carrera*</label>
+            <div class="container-Input">
+              <input
+              type="text"
+              placeholder="CARRERA"
+              formControlName="str_centro_nombre_carrera"
+              [attr.disabled]="true"
+
+              >
+            </div>
+          </div>
+
+          <div class="containerInfo" *ngIf="dataCentros.str_centro_tipo_nombre === 'ADMINISTRATIVO'">
+            <label for="">Proceso*</label>
+            <div class="container-Input">
+              <input
+              type="text"
+              placeholder="PROCESO"
+              formControlName="str_centro_nombre_proceso"
+              [attr.disabled]="true"
+
+              >
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- APARTADO DE CATALOGO -->
+    <h3>Información Catálogo</h3>
+    <div  class="container-DataInfoFind">
+      <div class="container-Find filtradoContainer">
+        <div class="containerInfo">
+          <label for="">Buscar Catálogo</label>
+          <div class="container-Input">
+            <input
+            class=""
+            id="inp-Catalogo"
+            type="text"
+            autocomplete="off"
+            (input)="changeCatalogo($event)"
+            placeholder="DIGITE ID / NOMBRE CATALOGO"
+            formControlName="str_catalogo_bien_descripcion"
+              >
+          </div>
+        </div>
+      </div>
+
+      <div class="container-BodyData">
+        <div class="container-Left">
+          <div class="containerInfo">
+            <label for="">Identificador*</label>
+            <div class="container-Input">
+              <input
+              type="text"
+              placeholder="IDENTIFICADOR CATALOGO"
+              formControlName="str_catalogo_bien_id_bien"
+              [attr.disabled]="true"
+              required
+              >
+            </div>
+          </div>
+        </div>
+
+        <div class="container-Right">
+          <div class="containerInfo">
+            <label for="">Descripción Catálogo*</label>
+            <div class="container-Input">
+              <input
+              type="text"
+              placeholder="DESCRIPCION CATALOGO"
+              formControlName="str_catalogo_bien_descripcion"
+              [attr.disabled]="true"
+              required
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <!-- Apartado de Busqueda de marca -->
+    <h3>Información Marca</h3>
+    <div  class="container-DataInfoFind">
+      <div class="container-Find filtradoContainer">
+        <div class="containerInfo">
+          <label for="">Buscar Marca*</label>
+          <div class="container-Input">
+            <input
+            class=""
+            id="inp-Marca"
+            type="text"
+            autocomplete="off"
+            (input)="changeMarca($event)"
+            placeholder="DIGITE NOMBRE MARCA"
+              >
+          </div>
+        </div>
+      </div>
+
+      <div class="container-BodyData">
+        <div class="container-Left">
+          <div class="containerInfo">
+            <label for="">Nombre Marca*</label>
+            <div class="container-Input">
+              <input
+              type="text"
+              placeholder="NOMBRE DE MARCA"
+              formControlName="str_marca_nombre"
+              [attr.disabled]="true"
+              required
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- APARTADO DE INFORMACION GENERAL DEL BIEN -->
+
+    <h3>Información General</h3>
+    <div class="container-DataInfo">
+
+      <div class="container-Left">
+
+        <div class="containerInfo">
+          <label for="">Código del Bien*</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="CÓDIGO DEL BIEN"
+              formControlName="str_codigo_bien_cod"
+              required
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">BLD / BCA</label>
+          <div class="container-Select">
+            <select formControlName="str_bien_bld_bca" name="" id="">
+              <option value="">SELECCIONE</option>
+              <option value="BLD">BLD</option>
+              <option value="BCA">BCA</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Modelo*</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="MODELO DEL BIEN"
+              formControlName="str_bien_modelo"
+              required
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Crítico</label>
+          <div class="container-Select">
+            <select formControlName="str_bien_critico" name="" id="">
+              <option value="">SELECCIONE</option>
+              <option value="SI">SÍ</option>
+              <option value="NO">NO</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Valor Compra*</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="VALOR DE COMPRA"
+              formControlName="str_bien_valor_compra"
+              required
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Color*</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="COLOR DEL BIEN"
+              formControlName="str_bien_color"
+              required
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Dimensiones</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="DIMENSIONES DEL BIEN"
+              formControlName="str_bien_dimensiones"
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Habilitado</label>
+          <div class="container-Select">
+            <select formControlName="str_bien_habilitado" name="" id="">
+              <option value="">SELECCIONE</option>
+              <option value="SI">SÍ</option>
+              <option value="NO">NO</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Origen ingreso*</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="ORIGEN DE INGRESO"
+              formControlName="str_bien_origen_ingreso"
+              required
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Nro. Compromiso*</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="NRO. DE COMPROMISO"
+              formControlName="str_bien_numero_compromiso"
+              required
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Acta Contabilizada</label>
+          <div class="container-Select">
+            <select formControlName="str_bien_contabilizado_acta" name="" id="">
+              <option value="">SELECCIONE</option>
+              <option value="SI">SÍ</option>
+              <option value="NO">NO</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Descripción*</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="DESCRIPCIÓN"
+              formControlName="str_bien_descripcion"
+              required
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Cuenta Contable</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="CUENTA CONTABLE"
+              formControlName="str_campo_bien_cuenta_contable"
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Vida Util*</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="VIDA UTIL"
+              formControlName="int_campo_bien_vida_util"
+              required
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Valor Contable*</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="VALRO CONTABLE"
+              formControlName="str_campo_bien_valor_contable"
+              required
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Valor en Libros</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="VALOR EN LIBROS"
+              formControlName="str_campo_bien_valor_libros"
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Nro. Acta*</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="NRO. ACTA"
+              formControlName="int_bien_numero_acta"
+              required
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Serie / Identificación*</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="SERIE / IDENTIFICACIÓN"
+              formControlName="str_bien_serie"
+              required
+              >
+          </div>
+        </div>
+
+      </div>
+
+      <div class="container-Right">
+
+        <div class="containerInfo">
+          <label for="">Moneda</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="MONEDA"
+              formControlName="str_bien_moneda"
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Recompra</label>
+          <div class="container-Select">
+            <select formControlName="str_bien_recompra" name="" id="">
+              <option value="">SELECCIONE</option>
+              <option value="SI">SÍ</option>
+              <option value="NO">NO</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Material</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="MATERIAL"
+              formControlName="str_bien_material"
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Condición*</label>
+          <div class="container-Select">
+            <select
+              name=""
+              id=""
+              formControlName="str_condicion_bien_nombre"
+              required>
+              <option [selected]="true" disabled hidden>SELECCIONE CONDICIÓN</option>
+              <option
+              *ngFor="let estado of estadoNombre, let i = index"
+              [value]="estado.int_estado_bien_id" >{{estado.str_estado_bien_nombre}}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Estado</label>
+          <div class="container-Select">
+            <select formControlName="str_bien_estado" name="" id="">
+              <option value="">SELECCIONE</option>
+              <option value="APROBADO">APROBADO</option>
+              <option value="NO APROBADO">NO APROBADO</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Tipo Ingreso</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="TIPO DE INGRESO"
+              formControlName="str_bien_tipo_ingreso"
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Estado Acta</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="ESTADO DE ACTA"
+              formControlName="str_bien_estado_acta"
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Bien Contabilizado</label>
+          <div  class="container-Select">
+            <select formControlName="str_bien_contabilizado_bien" name="" id="">
+              <option value="">SELECCIONE</option>
+              <option value="SI">SÍ</option>
+              <option value="NO">NO</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Item / Renglon*</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="ITEM / RENGLÓN"
+              formControlName="int_campo_bien_item_reglon"
+              required
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Bien Depreciable</label>
+          <div class="container-Select">
+            <select formControlName="str_campo_bien_depreciable" name="" id="">
+              <option value="">SELECCIONE</option>
+              <option value="SI">SÍ</option>
+              <option value="NO">NO</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Fecha de Compra / Fecha Ingreso*</label>
+          <div class="container-Input">
+            <input
+              type="date"
+              name=""
+              id=""
+              #dateInput
+              formControlName="dt_bien_fecha_compra"
+              (input)="onDateInput($event)"
+              required>
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Fecha última Depreciación*</label>
+          <div class="container-Input">
+            <input
+              type="date"
+              name=""
+              id=""
+              #dateInput
+              formControlName="str_fecha_ultima_depreciacion"
+              required>
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Fecha fin Depreciación*</label>
+          <div class="container-Input">
+            <input
+              type="date"
+              name=""
+              id=""
+              #dateInput
+              formControlName="str_campo_bien_fecha_termino_depreciacion"
+              required>
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Valor Residual</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="VALOR RESIDUAL"
+              formControlName="str_campo_bien_valor_residual"
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Valor depreciación acumulado</label>
+          <div class="container-Input">
+            <input
+              type=""
+              placeholder="VALOR DEPRECIACIÓN ACUMULADO"
+              formControlName="str_bien_deprecicacion_acumulada"
+              >
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Comodato</label>
+          <div class="container-Select">
+            <select  formControlName="str_campo_bien_comodato" name="" id="">
+              <option value="">SELECCIONE</option>
+              <option value="SI">SÍ</option>
+              <option value="NO">NO</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- APARTADO DE GARANTIA -->
+    <h3>Información de Garantía</h3>
+    <div class="container-DataInfo">
+
+      <div class="container-Left">
+
+        <div class="containerInfo">
+          <label for="">Garantía*</label>
+          <div class="container-Input">
+            <select
+              name=""
+              id=""
+              #selectElement
+              (change)="changeValueGarantia($event)"
+              [disabled]="this.disabledSelectGarantia == true"
+              formControlName="str_bien_garantia"
+              required
+              >
+              <option value="" selected disabled hidden>SELECCIONE GARANTIA</option>
+              <option value="SI">SI</option>
+              <option value="NO">NO</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label for="">Fecha de Fin</label>
+          <div class="container-Input">
+            <input
+              type="date"
+              [attr.disabled]="true"
+              #dateInputFin
+              >
+          </div>
+        </div>
+
+      </div>
+
+      <div class="container-Right">
+        <div class="containerInfo">
+          <label for="">Años de Garantía*</label>
+          <div class="container-Input">
+            <input
+              type="number"
+              placeholder=""
+              formControlName="int_bien_anios_garantia"
+              #numberInput
+              (input)="onNumberInput($event)"
+              [disabled]="this.disabledSelect">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- APARTADO DE PROVEEDOR -->
+    <h3>Información de Proveedor</h3>
+    <div class="container-DataInfoFind">
+
+      <div class="container-Find filtradoContainer">
+        <div class="containerInfo">
+          <label for="">Buscar Proveedor</label>
+          <div class="container-Input">
+            <input
+              class="inp-Seacrh filtradoContainer"
+              id="inp-Proveedor"
+              autocomplete="off"
+              type="text"
+              placeholder="DIGITE RUC/NOMBRE"
+              (input)="changeProveedor($event)"
+              formControlName="str_proveedor_nombre"
+              >
+          </div>
+        </div>
+      </div>
+
+      <div class="container-BodyData">
+
+        <div class="container-Left">
+          <div class="containerInfo">
+            <label for="">RUC de Proveedor*</label>
+            <div class="container-Input">
+              <input
+                type="text"
+                placeholder="0000000000000"
+                [attr.disabled]="true"
+                formControlName="str_proveedor_ruc"
+                required
+                >
+            </div>
+          </div>
+        </div>
+
+        <div class="container-Right">
+          <div class="containerInfo">
+            <label for="">Nombre Proveedor*</label>
+            <div class="container-Input" >
+                <input
+                  type="text"
+                  placeholder="NOMBRE DEL PROVEEDOR"
+                  formControlName="str_proveedor_nombre"
+                  [attr.disabled]="true"
+                  required
+                  >
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- APARTADO DE CUSTODIO -->
+    <h3>Información de Custodio</h3>
+    <div class="container-DataInfoFind">
+
+        <div class="container-Find">
+          <div class="containerInfo filtradoContainer">
+            <label for="">Buscar Usuario</label>
+            <div class="container-Input">
+              <input
+                class="inp-Seacrh filtradoContainer"
+                id="inp-Custodio"
+                autocomplete="off"
+                type="text"
+                (input)="changeCustodio($event)"
+                placeholder="DIGITE CEDULA/APELLIDO">
+            </div>
+          </div>
+
+          <!-- <div class="container-Actions">
+            <button class="btn-Add">
+              <i class="material-icons">add</i>
+            </button>
+
+            <button class="btn-Clear">
+              <i class="material-icons">loop</i>
+            </button>
+          </div> -->
+
+      </div>
+
+      <div class="container-BodyData">
+
+        <div class="container-Left">
+          <div class="containerInfo">
+            <label for="">Número de Cédula*</label>
+            <div class="container-Input">
+              <input type="text" placeholder="0000000000" formControlName="str_per_cedula" [attr.disabled]="true" required>
+            </div>
+          </div>
+
+          <div class="containerInfo">
+            <label for="">Nombre Custodio*</label>
+            <div class="container-Input">
+              <input type="text" placeholder="NOMBRE DEL CUSTODIO" formControlName="str_per_nombres" [attr.disabled]="true" required>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="container-Right">
+
+          <div class="containerInfo">
+            <label for="">Cargo Custodio*</label>
+            <div class="container-Input">
+              <input type="text" placeholder="CARGO DEL CUSTODIO" [attr.disabled]="true">
+            </div>
+          </div>
+
+          <div class="containerInfo">
+            <label for="">Apellido Custodio*</label>
+            <div class="container-Input">
+              <input type="text" placeholder="APELLIDO DEL CUSTODIO" formControlName="str_per_apellidos" [attr.disabled]="true" required>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- APARTADO DE CARACTERISTICAS ADICIONALES -->
+    <h3>Información Adicional del Bien</h3>
+    <form [formGroup]="jsonForm">
+      <div class="container-DataInfoFind">
+        <div class="container-BodyData">
+
+          <div class="container-Left">
+            <div class="containerInfo">
+              <label for="">Clave</label>
+              <div class="container-Input">
+                <input
+                  type="text"
+                  formControlName="key"
+                  #inputKey
+                  id="key"
+                  placeholder="CLAVE INFORMACIÓN"
+                  required
+                  >
+              </div>
+            </div>
+
+            <div class="containerInfo">
+              <label for="">Encargado</label>
+              <div class="container-Input">
+                <input type="text"
+                  formControlName="encargado"
+                  #inputEncargado
+                  id="encargado"
+                  placeholder="ENCARGADO INFORMACIÓN"
+                  required
+                >
+              </div>
+            </div>
+
+          </div>
+
+          <div class="container-Right">
+            <div class="containerInfo">
+              <label for="">Valor</label>
+              <div class="container-Input">
+                <input
+                  type="text"
+                  #inputValue
+                  formControlName="value"
+                  id="value"
+                  placeholder="VALOR INFORMACIÓN"
+                  required
+                  >
+              </div>
+            </div>
+
+            <div class="containerInfo">
+              <label for="">Fecha</label>
+              <div class="container-Input">
+                <input
+                  type="date"
+                  formControlName="fecha"
+                  #inputFecha
+                  id="fecha"
+                  placeholder="{{ fechaActual }}"
+                  [attr.disabled]="true"
+                  value="{{ fechaActual }}"
+                >
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="container-Btns">
+          <button
+            type="submit"
+            class="btn-primary-add"
+            (click)="onSubmit()"
+            [disabled]="jsonForm.invalid"
+            *ngIf="this.disableBtn"
+            >
+              Añadir
+          </button>
+
+          <button
+          class="btn-primary-add"
+          type="submit"
+          (click)="guardarCambios()"
+          [disabled]="jsonForm.invalid"
+          *ngIf="!this.disableBtn"
+          >
+            Guardar Cambios
+          </button>
+
+        </div>
+
+        <div class="container-Table">
+          <table class="table-Fill" *ngIf="this.items.length > 0">
+            <thead>
+              <tr>
+                <th class="table-Left">Clave</th>
+                <th class="table-Left">Valor</th>
+                <th class="table-Left">Encargado</th>
+                <th class="table-Left">Fecha</th>
+                <th class="table-Left">Accion</th>
+              </tr>
+            </thead>
+            <tbody class="tablo-Hover">
+              <tr *ngFor="let item of items; let i = index">
+                <td class="text-Left">{{ item[0].value}}</td>
+                <td class="text-Left">{{ item[1].value }}</td>
+                <td class="text-Left">{{ item[2].value }}</td>
+                <td class="text-Left">{{ item[3].value }}</td>
+
+                <td class="text-Left">
+                  <div class="container-Actions">
+
+                    <button
+                      class="btn-Danger"
+                      (click)="eliminarItem(item)"
+                      [disabled]="!this.disableBtn"
+                      >
+                      <i class="material-icons">delete</i>
+                    </button>
+
+                    <button class="btn-Edit" (click)="editarItem(item)">
+                      <i class="material-icons">edit</i>
+                    </button>
+
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </form>
+
+    <!-- BOTON PARA GUARDAR -->
+    <div class="container-Btns">
+      <button
+      class="btn-primary-add"
+      type="submit"
+      (click)="agregarOtros()"
+      [disabled]="!myForm.valid"
+      >Guardar</button>
+    </div>
+
+  </form>
+</div>

@@ -1,0 +1,8 @@
+
+.env
+uploads
+node_modules
+db.dev.sql
+json.js
+__test__/coverage
+!dist/.env

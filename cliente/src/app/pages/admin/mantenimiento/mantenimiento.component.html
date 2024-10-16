@@ -1,0 +1,189 @@
+<div class="father">
+  <div class="containerBody">
+
+    <!-- Seccion Titulo 'Pantalla de Configuracion' -->
+    <div class="titleConfiguration">
+      <div class="titleButton">
+        <div class="title">
+          <h1>Pantalla de
+            <span style="color:#B41A12 ;">
+              Mantenimiento
+            </span>
+          </h1>
+          <span style="color:rgb(160, 160, 160);
+              font-family: 'Roboto', Arial, sans-serif;
+              font-size: 14px;">
+            Listado de Bienes en Mantenimiento
+          </span>
+        </div>
+
+        <div class="buttonSetting" >
+
+          <div class="btn-agg-Inventary" *ngIf="this.menuTabsSelected === 0" >
+
+            <!-- <div *ngIf="this.menuTabsSelected === 0">
+              <app-button [form]="''" [title]="'Agregar Mantenimiento'" >
+              </app-button>
+            </div> -->
+
+            <div class="btn-agg-Inventary" *ngIf="this.menuTabInventory === 6 && srvMantenimiento.typeview">
+              <app-button
+              [form]="''"
+              [title]="'Agregar Mantenimiento'"
+              (click)="agg()"
+              >
+              </app-button>
+            </div>
+            <div class="btn-agg-Inventary" *ngIf="this.menuTabInventory === 7">
+              <app-button
+              [form]="'insertarPlanificacion'"
+              [title]="'Agregar Planificacion'"
+              >
+              </app-button>
+            </div>
+
+          </div>
+
+          
+
+          <div class="btn-agg-Inventary" *ngIf="this.menuTabsSelected === 1" >
+            <!-- <div class="btn-agg-Inventary" *ngIf="this.menuTabInventory === 6" >
+              <app-button
+              [form]="'insertarSoporte'"
+              [title]="'Agregar Soporte'"
+              >
+              </app-button>
+            </div>
+            <div class="btn-agg-Inventary" *ngIf="this.menuTabInventory === 7">
+              <app-button
+              [form]="'insertarTipoMantenimiento'"
+              [title]="'Agregar Tipo Mantenimiento'"
+              >
+              </app-button>
+            </div>
+            <div class="btn-agg-Inventary" *ngIf="this.menuTabInventory === 8">
+              <app-button
+              [form]="'insertarNivel'"
+              [title]="'Agregar Nivel'"
+              >
+              </app-button>
+            </div>
+            <div class="btn-agg-Inventary" *ngIf="this.menuTabInventory === 9">
+              <app-button
+              [form]="'insertarEstadoMantenimiento'"
+              [title]="'Agregar Estado Mantenimiento'"
+              >
+              </app-button>
+            </div> -->
+            <!-- <div class="btn-agg-Inventary" *ngIf="this.menuTabInventory === 10">
+              <app-button
+              [form]="'insertarRegistro'"
+              [title]="'Agregar Registro'"
+              >
+              </app-button>
+            </div>
+            <div class="btn-agg-Inventary" *ngIf="this.menuTabInventory === 11">
+              <app-button
+              [form]="'insertarPlanificacion'"
+              [title]="'Agregar Planificacion'"
+              >
+              </app-button>
+            </div> -->
+          </div>
+
+          <div class="btn-agg-Inventary" *ngIf="this.menuTabsSelected === 2"  >
+            <div class="btn-agg-Inventary" *ngIf="this.menuTabInventory === 6" >
+              <app-button
+              [form]="'insertarSoporte'"
+              [title]="'Agregar Soporte'"
+              >
+              </app-button>
+            </div>
+            <div class="btn-agg-Inventary" *ngIf="this.menuTabInventory === 7">
+              <app-button
+              [form]="'insertarTipoMantenimiento'"
+              [title]="'Agregar Tipo Mantenimiento'"
+              >
+              </app-button>
+            </div>
+            <div class="btn-agg-Inventary" *ngIf="this.menuTabInventory === 8">
+              <app-button
+              [form]="'insertarNivel'"
+              [title]="'Agregar Nivel'"
+              >
+              </app-button>
+            </div>
+            <div class="btn-agg-Inventary" *ngIf="this.menuTabInventory === 9">
+              <app-button
+              [form]="'insertarEstadoMantenimiento'"
+              [title]="'Agregar Estado Mantenimiento'"
+              >
+              </app-button>
+            </div>
+          </div >
+
+          
+        </div>
+      </div>
+
+
+
+
+      <nav class="navSection">
+
+        <div class="containerNavOptions" id="menu">
+
+          <div class="container-button" id="nav-Report" *ngIf="permisoVer('mantenimiento/mantenimientos')">
+            <button class="nav-link {{this.menuTabsSelected === 0 ? 'active' : isValue == 0  }} " id="nav-report"
+              [routerLink]="'/mantenimiento/'+ baseUrl + 'mantenimientos'" type="button">
+
+              Mantenimiento
+            </button>
+          </div>
+
+          <!-- <div class="container-button" id="nav-Inform" *ngIf="permisoVer('mantenimiento/caracteres')">
+            <button class="nav-link {{this.menuTabsSelected === 1 ? 'active' : isValue == 1 }}" id="nav-inform"
+              [routerLink]="'/mantenimiento/'+ baseUrl + 'caracteres'" type="button">
+              Caracteristicas
+            </button>
+          </div> -->
+
+          <div class="container-button" id="nav-Report" *ngIf="permisoVer('mantenimiento/administracion')">
+            <button class="nav-link {{this.menuTabsSelected === 2 ? 'active' : isValue == 2 }}" id="nav-inform"
+              [routerLink]="'/mantenimiento/'+ baseUrl + 'administracion'" type="button">
+              Administracion
+            </button>
+          </div>
+
+
+        </div>
+
+
+
+      </nav>
+
+
+      <div class="containerContent">
+
+        <div class="tab-pane fade" id="nav-report" *ngIf=" this.menuTabsSelected === 0">
+          <!-- <app-mostrar-reporte></app-mostrar-reporte> -->
+          <!-- <app-mostrar-mantenimiento *ngIf="srvMantenimiento.typeviw"></app-mostrar-mantenimiento> -->
+          <app-mostrar-caracteres *ngIf="srvMantenimiento.typeviw || !srvMantenimiento.typeviw && !srvMantenimiento.especial" ></app-mostrar-caracteres>
+          <app-agregar-mantenimiento *ngIf="srvMantenimiento.especial"></app-agregar-mantenimiento>
+        </div>
+
+        <!-- <div class="tab-pane fade" id="nav-inform" *ngIf="this.menuTabsSelected === 1" typeView=true>
+          <app-mostrar-caracteres></app-mostrar-caracteres>
+        </div> -->
+
+        <div class="tab-pane fade" id="nav-report" *ngIf="this.menuTabsSelected === 2" typeView=true >
+          <app-mostrar-administracion></app-mostrar-administracion>
+        </div>
+
+
+
+      </div>
+
+    </div>
+  </div>
+</div>

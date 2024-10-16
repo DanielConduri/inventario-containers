@@ -1,0 +1,94 @@
+<nav aria-label="Page navigation example" class="navegacion">
+    <div class="pag">
+        
+      <div *ngIf="loading" class="pulse">
+        <div
+          style="
+            background: #ccc;
+            border-radius: 4px;
+            height: 15px;
+            min-width: 15px;
+          "
+        ></div>
+      </div>
+      <div *ngIf="!loading && metadata && (metadata > 10)">
+        {{
+          metadata
+            ? currentPage * 10 -9 + 
+              " - " +
+              currentPage * 10 
+              +
+              " de " +
+              metadata +
+              " items"
+            : "--"
+        }}
+      </div>
+      <div *ngIf="!loading && metadata <= 10">
+        {{
+          metadata
+            ? metadata + " resultados "
+            : ""
+        }}
+      </div>
+    </div>
+  
+    <ul class="pagination justify-content-end gap-2">
+      <li>
+        <button
+        class="page-link btn btn-h"
+        style="color: #000; padding: 6px 16px"
+        [disabled]="currentPage <= 1"
+        (click)="primeraPagina()"
+        >
+          <span aria-hidden="true"> <i class="material-icons"> skip_previous </i> </span>
+        </button>
+      </li>
+      <li class="page-item">
+        <button
+          class="page-link btn btn-h"
+          title="Pagina anterior"
+          [disabled]="currentPage <= 1"
+          tabindex="-1"
+          (click)="nextPageDir(-1)"
+          style="color: #000; padding: 6px 16px"
+        >
+          <span aria-hidden="true">Anterior</span>
+        </button>
+      </li>
+      <li class="page-item">
+
+        <div class="pageTex" title="Pagina anterior">
+          <span aria-hidden="true">Pag. </span>
+          <select name="" id=""  [(ngModel)]="currentPage" (change)="saltarPagina() ">
+            <option *ngFor="let p of getNumberArray(npage)">{{p}}</option>
+          </select>
+        </div>
+      </li>
+      
+         
+      
+      <li class="page-item">
+        <button
+          title="Next page"
+          class="page-link btn btn-h"
+          [disabled]="metadata != (currentPage * dataLength) && dataLength != 10 || metadata <= 10"
+          (click)="nextPageDir(1)"
+          style="color: #000; padding: 6px 16px"
+        >
+          <span aria-hidden="true">Siguiente</span>
+        </button>
+      </li>
+      <li>
+        <button
+        class="page-link btn btn-h"
+        style="color: #000; padding: 6px 16px"
+        [disabled]="metadata != (currentPage * dataLength) && dataLength != 10 || metadata <= 10"
+        (click)="ultimaPagina()"
+
+        >
+          <span aria-hidden="true"> <i class="material-icons"> skip_next </i> </span>
+        </button>
+      </li>
+    </ul>
+  </nav>

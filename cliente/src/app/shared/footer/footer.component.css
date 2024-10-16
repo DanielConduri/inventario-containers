@@ -1,0 +1,28 @@
+.containerFooter{
+    display: flex;
+    align-items: flex-end;
+    width: 100vw;
+  }
+  
+  .footer{
+    grid-area: footer;
+    font-size: 11px;
+    background-color: rgb(180, 26, 18);
+    color: #FFF;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .footer p{
+    padding: 0;
+    font-weight: 100;
+    font-family: "Roboto", Arial, sans-serif;
+    /* font-size: 1em; */
+    margin: 0 !important;
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+  }

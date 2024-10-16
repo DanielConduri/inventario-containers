@@ -1,0 +1,155 @@
+<div class="body-Form">
+  <form action="" [formGroup]="myForm">
+    <h3>Información Sbay del Bien</h3>
+    <div class="tableBo">
+      <table class="table table-striped tabla-estilos">
+        <thead>
+          <tr class="encabezado">
+            <th>
+              <div class="d-flex">Título</div>
+            </th>
+            <th>
+              <div class="d-flex">Descripción</div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="container-Row">
+            <td>Codigo del Bien</td>
+            <td>
+              {{this.srvInventario.dataBienInfo.str_codigo_bien_cod}}
+            </td>
+          </tr>
+          <tr class="container-Row">
+            <td>Descripción/td>
+            <td>
+              {{this.srvInventario.dataBienInfo.str_catalogo_bien_descripcion}}
+            </td>
+          </tr>
+          <tr class="container-Row">
+            <td>Fecha Compra</td>
+            <td>
+              {{this.srvInventario.dataBienInfo.dt_bien_fecha_compra}}
+            </td>
+          </tr>
+          <tr class="container-Row">
+            <td>Garantía</td>
+            <td>
+              {{this.srvInventario.dataBienInfo.str_bien_garantia}}
+            </td>
+          </tr>
+          <tr class="container-Row">
+            <td>Ubicación</td>
+            <td>
+              {{this.srvInventario.dataBienInfo.str_ubicacion_nombre}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+
+    <h3>Información Interna del Bien</h3>
+    <div class="cont search">
+
+      <div class="containerInfo">
+        <label for="text">Buscar Cédula:</label>
+      </div>
+
+      <div class="search-BarBtn">
+        <input id="cedula_user" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')" class="form-control" placeholder="0000000000" />
+        <button type="submit" class="btnSearch"
+         (click)="obtenerDatosCentralizada($event)">
+        <i class="material-icons">search</i>
+        </button>
+      </div>
+
+      <div class="container-DataInfoFind">
+
+        <div class="container-BodyData">
+          <div class="containerInfo">
+            <label for="">Custodio</label>
+            <div class="container-Input">
+              <input
+                type="text"
+                formControlName="str_custodio_interno"
+                #inputCustodio
+                id="custodio"
+                placeholder="Nombre del Custodio Interno"
+                [value]="this.custodioValue"
+                [attr.disabled]="true"
+                required
+                >
+            </div>
+          </div>
+        </div>
+
+        <div class="container-BodyData">
+          <div class="containerInfo">
+            <label for="">Fecha Compra Interna</label>
+            <div class="container-Input">
+              <input
+                type="date"
+                formControlName="dt_bien_fecha_compra_interno"
+                #inputFechaCompra
+                id="fechaCompra"
+                placeholder="Fecha Compra"
+                required
+                >
+            </div>
+          </div>
+        </div>
+
+        <div class="container-BodyData">
+
+
+          <div class="container-Find filtradoContainer">
+            <div class="containerInfo">
+              <label for="">Buscar Centro</label>
+              <div class="container-Input">
+                <input
+                  class=""
+                  id="inp-Centro"
+                  type="text"
+                  autocomplete="off"
+                  (input)="changeCentro($event)"
+                  placeholder="DIGITE NOMBRE CENTRO"
+                  required
+                  >
+              </div>
+            </div>
+          </div>
+
+          <div class="containerInfo">
+            <label for="">Ubicacion Interna</label>
+            <div class="container-Input">
+              <input
+                type="text"
+                formControlName="str_ubicacion_nombre_interno"
+                #inputUbicacionInterna
+                id="ubicacionInterna"
+                placeholder="Ubicacion Interna"
+                [attr.disabled]="true"
+                required
+                >
+            </div>
+          </div>
+        </div>
+
+
+        <div class="cotainer-Btns">
+          <button
+            type="submit"
+            class="btn-primary-add"
+            (click)="saveChanges()"
+            [disabled]="myForm.invalid"
+            >
+            Guardar
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </form>
+</div>

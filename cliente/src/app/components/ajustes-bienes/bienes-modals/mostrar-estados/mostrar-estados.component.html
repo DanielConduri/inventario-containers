@@ -1,0 +1,92 @@
+<div class="tabla-cuerpo">
+
+  <div class="containerNoData" *ngIf="!isData && !isLoading">
+
+
+  </div>
+
+  <div class="tableBo" *ngIf="isData">
+      <table class="table table-striped tabla-estilos">
+          <thead>
+              <tr class="encabezado">
+                  <th>
+                      <div class="d-flex"> # </div>
+                  </th>
+
+                  <th>
+                      <div class="d-flex">Nombre</div>
+                  </th>
+
+                  <th>
+                    <div class="d-flex">Fecha de Creacion</div>
+                  </th>
+
+                  <th>
+                      <div class="d-flex">Estado</div>
+                  </th>
+
+                  <th *ngIf="permisoEliminar('bienes/caracteristicas') || permisoEditar('bienes/caracteristicas')"  >
+                      <div class="d-flex">Acciones</div>
+                  </th>
+              </tr>
+          </thead>
+
+          <tbody >
+              <tr class="pru" *ngFor="let estado of srvCaracteristicas.datosEstados, let i = index">
+
+                  <td scope="row"> {{i+1}} </td>
+                  <td class="user" >
+                      <div class="content-td">
+                          {{estado.str_estado_bien_nombre}}
+                      </div>
+                  </td>
+                  <td > {{estado.dt_fecha_creacion | date:'dd/MM/yyyy'}} </td>
+                  <td *ngIf="estado.str_estado_bien_estado === 'ACTIVO'">
+                      <div class="estado">
+                          <div class="activo">
+                              {{estado.str_estado_bien_estado}}
+                          </div>
+                      </div>
+                  </td>
+                  <td *ngIf="estado.str_estado_bien_estado === 'INACTIVO'">
+                      <div class="estado">
+                          <div class="inactivo">
+                              {{estado.str_estado_bien_estado}}
+                          </div>
+                      </div>
+                  </td>
+                  <td>
+
+                      <button *ngIf="permisoEditar('bienes/caracteristicas')"
+                      class="btn btn-primary"
+                      (click)="ModifyEstadoById(estado.int_estado_bien_id, 'Editar Estado', 'editarEstado')"
+                      >
+                          <i class="material-icons"> create </i>
+                      </button>
+
+
+                      <button
+                        class="btn btn-danger"
+                        *ngIf="estado.str_estado_bien_estado==='ACTIVO' && permisoEliminar('bienes/caracteristicas')"
+                        (click)="deleteEstadoById(estado.int_estado_bien_id)"
+                      >
+                        <i class="material-icons">delete </i>
+                      </button>
+
+                      <button
+                        class="btn btn-loop"
+                        *ngIf="estado.str_estado_bien_estado==='INACTIVO' && permisoEliminar('bienes/caracteristicas')"
+                        (click)="deleteEstadoById(estado.int_estado_bien_id)"
+                      >
+                        <i class="material-icons"> loop </i>
+                      </button>
+                  </td>
+              </tr>
+
+          </tbody>
+
+      </table>
+  </div>
+
+</div>
+

@@ -1,0 +1,198 @@
+<div class="body-Form">
+  <div class="tableBo">
+    <h3 id="h3-Title">Informacion del Sbay del Bien - {{this.srvInventario.dataBienInfo.str_codigo_bien_cod}}</h3>
+    <table class="table table-striped tabla-estilos">
+      <thead>
+        <tr class="encabezado">
+
+          <th>
+            <div class="d-flex">Titulo</div>
+          </th>
+
+          <th>
+            <div class="d-flex">Descripcion</div>
+          </th>
+
+
+      </thead>
+
+      <tbody>
+        <tr class="container-Row">
+          <td>Codigo del Bien</td>
+          <td > {{this.srvInventario.dataBienInfo.str_codigo_bien_cod}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Numero de Acta</td>
+          <td > {{this.srvInventario.dataBienInfo.int_bien_numero_acta}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>BLD / BCA</td>
+          <td > {{this.srvInventario.dataBienInfo.str_bien_bld_bca}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Nombre del Bien</td>
+          <td > {{this.srvInventario.dataBienInfo.str_catalogo_bien_descripcion
+          }}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Serie del Bien</td>
+          <td > {{this.srvInventario.dataBienInfo.str_bien_serie}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Modelo del Bien</td>
+          <td > {{this.srvInventario.dataBienInfo.str_bien_modelo}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Marca del Bien</td>
+          <td > {{this.srvCaracteristicas.dataMarca.str_marca_nombre}}</td>
+        </tr>
+        <tr>
+          <td>Critico</td>
+          <td>{{this.srvInventario.dataBienInfo.str_bien_critico}}</td>
+        </tr>
+        <tr>
+          <td>Valor Compra</td>
+          <td>{{this.srvInventario.dataBienInfo.str_bien_valor_compra}}</td>
+        </tr>
+        <tr>
+          <td>Recompra</td>
+          <td>{{this.srvInventario.dataBienInfo.str_bien_recompra}}</td>
+        </tr>
+        <tr>
+          <td>Recompra</td>
+          <td>{{this.srvInventario.dataBienInfo.str_bien_recompra}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Color del Bien</td>
+          <td > {{this.srvInventario.dataBienInfo.str_bien_color}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Material del Bien</td>
+          <td > {{this.srvInventario.dataBienInfo.str_bien_material}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Dimensiones del Bien</td>
+          <td > {{this.srvInventario.dataBienInfo.str_bien_dimensiones}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Condicion del Bien</td>
+          <td > {{this.srvInventario.dataBienInfo.str_condicion_bien_nombre}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Disponibilidad del Bien</td>
+          <td > {{this.srvInventario.dataBienInfo.str_bien_habilitado}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Estado del Bien</td>
+          <td > {{this.srvInventario.dataBienInfo.str_bien_estado}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Ubicacion del Bien</td>
+          <td > {{this.srvInventario.dataBienInfo.str_ubicacion_nombre}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Origen de Ingreso</td>
+          <td > {{this.srvInventario.dataBienInfo.str_bien_origen_ingreso}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Tipo de Ingreso</td>
+          <td > {{this.srvInventario.dataBienInfo.str_bien_tipo_ingreso}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Precio del Bien</td>
+          <td > {{this.srvInventario.dataBienInfo.str_bien_valor_compra}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Version del Bien</td>
+          <td > {{this.srvInventario.dataBienInfo.str_bien_serie}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Estado del Bien</td>
+          <td > {{this.srvInventario.dataBienInfo.str_bien_estado_logico}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Fecha Compra del Bien</td>
+          <td > {{this.srvInventario.dataBienInfo.dt_bien_fecha_compra}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Fecha de registro del Bien</td>
+          <td > {{this.srvInventario.dataBienInfo.dt_bien_fecha_compra}}</td>
+        </tr>
+        <tr class="container-Row">
+          <td>Descripcion de Condicion</td>
+          <td > {{this.srvInventario.dataBienInfo.str_condicion_bien_nombre}}</td>
+        </tr>
+        <tr>
+          <td>Garantia</td>
+          <td>{{this.srvInventario.dataBienInfo.str_bien_garantia}}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div>
+      <h3>Informacion Interna del Bien</h3>
+      <table class="table table-striped tabla-estilos">
+        <thead>
+          <tr class="encabezado">
+
+            <th>
+              <div class="d-flex">Titulo</div>
+            </th>
+
+            <th>
+              <div class="d-flex">Descripcion</div>
+            </th>
+
+
+        </thead>
+
+        <tbody>
+          <tr class="container-Row">
+            <td>Custodio Interno del Bien</td>
+            <td > {{this.srvInventario.dataBienInfo.str_custodio_nombre_interno}}</td>
+          </tr>
+          <tr class="container-Row">
+            <td>Ubicacion interna del Bien</td>
+            <td > {{this.srvInventario.dataBienInfo.str_ubicacion_nombre_interno}}</td>
+          </tr>
+          <tr class="container-Row">
+            <td>Fecha compra interna del Bien</td>
+            <td > {{this.srvInventario.dataBienInfo.dt_bien_fecha_compra_interno}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div>
+      <h3>Informacion Adicional</h3>
+      <div class="container-Table">
+        <table class="table-Fill" *ngIf="items.length > 0">
+          <thead>
+            <tr>
+              <th class="table-Left">Clave</th>
+              <th class="table-Left">Valor</th>
+              <th class="table-Left">Encargado</th>
+              <th class="table-Left">Fecha</th>
+              <th class="table-Left">Accion</th>
+            </tr>
+          </thead>
+          <tbody class="tablo-Hover">
+            <tr *ngFor="let item of items; let i = index">
+              <td class="text-Left">{{ item.caracteristica }}</td>
+              <td class="text-Left">{{ item.descripcion }}</td>
+              <td class="text-Left">{{ item.encargado }}</td>
+              <td class="text-Left">{{ item.fecha }}</td>
+              <td class="text-Left">
+                <button class="btn-Delete" (click)="deleteInfoAdicional(item.id)">
+                  <i class="material-icons">delete</i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+  </div>
+</div>

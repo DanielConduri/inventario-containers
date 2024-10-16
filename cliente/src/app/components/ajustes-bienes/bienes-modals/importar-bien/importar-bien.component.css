@@ -1,0 +1,128 @@
+
+.container-Import{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.container-Move{
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  gap: 15px;
+}
+
+
+.container-Table{
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+th{
+  color: var(--bs-gray-900);
+  border-bottom: 1px solid var(--bs-gray-ccc);
+  border-right: 1px solid var(--bs-gray-ccc);
+  font-size: var(--font-size);
+  padding: 5px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+th:first-child{
+  border-top-left-radius: 3px;
+}
+
+th:last-child{
+  border-top-right-radius: 3px;
+  border-right: none;
+}
+
+tr{
+  border-top: 1px solid var(--bs-gray-ccc);
+  border-bottom: 1px solid var(--bs-gray-ccc);
+  color: var(--bs-gray-ccc);
+  font-size: var(--font-size);
+  font-weight: normal;
+  text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+
+tr:hover td{
+  background: var(--bs-gray-ccc);
+  color: var(--color-bg);
+  border-top: 1px solid var(--bs-gray-ccc);
+}
+
+tr:first-child{
+  border-top: none;
+}
+
+tr:last-child{
+  border-bottom: none;
+}
+
+tr:nth-child(odd) td{
+  background: var(--color-bg);
+}
+
+tr:nth-child(odd):hover td{
+  background: var(--bs-gray-ccc);
+}
+
+tr:last-child td:first-child{
+  border-bottom-left-radius: 3px;
+}
+
+tr:last-child td:last-child{
+  border-bottom-right-radius: 3px;
+}
+
+td {
+  background: var(--color-bg);
+  padding: 5px;
+  text-align: left;
+  vertical-align: middle;
+  font-size: var(--font-size);
+  border-right: 1px solid var(--bs-gray-ccc);
+  font-family: var(--font-family);
+  text-transform: uppercase;
+  color: var(--color-black);
+}
+
+table {
+  width: 100%;
+}
+
+label{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.container-Process{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.mat-stepper-horizontal {
+  margin-top: 8px;
+}
+
+.mat-mdc-form-field {
+  margin-top: 16px;
+}
+
+#miTabla {
+  width: 100%;
+}
+
+#miTabla td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+

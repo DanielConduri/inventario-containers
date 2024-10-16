@@ -1,0 +1,110 @@
+<div class="cont-filter">
+    <app-filter [options]="options" (search)="handleSearch($event)"></app-filter>
+</div>
+
+<div class="tabla-cuerpo">
+
+  <div class="containerNoData" *ngIf="!isData && !isLoading">
+
+      <div _ngcontent-lne-c77="" class="mx-auto" style="margin-top: 64px; margin-bottom: 64px;">
+          <svg _ngcontent-lne-c77="" xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 48 48">
+              <path _ngcontent-lne-c77=""
+                  d="M38.7 40.85 26.65 28.8q-1.5 1.3-3.5 2.025-2 .725-4.25.725-5.4 0-9.15-3.75T6 18.75q0-5.3 3.75-9.05 3.75-3.75 9.1-3.75 5.3 0 9.025 3.75 3.725 3.75 3.725 9.05 0 2.15-.7 4.15-.7 2-2.1 3.75L40.95 38.7q.45.4.45 1.025 0 .625-.5 1.125-.45.45-1.1.45-.65 0-1.1-.45Zm-19.85-12.3q4.05 0 6.9-2.875Q28.6 22.8 28.6 18.75t-2.85-6.925Q22.9 8.95 18.85 8.95q-4.1 0-6.975 2.875T9 18.75q0 4.05 2.875 6.925t6.975 2.875Z">
+              </path>
+          </svg>
+          <h5 _ngcontent-lne-c77="" class="mt-2">Resultado sin datos</h5>
+          <h6 _ngcontent-lne-c77="">No se encontraron elementos para esta lista.</h6>
+      </div>
+  </div>
+
+  <div class="tableBo" *ngIf="isData">
+      <table class="table table-striped tabla-estilos">
+          <thead>
+              <tr class="encabezado">
+                  <th>
+                      <div class="d-flex"> # </div>
+                  </th>
+
+                  <th>
+                      <div class="d-flex">Nombre</div>
+                  </th>
+
+                  <th>
+                    <div class="d-flex">Fecha de Creacion</div>
+                  </th>
+
+                  <th>
+                      <div class="d-flex">Estado</div>
+                  </th>
+
+                  <th *ngIf="permisoEliminar('bienes/caracteristicas') || permisoEditar('bienes/caracteristicas')" >
+                      <div class="d-flex">Acciones</div>
+                  </th>
+              </tr>
+          </thead>
+
+          <tbody >
+              <tr class="pru" *ngFor="let marca of srvCaracteristicas.datosMarcas, let i = index" >
+
+                  <td scope="row"> {{i+1}} </td>
+                  <td class="user" >
+                      <div class="content-td">
+                          {{marca.str_marca_nombre.toUpperCase()}}
+                      </div>
+                  </td>
+                  <td > {{marca.dt_fecha_creacion | date:'dd/MM/yyyy'}} </td>
+                  <td *ngIf="marca.str_marca_estado ==='ACTIVO'">
+                      <div class="estado">
+                          <div class="activo">
+                            {{marca.str_marca_estado}}
+                          </div>
+                      </div>
+                  </td>
+                  <td *ngIf="marca.str_marca_estado ==='INACTIVO'">
+                      <div class="estado">
+                          <div class="inactivo">
+                              {{marca.str_marca_estado}}
+                          </div>
+                      </div>
+                  </td>
+                  <td >
+
+                      <button class="btn btn-primary" (click)="ModifyMarcaById(marca.int_marca_id, 'Editar Marca', 'editarMarca')"
+                      *ngIf="permisoEditar('bienes/caracteristicas')"
+                      >
+                          <i class="material-icons"> create </i>
+                      </button>
+
+
+                      <button
+                      class="btn btn-danger"
+                      *ngIf="marca.str_marca_estado==='ACTIVO' && permisoEliminar('bienes/caracteristicas') "
+                      (click)="deleteMarcaById(marca.int_marca_id)"
+                      > <i class="material-icons">delete </i>
+                      </button>
+
+                      <button
+                        class="btn btn-loop"
+                        *ngIf="marca.str_marca_estado==='INACTIVO' && permisoEliminar('bienes/caracteristicas')"
+                        (click)="deleteMarcaById(marca.int_marca_id)"
+                      >
+                        <i class="material-icons"> loop </i>
+                      </button>
+
+                  </td>
+              </tr>
+
+          </tbody>
+
+      </table>
+  </div>
+
+  <div class="pagi">
+    <app-pagination 
+    (nextPage)="pasarPagina($event)"
+    ></app-pagination>
+</div>
+
+</div>
+
+

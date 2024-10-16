@@ -1,0 +1,60 @@
+<div class="body-Form">
+
+  <form [formGroup]="myForm" action="">
+
+    <div class="container-DataInfo">
+
+      <div class="container-Left">
+        <div class="containerInfo">
+          <label>RUC del Proveedor</label>
+          <div class="container-Input">
+          <input
+            type="text"
+            placeholder="Ingrese el RUC del Proveedor"
+            formControlName="str_proveedor_ruc"
+            required>
+          </div>
+        </div>
+
+        <div class="containerInfo">
+          <label>Nombre del Proveedor</label>
+          <div class="container-Input">
+            <input
+              type="text"
+              placeholder="Ingrese el nombre del Proveedor"
+              formControlName="str_proveedor_nombre"
+              name="nombre"
+              required>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="container-Right">
+        <div class="containerInfo">
+          <label>Estado</label>
+          <div class="container-Input">
+          <input
+            type="text"
+            placeholder="ACTIVO"
+            name="estado"
+            formControlName="str_proveedor_estado"
+            [attr.disabled]="true">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-Btns">
+      <button
+        class="btn-primary-add"
+        (click)="agregarProveedor()"
+        type="submit"
+        [disabled]="!myForm.valid"
+        >
+        Guardar
+      </button>
+    </div>
+  </form>
+
+</div>

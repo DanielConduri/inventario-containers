@@ -1,0 +1,43 @@
+<div class="container-file">
+
+  <form [formGroup]="myForm" #FileUpload enctype="multipart/form-data" *ngIf="tablaInfo===false">
+
+    <button class="btn-usuario" (click)="fileInput.click()">
+      Seleccionar Archivo
+    </button>
+    <input type="file" formControlName="archivo" required (change)="selectFile($event)" accept=".csv" #fileInput
+      style="display:none">
+
+    <div class="impor">
+      <button class="btn-usuario" (click)="importFile()" [disabled]="myForm.invalid">
+        Importar
+      </button>
+    </div>
+  </form>
+
+  <div class="presentacion" *ngIf="table">
+    <table id="miTabla">
+      <thead>
+        <tr>
+          <th *ngFor="let i of colums, let c = index">
+            {{data[0][c]?.toUpperCase()}}
+          </th>
+        </tr>
+      </thead>
+      <tbody class="tdbody">
+        <tr *ngFor="let row of data, let ca =index">
+          <td *ngFor="let c of colums, let i = index">
+            <div class="content-td" *ngIf="ca!==0">
+              {{row[i]?.toUpperCase()}}
+            </div>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+  </div>
+
+</div>
