@@ -1,4 +1,4 @@
-const baseUrl = 'wsinventario';
+const baseUrl = '';
 export const environment = {
   production: true,
   baseUrl: baseUrl,
