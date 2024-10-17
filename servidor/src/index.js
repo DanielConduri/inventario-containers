@@ -29,10 +29,12 @@ async function main(port) {
       try {
         const options = {
           key: fs.readFileSync(
-            "../cliente/src/assets/Certificados/STAR_espoch_edu_ec.key"
+            //"../cliente/src/assets/Certificados/STAR_espoch_edu_ec.key"
+            "./src/assets/Certificados/STAR_espoch_edu_ec.key"
           ),
           cert: fs.readFileSync(
-            "../cliente/src/assets/Certificados/STAR_espoch_edu_ec.crt"
+            //"../cliente/src/assets/Certificados/STAR_espoch_edu_ec.crt"
+            "./src/assets/Certificados/STAR_espoch_edu_ec.crt"
           ),
         };
         https.createServer(options, app).listen(port, "0.0.0.0");
