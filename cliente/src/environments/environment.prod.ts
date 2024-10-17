@@ -9,6 +9,6 @@ export const environment = {
   urlOneDriveService:
     'https://pruebas.espoch.edu.ec:8181/WebCorreoInstitucional/ServiciosCorreos/TokenOneDrive',
   //urlApi: 'https://api-inventario.rubenvn.com/',
-  urlApi: 'http://54.91.59.99/wsinventario',
+  urlApi: 'http://54.91.59.99/wsinventario/',
   CodigoSistemaOneDrive: 'ARCHPOLI',
 };
