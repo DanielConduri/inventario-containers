@@ -35,9 +35,11 @@ import registroCorrectivoRoute from "./mantenimiento/mantenimientoCorrectivo.rou
 import tipoMantenimientoRoute from "./mantenimiento/tipo_mantenimiento.routes.js";
 
 const router = Router();
-router.use("/login", seguridadRoute);
+const url = "/wsinventario";
 
-router.get("/info", (req, res, next) => {
+router.use(url + "/login", seguridadRoute);
+
+router.get(url + "/info", (req, res, next) => {
   res.json({
     status: 200,
     message: "OK",
@@ -48,38 +50,38 @@ router.get("/info", (req, res, next) => {
 
 //router.use(verificarToken); //verificarToken
 
-router.use("/roles", rolesRoute);
+router.use(url + "/roles", rolesRoute);
 //app.use(validarCookies);
-router.use("/personas", personasRoute);         //perfiles de la tabla tb_perfiles
-router.use("/usuarios", usuariosRoute);         // usuarios de la tabla tb_personas
-router.use("/centralizadas", centralizadaRoute);
+router.use(url + "/personas", personasRoute);         //perfiles de la tabla tb_perfiles
+router.use(url + "/usuarios", usuariosRoute);         // usuarios de la tabla tb_personas
+router.use(url + "/centralizadas", centralizadaRoute);
 // verificar si se usa luego
-router.use("/menus", menusRoute);
-router.use("/permisos",permisosRoute);
-router.use("/marcas", marcasRoute);                //Marcas
-router.use("/estados", estadosRoute);              //Estados
-router.use("/proveedores", proveedoresRoute);      //Proveedores
-router.use("/centros", centrosRoute);
-router.use("/bienes", bienesRoute);                   //Bienes
-router.use("/catalogo_bienes", catalogoBienesRoute);  //Catalogo de bienes
-router.use("/reportes", reportesRoute);               //Reportes
-router.use("/custodios", custodiosRoute);             //Custodios
-router.use("/documentos", documentosRoute);           //Documentos
-router.use("/tipo_documento", tipoDocumentosRoute);   //Tipos de documentos 
-router.use("/nivel_mantenimiento", nivelMantenimientoRoute);
-router.use("/planificacion_bien", planificacionBienRoute);
-router.use("/planificacion", planificacionRoute);
-router.use("/soporte", soporteRoute);
-router.use("/tipo_mantenimiento", tipoMantenimientoRoute);
+router.use(url + "/menus", menusRoute);
+router.use(url + "/permisos",permisosRoute);
+router.use(url + "/marcas", marcasRoute);                //Marcas
+router.use(url + "/estados", estadosRoute);              //Estados
+router.use(url + "/proveedores", proveedoresRoute);      //Proveedores
+router.use(url + "/centros", centrosRoute);
+router.use(url + "/bienes", bienesRoute);                   //Bienes
+router.use(url + "/catalogo_bienes", catalogoBienesRoute);  //Catalogo de bienes
+router.use(url + "/reportes", reportesRoute);               //Reportes
+router.use(url + "/custodios", custodiosRoute);             //Custodios
+router.use(url + "/documentos", documentosRoute);           //Documentos
+router.use(url + "/tipo_documento", tipoDocumentosRoute);   //Tipos de documentos 
+router.use(url + "/nivel_mantenimiento", nivelMantenimientoRoute);
+router.use(url + "/planificacion_bien", planificacionBienRoute);
+router.use(url + url + "/planificacion", planificacionRoute);
+router.use(url + "/soporte", soporteRoute);
+router.use(url + "/tipo_mantenimiento", tipoMantenimientoRoute);
 
-router.use("/mantenimiento", mantenimientoRoute);
-router.use("/estado_mantenimiento", estadosMantenimientoRoute);
+router.use(url + "/mantenimiento", mantenimientoRoute);
+router.use(url + "/estado_mantenimiento", estadosMantenimientoRoute);
 
-router.use("/registro", registroRoute);
-router.use("/registro_preventivo", registroPreventivoRoute);
-router.use("/registro_correctivo", registroCorrectivoRoute);
+router.use(url + "/registro", registroRoute);
+router.use(url + "/registro_preventivo", registroPreventivoRoute);
+router.use(url + "/registro_correctivo", registroCorrectivoRoute);
 
-router.use("/registro_bien", registroBienRoute);
-router.use("/registro_estado", registroEstadoRoute );
+router.use(url + "/registro_bien", registroBienRoute);
+router.use(url + "/registro_estado", registroEstadoRoute );
 
 export default router;
