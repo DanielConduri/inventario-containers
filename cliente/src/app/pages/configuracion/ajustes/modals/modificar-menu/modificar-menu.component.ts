@@ -5,6 +5,7 @@ import { ModalService } from 'src/app/core/services/modal.service';
 import { Subject, takeUntil } from 'rxjs';
 import { dataNewMenu } from 'src/app/core/models/permisos-menu';
 import Swal from 'sweetalert2';
+import config from 'config/config';
 
 
 @Component({
@@ -57,7 +58,7 @@ export class ModificarMenuComponent implements OnInit {
       this.srvMenu.datosMenu.forEach(item => {
         if (item.int_menu_id === /*1*/ this.idMenuPadre) {
           this.menuPadre={nombre: item.str_menu_nombre, id: item.int_menu_id};
-          console.log('menu padre: ', this.menuPadre);
+          // console.log('menu padre: ', this.menuPadre);
         }
       });
     }
@@ -83,7 +84,7 @@ export class ModificarMenuComponent implements OnInit {
       }
       iconControl!.updateValueAndValidity();
       menuPadreControl!.updateValueAndValidity();
-      console.log('Form en onOPtionSelect: ', this.myForm.value);
+      // console.log('Form en onOPtionSelect: ', this.myForm.value);
     }
 
     completeForm() {
@@ -101,10 +102,10 @@ export class ModificarMenuComponent implements OnInit {
           this.idMenuPadre = data.id;
 
           if(this.typeViewMenu){
-            console.log('en el if de completeform de modificar menu')
+            // console.log('en el if de completeform de modificar menu')
             this.idMenu = data.id;
           }else{
-            console.log('en el else de completeform de modificar menu')
+            // console.log('en el else de completeform de modificar menu')
             this.srvMenu.selectData_subMenu$
             .pipe(takeUntil(this.destroy$))
             .subscribe({
@@ -113,7 +114,7 @@ export class ModificarMenuComponent implements OnInit {
               }
             });
           }
-          console.log('typeViewMenu: ', this.typeViewMenu, 'idMenu: ', this.idMenu);
+          // console.log('typeViewMenu: ', this.typeViewMenu, 'idMenu: ', this.idMenu);
           this.getMenu();
         }
         
@@ -139,7 +140,7 @@ export class ModificarMenuComponent implements OnInit {
             str_menu_descripcion: data.body.str_menu_descripcion,
             str_menu_path: data.body.str_menu_path
           })
-          console.log("Form: ",this.myForm.value);
+          // console.log("Form: ",this.myForm.value);
         },
         error: (err)=>{
           console.log("Error al llenar el form: ",err);
@@ -156,7 +157,7 @@ export class ModificarMenuComponent implements OnInit {
       this.myForm.patchValue({
         int_menu_padre: 1
       });
-      console.log('Menu Padre debe ser 1: ', this.myForm.value.int_menu_padre);
+      // console.log('Menu Padre debe ser 1: ', this.myForm.value.int_menu_padre);
     } else {
       this.myForm.patchValue({
         str_menu_icono: 'subdirectory_arrow_right',
@@ -164,7 +165,7 @@ export class ModificarMenuComponent implements OnInit {
       });
     }
       const data = this.myForm.value;
-    console.log('Form en modifyMenu: ', data);
+    // console.log('Form en modifyMenu: ', data);
       Swal.fire({
         title: '¿Está seguro que desea editar este Menú?',
         showDenyButton: true,
@@ -209,7 +210,10 @@ export class ModificarMenuComponent implements OnInit {
               console.log('err', error);
             },
             complete:()=>{
-              console.log('complete') 
+              // console.log('complete') 
+              // location.reload()
+              window.location.href = config.URL_BASE_PATH + '/welcome';
+
             }
           })
         }
@@ -252,9 +256,9 @@ export class ModificarMenuComponent implements OnInit {
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (data: any) => {
-        console.log('DATOS SUBMENU: ', data, 'idMenuPadre: ', this.idMenuPadre);
+        // console.log('DATOS SUBMENU: ', data, 'idMenuPadre: ', this.idMenuPadre);
         if(data.status){
-          console.log('DATOS SUBMENU HOMERO: ', data.body);
+          // console.log('DATOS SUBMENU HOMERO: ', data.body);
           this.srvMenu.dataSubMenu = data.body;
         }
       },

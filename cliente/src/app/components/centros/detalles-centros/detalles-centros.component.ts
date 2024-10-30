@@ -13,6 +13,7 @@ export class DetallesCentrosComponent implements OnInit {
   constructor(public srvCentros: CentrosService) { }
 
   ngOnInit(): void {
+    console.log('lo que llega ->', this.srvCentros.datosDetalles)
     this.detalles = this.srvCentros.datosDetalles
   }
 

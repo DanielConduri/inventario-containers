@@ -40,7 +40,7 @@
                         <div class="content-td">
                             <i class="material-icons"> person </i>
                             <label>
-                                {{center.str_centro_nombre.toUpperCase()}}
+                                {{center.str_centro_nombre}}
                             </label>
                         </div>
                     </td>
@@ -48,8 +48,8 @@
                     <td (click)="detalles(center.int_centro_id)">{{center.str_centro_tipo_nombre}}</td>
                     <td (click)="detalles(center.int_centro_id)"> {{center.str_centro_nombre_sede}}</td>
                     <td *ngIf="center.str_centro_nombre_dependencia != null" (click)="detalles(center.int_centro_id)"> {{center.str_centro_nombre_dependencia}}</td>
-                    
-                    <td *ngIf="center.str_centro_nombre_dependencia === null" (click)="detalles(center.int_centro_id)"> {{center.str_centro_cod_facultad}} </td>
+
+                    <td *ngIf="center.str_centro_nombre_dependencia === null" (click)="detalles(center.int_centro_id)"> {{center.str_centro_nombre_facultad}} </td>
 
                     <td *ngIf="center.str_centro_estado==='ACTIVO'">
                         <div class="estado">
@@ -78,10 +78,13 @@
                             <button class="btn btn-loop" *ngIf="center.str_centro_estado==='INACTIVO' && permisoEliminar('centros')"
                                 (click)="deleteCenter(center.int_centro_id)"><i class="material-icons"> loop </i>
                             </button>
+                        <button class="btn btn-primary"
+                            (click)="agregarHorario(center.int_centro_id, center.str_centro_nombre)"><i class="material-icons"> event </i>
+                        </button>
                         <!-- <button class="btn btn-danger"
                         ><i class="material-icons" (click)="deleteRol(rol.int_rol_id)"> delete </i> </button> -->
                         <!-- <div class="delete">
-                            
+
                         </div> -->
 
 
@@ -92,13 +95,13 @@
                     <td>{{i+1}}</td>
                     <td class="user"> <i class="material-icons"> person </i> {{usuario.usuario}}</td>
                     <td >  {{usuario.correo}}</td>
-      
+
                     <td *ngIf="usuario.estado==='Activo'">
                         <div class="estado"  >
                             <div class="activo">
                                 {{usuario.estado}}
                             </div>
-      
+
                         </div>
                     </td>
                     <td *ngIf="usuario.estado==='Inactivo'">
@@ -106,17 +109,17 @@
                             <div class="inactivo">
                                 {{usuario.estado}}
                             </div>
-      
+
                         </div>
                     </td>
-      
+
                     <td>
                         <button class="btn btn-primary"
                         > <i class="material-icons"> create </i> </button>
                         <button class="btn btn-danger"
                         ><i class="material-icons"> delete </i> </button>
                     </td>
-      
+
                 </tr> -->
             </tbody>
 
@@ -136,7 +139,7 @@
         </div>
     </div>
     <div class="pagi">
-        <app-pagination 
+        <app-pagination
         (nextPage)="pasarPagina($event)"
         ></app-pagination>
     </div>

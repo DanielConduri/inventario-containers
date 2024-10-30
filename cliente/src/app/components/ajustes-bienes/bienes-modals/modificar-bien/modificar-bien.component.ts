@@ -73,8 +73,8 @@ export class ModificarBienComponent implements OnInit {
     this.srvModal.SelectID_Bien$.pipe(takeUntil(this.destroy$)).subscribe({
       next: (getId: number) => {
         this.idBien = getId;
-        console.log('Reciebiendo el valor del ID del Bien =>', this.idBien);
-        console.log('valor del idBien => ', this.idBien);
+        // console.log('Reciebiendo el valor del ID del Bien =>', this.idBien);
+        // console.log('valor del idBien => ', this.idBien);
       },
     });
     this.fechaActual = new Date().toISOString().split('T')[0];
@@ -89,7 +89,7 @@ export class ModificarBienComponent implements OnInit {
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (dataBien) => {
-        console.log("Informacion General del Bien =>", dataBien)
+        // console.log("Informacion General del Bien =>", dataBien)
         Swal.fire({
           title: 'Cargando',
           didOpen: () => {
@@ -98,7 +98,7 @@ export class ModificarBienComponent implements OnInit {
         });
         this.srvInventario.dataBienInfo = dataBien.body;
         this.valItems = Object.values(dataBien.body.str_bien_info_adicional);
-        console.log("items =>", this.items)
+        // console.log("items =>", this.items)
       },
       error: (err) => {
         console.log("Error al obtener informaicon del Bien =>", err)
@@ -114,7 +114,7 @@ export class ModificarBienComponent implements OnInit {
   //Funcion para obtener los datos del usuario de la centralizada
   obtenerDatosCentralizada(e: any) {
     let cedula = document.getElementById('cedula_user') as any;
-    console.log('Entra ' + cedula.value);
+    // console.log('Entra ' + cedula.value);
     Swal.fire({
       title: 'Buscando...',
       didOpen: () => {
@@ -126,7 +126,7 @@ export class ModificarBienComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res: any) => {
-          console.log(' lo que llega de la centralizada ->', res);
+          // console.log(' lo que llega de la centralizada ->', res);
           if (res.status) {
             Swal.close();
             Swal.fire({
@@ -138,14 +138,14 @@ export class ModificarBienComponent implements OnInit {
             //Agregarmos el nombre y apellido del usuario encontrado a la tabla de responsables
             const encargardo = res.body.nombre + ' ' + res.body.apellidos;
             this.encargadoValue = encargardo;
-            console.log('encargadoValue =>', this.encargadoValue);
+            // console.log('encargadoValue =>', this.encargadoValue);
             //Enviamos al viewChild de #inputEncargado el valor de encargado
             this.inputEncargado.nativeElement.value = this.encargadoValue;
             //Colocamos el valor de encargadoValue en el formulario encargado
             this.jsonForm.get('encargado')?.setValue(this.encargadoValue);
 
             // Imprimimos el valor de JsonForm
-            console.log('Valor de JsonForm => ', this.jsonForm.value);
+            // console.log('Valor de JsonForm => ', this.jsonForm.value);
           } else {
             Swal.close();
             Swal.fire({
@@ -185,14 +185,14 @@ export class ModificarBienComponent implements OnInit {
     this.myForm.get('valorLLeno')?.setValue(1);
 
     //imprimimos el valor de valorLleno
-    console.log(
-      'Valor de valorLleno => ',
-      this.myForm.get('valorLLeno')?.value
-    );
+    // console.log(
+    //   'Valor de valorLleno => ',
+    //   this.myForm.get('valorLLeno')?.value
+    // );
 
     this.resetFormValues();
 
-    console.log('Valor de items => ', this.items);
+    // console.log('Valor de items => ', this.items);
   }
 
   //Funcion que resea los valores del formulario
@@ -212,28 +212,28 @@ export class ModificarBienComponent implements OnInit {
         this.disableBtn = true;
       }
     }
-    console.log('Valor de items => ', this.items);
+    // console.log('Valor de items => ', this.items);
 
     //imprimimos el valor de valorLeno
-    console.log(
-      'Valor de valorLleno => ',
-      this.myForm.get('valorLLeno')?.value
-    );
+    // console.log(
+    //   'Valor de valorLleno => ',
+    //   this.myForm.get('valorLLeno')?.value
+    // );
   }
 
   eliminarItemActual(index:number){
   // Perform deletion logic here
   this.valItems.splice(index, 1);
   this.myForm.get('valorLLeno')?.setValue(1);
-  console.log("Valor de valItems =>", this.valItems)
-  console.log("Valor de valorLleno =>", this.myForm.get('valorLLeno')?.value)
+  // console.log("Valor de valItems =>", this.valItems)
+  // console.log("Valor de valorLleno =>", this.myForm.get('valorLLeno')?.value)
 
   //Enviamos la informacion al servidor
   this.srvInventario.putEditBien(this.idBien, this.myForm.value)
   .pipe(takeUntil(this.destroy$))
   .subscribe({
     next: (res) => {
-      console.log("Respuesta del servidor =>", res)
+      // console.log("Respuesta del servidor =>", res)
       Swal.fire({
         title: 'Item eliminado',
         icon: 'success',
@@ -270,13 +270,13 @@ export class ModificarBienComponent implements OnInit {
       this.editarIndex = -1;
       this.disableBtn = true;
     }
-    console.log('Valor de items => ', this.items);
+    // console.log('Valor de items => ', this.items);
     
   }
 
   //Funcion para Guardar todo el JSON en el formulario
   modifyBien() {
-    console.log('Valor del formulario => ', this.myForm.value);
+    // console.log('Valor del formulario => ', this.myForm.value);
     const modifyData = {
       str_bien_info_adicional: this.items,
       valorLleno: 1
@@ -300,7 +300,7 @@ export class ModificarBienComponent implements OnInit {
           .subscribe({
             next: (resp) => {
               if (resp.status) {
-                console.log('Respuesta del servidor => ', resp);
+                // console.log('Respuesta del servidor => ', resp);
                 Swal.fire({
                   icon: 'success',
                   title: resp.message,
@@ -320,7 +320,7 @@ export class ModificarBienComponent implements OnInit {
               console.log('Se genero un error');
             },
             complete: () => {
-              console.log('Peticion finalizada');
+              // console.log('Peticion finalizada');
             },
           });
       }

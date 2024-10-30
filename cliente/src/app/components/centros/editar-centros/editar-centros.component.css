@@ -67,3 +67,11 @@
   align-items: center;
   border-radius: 10px;
   }
+
+  select{
+    width: 100%;
+  }
+
+  h5{
+    font-weight: var(--bs-gray-700);
+  }

@@ -1,0 +1,206 @@
+<div class="prestamo-container">
+    <div class="presamo-header">
+        <h2>{{informacion?.str_prestamo_codigo}}</h2>
+    </div>
+    <div class="prestamo-body">
+
+        <div class="prestamo-item">
+            <label for="" class="prestamo-label">Prestador</label>
+            <span class="prestamo-value">{{informacion?.str_prestamo_persona_nombre}}</span>
+            <span class="prestamo-value">{{informacion?.int_prestamo_persona_id}}</span>
+        </div>
+        <!-- <div class="prestamo-item">
+            <label for="" class="prestamo-label">Tipo de préstamo</label>
+            <span class="prestamo-value">{{informacion?.str_prestamo_tipo}}</span>
+        </div> -->
+        <div class="prestamo-item">
+            <div class="search-Label">
+                <label for="" class="prestamo-label">Fecha del prestamo</label>
+            </div>
+            <span class="prestamo-value">{{informacion?.fechas[0].dt_fecha_prestamo.substring(0, 10)}}</span>
+        </div>
+        <div class="prestamo-item">
+            <label for="" class="prestamo-label">Hora de inicio del préstamo</label>
+            <span class="prestamo-value">{{horaEntrada}}</span>
+        </div>
+        <div class="prestamo-item">
+            <label for="" class="prestamo-label">Lugar/Laboratorio del préstamo</label>
+            <span class="prestamo-value">{{lugar}}</span>
+        </div>
+        <div class="prestamo-item">
+            <div class="search-Label">
+                <label for="" class="prestamo-label">Objeto de la investigacion</label>
+            </div>
+            <span class="prestamo-value">{{informacion?.str_prestamo_objeto_investigacion}}</span>
+        </div>
+        <div class="prestamo-item">
+            <div class="search-Label">
+                <label for="" class="prestamo-label">Requiere Inducción</label>
+            </div>
+            <span class="prestamo-value">{{informacion?.str_prestamo_induccion}}</span>
+        </div>
+        <div class="prestamo-item">
+            <div class="search-Label">
+                <label for="" class="prestamo-label">Bienes del prestamo</label>
+            </div>
+            <div *ngFor="let bienes of informacion?.bienes" style="margin-bottom: 10px;">
+                <div>
+                    <span class="prestamo-value" style="font-weight: bold;">{{bienes.str_bien_nombre}}</span>
+                </div>
+                <div>
+                    <span class="prestamo-value">{{bienes.str_bien_modelo}}</span>
+                </div>
+                <div>
+                    <span class="prestamo-value">{{bienes.str_codigo_bien}}</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Informacion para aceptar o rechazar el prestamo -->
+
+        <div class="prestamo-item"
+            *ngIf="informacion?.estado_activo != 2 && informacion?.str_prestamo_observacion != ''">
+            <div class="search-Label">
+                <label for="" class="prestamo-label">Historial de observaciones</label>
+            </div>
+            <div *ngFor="let o of informacion?.observacion, let i = index" style="padding-bottom: 10px;">
+                <!-- <span class="prestamo-value">{{informacion?.fechaActualizacion[i].substring(0, 10)}}</span> -->
+                <span *ngIf="o !== ''" class="prestamo-value">{{o}}</span>
+            </div>
+        </div>
+        <div class="prestamo-item"
+            *ngIf="informacion?.estado_activo != 2 && informacion?.str_prestamo_revision_custodio">
+            <div class="search-Label">
+                <label for="" class="prestamo-label">Observaciones del custodio</label>
+            </div>
+            <div  style="padding-bottom: 10px;">
+                <!-- <span class="prestamo-value">{{informacion?.fechaActualizacion[i].substring(0, 10)}}</span> -->
+                <span class="prestamo-value">{{informacion?.str_prestamo_revision_custodio}}</span>
+            </div>
+        </div>
+        <div class="prestamo-item"
+            *ngIf="informacion?.estado_activo != 2 && informacion?.str_prestamo_revision_persona">
+            <div class="search-Label">
+                <label for="" class="prestamo-label">Observaciones del solicitante</label>
+            </div>
+            <div  style="padding-bottom: 10px;">
+                <!-- <span class="prestamo-value">{{informacion?.fechaActualizacion[i].substring(0, 10)}}</span> -->
+                <span class="prestamo-value">{{informacion?.str_prestamo_revision_persona}}</span>
+            </div>
+        </div>
+        <div class="prestamo-item" *ngIf="informacion?.estado_activo == 2 && !srvPrestamos.especial">
+            <form [formGroup]="myForm" action="">
+                <div>
+                    <label for="" class="prestamo-label">Agregar observaciones</label>
+                    <span class="prestamo-value"
+                        style="font-size: smaller; font-style: oblique; color: var(--bs-gray-600); padding-bottom: 10px;">
+                        *Este espacio puede ser opcional si se acepta el prestamo, caso contrario se debe de llenar de
+                        manera
+                        obligatoria.
+                    </span>
+                    <div>
+                        <textarea name="" id="" placeholder="Esquiba aqui las observaciones"
+                            formControlName="str_prestamo_observacion" style="resize: none;" rows="5"
+                            cols="50"></textarea>
+                        <div class="alert alert-danger mt-4 control-error"
+                            style="color: rgb(220, 38, 38); font-size: smaller;" *ngIf="aux">
+                            El campo es requerido.
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Informacion para indicar si el solicitante llego al prestamo como se acrodó -->
+
+        <div class="prestamo-item" *ngIf="informacion?.estado_activo == 3 && !srvPrestamos.especial">
+            <label for="" class="prestamo-label">Asistencia del solicitante</label>
+            <span class="prestamo-value"
+                style="font-size: smaller; font-style: oblique; color: var(--bs-gray-600); padding-bottom: 10px;">
+                *Indicar la asistencia del solicitante al préstamo.
+            </span>
+        </div>
+
+        <!-- informacion para indicar si el solicitante y el custodio quedaron conformes con el prestamo
+        se realizará una observacion a cada uno -->
+
+        <div class="prestamo-item" *ngIf="informacion?.estado_activo == 7 && !srvPrestamos.especial && cedulaLogin == informacion.int_prestamo_custodio_id && !informacion?.str_prestamo_revision_custodio">
+            <form [formGroup]="myForm" action="">
+                <div>
+                    <label for="" class="prestamo-label">Observaciones del custodio</label>
+                    <span class="prestamo-value"
+                        style="font-size: smaller; font-style: oblique; color: var(--bs-gray-600); padding-bottom: 10px;">
+                        *Escriba una breve observación sobre el prestamo. ¿El solicitante devolvió los bienes en buen
+                        estado?
+                    </span>
+                    <div>
+                        <textarea name="" id="" placeholder="Esquiba aqui las observaciones"
+                            formControlName="str_prestamo_revision_custodio" style="resize: none;" rows="5"
+                            cols="50"></textarea>
+                        <div class="alert alert-danger mt-4 control-error"
+                            style="color: rgb(220, 38, 38); font-size: smaller;" *ngIf="aux">
+                            El campo es requerido.
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="prestamo-item" *ngIf="informacion?.estado_activo == 7 && !srvPrestamos.especial && cedulaLogin == informacion.int_prestamo_persona_id && !informacion?.str_prestamo_revision_persona">
+            <form [formGroup]="myForm" action="">
+                <div>
+                    <label for="" class="prestamo-label">Observaciones del solicitante</label>
+                    <span class="prestamo-value"
+                        style="font-size: smaller; font-style: oblique; color: var(--bs-gray-600); padding-bottom: 10px;">
+                        *Escriba una breve observación sobre el prestamo. ¿El custodio estuvo al pendiente en todo momento?
+                        ¿El bien se encontraba en buen estado?
+                    </span>
+                    <div>
+                        <textarea name="" id="" placeholder="Esquiba aqui las observaciones"
+                            formControlName="str_prestamo_revision_persona" style="resize: none;" rows="5"
+                            cols="50"></textarea>
+                        <div class="alert alert-danger mt-4 control-error"
+                            style="color: rgb(220, 38, 38); font-size: smaller;" *ngIf="aux">
+                            El campo es requerido.
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+<!-- botones de cada vista -->
+
+    <div style="display: flex; justify-content: space-around;"
+        *ngIf="informacion?.estado_activo== 2 && !srvPrestamos.especial">
+        <div class="container-Btns">
+            <button class="btn-primary-add" (click)="aceptar()"> Aceptar</button>
+        </div>
+        <div class="container-Btns">
+            <button class="btn-primary-add" (click)="rechazar()"> Rechazar</button>
+        </div>
+    </div>
+
+    <div style="display: flex; justify-content: space-around;"
+        *ngIf="informacion?.estado_activo== 3 && !srvPrestamos.especial">
+        <div class="container-Btns">
+            <button class="btn-primary-add" (click)="asistencia(true)"> Si</button>
+        </div>
+        <div class="container-Btns">
+            <button class="btn-primary-add" (click)="asistencia(false)"> No</button>
+        </div>
+    </div>
+
+
+    <div>
+        <div class="container-Btns" *ngIf="informacion?.estado_activo == 6 && srvPrestamos.finalizado">
+            <button class="btn-primary-add" (click)="finalizar()"> Finalizar</button>
+        </div>
+    </div>
+    <div>
+        <div class="container-Btns" *ngIf="informacion?.estado_activo == 7 && !srvPrestamos.especial">
+            <button class="btn-primary-add" (click)="obsrvaciones()"> Enviar</button>
+        </div>
+    </div>
+    
+</div>

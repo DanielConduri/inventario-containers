@@ -54,14 +54,14 @@ private destroy$ = new Subject<any>();
   ngOnInit(): void {
     const path: string = window.location.pathname.split('/').pop() || '';
     this.menuTabSelected = this.listaViews[path.toUpperCase()] || 0;
-    console.log('Aqui estoy agarrando  path =>', this.menuTabSelected);
+    // console.log('Aqui estoy agarrando  path =>', this.menuTabSelected);
 
     this.srvBienes.SelectButtonName$
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (data) =>{
         this.menuTabInventory = data;
-        console.log("Recibien el menuTabInventory en Bienes =>", data)
+        // console.log("Recibien el menuTabInventory en Bienes =>", data)
       }
     });
 

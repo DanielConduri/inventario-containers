@@ -34,7 +34,7 @@ export class CustodioService {
   // Funcion para obtener los custodios
   getCustodios(pagination: any){
 
-    console.log("Get_custodios ",pagination);
+    // console.log("Get_custodios ",pagination);
     const params = new HttpParams()
     .set('page', pagination.page)
     .set('size', pagination.size)

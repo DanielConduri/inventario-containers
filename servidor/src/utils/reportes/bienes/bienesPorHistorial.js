@@ -13,7 +13,7 @@ function generarPDFBienesPorHistorial(contenido, titulo) {
   return new Promise((resolve, reject) => {
     const doc = new PdfkitConstruct({
       size: "A4",
-      margins: { top: 10, left: 35, right: 25, bottom: 10 },
+      margins: { top: 10, left: 20, right: 10, bottom: 10 },
       bufferPages: true,
       //autoFirstPage: true,
     });
@@ -62,12 +62,12 @@ function generarPDFBienesPorHistorial(contenido, titulo) {
 
     doc.addTable(
       [
-        { key: "str_codigo_bien", label: " CÓDIGO ", align: "center" , width: 60 },
-        { key: "str_bien_nombre", label: "NOMBRE", align: "center", width: 30 },
-        { key: "str_ubicacion_nombre", label: "UBICACIÓN", align: "center", width: 70 },
-        { key: "str_condicion_bien_nombre", label: "CONDICIÓN", align: "center" , width: 65},
-        { key: "str_custodio_nombre", label: "CUSTODIO", align: "center" , width: 30},
-        { key: "dt_fecha_creacion", label: "FECHA DE CREACIÓN", align: "center", width: 50}
+        { key: "str_codigo_bien", label: " CÓDIGO ", align: "center"},
+        { key: "str_bien_nombre", label: "NOMBRE", align: "center" },
+        { key: "str_ubicacion_nombre", label: "UBICACIÓN", align: "center"},
+        { key: "str_condicion_bien_nombre", label: "CONDICIÓN", align: "center" },
+        { key: "str_custodio_nombre", label: "CUSTODIO", align: "center" },
+        { key: "dt_fecha_creacion", label: "FECHA CREACIÓN", align: "center"}
      
       ],
       contenido,

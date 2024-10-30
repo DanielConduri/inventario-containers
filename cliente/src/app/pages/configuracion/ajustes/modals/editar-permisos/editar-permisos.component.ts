@@ -5,6 +5,7 @@ import { ModalService } from 'src/app/core/services/modal.service';
 import { permisosModel, dataPermisosPerfil} from 'src/app/core/models/permisos-menu';
 import Swal from 'sweetalert2';
 import { map } from 'rxjs/operators';
+import config from 'config/config';
 
 
 
@@ -22,38 +23,38 @@ export class EditarPermisosComponent implements OnInit {
   idPorfile: number = 0;
 
 
-nuevosPermisos: { int_menu_id: number, int_menu_padre: number, bln_crear: string, bln_editar:string, bln_eliminar: string, bln_ver: string, str_menu_icono: string, str_menu_nombre: string}[] 
+nuevosPermisos: { int_menu_id: number, int_menu_padre: number, bln_crear: string, bln_editar:string, bln_eliminar: string, bln_ver: string, str_menu_icono: string, str_menu_nombre: string}[]
   = [
     {int_menu_id:0, int_menu_padre:0, bln_crear: '', bln_editar:'', bln_eliminar: '', bln_ver: '', str_menu_icono: '', str_menu_nombre: ''},
   ];
 
-  constructor( 
-    public srvMenu: MenuService,     
+  constructor(
+    public srvMenu: MenuService,
     public srvModal: ModalService,
-    ) { 
+    ) {
     }
 
   ngOnInit(): void {
     this.getIdPorfile()
     this.completeTable();
-    console.log("COMPONENTE EDITAR PERMISOS")
+    // console.log("COMPONENTE EDITAR PERMISOS")
 
   }
 
   onChange(event: any, parentIndex: number, op: number){
    const checked = (event.target as HTMLInputElement)?.checked
-   console.log("checked: ", checked)
+  //  console.log("checked: ", checked)
    let indexPadre = this.nuevosPermisos[parentIndex].int_menu_padre;
     if(this.nuevosPermisos[parentIndex].int_menu_padre !== 1 ){
-      console.log("tiene padre, id padre es: ", indexPadre)
+      // console.log("tiene padre, id padre es: ", indexPadre)
       for(let i=0; i<this.nuevosPermisos.length; i++){
         if(this.nuevosPermisos[i].int_menu_id === indexPadre && this.nuevosPermisos[i].bln_ver === 'unchecked'){
           this.nuevosPermisos[i].bln_ver = (checked ? 'checked' : 'unchecked');
-          console.log("Cambia el padre?: ",this.nuevosPermisos[i]);
+          // console.log("Cambia el padre?: ",this.nuevosPermisos[i]);
         }
       }
     }
-    
+
     switch (op) {
       case 1: //opcion para ver (que incluye crear, editar, eliminar)
       // if(indexPadre === 1){
@@ -105,11 +106,11 @@ nuevosPermisos: { int_menu_id: number, int_menu_padre: number, bln_crear: string
       // }
       break;
     }
-   
+
     if (checked){
       this.nuevosPermisos[parentIndex].bln_ver = (checked ? 'checked' : 'unchecked');
     }
-    console.log(this.nuevosPermisos[parentIndex]);
+    // console.log(this.nuevosPermisos[parentIndex]);
   }
 
   getIdPorfile(){
@@ -117,7 +118,7 @@ nuevosPermisos: { int_menu_id: number, int_menu_padre: number, bln_crear: string
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (getId: number) => {
-        console.log("Dentro de CompleteForme, el id es: ", getId)
+        // console.log("Dentro de CompleteForme, el id es: ", getId)
         this.idPorfile = getId
       },
       error: (err) => {
@@ -127,19 +128,19 @@ nuevosPermisos: { int_menu_id: number, int_menu_padre: number, bln_crear: string
   }
 
 
-  completeTable(){  
+  completeTable(){
     Swal.fire({
       title: 'Cargando datos',
       didOpen: () => {
         Swal.showLoading()
       }
     });
- 
+
     this.srvMenu.getPermisos(this.idPorfile)
   .pipe(
     takeUntil(this.destroy$),
     map((dataPermisos: permisosModel) => {
-      console.log("PERMISOS, Homero llega: ", dataPermisos);
+      // console.log("PERMISOS, Homero llega: ", dataPermisos);
 
       if (dataPermisos.status) {
         return dataPermisos.body.map(permiso => ({
@@ -150,7 +151,7 @@ nuevosPermisos: { int_menu_id: number, int_menu_padre: number, bln_crear: string
           bln_ver: permiso.bln_ver ? 'checked' : 'unchecked'
         }));
       } else {
-        console.log("No hay PERMISOS para mostrar");
+        // console.log("No hay PERMISOS para mostrar");
         return null;
       }
     })
@@ -160,7 +161,6 @@ nuevosPermisos: { int_menu_id: number, int_menu_padre: number, bln_crear: string
       if (nuevosPermisos) {
         this.nuevosPermisos = nuevosPermisos;
         Swal.close();
-        console.log("PERMISOS, Body nuevosPermisos devuelto: ", this.nuevosPermisos);
       }
     }
   });
@@ -188,12 +188,10 @@ nuevosPermisos: { int_menu_id: number, int_menu_padre: number, bln_crear: string
           bln_ver: p.bln_ver === 'checked'? true :false,
         }));
         Swal.close();
-        console.log("PERMISOS a enviar, data: ", data);
         this.srvMenu.UpdatePermisos(this.idPorfile, data)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (rest) => {
-            console.log("PERMISOS, respuesta del servidor: ", rest);
             if(rest.status){
               Swal.close();
               Swal.fire({
@@ -211,7 +209,7 @@ nuevosPermisos: { int_menu_id: number, int_menu_padre: number, bln_crear: string
                 timer: 3000,
               })
             }
-            setTimeout(() => {            
+            setTimeout(() => {
               //procese a desplegar los permisos
             }, 3000);
           },
@@ -219,6 +217,9 @@ nuevosPermisos: { int_menu_id: number, int_menu_padre: number, bln_crear: string
             console.log('err', error);
           },
           complete:()=>{
+            location.reload()
+            window.location.href = config.URL_BASE_PATH + '/welcome';
+
           }
         })
       }

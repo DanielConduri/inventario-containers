@@ -60,13 +60,13 @@ export class CaracteristcasService {
     // return this.http.get<MarcasShowModel>(this.urlApi_Marcas, {
     //   withCredentials: true,
     // });
-    console.log('datos rutas: ->', pagination);
+    // console.log('datos rutas: ->', pagination);
     const params = new HttpParams()
     .set('page', pagination.page)
     .set('size', pagination.size)
     .set('parameter', pagination.parameter)
     .set('data', pagination.data)
-    console.log('marcas params', params)
+    // console.log('marcas params', params)
     return this.http.get<pagMarcas>(
       this.urlApi_Marcas + '?'+params,
       { withCredentials: true }
@@ -88,7 +88,7 @@ export class CaracteristcasService {
 
   // Funcion para obtener el ID de una marca
   getMarcaId(idMarca: number) {
-    console.log('id de la Marca dentro de getMarcaID', idMarca);
+    // console.log('id de la Marca dentro de getMarcaID', idMarca);
     return this.http.get<modMarcaModel>(
       `${this.urlApi_MarcaDetalle}/${idMarca}`,
       {
@@ -119,7 +119,7 @@ export class CaracteristcasService {
 
   // Funcion para filtrar las marcas
   getFilterMarca(dato:any) {
-    console.log("Valor que llega a getFilterMarca =>", dato);
+    // console.log("Valor que llega a getFilterMarca =>", dato);
     const marcaFilter = GetFinalFiltersQuery(dato);
     return this.http.get<MarcasShowModel>(this.urlApi_MarcaFilter + marcaFilter, {
       withCredentials: true,
@@ -256,7 +256,7 @@ export class CaracteristcasService {
 
   // Funcion para obtener los datos de los proveedores
   getFilterProveedor(dato:any) {
-    console.log("Valor que llega a getFilterProveedor =>", dato);
+    // console.log("Valor que llega a getFilterProveedor =>", dato);
     const proveedorFilter = GetFinalFiltersQuery(dato);
     return this.http.get<ProveedorShowModel>(this.urlApi_ProveedorFilter + proveedorFilter, {
       withCredentials: true,
@@ -337,7 +337,7 @@ export class CaracteristcasService {
   }
 
   getFilterCatalogo(dato:any) {
-    console.log("Valor que llega a getFilterCatalogo =>", dato);
+    // console.log("Valor que llega a getFilterCatalogo =>", dato);
     const catalogoFilter = GetFinalFiltersQuery(dato);
     return this.http.get<CatalogoShowModel>(this.urlApi_CatalogoFilter + catalogoFilter, {
       withCredentials: true,

@@ -68,10 +68,11 @@ status: boolean = false;
         .subscribe({
          next:(_rol)=>{
           this.srvPersona.datosPerfiles = _rol.body
-          console.log("Aqui se imprimen rol body =>", _rol.body)
+          // console.log("Aqui se imprimen rol body =>", _rol.body)
           this.roles = this.srvPersona.datosPerfiles.map((item: dataPerfiles) => item.str_rol_nombre)
           this.nameRol = this.roles[0]
-          console.log("Aqui se imprimen Roles =>", this.nameRol)
+          //console.log("Aqui se imprimen Roles heard =>", this.nameRol)
+          // console.log("Aqui se imprimen Roles =>", this.nameRol)
         },
         error:(err)=>{
           console.log(err)
@@ -172,8 +173,8 @@ status: boolean = false;
     //   buttonSidebar?.classList.remove('close')
     // }
 
-    console.log(" la A: ", sidebarA)
-    console.log(" el boton en el header ", buttonSidebar)
+    // console.log(" la A: ", sidebarA)
+    // console.log(" el boton en el header ", buttonSidebar)
 
 
   }
@@ -210,7 +211,7 @@ status: boolean = false;
   }
 
   mostrarAjustes(){
-    console.log('Haciendo click en mostrar ajustes')
+    // console.log('Haciendo click en mostrar ajustes')
 
   }
 

@@ -10,6 +10,9 @@ const idEstado: number = 0;
 const idProveedor: number = 0;
 const idCatalogo: number = 0;
 const idBien: number = 0;
+const idArchivo: number = 0;
+
+const strCedula: string = '';
 
 const intRol: DataFormRol = {
   form: '',
@@ -38,7 +41,7 @@ export class ModalService implements AfterContentInit{
 
 
   ngAfterContentInit(): void {
-    console.log('ngAfterViewInit called');
+    // console.log('ngAfterViewInit called');
     throw new Error('Method not implemented.');
   }
 
@@ -96,12 +99,34 @@ export class ModalService implements AfterContentInit{
   // BehaviorSubject para obtener ID de un Bien
   private idDataBien$ = new BehaviorSubject<number>(idBien);
 
+  private idDataArchivo$ = new BehaviorSubject<number>(idArchivo);
+
+
+  //Para recuperar la cedula seleccionada
+  private strCedulaCustodio$ = new BehaviorSubject<string>(strCedula);
+
+  get SelectID_Archivo$(): Observable<number>{
+    return this.idDataArchivo$ .asObservable();
+  }
+
   get SelectID_Bien$(): Observable<number>{
     return this.idDataBien$.asObservable();
   }
 
+  get SelectCedula_Custodio$(): Observable<string> {
+    return this.strCedulaCustodio$.asObservable();
+  }
+
   setSelectID_Bien(_idBien: number){
     this.idDataBien$.next(_idBien);
+  }
+
+  setSelectCedula_Custodio(_strCedula: string) {
+    this.strCedulaCustodio$.next(_strCedula);
+  }
+
+  setSelectID_Archivo(_idArchivo: number){
+    this.idDataArchivo$.next(_idArchivo);
   }
 
 
@@ -127,7 +152,7 @@ export class ModalService implements AfterContentInit{
 
   //----------------- FUNCIONES PARA PERFILES -----------------//
 get selectIdPorfile$(){
-  console.log('id porfile en modal.service', this.idPorfile$)
+  // console.log('id porfile en modal.service', this.idPorfile$)
   return this.idPorfile$.asObservable();
 }
 
@@ -141,7 +166,7 @@ setIdPorfile(id: number){
   }
 
   setForm(data: DataFormRol) {
-    console.log('enviando del boton ->', data);
+    // console.log('enviando del boton ->', data);
     this.form$.next(data);
   }
 

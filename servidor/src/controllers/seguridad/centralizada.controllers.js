@@ -1,18 +1,26 @@
 import { configVariables } from "../../config/variables.config.js";
 import fetch from "node-fetch"; //para consumir una API
 import https from "https";
-const agent = new https.Agent({ rejectUnauthorized: false }); //Validar credenciales
+import crypto from "crypto";
+// const agent = new https.Agent({ rejectUnauthorized: false }); //Validar credenciales
+// Configurar el agente HTTPS
+const httpsAgentOptions = {
+  secureOptions: crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION,
+};
+
+httpsAgentOptions.rejectUnauthorized = false;
+const httpsAgent = new https.Agent(httpsAgentOptions);
 
 export const obtenerUsuariosCentralizado = async (req, res) => {
   try {
-    console.log("Entra a buscar cedula");
+    
     const { cedula } = req.params;
 
     const url = configVariables.urlServicioCentralizado + cedula;
-    const response = await fetch(url, { agent });
+    const response = await fetch(url, { agent: httpsAgent });
     const body = await response.json();
 
-    //console.log("usuario centralizado", body);
+    
     if (body.success == false) {
       return res.json({
         status: false,
@@ -35,7 +43,7 @@ export const obtenerUsuariosCentralizado = async (req, res) => {
       body: datosUsuario,
     });
   } catch (error) {
-    console.log(error.message);
+    
     return res.status(500).json({ message: error.message });
   }
 };

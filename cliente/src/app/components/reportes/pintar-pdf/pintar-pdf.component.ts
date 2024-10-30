@@ -37,7 +37,7 @@ export class PintarPDFComponent implements OnInit {
     pipe(takeUntil(this.destroy$)).
     subscribe({
       next: (data: any) => {
-        console.log('Lo que llega ->', data);
+        // console.log('Lo que llega ->', data);
         this.pdf  = data.body
         // this.pdf = this.srvInformes.pdf
         let viewpdf = document.getElementById('ver-pdf-solicitud');
@@ -46,9 +46,9 @@ export class PintarPDFComponent implements OnInit {
                 ' <iframe src="' +
                 'data:application/pdf;base64,' +
                 this.pdf +
-                '" type="application/pdf" width="100%" height="600" />';
+                '" type="application/pdf" width="100%" height="400" />';
             }
-        console.log('Lo que llega ->', this.pdf);
+        // console.log('Lo que llega ->', this.pdf);
         Swal.close();
 
       },

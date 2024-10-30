@@ -71,16 +71,16 @@ export class ImportarCatalogoComponent implements OnInit {
     const rows = csvText.split('\n');
     this.data = rows.map(row => row.split(/[,;]/));
     this.colums = Object.keys(this.data[0])
-    console.log('Dentro de parse Cvs1 que tiene colums => ', this.colums);
+    // console.log('Dentro de parse Cvs1 que tiene colums => ', this.colums);
   }
 
   //funcion para importar el archivo CSV
   importFile() {
-    console.log('Entre al click')
+    // console.log('Entre al click')
     const formData = new FormData();
     formData.append('file', this.fil, this.fil.name);
 
-    console.log('file => ', formData)
+    // console.log('file => ', formData)
 
     Swal.fire({
       title: 'Importando Datos de Catalogo',
@@ -94,7 +94,7 @@ export class ImportarCatalogoComponent implements OnInit {
         next: (rest) => {
           Swal.close();
           this.result = rest;
-          console.log("Que me responde el homero: ", rest);
+          // console.log("Que me responde el homero: ", rest);
           if (rest.status) {
             Swal.close();
               // this.myForm.reset()
@@ -128,7 +128,7 @@ export class ImportarCatalogoComponent implements OnInit {
                 });
               }
           } else {
-            console.log("Entra al else: ", rest)
+            // console.log("Entra al else: ", rest)
             Swal.close();
             Swal.fire({
               title: rest.message,
@@ -151,7 +151,7 @@ export class ImportarCatalogoComponent implements OnInit {
           console.log('error: ', error);
         },
         complete: () => {
-          console.log('Importacion Completada xD');
+          // console.log('Importacion Completada xD');
           this.data = this.clear
           this.colums = this.cli
           this.myForm.reset()
@@ -175,7 +175,7 @@ export class ImportarCatalogoComponent implements OnInit {
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (resCatalogo) => {
-        console.log("Exito!");
+        // console.log("Exito!");
         this.srvCaracteristicas.datosCatalogo = resCatalogo.body;
 
       },
@@ -190,7 +190,7 @@ export class ImportarCatalogoComponent implements OnInit {
         })
       },
       complete: () => {
-        console.log("Peticion catalogos completa");
+        // console.log("Peticion catalogos completa");
         //reiniciamos el formulario
         this.myForm.reset();
       }

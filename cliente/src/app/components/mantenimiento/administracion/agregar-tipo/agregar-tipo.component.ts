@@ -27,18 +27,20 @@ export class AgregarTipoComponent implements OnInit {
     public srvTipo: CaracteristicasMantenimientoService
   ) {
     this.myForm = this.fb.group({
-      idSoporte: ["", [Validators.required]],
-      descripcion: ["", [Validators.required]],
+      // idSoporte: [0, [Validators.required]],
+      descripcion: ['', [Validators.required]],
+      nombre: ['', [Validators.required]]
     })
    }
 
   ngOnInit(): void {
+    this.myForm.reset()
     this.getSoporte()
   }
 
   getSoporte(){
     Swal.fire({
-      title: 'Cargando Soportes...',
+      title: 'Cargando...',
       didOpen: () => {
         Swal.showLoading();
         this.isLoading = true;
@@ -52,10 +54,11 @@ export class AgregarTipoComponent implements OnInit {
         if(data.body.length > 0){
           this.isData = true;
           this.isLoading = true;
-          this.srvTipo.datosSoporte = data.body
+          this.srvTipo.auxTipoM = data.body
+
           // this.metadata = data.total
         }
-        console.log('lo que llega', this.srvTipo.datosSoporte)
+        // console.log('lo que llega', this.srvTipo.datosSoporte)
         Swal.close();
         // this.dataPagina()
       },
@@ -64,6 +67,7 @@ export class AgregarTipoComponent implements OnInit {
   }
 
   send(){
+    console.log('lo que se envía', this.myForm.value)
     Swal.fire({
       title:'¿Está seguro de añadir este Tipo de Mantenimiento ?',
       showDenyButton:true,
@@ -83,7 +87,7 @@ export class AgregarTipoComponent implements OnInit {
                 showConfirmButton:false,
                 timer:1500
               });
-              console.log("Res: ", rest)
+              // console.log("Res: ", rest)
             }else{
               Swal.fire({
                 title:rest.message,
@@ -93,7 +97,7 @@ export class AgregarTipoComponent implements OnInit {
               });
             }
             setTimeout(() => {
-              console.log('SettimeOut');
+              // console.log('SettimeOut');
               // this.showCenter()
               Swal.close();
             }, 3000);
@@ -138,7 +142,7 @@ export class AgregarTipoComponent implements OnInit {
           // this.metadata = data.total
         }
         
-        console.log('lo que llega', data)
+        // console.log('lo que llega', data)
         Swal.close();
 
         // this.dataPagina()
@@ -146,6 +150,11 @@ export class AgregarTipoComponent implements OnInit {
       error: (error) => {console.log(error)}
     },
     )
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 }

@@ -35,9 +35,12 @@ export class CasClient {
         logout =
           CONFIG2.LOGOUT_CORREO +
           '?post_logout_redirect_uri=' +
+          encodeURIComponent(CONFIG2.CASLOGOUT) +
+        'service=' +
           encodeURIComponent(CONFIG2.LOGOUT_REDIRECT);
         window.location.href = logout;
       } else {
+        this.remove();
         logout =
           CONFIG2.CASLOGOUT +
           'service=' +
@@ -47,7 +50,9 @@ export class CasClient {
     }
 
     public casError() {
+      this.remove();
       this.router.navigate(['/casError']);
+
     }
 
     public verificaLogin(): Promise<any> {
@@ -96,7 +101,7 @@ export class CasClient {
             resolve(translated);
           })
         );
-        console.log('valido', valido);
+        // console.log('valido', valido);
         if (valido.status == 'success') {
           let user = valido.datosCas.casUser;
           sessionStorage.setItem('loginUser', user);
@@ -169,7 +174,7 @@ export class CasClient {
       if (ticket) {
         sessionStorage.setItem('ticketUser', ticket);
       }
-      console.log('ticket en sabe', ticket);
+      // console.log('ticket en sabe', ticket);
 
     }
 
@@ -184,7 +189,7 @@ export class CasClient {
     public isAuthenticated(): boolean {
       var rawIdToken = sessionStorage.getItem('ticketUser');
       if(this.isNotEmpty(rawIdToken)){
-        console.log("esta autenticado" + rawIdToken);
+        // console.log("esta autenticado" + rawIdToken);
       }
       return this.isNotEmpty(rawIdToken);
     }

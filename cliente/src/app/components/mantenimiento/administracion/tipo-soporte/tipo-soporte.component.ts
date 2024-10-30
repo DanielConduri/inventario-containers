@@ -76,14 +76,15 @@ export class TipoSoporteComponent implements OnInit {
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (data:pagSoporte) => {
+        console.log('lo que llega ->', data)
         if(data.body.length > 0){
           this.isData = true;
           this.isLoading = true;
           this.srvSoporte.datosSoporte = data.body
           this.metadata = data.total
-          console.log('la metadata ->>>>>', this.metadata)
+          // console.log('la metadata ->>>>>', this.metadata)
         }
-        console.log('lo que llega', data)
+        // console.log('lo que llega', data)
         Swal.close();
         this.dataPagina()
       },
@@ -91,7 +92,16 @@ export class TipoSoporteComponent implements OnInit {
     })
   }
 
-  modifySoporte(id: number, _title: string, _form: string){}
+  modifySoporte(id: number, _title: string, _form: string){
+    this.srvSoporte.idTipoSModify = id
+    this.elementForm.form = _form;
+    this.elementForm.title = _title;
+    // this.elementForm.special = true;
+    this.srvModal.setForm(this.elementForm)
+    this.srvModal.openModal();
+    // this.srvSoporte.idSoporte = id;
+  
+  }
 
   deleteSoporte(id: number){
     Swal.fire({
@@ -151,7 +161,7 @@ export class TipoSoporteComponent implements OnInit {
 
   pasarPagina(page: number) {
     this.mapFiltersToRequest = { size: 10, page, parameter: '', data: 0  };
-    console.log('mapFiltersToRequest', this.mapFiltersToRequest);
+    // console.log('mapFiltersToRequest', this.mapFiltersToRequest);
     this.obtenerSoporte();
   }
 
@@ -164,5 +174,9 @@ export class TipoSoporteComponent implements OnInit {
     return this.srvMenu.permisos.find(p => p.str_menu_path === path)?.bln_eliminar ?? false;
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 
 }

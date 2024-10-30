@@ -70,7 +70,7 @@ export class ModificarUsuarioComponent implements OnInit, OnDestroy {
             Swal.showLoading()
           },
         });
-      console.log("Estoy rcompletar form onInit de editar Usuario....", getId)
+      // console.log("Estoy rcompletar form onInit de editar Usuario....", getId)
       this.idUser = getId
       this.ggetPersona()
     },
@@ -86,7 +86,7 @@ export class ModificarUsuarioComponent implements OnInit, OnDestroy {
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (dataPers: personaEditModel) => {
-        console.log("data en", dataPers.body);
+        // console.log("data en", dataPers.body);
         Swal.fire({
             title: 'Cargando',
             didOpen: () => {

@@ -35,7 +35,7 @@ export class AjustesService {
   //crud de usuarios
 
   getCentralizada(_cedula: string) {
-    console.log("Get_centralizada ",_cedula);
+    // console.log("Get_centralizada ",_cedula);
     return this.http.get<CentralizadaModel>(`${this.URL_API_USER}/${_cedula}`, {
       withCredentials: true,
     });
@@ -108,7 +108,7 @@ export class AjustesService {
     //       withCredentials: true,
     //     }
     //   );
-    console.log('datos rutas roles paginacion: ->', pagination);
+    // console.log('datos rutas roles paginacion: ->', pagination);
     const params = new HttpParams()
         .set('page', pagination.page)
         .set('size', pagination.size)

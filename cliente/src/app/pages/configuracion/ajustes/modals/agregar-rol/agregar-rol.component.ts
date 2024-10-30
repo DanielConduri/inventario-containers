@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { Subject, takeUntil } from 'rxjs';
 import { ModalService } from '../../../../../core/services/modal.service';
 import { PaginacionService } from 'src/app/core/services/paginacion.service';
+import config from 'config/config';
 
 @Component({
   selector: 'app-agregar-rol',
@@ -76,7 +77,7 @@ export class AgregarRolComponent implements OnInit, OnDestroy {
           .pipe(takeUntil(this.destroy$))
           .subscribe({
             next:(rest)=>{
-              console.log("Res: ", rest)
+              // console.log("Res: ", rest)
               if(rest.status){
                 Swal.fire({
                   title:'Rol Agregado Correctamente',
@@ -110,6 +111,8 @@ export class AgregarRolComponent implements OnInit, OnDestroy {
               this.showRoles()
               this.myForm.reset()
               this.srvModal.closeModal()
+              window.location.href = config.URL_BASE_PATH + '/welcome';
+
             }
           })
         }

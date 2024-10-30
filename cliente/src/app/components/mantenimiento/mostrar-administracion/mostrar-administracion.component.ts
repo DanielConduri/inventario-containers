@@ -48,7 +48,7 @@ export class MostrarAdministracionComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.buttonName = data.id;
-          console.log('lo mque llega ->>>>', this.buttonName)
+          // console.log('lo mque llega ->>>>', this.buttonName)
         }
       });
   }

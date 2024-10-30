@@ -125,7 +125,7 @@ export class ModificarRolComponent implements OnInit, OnDestroy {
                 Swal.fire({
                   title: 'Cargando Roles...',
                   didOpen: () => {
-                    console.log('cargados');
+                    // console.log('cargados');
                   },
                 });
                 data.message
@@ -142,6 +142,7 @@ export class ModificarRolComponent implements OnInit, OnDestroy {
             complete: () => {
               this.srvModal.closeModal()
               this.showRoles()
+              
             }
           })
       }

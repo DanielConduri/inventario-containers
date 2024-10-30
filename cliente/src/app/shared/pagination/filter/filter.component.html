@@ -14,7 +14,9 @@
       !showDiv &&
       selectedOption != 'estado' &&
         selectedOption != 'estado_logico' &&
-        selectedOption != 'bien_garantia'
+        selectedOption != 'estado_carga' &&
+        selectedOption != 'bien_garantia' &&
+        selectedOption != 'estados'
     "
     class="search-BarBtn"
   >
@@ -34,12 +36,40 @@
       <i class="material-icons">clear</i>
     </button>
   </div>
+
+  <!--Opciones EN PROCESO e FINALIZADO-->
+  <div
+    class="op-estado"
+    *ngIf="
+      (selectedOption == 'estado_carga') &&
+      !showDiv
+    "
+  >
+    <button id="clear-button" (click)="onClear()">
+      <i class="material-icons">arrow_back</i>
+    </button>
+    <button
+      [class.active]="estado === 'FINALIZADO'"
+      (click)="setEstado('FINALIZADO')"
+      class="page-link btn btn-h"
+    >
+    FINALIZADO
+    </button>
+    <button
+      [class.active]="estado === 'EN PROCESO'"
+      (click)="setEstado('EN PROCESO')"
+      class="page-link btn btn-h"
+    >
+    EN PROCESO
+    </button>
+  </div>
+
   <!--Opciones ACTIVO e INACTIVO-->
   <div
     class="op-estado"
     *ngIf="
       (selectedOption == 'estado' || selectedOption == 'estado_logico') &&
-      !showDiv
+      !showDiv && !activarEstados
     "
   >
     <button id="clear-button" (click)="onClear()">
@@ -60,6 +90,41 @@
       INACTIVO
     </button>
   </div>
+
+  <div
+    class="op-estado"
+    *ngIf="
+      (selectedOption == 'estados' || selectedOption == 'estado_logico') || activarEstados &&
+      !showDiv 
+    "
+  >
+    <button id="clear-button" (click)="onClear()">
+      <i class="material-icons">arrow_back</i>
+    </button>
+    <button
+      [class.active]="estado === 'DESARROLLO'"
+      (click)="setEstado('DESARROLLO')"
+      class="page-link btn btn-h"
+    >
+     DESARROLLO
+    </button>
+    <button
+      [class.active]="estado === 'EN PROCESO'"
+      (click)="setEstado('EN PROCESO')"
+      class="page-link btn btn-h"
+    >
+    EN PROCESO
+    </button>
+    <button
+      [class.active]="estado === 'FINALIZADO'"
+      (click)="setEstado('FINALIZADO')"
+      class="page-link btn btn-h"
+    >
+    FINALIZADO
+    </button>
+  </div>
+
+  
 
   <div class="op-estado" *ngIf="selectedOption == 'bien_garantia' && !showDiv">
     <button id="clear-button" (click)="onClear()">

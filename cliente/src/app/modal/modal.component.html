@@ -2,7 +2,8 @@
 
   <div class="modal-dialog modal-lg" *ngIf="triggerModal">
 
-    <div class="modal-content" *ngIf=" formType !='mostrar-pdf'">
+    <div class="modal-content"
+      *ngIf=" formType !='mostrar-pdf' && formType != 'planificacion' && formType != 'preventivo' && formType!='solicitudPrestamo'">
 
       <div class="modal-header">
         <h5 class="modal-title fs-5" id="titleModal">{{titleModal}}</h5>
@@ -12,7 +13,7 @@
 
       </div>
 
-      <div class="modal-body" >
+      <div class="modal-body">
         <div [ngSwitch]="formType">
           <div *ngSwitchCase="'nuevoReporte'">
             <app-agregar-reporte></app-agregar-reporte>
@@ -66,13 +67,13 @@
           <div *ngSwitchCase="'editarMenu'">
             <app-modificar-menu></app-modificar-menu>
           </div>
-          <div *ngSwitchCase="'insertarSoporte'" >
+          <div *ngSwitchCase="'insertarSoporte'">
             <app-agregar-soporte></app-agregar-soporte>
           </div>
-          <div *ngSwitchCase="'insertarTipoMantenimiento'"  >
+          <div *ngSwitchCase="'insertarTipoMantenimiento'">
             <app-agregar-tipoM></app-agregar-tipoM>
           </div>
-          <div *ngSwitchCase="'insertarNivel'" >
+          <div *ngSwitchCase="'insertarNivel'">
             <app-agregar-nivel></app-agregar-nivel>
           </div>
           <div *ngSwitchCase="'insertarEstadoMantenimiento'">
@@ -81,6 +82,9 @@
           <div *ngSwitchCase="'insertarRegistro'">
             <app-agregar-registro></app-agregar-registro>
           </div>
+          <!-- <div *ngSwitchCase="'insertarPlanificacion'" >
+            <app-agregar-planificacion></app-agregar-planificacion>
+          </div> -->
           <!-- <div *ngSwitchCase="'nuevoCustodio'">
 
                     </div> -->
@@ -137,16 +141,70 @@
           <div *ngSwitchCase="'mostrarProceso'">
             <app-mostrar-proceso></app-mostrar-proceso>
           </div>
+          <div *ngSwitchCase="'editarTipoSoporte'">
+            <app-editar-soporte></app-editar-soporte>
+          </div>
+          <div *ngSwitchCase="'editarTipoMantenimiento'">
+            <app-editar-tipo-soporte></app-editar-tipo-soporte>
+          </div>
+          <div *ngSwitchCase="'editarNivelMantenimiento'">
+            <app-editar-nivel></app-editar-nivel>
+          </div>
+          <div *ngSwitchCase="'editarEstadoMantenimiento'">
+            <app-editar-estado-m></app-editar-estado-m>
+          </div>
+          <div *ngSwitchCase="'editarPlanificacion'">
+            <app-editar-planificacion></app-editar-planificacion>
+          </div>
+          <div *ngSwitchCase="'traspasoTecnico'">
+            <app-traspaso-tecnico></app-traspaso-tecnico>
+          </div>
+          <div *ngSwitchCase="'infoBienesCustodio'">
+            <app-mostrar-bienes-custodio></app-mostrar-bienes-custodio>
+          </div>
+          <div *ngSwitchCase="'mostrarPlanificacionDetalles'">
+            <app-detalles-planificacion></app-detalles-planificacion>
+          </div>
 
-
-
-
+          <div *ngSwitchCase="'infoCargaArchivos'">
+            <app-detalle-carga></app-detalle-carga>
+          </div>
+          <!-- <div *ngSwitchCase="'editarMantenimientoPreventivo'" >
+            <app-editar-mantenimiento-preventivo></app-editar-mantenimiento-preventivo>
+          </div> -->
 
           <div *ngSwitchCase="'prueba'">
             <p>funciona</p>
           </div>
           <div *ngSwitchCase="'clear'"></div>
           <!-- <div *ngSwitchCase="'informacion'"></div> -->
+
+
+          <!-- horario -->
+          <div *ngSwitchCase="'horarioCentro'">
+            <app-add-horario></app-add-horario>
+          </div>
+
+          <div *ngSwitchCase="'agregarEstadosPrestamo'">
+            <app-agregar-estados-p></app-agregar-estados-p>
+          </div>
+
+          <div *ngSwitchCase="'modificarEstadosPrestamo'">
+            <app-modificar-estados-p></app-modificar-estados-p>
+          </div>
+
+          <div *ngSwitchCase="'interacionCustodio'">
+            <app-interaccion-custodio></app-interaccion-custodio>
+          </div>
+
+          <div *ngSwitchCase="'firmaSolicitante'" >
+            <app-agregar-firma-sol></app-agregar-firma-sol>
+          </div>
+
+          <!-- <div *ngSwitchCase="'solicitudPrestamo'">
+            <app-pintar-solicitud></app-pintar-solicitud>
+          </div> -->
+
         </div>
 
       </div>
@@ -159,8 +217,9 @@
       </div>
 
     </div>
-    <div *ngIf=" formType =='mostrar-pdf'">
-      <div class="modal-content2" *ngIf=" formType =='mostrar-pdf'">
+    <!-- ////////////////////////////////////////// -->
+    <div *ngIf=" formType =='mostrar-pdf' ">
+      <div class="modal-content2" *ngIf=" formType =='mostrar-pdf' && titleModal!='Agregar Planificacion'  ">
 
         <div class="modal-header">
           <h5 class="modal-title fs-5" id="titleModal">{{titleModal}}</h5>
@@ -170,14 +229,52 @@
 
         </div>
 
-        <div class="modal-body2" >
+        <div class="modal-body2">
           <div [ngSwitch]="titleModal">
             <div *ngSwitchCase="'Informe'">
               <!-- <app-agregar-reporte></app-agregar-reporte> -->
               <app-pintar-pdf></app-pintar-pdf>
             </div>
             <div *ngSwitch="'Reporte'">
-              <app-reporte-individual></app-reporte-individual>
+              <!-- <app-reporte-individual></app-reporte-individual> -->
+            </div>
+            <!-- <div *ngSwitchCase="'Agregar Planificacion'">
+              <app-agregar-planificacion></app-agregar-planificacion>
+            </div> -->
+          </div>
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-cancel" data-bs-dismiss="modal" (click)="closeModalX()">Cancelar</button>
+
+        </div>
+      </div>
+
+    </div>
+    <!-- //////////////////////////////////////////// -->
+
+    <div *ngIf=" formType =='planificacion'">
+
+      <div class="modal-content2" style="margin-top: 0px;" *ngIf=" formType =='planificacion'">
+
+        <div class="modal-header">
+          <h5 class="modal-title fs-5" id="titleModal">{{titleModal}}</h5>
+
+          <button #closeModal type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="modalClose"
+            (click)="closeModalX()">X</button>
+
+        </div>
+
+        <div class="modal-body2">
+          <div [ngSwitch]="titleModal">
+            <!-- <div *ngSwitchCase="'Informe'">
+                <app-pintar-pdf></app-pintar-pdf>
+              </div>
+              <div *ngSwitch="'Reporte'">
+                <app-reporte-individual></app-reporte-individual>
+              </div> -->
+            <div *ngSwitchCase="'Agregar Planificacion'">
+              <app-agregar-planificacion></app-agregar-planificacion>
             </div>
           </div>
         </div>
@@ -186,20 +283,51 @@
           <button type="button" class="btn btn-cancel" data-bs-dismiss="modal" (click)="closeModalX()">Cancelar</button>
 
         </div>
+      </div>
+
+    </div>
+
+    <!-- //////////////////////////////////////////// -->
+
+    <div *ngIf=" formType =='solicitudPrestamo'">
+
+      <div class="modal-content2" style="margin-top: 0px;" *ngIf=" formType =='solicitudPrestamo'">
+
+        <div class="modal-header">
+          <h5 class="modal-title fs-5" id="titleModal">{{titleModal}}</h5>
+
+          <button #closeModal type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" id="modalClose"
+            (click)="closeModalX()">X</button>
+
+        </div>
+
+        <div class="modal-body2">
+          <div [ngSwitch]="titleModal">
+
+            <div *ngSwitchCase="'Solicitud'">
+              <app-pintar-solicitud></app-pintar-solicitud>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-cancel" data-bs-dismiss="modal" (click)="closeModalX()">Cancelar</button>
+
+        </div>
+      </div>
+
+    </div>
+
+    <div class="modal-contentResponsive" *ngIf="!triggerModal">
+      <div class="buttonClose">
+        <button #closeModal type="button" class="btn-closeResponsive" data-bs-dismiss="modal" aria-label="Close"
+          id="modalClose" (click)="closeModalX()">
+          <i class="material-icons">arrow_drop_down</i>
+        </button>
+      </div>
+      <div class="componentContainer">
+        <app-desplegable></app-desplegable>
+      </div>
     </div>
 
   </div>
-
-  <div class="modal-contentResponsive" *ngIf="!triggerModal">
-    <div class="buttonClose">
-      <button #closeModal type="button" class="btn-closeResponsive" data-bs-dismiss="modal" aria-label="Close"
-        id="modalClose" (click)="closeModalX()">
-        <i class="material-icons">arrow_drop_down</i>
-      </button>
-    </div>
-    <div class="componentContainer">
-      <app-desplegable></app-desplegable>
-    </div>
-  </div>
-
-</div>

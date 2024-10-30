@@ -1,0 +1,70 @@
+/* Estilos para la tabla */
+table {
+  width: 100%;
+  margin-bottom: 20px; /* Añadido para separar las tablas */
+}
+
+/* Estilos para las filas impares */
+table tr:nth-child(odd) {
+  background-color: #dedddd; /* Color de fondo para filas impares */
+}
+
+/* Estilos para las celdas */
+th, td {
+  padding: 8px;
+  text-align: left;
+}
+
+/* Estilos para los botones */
+button {
+  padding: 8px 12px;
+  margin-top: 10px;
+  margin-right: 5px;
+  background-color: #ccc;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Estilo para botón de usuario */
+.btn-usuario {
+  background-color: #000000;
+  color: white;
+}
+
+button:hover {
+  background-color: #6a85a2;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Estilos para los inputs de tiempo */
+input[type="time"] {
+  margin-right: 5px;
+  padding: 5px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+input[type="time"]:focus {
+  border-color: #8c9cae;
+  outline: none;
+  box-shadow: 0 0 3px #83909e;
+}
+
+/* Estilos para los contenedores de intervalos */
+td div {
+  margin-bottom: 10px;
+}
+
+td div:last-child {
+  margin-bottom: 0;
+}
+
+

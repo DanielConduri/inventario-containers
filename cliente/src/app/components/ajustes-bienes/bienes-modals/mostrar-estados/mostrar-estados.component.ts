@@ -58,7 +58,7 @@ isLoading: boolean = true;
       next: (data: EstadosShowModel) => {
         if(data.body){
           this.isData = true;
-          console.log("Obteniendo Estados de la base de Datos", data.body);
+          // console.log("Obteniendo Estados de la base de Datos", data.body);
           this.srvCaracteristicas.datosEstados = data.body;
         }
       },
@@ -94,7 +94,7 @@ isLoading: boolean = true;
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (data)=>{
-            console.log("Estado Eliminado", data);
+            // console.log("Estado Eliminado", data);
             if(data.status){
               Swal.fire({
                 title: data.message,
@@ -118,7 +118,7 @@ isLoading: boolean = true;
             console.log("Error al eliminar el estado", err);
           },
           complete: ()=>{
-            console.log("Estado eliminado");
+            // console.log("Estado eliminado");
           }
         });
       }

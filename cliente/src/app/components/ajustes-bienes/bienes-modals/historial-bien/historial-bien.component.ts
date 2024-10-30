@@ -29,7 +29,7 @@ export class HistorialBienComponent implements OnInit {
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (getId: number) => {
-        console.log("recibiendo informacion del Bien seleccionado =>", getId);
+        // console.log("recibiendo informacion del Bien seleccionado =>", getId);
         this.idBien = getId;
       }
     })
@@ -45,10 +45,10 @@ export class HistorialBienComponent implements OnInit {
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (res: historicoBienModel) => {
-        console.log('Respuesta del historico del Bien =>', res);
+        // console.log('Respuesta del historico del Bien =>', res);
         this.srvInventario.historicoBien = res.body;
         this.codBien = this.srvInventario.historicoBien[0].str_codigo_bien_cod;
-        console.log('Array de historico del Bien =>', this.srvInventario.historicoBien);
+        // console.log('Array de historico del Bien =>', this.srvInventario.historicoBien);
 
       }
     })

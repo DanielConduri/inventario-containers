@@ -1,12 +1,14 @@
-import { Estado } from "../../models/mantenimiento/estado.models.js"
+import { EstadoMantenimiento } from "../../models/mantenimiento/estado.models.js"
 import { paginarDatos } from '../../utils/paginacion.utils.js';
+import { insertarAuditoria } from "../../utils/insertarAuditoria.utils.js";
 
 const crearEstadoMantenimiento = async (req, res) => {
     try {
-        const { descripcion } = req.body;
+        const { descripcion,nombre } = req.body;
         const descripcionM = descripcion.toUpperCase();         //Covnertir a mayúsculas
-        const estadoMantenimientoDB = await Estado.findOne({    //Comprobar si existe el estado a registrar
-            where: { str_estadoMantenimiento_descripcion: descripcionM }
+        const nombreM = nombre.toUpperCase();
+        const estadoMantenimientoDB = await EstadoMantenimiento.findOne({    //Comprobar si existe el estado a registrar
+            where: { str_estado_mantenimiento_nombre: nombreM }
         });
         if(estadoMantenimientoDB) {
             return res.json({
@@ -16,10 +18,21 @@ const crearEstadoMantenimiento = async (req, res) => {
             });
         }
 
-        const newEstadoMantenimiento = await Estado.create({    //Insertar el nuevo estado
-            str_estadoMantenimiento_descripcion: descripcionM
+        const newEstadoMantenimiento = await EstadoMantenimiento.create({    //Insertar el nuevo estado
+            str_estado_mantenimiento_descripcion: descripcionM,
+            str_estado_mantenimiento_nombre: nombreM
         });
         if(newEstadoMantenimiento) {
+            insertarAuditoria(
+                "null",
+                "tb_estado_mantenimiento",
+                "INSERT",
+                newEstadoMantenimiento,
+                req.ip,
+                req.headers.host,
+                req,
+                "Se ha insertado un estado de mantenimiento nuevo"
+            );
             return res.json({
                 status: true,
                 message: "Estado de mantenimiento creado correctamente",
@@ -37,11 +50,13 @@ const crearEstadoMantenimiento = async (req, res) => {
 
 const editarEstadoMantenimiento = async (req, res) => {
     try {
-        const {descripcion } = req.body;
-        const { id } = req.param;
+        const {descripcion,nombre } = req.body;
+        const { id } = req.params;
+        
         const descripcionM = descripcion.toUpperCase();
-        const estadoMantenimientoDB = await Estado.findOne({
-            where: { int_estadoMantenimiento_id: id }
+        // const nombreM = nombre.toUpperCase();
+        const estadoMantenimientoDB = await EstadoMantenimiento.findOne({
+            where: { int_estado_mantenimiento_id: id }
         });
         if(!estadoMantenimientoDB) {
             return res.json({
@@ -50,15 +65,32 @@ const editarEstadoMantenimiento = async (req, res) => {
                 body: {},
             });
         }
-        const estadoMantenimientoUpdate = await Estado.update(
+        const estadoMantenimientoUpdate = await EstadoMantenimiento.update(
             {
-                str_estadoMantenimiento_descripcion: descripcionM
+                str_estado_mantenimiento_descripcion: descripcionM,
+                dt_fecha_actualizacion: new Date()
             },
             {
-                where: { int_estadoMantenimiento_id: id}
+                where: { int_estado_mantenimiento_id: id}
             }
         );
+
         if(estadoMantenimientoUpdate) {
+
+            const nuevo = await EstadoMantenimiento.findOne({
+                where: { int_estado_mantenimiento_id: id }
+            });
+
+            insertarAuditoria(
+                estadoMantenimientoDB,
+                "tb_estado_mantenimiento",
+                "UPDATE",
+                nuevo,
+                req.ip,
+                req.headers.host,
+                req,
+                "Se ha actualizado el estado de mantenimiento con id: " + estadoMantenimientoDB.int_estado_mantenimiento_id
+            );
             return res.json({
                 status: true,
                 message: "Estado de mantenimiento actualizado correctamente",
@@ -66,6 +98,7 @@ const editarEstadoMantenimiento = async (req, res) => {
             });
         }  
     } catch (error) {
+        console.log(error);
         return res.status(500).json({
             message: `Error al editar el estado de mantenimiento ${error}`,
             data: {}
@@ -76,8 +109,8 @@ const editarEstadoMantenimiento = async (req, res) => {
 const cambiarEstadoMantenimiento = async (req, res) => {
     try {
         const { id } = req.params;
-        const estadoMantenimientoDB = await Estado.findOne({
-            where: { int_estadoMantenimiento_id: id }
+        const estadoMantenimientoDB = await EstadoMantenimiento.findOne({
+            where: { int_estado_mantenimiento_id: id }
         });
         if(!estadoMantenimientoDB) {
             return res.json({
@@ -88,21 +121,34 @@ const cambiarEstadoMantenimiento = async (req, res) => {
         }
         
         let estado = "";    //Cambiar estado INACTIVO O ACTIVO
-        if(estadoMantenimientoDB.str_estadoMantenimiento_estado === "ACTIVO"){
+        if(estadoMantenimientoDB.str_estado_mantenimiento_estado === "ACTIVO"){
             estado = "INACTIVO";
         } else {
-            estado = "INACTIVO";
+            estado = "ACTIVO";
         }
-        const estadoMantenimientoUpdate = await Estado.update(
+        const estadoMantenimientoUpdate = await EstadoMantenimiento.update(
             {
-                str_estadoMantenimiento_estado: estado
+                str_estado_mantenimiento_estado: estado
             },
             {
-                where: { int_estadoMantenimiento_id: id }
+                where: { int_estado_mantenimiento_id: id }
             }
         );
 
         if(estadoMantenimientoUpdate) {
+            const nuevo = await EstadoMantenimiento.findOne({
+                where: { int_estado_mantenimiento_id: id }
+            });
+            insertarAuditoria(
+                estadoMantenimientoDB,
+                "tb_estado_mantenimiento",
+                "UPDATE",
+                nuevo,
+                req.ip,
+                req.headers.host,
+                req,
+                "Se ha actualizado el estado de mantenimiento con id: " + estadoMantenimientoDB.int_estado_mantenimiento_id
+            );
             return res.json({
                 status: true,
                 message: "Estado de mantenimiento actualizado correctamente",
@@ -119,9 +165,9 @@ const cambiarEstadoMantenimiento = async (req, res) => {
 
 const obtenerEstadosMantenimiento = async (req, res) => {
     try {
-        console.log("estadosxd")
+       
         const paginationData = req.query;
-        const estadosMantenimiento = await Estado.findAll(
+        const estadosMantenimiento = await EstadoMantenimiento.findAll(
             {limit:5}
         );
 
@@ -137,7 +183,7 @@ const obtenerEstadosMantenimiento = async (req, res) => {
             const {datos, total} = await paginarDatos(
                 1,
                 10,
-                Estado,
+                EstadoMantenimiento,
                 "",
                 ""
             );
@@ -154,7 +200,7 @@ const obtenerEstadosMantenimiento = async (req, res) => {
         const {datos, total} = await paginarDatos(
             paginationData.page,
             paginationData.size,
-            Estado,
+            EstadoMantenimiento,
             paginationData.parameter,
             paginationData.data
         );
@@ -180,10 +226,10 @@ const obtenerEstadosMantenimiento = async (req, res) => {
 
 const obtenerEstadoMantenimientoPorId = async (req, res) => {
     try {
-        console.log('Ingreso a obtener estado mantenimiento por id')
+        
         const { id } = req.params;
-        const estadoMantenimientoDB = await Estado.findOne({
-            where: { int_estadoMantenimiento_id: id }
+        const estadoMantenimientoDB = await EstadoMantenimiento.findOne({
+            where: { int_estado_mantenimiento_id: id }
         });
 
         if(!estadoMantenimientoDB) {

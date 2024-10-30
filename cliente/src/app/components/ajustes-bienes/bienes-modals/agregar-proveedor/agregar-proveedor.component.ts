@@ -78,7 +78,7 @@ export class AgregarProveedorComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1500
               })
-              console.log("Data del proveedor Agregada =>", resProveedor);
+              // console.log("Data del proveedor Agregada =>", resProveedor);
             }else{
               Swal.fire({
                 title:'Error al agregar proveedor!',
@@ -86,7 +86,7 @@ export class AgregarProveedorComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 1500
               })
-              console.log("Error al agregar proveedor =>", resProveedor);
+              // console.log("Error al agregar proveedor =>", resProveedor);
             }
             setTimeout(() => {
               this.showProveedor();
@@ -111,7 +111,7 @@ export class AgregarProveedorComponent implements OnInit {
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (resProveedor: ModelPagProveedor) => {
-        console.log("Data del proveedor =>", resProveedor);
+        // console.log("Data del proveedor =>", resProveedor);
         this.srvCaracteristicas.datosProveedor = resProveedor.body;
         this.metadata = resProveedor.total
       },
@@ -119,7 +119,7 @@ export class AgregarProveedorComponent implements OnInit {
         console.log("Error al mostrar proveedor =>", err);
       },
       complete: () => {
-        console.log("Proveedor mostrado con exito!");
+        // console.log("Proveedor mostrado con exito!");
         this.dataPagina();
         this.myForm.reset();
       }

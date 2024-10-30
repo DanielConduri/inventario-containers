@@ -39,6 +39,8 @@ export class AgregarReporteComponent implements OnInit {
     custodio: 0,
     fechaI:''
   }
+
+  origenIngreso: boolean = false
   
   myForm!: FormGroup;
   
@@ -113,7 +115,7 @@ export class AgregarReporteComponent implements OnInit {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next:(rest:any)=>{
-            console.log("Res: ", rest)
+            // console.log("Res: ", rest)
             if(rest.status){
               Swal.fire({
                 title:'Centro Agregado Correctamente',
@@ -121,7 +123,7 @@ export class AgregarReporteComponent implements OnInit {
                 showConfirmButton:false,
                 timer:1500
               });
-              console.log("Res: ", rest)
+              // console.log("Res: ", rest)
             }else{
               Swal.fire({
                 title:rest.message,
@@ -131,7 +133,7 @@ export class AgregarReporteComponent implements OnInit {
               });
             }
             setTimeout(() => {
-              console.log('SettimeOut');
+              // console.log('SettimeOut');
               // this.showCenter()
               Swal.close();
             }, 3000);
@@ -168,19 +170,20 @@ export class AgregarReporteComponent implements OnInit {
     this.values.origen=0
     
     this.selectedCheckboxes = document.querySelectorAll('input[type="checkbox"]:checked').length;
-    console.log('cantidad->', this.selectedCheckboxes );
+    // console.log('cantidad->', this.selectedCheckboxes );
     this.areCheckboxesDisabled = this.selectedCheckboxes >= this.checkboxLimit;
-    console.log('bloqueo ->', this.areCheckboxesDisabled);
-    console.log('valor ->',this.myForm.value);
-    console.log('que arroja el e->', e.target);
+    // console.log('bloqueo ->', this.areCheckboxesDisabled);
+    // console.log('valor ->',this.myForm.value);
+    // console.log('que arroja el e->', e.target);
     
     this.date=this.myForm.value.reporte_fecha_ingreso
    // const checked = (e.target as HTMLInputElement)?.checked
-    console.log('que es->');
-    console.log('valor individual ->', );
+    // console.log('que es->');
+    // console.log('valor individual ->', );
     switch(e.target.value){
       case '1':
         this.getIngresoOrigen()
+        this.origenIngreso = true
         break
       case '2':
         this.values.color = 1
@@ -208,7 +211,7 @@ export class AgregarReporteComponent implements OnInit {
         break
     }
 
-    console.log('case ->', this.values);
+    // console.log('case ->', this.values);
   }
 
   getIngresoOrigen(){

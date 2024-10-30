@@ -13,8 +13,18 @@ import { paginarDatos } from "../../utils/paginacion.utils.js";
 import fetch from "node-fetch"; //para consumir una API
 import https from "https";
 import { configVariables } from "../../config/variables.config.js";
-const agent = new https.Agent({ rejectUnauthorized: false }); //Validar credenciales
+import crypto from "crypto";
+
+
 let datosFacultades;
+
+const httpsAgentOptions = {
+  secureOptions: crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION,
+};
+
+httpsAgentOptions.rejectUnauthorized = false;
+const agent = new https.Agent(httpsAgentOptions);
+
 
 
 const consumirServicioEspoch = async (req, res) => {
@@ -23,28 +33,27 @@ const consumirServicioEspoch = async (req, res) => {
     const url2 = 'https://pruebasw.espoch.edu.ec:3011/usuarios?page=1&size=10';
     const response = await fetch(url, { agent });
     const body = await response.json();
-    console.log(body);
+
     return res.json({
       status: true,
       body: body
     })
   } catch (error) {
-    console.log(error.message)
+
     return res.status(500).json({ message: error.message });
   }
 
 };
 
 const obtenerDatosCentro = async (req, res) => {
-  console.log("Ingreso a obtener datos centro", req.query);
+
   const objeto = req.query;
-  console.log("objeto", objeto);
+
 
   const data = JSON.parse(objeto.center);
   const tipo = data.type;
   const sede = data.sede;
-  console.log("tipo", tipo);
-  console.log("sede", sede);
+
   let datosFacultades;
   let datosDepartamentos;
   let datosCentro;
@@ -68,8 +77,6 @@ const obtenerDatosCentro = async (req, res) => {
 export const filtrarCentros = async (req, res) => {
   try {
     const { filter } = req.query;
-
-    console.log("Datos del filtro: ", filter)
     //transformar el string en un objeto
     const filtro = JSON.parse(filter);
     const dato = filtro.like.data.toUpperCase();
@@ -84,7 +91,6 @@ export const filtrarCentros = async (req, res) => {
         str_centro_estado: estado,
       },
     });
-    console.log("centros", centros);
     if (centros.length === 0 || !centros) {
       return res.json({
         status: false,
@@ -104,9 +110,9 @@ export const filtrarCentros = async (req, res) => {
 
 const filtrarUbicaciones = async (req, res) => {
   try {
-    console.log("ingreso a obtenerUbicaciones");
+
     const paginationData = req.query;
-    console.log("req.query", req.query);
+
 
     if (paginationData.page === "undefined") {
       const { datos, total } = await paginarDatos(1, 10, Ubicaciones, '', '');
@@ -128,12 +134,12 @@ const filtrarUbicaciones = async (req, res) => {
     }
 
     const { datos, total } = await paginarDatos(
-      paginationData.page, 
-      paginationData.size, 
-      Ubicaciones, 
-      paginationData.parameter, 
+      paginationData.page,
+      paginationData.size,
+      Ubicaciones,
+      paginationData.parameter,
       paginationData.data
-  );
+    );
 
     return res.json({
       status: true,
@@ -150,7 +156,7 @@ const filtrarUbicaciones = async (req, res) => {
 
 
 async function obtenerFacultades(sede) {
-  console.log("ingreso a obtener facultades con la siguiente sede", sede);
+
   try {
     const urlUno = configVariables.urlFacultadesMatriz;
     const urlDos = configVariables.urlFacultadesMorona;
@@ -170,13 +176,14 @@ async function obtenerFacultades(sede) {
       return retornarObjetoFacultades(bodyTres);
     }
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return error;
+    //return res.status(500).json({ message: error.message });
   }
 };
 
 //Funcion que devuelve las facultades en un objeto de objetos
 async function retornarObjetoFacultades(body) {
-  //console.log("Ingreso a retornar objeto", body);
+
   //Recorrer un array de objetos
   const resultado = body.listado.map((obj) => {
     return {
@@ -190,25 +197,20 @@ async function retornarObjetoFacultades(body) {
 };
 
 const obtenerCarreras = async (req, res) => {
-  //console.log("req", req);
-  console.log("req.query", req.query);
+
   const objeto = req.query;
-  console.log("objeto", objeto);
+
 
   const data = JSON.parse(objeto.center);
   const sede = data.sede;
   const facultad = data.facultad;
 
-  /*console.log("req.body", req.body);
-  const sede = req.body.sede; 
-  const facultad = req.body.facultad;
-  console.log("sede", sede);
-  console.log("facultad", facultad);*/
+
 
   var datosCarreras;
 
   datosCarreras = await retornarCarreras(sede, facultad);
-  console.log("Carreras ", datosCarreras);
+
 
   return res.json({
     status: true,
@@ -222,13 +224,11 @@ const obtenerCarreras = async (req, res) => {
 
 const obtenerProcesos = async (req, res) => {
 
-  /*console.log("reqBody",req.body);
-  const sede = req.body.sede; 
-  const dependencia = req.body.dependencia;*/
 
-  console.log("req.query", req.query);
+
+
   const objeto = req.query;
-  console.log("objeto", objeto);
+
 
   const data = JSON.parse(objeto.center);
   const sede = data.sede;
@@ -244,9 +244,7 @@ const obtenerProcesos = async (req, res) => {
 };
 
 async function retornarProcesos(sede, dependenciaId) {
-  console.log("Ingreso a retornar procesos");
-  console.log("sede", sede);
-  console.log("dependencia", dependenciaId);
+
 
   const url = configVariables.urlServicioProceso;
   const response = await fetch(url, { agent });
@@ -255,7 +253,7 @@ async function retornarProcesos(sede, dependenciaId) {
 
 
   const depId = Number(dependenciaId);
-  console.log("dependencia", depId);
+
   const resultado = body.map((obj) => {
     if (obj.proDepId.depId === depId) {
       arrayProcesos.push({ procesoDescripcion: obj.proDescripcion, procesoId: obj.proId });
@@ -265,14 +263,14 @@ async function retornarProcesos(sede, dependenciaId) {
       };
     }
   });
-  console.log("Procesos", arrayProcesos);
+
   return arrayProcesos;
 };
 
 async function retornarCarreras(sede, facultad) {
   const morona = "MORONA";
   const norte = "NORTE";
-  console.log("Ingreso a retornar carreras", sede, facultad);
+
   //Carreras Matriz
   var urlFade = configVariables.urlCarrerasFade;
   const urlCiencias = configVariables.urlCarrerasCiencias;
@@ -287,7 +285,7 @@ async function retornarCarreras(sede, facultad) {
     urlFade = configVariables.urlCarrerasFade;
   } else if (sede === "ESPOCH - SEDE MORONA SANTIAGO") {
     urlFade = configVariables.urlCarrerasFade + morona;
-    console.log("urlFade Morona", urlFade);
+
   } else {
 
   }
@@ -331,7 +329,7 @@ async function retornarCarreras(sede, facultad) {
     else if (facultad === "FIM") {
       return retornarObjetoCarreras(bodyMecanica);
     }
-    else if (facultad === "FRC") {
+    else if (facultad === "FRN") {
       return retornarObjetoCarreras(bodyRecNaturales);
     }
     else if (facultad === "FSP") {
@@ -350,7 +348,7 @@ async function retornarCarreras(sede, facultad) {
 
 //Funcion que devuelve las facultades en un objeto de objetos
 async function retornarObjetoCarreras(body) {
-  //console.log("Ingreso a retornar objeto carreras", body);
+
   //Recorrer un array de objetos
   const resultado = body.listado.map((obj) => {
     return {
@@ -382,7 +380,7 @@ async function retornarDependencias() {
     array.findIndex((e) => e.procesoDependencia === elemento.procesoDependencia) === indice
   );
 
-  console.log("Elementos no repetidos", datosUnicos);
+
 
   return datosUnicos;
 }
@@ -391,7 +389,7 @@ const obtenerSedes = async (req, res) => {
   const url = configVariables.urlSedes;
   const response = await fetch(url, { agent });
   const body = await response.json();
-  console.log("body", body.listado);
+
 
   const resultado = body.listado.map((obj) => {
     return {
@@ -400,9 +398,8 @@ const obtenerSedes = async (req, res) => {
 
     };
   });
-  console.log("resultado", resultado);
-  /*const objetoDeObjetos = Object.assign({}, ...resultado.map((objeto, index) => ({ [index]: objeto })));
-  console.log("objeto de objetos",objetoDeObjetos);*/
+
+
 
   return res.json({
     status: true,
@@ -418,23 +415,21 @@ const obtenerCentrosApi = async (req, res) => {
   const url = configVariables.urlServicioProcesoDependencia;
   const response = await fetch(url, { agent });
   const body = await response.json();
-  //console.log("Centros api", body);
+
 
   res.json({
     status: true,
     message: "Datos obtenidos",
     body: body,
   });
-  console.log(body[0].proDepId);
+
 
 
 };
 
 const obtenerCentrosDetalles = async (req, res) => {
-  console.log("entro a la funcion obtener centrooooooooooooooooooooooooos");
-  /*const centros = await sequelize.query("SELECT * FROM inventario.tb_centros", {
-    type: QueryTypes.SELECT,
-  });*/
+
+
 
   const { detalleId } = req.params;
   const centroDetalles = await Centros.findOne({
@@ -472,7 +467,7 @@ const obtenerCentrosDetalles = async (req, res) => {
 
 //obtener datos con paginacion
 const obtenerCentrosPaginacion = async (req, res) => {
-  console.log("obtener centro paginacion", req.query);
+
   try {
     const paginationData = req.query;
     if (paginationData.page === "undefined") {
@@ -537,7 +532,6 @@ const obtenerCentro = async (req, res) => {
 };
 
 const insertarCentro = async (req, res) => {
-  console.log("insertar centros", req.body);
 
   const {
     centro_nombre,
@@ -550,7 +544,9 @@ const insertarCentro = async (req, res) => {
     nombre_ubicacion,
     codigo_ubicacion,
     nombre_dependencia,
-    codigo_dependencia
+    codigo_dependencia,
+    dc_centro_coordenada_uno,
+    dc_centro_coordenada_dos,
   } = req.body;
 
 
@@ -587,9 +583,7 @@ const insertarCentro = async (req, res) => {
     }
 
 
-    console.log("int_centro_tipo_id", int_centro_tipo_id);
-    console.log("int_centro_nivel_id", int_centro_nivel_id);
-    console.log("_int_centro_sede_id", _int_centro_sede_id);
+
 
     try {
       const nuevoCentro = await Centros.create({
@@ -607,6 +601,8 @@ const insertarCentro = async (req, res) => {
         str_centro_nombre_dependencia: nombre_dependencia,
         int_centro_id_proceso: codigo_ubicacion,
         str_centro_nombre_proceso: nombre_ubicacion,
+        dc_centro_coordenada_uno: dc_centro_coordenada_uno,
+        dc_centro_coordenada_dos: dc_centro_coordenada_dos,
       });
       return res.json({
         status: true,
@@ -624,13 +620,27 @@ const insertarCentro = async (req, res) => {
 const actualizarCentro = async (req, res) => {
   try {
     const { int_centro_id } = req.params;
-    const { centro_nombre } = req.body;
+    const { centro_nombre,
+      centro_tipo,
+      centro_sede,
+      nombre_facultad,
+      codigo_facultad,
+      nombre_carrera,
+      codigo_carrera,
+      nombre_ubicacion,
+      codigo_ubicacion,
+      nombre_dependencia,
+      codigo_dependencia,
+      dc_centro_coordenada_dos,
+      dc_centro_coordenada_uno,
+    } = req.body;
 
     const centro = await Centros.findOne({
       where: {
         int_centro_id: int_centro_id,
       },
     });
+
 
     if (!centro || centro.lenght === 0) {
       return res.json({
@@ -644,20 +654,52 @@ const actualizarCentro = async (req, res) => {
         status: false,
         message: "Debe llenar todos los campos",
       });
+    } else {
+      let int_centro_tipo_id;
+      let int_centro_nivel_id;
+      let _int_centro_sede_id = 1;
+      if (centro_tipo == "ACADÉMICO") {
+        int_centro_tipo_id = 1;
+        int_centro_nivel_id = 3;
+        if (centro_sede == "MATRIZ RIOBAMBA") {
+          _int_centro_sede_id = 1;
+        } else if (centro_sede == "ESPOCH - SEDE MORONA SANTIAGO") {
+          _int_centro_sede_id = 2;
+        } else {
+          _int_centro_sede_id = 3;
+        }
+      } else {
+        int_centro_tipo_id = 2;
+        int_centro_nivel_id = 2;
+        _int_centro_sede_id = 1;
+      }
+      centro.int_centro_tipo = int_centro_tipo_id;
+      centro.str_centro_tipo_nombre = centro_tipo;
+      centro.int_centro_nivel = int_centro_nivel_id;
+      centro.int_centro_sede_id = _int_centro_sede_id;
+      centro.str_centro_nombre = centro_nombre;
+      centro.str_centro_cod_facultad = codigo_facultad;
+      centro.str_centro_nombre_facultad = nombre_facultad;
+      centro.str_centro_cod_carrera = codigo_carrera;
+      centro.str_centro_nombre_carrera = nombre_carrera;
+      centro.str_centro_nombre_sede = centro_sede;
+      centro.int_centro_id_dependencia = codigo_dependencia;
+      centro.str_centro_nombre_dependencia = nombre_dependencia;
+      centro.int_centro_id_proceso = codigo_ubicacion;
+      centro.str_centro_nombre_proceso = nombre_ubicacion;
+      centro.dc_centro_coordenada_uno = dc_centro_coordenada_uno;
+      centro.dc_centro_coordenada_dos = dc_centro_coordenada_dos;
+
+
+      await centro.save();
+
+      return res.json({
+        status: true,
+        message: "Centro actualizado correctamente",
+        body: centro,
+      });
+
     }
-    centro.str_centro_nombre = centro_nombre;
-
-
-    await centro.save();
-    const datos = await Centros.findAll();
-
-    return res.json({
-      status: true,
-      message: "Centro actualizado correctamente",
-      body: datos,
-    });
-
-
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -665,7 +707,7 @@ const actualizarCentro = async (req, res) => {
 
 const eliminarCentro = async (req, res) => {
   const { id_centro } = req.params;
-  console.log("id_centro", id_centro)
+
   try {
     const centro = await Centros.findOne({
       where: {
@@ -705,28 +747,27 @@ const importarCsv = async (req, res) => {
     //obtener la primera fila del archivo csv
     const primeraFila = await obtenerPrimeraFila(file.path);
 
-    console.log("primera fila", primeraFila);
     const encabezadosValidos = ["nombre", "ubicación", "dependencia"];
     const headers = Object.keys(primeraFila);
-    console.log("Encabezados válidos", encabezadosValidos);
+
     // Verificar que los encabezaos del archivo csv sean válidos
     function verificarEncabezadosValidos(headers, encabezadosValidos) {
       const separador = /[,;]/;
       const encabezados = headers[0]
         .split(separador)
         .map((encabezado) => encabezado.trim().toLowerCase());
-      console.log("Encabezados del archivo csv", encabezados);
+
       return encabezados.every((encabezado) =>
         encabezadosValidos.includes(encabezado)
       );
     }
 
     const sonValidos = verificarEncabezadosValidos(headers, encabezadosValidos);
-    console.log("son validos", sonValidos);
+
     if (sonValidos) {
       //obtener el separador del archivo y los datos
       let arrayCentrosCsv = await leerArchivoCsv(file.path);
-      console.log("arrayCentrosCsv", arrayCentrosCsv);
+
       //insertar los datos en la base de datos
       let centrosNoIngresados = 0;
       let centrosIngresados = 0;
@@ -748,7 +789,7 @@ const importarCsv = async (req, res) => {
               str_centro_nombre: valoresCentro[0].toUpperCase(),
             },
           });
-          console.log("que ha pasado?????", consultaCentro);
+
 
           if (!consultaCentro || consultaCentro.lenght === 0) {
             //Si el centro no existe, inserta en la bd
@@ -771,7 +812,7 @@ const importarCsv = async (req, res) => {
             centrosNoIngresados++;
           }
         } catch (error) {
-          console.log("aqui captura el error", error.message);
+
           return res.json({
             status: false,
             message: error.message,
@@ -881,10 +922,10 @@ function leerArchivoCsv(path) {
         let separador;
         if (data.includes(";")) {
           separador = ";";
-          console.log("separador", separador);
+
         } else if (data.includes(",")) {
           separador = ",";
-          console.log("separador", separador);
+
         } else {
           reject(
             new Error("No se encontró un separador válido en el archivo CSV.")

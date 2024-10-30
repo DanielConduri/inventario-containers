@@ -6,7 +6,7 @@
 
 <div style="display: grid; gap: 30px;">
 
-  <form [formGroup]="myForm">
+  <!-- <form [formGroup]="myForm">
     <div class="container-BodyData">
       <div class="container-Left">
 
@@ -23,143 +23,125 @@
 
       </div>
     </div>
-  </form>
+  </form> -->
 
 
   <div class="containerRes">
-    <!-- <form [formGroup]="myForm">
-      <div class="container-BodyData">
-        <div class="container-Left">
+    <mat-accordion>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Agregar Bienes
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-          <div class="containerInfo">
-            <label for="">Tipo de Informe</label>
-            <div class="search-BarBtn theselect">
-              <select formControlName="int_tipo_documento_id" (change)="getF($event)">
-                <option [selected]="true" select disabled>Seleccione un tipo de informe</option>
-                <option *ngFor="let op of tipoInforme.tipo ; let index = index" id="{{tipoInforme.cod[index]}}">{{op}}
-                </option>
-              </select>
+
+        <div class="padre-check" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+    
+          <div>
+    
+            <div class="container-Find filtradoContainer">
+              <div class="containerInfo">
+                <label for="">Buscar Bienes</label>
+                <div class="container-Input">
+                  <input class="" id="inp-Centro" type="text" autocomplete="off" (input)="changeBien($event)"
+                    placeholder="DIGITE NOMBRE DEL BIEN" required>
+                </div>
+              </div>
+            </div>
+    
+    
+            <div class="tabla-check">
+              <table class="table table-striped tabla-estilos">
+                <thead>
+                  <tr class="encabezado">
+                    <th class="th-head">
+                      <div class="d-flex"> # </div>
+                    </th>
+                    <th class="th-head">
+                      <div class="d-flex">Codigo</div>
+                    </th>
+                    <th class="th-head">
+                      <div class="d-flex">Nombre</div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <td>
+                    <input id="flexCheckDefaultAll" type="checkbox" (click)="getAllChecks()"
+                      [disabled]="!this.srvInforme.datosSearch">
+                  </td>
+                  <td>
+                    Seleccionar todo
+                  </td>
+    
+    
+                  <tr *ngFor="let bien of srvInforme.datosSearch; let i = index; let c = index">
+    
+                    <td>
+                      <input class="flexCheck" (click)="getCheckData($event, i, bien.str_codigo_bien, bien.str_bien_nombre)" id="{{bien.str_codigo_bien}}" type="checkbox">
+    
+                    </td>
+                    
+                    <td id="dato-check">
+                      {{bien.str_codigo_bien}}
+                    </td>
+                    <td id="name-check">
+                      {{bien.str_bien_nombre}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+    
+          </div>
+    
+    
+          <div>
+            <!-- <br> -->
+            <div class="container-Find filtradoContainer">
+              <div class="containerInfo">
+                <label for="">Bienes seleccionados</label>
+              </div>
+            </div>
+    
+            <div style="height: 250px;overflow: auto;">
+              <table class="table table-striped tabla-estilos">
+                <thead>
+                  <tr class="encabezado">
+                    <th class="th-head">
+                      <div class="d-flex"> # </div>
+                    </th>
+                    <th class="th-head">
+                      <div class="d-flex">Codigo</div>
+                    </th>
+                    <th class="th-head">
+                      <div class="d-flex">Nombre</div>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let bien of arrNotificar; let i = index; let c = index">
+                    <td>
+                      <input class="flexCheck" (click)="getCheckData($event, i, bien.id ,bien.name)" type="checkbox" checked>
+                    </td>
+                    <td id="dato-check">
+                      {{bien.id}}
+                    </td>
+                    <td id="name-check">
+                      {{bien.name}}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
-
-        </div>
-      </div>
-    </form> -->
-    <!-- <div class="container-Find filtradoContainer">
-      <div class="containerInfo">
-        <label for="">Buscar Bienes</label>
-        <div class="container-Input">
-          <input class="" id="inp-Centro" type="text" autocomplete="off" (input)="changeBien($event)"
-            placeholder="DIGITE NOMBRE DEL BIEN" required>
-        </div>
-      </div>
-    </div> -->
-
-    <div class="padre-check" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-
-      <div>
-
-        <div class="container-Find filtradoContainer">
-          <div class="containerInfo">
-            <label for="">Buscar Bienes</label>
-            <div class="container-Input">
-              <input class="" id="inp-Centro" type="text" autocomplete="off" (input)="changeBien($event)"
-                placeholder="DIGITE NOMBRE DEL BIEN" required>
-            </div>
-          </div>
-        </div>
-  
-  
-        <div class="tabla-check">
-          <table class="table table-striped tabla-estilos">
-            <thead>
-              <tr class="encabezado">
-                <th class="th-head">
-                  <div class="d-flex"> # </div>
-                </th>
-                <th class="th-head">
-                  <div class="d-flex">Nombre</div>
-                </th>
-                <th class="th-head">
-                  <div class="d-flex">Codigo</div>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <td>
-                <input id="flexCheckDefaultAll" type="checkbox" (click)="getAllChecks()"
-                  [disabled]="!this.srvInforme.datosSearch">
-              </td>
-              <td>
-                Seleccionar todo
-              </td>
-              
-  
-              <tr *ngFor="let bien of srvInforme.datosSearch; let i = index; let c = index">
-                
-                <td>
-                  <input class="flexCheck"  (click)="getCheckData($event, i)" id="{{i}}" type="checkbox" >
-  
-                </td>
-               
-                <td id="name-check">
-                  {{bien.str_bien_nombre}}
-                </td>
-                <td id="dato-check">
-                  {{bien.str_codigo_bien}}
-                </td> 
-              </tr>
-            </tbody>
-          </table>
+    
         </div>
 
-      </div>
 
-
-      <div>
-        <!-- <br> -->
-        <div class="container-Find filtradoContainer">
-          <div class="containerInfo">
-            <label for="">Bienes seleccionados</label>
-          </div>
-        </div>
-
-        <div style="height: 250px;overflow: auto;">
-          <table class="table table-striped tabla-estilos">
-            <thead>
-              <tr class="encabezado">
-                <th class="th-head">
-                  <div class="d-flex"> # </div>
-                </th>
-                <th class="th-head">
-                  <div class="d-flex">Nombre</div>
-                </th>
-                <th class="th-head">
-                  <div class="d-flex">Codigo</div>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let bien of arrNotificar; let i = index; let c = index">
-                <td>
-                  <input class="flexCheck" (click)="getCheckData($event, i)" type="checkbox" checked>
-                </td>
-                <td id="name-check">
-                  {{bien.name}}
-                </td>
-                <td id="dato-check">
-                  {{bien.id}}
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-    </div>
-
-
-
+      </mat-expansion-panel>
+    </mat-accordion>
 
   </div>
 
@@ -171,17 +153,6 @@
       <div class="container-BodyData">
         <div class="container-Left">
 
-
-          <!-- <div class="containerInfo">
-            <label for="">Tipo de Informe</label>
-            <div class="search-BarBtn theselect">
-              <select formControlName="int_tipo_documento_id" (change)="getF($event)">
-                <option [selected]="true" select disabled>Seleccione un tipo de informe</option>
-                <option *ngFor="let op of tipoInforme.tipo ; let index = index" id="{{tipoInforme.cod[index]}}">{{op}}
-                </option>
-              </select>
-            </div>
-          </div> -->
 
           <div class="containerInfo">
             <label for="">Titulo Informe</label>
@@ -246,22 +217,6 @@
 
               </div>
 
-              <!-- <div class="containerInfo">
-                <label for="">Buscar Usuarios</label>
-                <div class="container-Input">
-                  <input class="" id="inp-Centro" type="text" autocomplete="off" (input)="changeUsuario($event)"
-                    placeholder="DIGITE NOMBRE DEL BIEN" required>
-                </div>
-                <table class="table table-striped tabla-estilos">
-                  <tbody>
-                    <tr *ngFor="let op of this.srvInforme.usuarioSearch; let index = index">
-                      <td class="nameUserRespo" (click)="datoUser($event, op.int_per_id)" >
-                        {{op.str_per_nombres}} {{op.str_per_apellidos}}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div> -->
             </div>
           </div>
 
@@ -279,6 +234,55 @@
             <div class="container-Input">
               <input type="text" placeholder="NOMBRE DEL DESTINATARIO" formControlName="str_documento_recibe">
             </div>
+          </div>
+
+
+          <div class="container-BodyData">
+            <div class="container-Left">
+              <div class="containerInfo">
+                <label for="">Tipo de Informe</label>
+                <div class="search-BarBtn theselect">
+                  <select formControlName="int_tipo_documento_id" (change)="getF($event)">
+                    <option [selected]="true" select disabled>Seleccione un tipo de informe</option>
+                    <option *ngFor="let op of tipoInforme.tipo ; let index = index" id="{{tipoInforme.cod[index]}}">{{op}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div style="display: grid; justify-content: left; grid-template-columns: 1fr 1fr; justify-items: start; align-items: center;" >
+
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 10px">
+              <div class="containerInfo">
+                <label>Fecha y lugar de Creacion</label>
+              </div>
+              <div class="containerInfo ">
+                <input type="date" formControlName="str_documento_fecha">
+              </div>
+            </div>
+
+
+            <div class="container-BodyData">
+              <div class="container-Left">
+                <div class="containerInfo" style="display: grid; grid-template-columns: 0.3fr 1fr; align-items: center;">
+                  <label for="">Cede</label>
+                  <div [formGroup]="formDate" class="search-BarBtn theselect" style="width: 100% !important;">
+                    <select formControlName="str_ciudad" >
+                      <option [selected]="true" select disabled>Seleccione una ciudad</option>
+                      <option value="Riobamba">Riobamba</option>
+                      <option value="Orellana">Orellana</option>
+                      <option value="Morona Santiago">Morona Santiago</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
           </div>
         </div>
         <div class="container-Left">
@@ -336,7 +340,7 @@
       <button class="btn-primary-add" (click)="avanzar()"> Siguiente</button>
     </div> -->
     <div class="container-Btns">
-      <button class="btn-primary-add" (click)="send()" [disabled]="!myForm.valid "> Finalizar</button>
+      <button class="btn-primary-add" (click)="send()" [disabled]="!validarBoton "> Finalizar</button>
     </div>
   </div>
 </div>

@@ -1,5 +1,8 @@
 import { DataTypes } from "sequelize";
 import {sequelize } from "../../database/database.js";
+import { Ubicaciones } from "../departamentos/ubicaciones.models.js";
+import { Marcas } from "./marcas.models.js";
+
 
 export const Bienes = sequelize.define(
     "tb_bienes", 
@@ -22,7 +25,11 @@ export const Bienes = sequelize.define(
             type: DataTypes.INTEGER
         },
         int_ubicacion_id:{
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            references: {
+                model: Ubicaciones,
+                key: "int_ubicacion_id"
+            }
         },
         /*
         int_centro_id:{
@@ -31,10 +38,18 @@ export const Bienes = sequelize.define(
       
         int_codigo_bien_id:{
             type: DataTypes.INTEGER,
-            allowNull: true
+            allowNull: true,
+            // references: {
+            //     model:
+            //     key
+            // }
         },
         int_marca_id:{
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            references: {
+                model: Marcas,
+                key: "int_marca_id"
+            }
         },
         int_catalogo_bien_id:{
             type: DataTypes.INTEGER
@@ -119,6 +134,10 @@ export const Bienes = sequelize.define(
         },
         dt_fecha_creacion:{
             type: DataTypes.DATE
+        },
+        int_bien_estado_historial:
+        {
+            type: DataTypes.INTEGER
         },
     },
     {

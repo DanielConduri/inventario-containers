@@ -1,34 +1,37 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../../database/database.js";
-
+import { Planificacion } from "./planificacion.models.js";
 export const PlanificacionBien = sequelize.define(
-  "tb_planificacionBien",
+  "tb_planificacion_bien",
   {
-    int_planificacionBien_id: {
+    int_planificacion_bien_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false,
     },
-    int_bien_id: {
+    str_codigo_bien: {
+      type: DataTypes.STRING(255),
+      allowNull: false,
+    },
+    int_planificacion_id: {
       type: DataTypes.INTEGER,
-    },
-    str_planificacionBien_motivo: {
-      type: DataTypes.TEXT,
-    },
-    str_planificacionBien_diagnostico: {
-      type: DataTypes.TEXT,
-    },
-    int_persona_id: {
-      type: DataTypes.INTEGER,
+      references: {
+        model: Planificacion,
+        key: "int_planificacion_id",
+      },
     },
     dt_fecha_creacion: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-    str_planificacionBien_estado: {
+    str_planificacion_bien_estado: {
       type: DataTypes.STRING(255),
       defaultValue: "ACTIVO",
+    },
+    dt_fecha_actualizacion: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
     },
   },
   {

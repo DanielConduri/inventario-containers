@@ -21,6 +21,8 @@ export class MostrarInfoBienComponent implements OnInit {
 
   items: any[] = [];
 
+  custodios: any[] = [];
+
 
   constructor(
     private srvModal:ModalService,
@@ -33,7 +35,7 @@ export class MostrarInfoBienComponent implements OnInit {
   }
 
   completeModal(){
-    console.log("recibiendo informacion del Bien seleccionado =>", this.srvModal.SelectID_Bien$)
+    // console.log("recibiendo informacion del Bien seleccionado =>", this.srvModal.SelectID_Bien$)
 
     this.srvModal.SelectID_Bien$
     .pipe(takeUntil(this.destroy$))
@@ -70,7 +72,7 @@ export class MostrarInfoBienComponent implements OnInit {
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (dataBien) => {
-        console.log("Informacion General del Bien =>", dataBien)
+        // console.log("Informacion General del Bien =>", dataBien)
         Swal.fire({
           title: 'Cargando',
           didOpen: () => {
@@ -78,15 +80,21 @@ export class MostrarInfoBienComponent implements OnInit {
           },
         });
         this.srvInventario.dataBienInfo = dataBien.body;
-        console.log("Contenido de dataBien", dataBien)
+        this.srvInventario.arrayCustodios = dataBien.custodioInterno;
+        //console.log("Contenido de dataBien", dataBien)
+        //console.log("Contenido de Historial de custodios", dataBien.custodioInterno)
         // console.log("contenido del dataBien", dataBien.body)
         this.idMarca = dataBien.body.int_marca_id;
-        console.log("id de la marca obtenido del Body=>", this.idMarca)
+        // console.log("id de la marca obtenido del Body=>", this.idMarca)
         this.getMarcaID();
-        console.log("Informacion del Bien Escogido =>", this.srvInventario.dataBienInfo)
+        // console.log("Informacion del Bien Escogido =>", this.srvInventario.dataBienInfo)
+
+
 
         this.items = Object.values(dataBien.body.str_bien_info_adicional);
-        console.log("items =>", this.items)
+        // console.log("items =>", this.items)
+        
+        //this.custodios = dataBien.custodioInterno;
       },
       error: (err) => {
         console.log("Error al obtener informaicon del Bien =>", err)
@@ -106,12 +114,12 @@ export class MostrarInfoBienComponent implements OnInit {
   }
 
   getMarcaID(){
-    console.log("data en oninit id Marca=>",this.idMarca)
+    // console.log("data en oninit id Marca=>",this.idMarca)
     this.srvCaracteristicas.getMarcaId(this.idMarca)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (dataMarca: modMarcaModel) => {
-        console.log("Llegando data modMarcaModel =>", dataMarca.body)
+        // console.log("Llegando data modMarcaModel =>", dataMarca.body)
         this.srvCaracteristicas.dataMarca = dataMarca.body;
       },
       error:(err) =>{
@@ -121,15 +129,15 @@ export class MostrarInfoBienComponent implements OnInit {
         });
       },
       complete: () => {
-        console.log("Complete")
+        // console.log("Complete")
         Swal.close();
       }
     });
    }
 
    deleteInfoAdicional(id: number){
-      console.log("id de la info adicional =>", id)
-      console.log("id del bien =>", this.idBien)
+      // console.log("id de la info adicional =>", id)
+      // console.log("id del bien =>", this.idBien)
       const idBienSelected = this.idBien;
 
     Swal.fire({
@@ -143,7 +151,7 @@ export class MostrarInfoBienComponent implements OnInit {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (data) => {
-            console.log("data =>", data)
+            // console.log("data =>", data)
             Swal.fire({
               title: 'Informacion adicional eliminada!',
               icon: 'success',
@@ -158,7 +166,7 @@ export class MostrarInfoBienComponent implements OnInit {
             });
           },
           complete: () => {
-            console.log("Complete")
+            // console.log("Complete")
             this.getBienID();
             Swal.close();
           }

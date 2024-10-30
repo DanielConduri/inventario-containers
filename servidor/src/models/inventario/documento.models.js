@@ -18,6 +18,9 @@ export const Documento = sequelize.define(
         str_documento_fecha:{
            type:DataTypes.TEXT
         },
+        str_documento_estado:{
+            type: DataTypes.STRING(255)
+        },
         str_documento_titulo:{
             type: DataTypes.TEXT
         },
@@ -46,8 +49,10 @@ export const Documento = sequelize.define(
             type: DataTypes.DATE
         },
         dt_fecha_creacion:{
-            type: DataTypes.DATE
-        }
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW
+        },
+
     },
     {
         schema: 'inventario',

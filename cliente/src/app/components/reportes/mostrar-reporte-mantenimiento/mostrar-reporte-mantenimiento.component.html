@@ -1,0 +1,171 @@
+
+<div class="body-Form" style="display: grid; gap: 5%;">
+    <form [formGroup]="myForm" action="formCenterAdd">
+        <div class="containerItems">
+
+
+            <div class="cont-Center_Name" style="display: grid; gap: 20px;">
+                <div class="container-Name" style="display: flex; gap: 10px; align-items: baseline;">
+                        <div class="search-Label">
+                            <label for="nombre">Elegir parametros para el reporte:</label>
+                        </div>
+    
+    
+                        <div class="containerInfo" style="width: 25%;"> 
+                            <div class="container-Select">
+                                <select (change)="onCheckboxChange($event)">
+                                    <option [selected]="true" select disabled>Seleccione una opcion</option>
+                                    <option value="1">Correctivo por fechas</option>
+                                    <option value="2">Correctivo por codigo de bien</option>
+                                    <option value="3">Correctivo por técnico</option>
+                                    <option value="4">Preventivo por planificación</option>
+                                    <option value="5">Preventivo por centro</option>
+                                </select>
+                            </div>
+                        </div>
+    
+    
+    
+                        
+    
+                        <div class="containerInfo" *ngIf="histo" style="display: flex; align-items: baseline;">
+                            <div style="width: 45%;">
+                                <app-filter [options]="options3" (search)="handleSearch($event)" ></app-filter>
+                            </div>
+                            <div *ngIf="_histo" class="container-Select" style="width: 45%;" >
+                                <select (change)="getIdHistorial($event)"  >
+                                    <option [selected]="true" select disabled  >Seleccione un Bien</option>
+                                    <option *ngFor="let op of dataHistorial" id="{{op.str_codigo_bien}}" >{{op.str_bien_nombre}} - {{op.str_codigo_bien}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="containerInfo" *ngIf="marc" style="display: flex; align-items: baseline;">
+                            <div style="width: 45%;">
+                                <app-filter [options]="options1" (search)="handleSearch($event)" ></app-filter>
+                            </div>
+                            <div *ngIf="_marc" class="container-Select" style="width: 45%;" >
+                                <select (change)="getPlanificacion($event)"  >
+                                    <option [selected]="true" select disabled  >Seleccione una planificación</option>
+                                    <option *ngFor="let op of srvRegistroP.datosPlanificacion" id="{{op.int_planificacion_id}}" >{{op.str_planificacion_codigo}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                        </div>
+                        <div class="containerInfo" *ngIf="ubic" style="display: flex; align-items: baseline; gap: 20px;">
+                            <div style="display: grid; width: 50%;">
+                                <div style="width: 45%; display: contents;">
+                                    <app-filter [options]="options2" (search)="handleSearch($event)" ></app-filter>
+                                </div>
+                                <div *ngIf="_ubic" class="container-Select">
+                                    <select (change)="getTecnico($event)"  >
+                                        <option [selected]="true" select disabled  >Seleccione un Usuario</option>
+                                        <option *ngFor="let op of dataUsuarios, let i = index" id="{{i}}" >{{op.str_per_nombres}} {{op.str_per_apellidos}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div *ngIf="auxiliar">
+                                <div class="check-box-template date">
+                                    <div>
+                                        <label for="date">Fecha Inicio</label>
+                                    </div>
+        
+                                    <div>
+                                        <input class="inp-info" type="date" id="dateI" max={{fechaUsar2}}
+                                            (change)="getFechaG($event)">
+                                    </div>
+        
+        
+                                </div>
+                                <div class="check-box-template date">
+                                    <div>
+                                        <label for="date">Fecha Fin</label>
+                                    </div>
+        
+                                    <div>
+                                        <input class="inp-info" type="date" id="dateF" max={{fechaUsar2}}
+                                            (change)="getFechaG($event)">
+                                    </div>
+        
+        
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="auxG" style="display: flex; gap: 10px;">
+                            <div class="check-box-template date">
+                                <div>
+                                    <label for="date">Fecha Inicio</label>
+                                </div>
+    
+                                <div>
+                                    <input class="inp-info" type="date" id="dateI" max={{fechaUsar2}}
+                                        (change)="getFechaG($event)">
+                                </div>
+    
+    
+                            </div>
+                            <div class="check-box-template date">
+                                <div>
+                                    <label for="date">Fecha Fin</label>
+                                </div>
+    
+                                <div>
+                                    <input class="inp-info" type="date" id="dateF" max={{fechaUsar2}}
+                                        (change)="getFechaG($event)">
+                                </div>
+    
+    
+                            </div>
+    
+                        </div>
+                        
+                        <div class="containerInfo" *ngIf="catalog" style="display: flex; align-items: baseline;">
+                            <div style="width: 45%;">
+                                <app-filter [options]="options1" (search)="handleSearch($event)" ></app-filter>
+                            </div>
+                            <div *ngIf="_catalog" class="container-Select" style="width: 45%;" >
+                                <select (change)="getCentroPreventivo($event)"  >
+                                    <option [selected]="true" select disabled  >Seleccione un centro</option>
+                                    <option *ngFor="let op of srvRegistroP.datosPlanificacion" id="{{op.int_planificacion_id}}" >{{op.str_planificacion_centro}} - {{op.str_planificacion_codigo}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    
+                    
+                    
+                </div>
+                <div style="display: grid; justify-items: center;">
+                    <div *ngIf="garant">
+                        <button class="btn-primary-add" type="submit" (click)="funcionGarantia()"
+                            style="margin-top: 0px;">Crear</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+        <!-- <button class="btn-primary-add" type="submit" 
+            [disabled]="!myForm.valid">Guardar</button> -->
+
+    </form>
+
+    <div class="containerNoData" *ngIf="!isLoading">
+
+        <div _ngcontent-lne-c77="" class="mx-auto" style="margin-top: 64px; margin-bottom: 64px;">
+            <svg _ngcontent-lne-c77="" xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 48 48">
+                <path _ngcontent-lne-c77=""
+                    d="M38.7 40.85 26.65 28.8q-1.5 1.3-3.5 2.025-2 .725-4.25.725-5.4 0-9.15-3.75T6 18.75q0-5.3 3.75-9.05 3.75-3.75 9.1-3.75 5.3 0 9.025 3.75 3.725 3.75 3.725 9.05 0 2.15-.7 4.15-.7 2-2.1 3.75L40.95 38.7q.45.4.45 1.025 0 .625-.5 1.125-.45.45-1.1.45-.65 0-1.1-.45Zm-19.85-12.3q4.05 0 6.9-2.875Q28.6 22.8 28.6 18.75t-2.85-6.925Q22.9 8.95 18.85 8.95q-4.1 0-6.975 2.875T9 18.75q0 4.05 2.875 6.925t6.975 2.875Z">
+                </path>
+            </svg>
+            <h5 _ngcontent-lne-c77="" class="mt-2">Resultado sin datos</h5>
+            <h6 _ngcontent-lne-c77="">{{message}}</h6>
+        </div>
+    </div>
+
+    <div *ngIf="isLoading">
+        <div #verPdfSolicitud style="width: 100%; height: 600px"></div>
+    </div>
+</div>

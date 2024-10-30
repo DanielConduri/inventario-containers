@@ -79,6 +79,7 @@ export class ImportarBienComponent implements OnInit {
     this.data = this.clear;
     this.colums = this.cli;
     this.myForm.reset();
+    //console.log('Dentro de parse Csv1 que tiene columnas =>', this.colums);
   }
 
   // Funcion para cargar el archivo .csv
@@ -86,13 +87,13 @@ export class ImportarBienComponent implements OnInit {
     this.mostrarTable=true
     this.fil = event.target.files[0];
     this.filName = this.fil.name;
-    console.log('el archivo ->>>>>>>>>', this.filName)
+    // console.log('el archivo ->>>>>>>>>', this.filName)
 
     const file = event.target.files[0];
     this.info = false;
 
     if (file) {
-      console.log('Seleccionando archivo');
+      // console.log('Seleccionando archivo');
 
       Swal.fire({
         title: 'Cargando Archivo',
@@ -117,19 +118,19 @@ export class ImportarBienComponent implements OnInit {
     this.data = rows.map((row) => row.split(/[;:]/));
     this.dataLength = this.data.length;
     this.colums = Object.keys(this.data[0]);
-    console.log('Dentro de parse Csv1 que tiene columnas =>', this.colums);
+    //console.log('Dentro de parse Csv1 que tiene columnas =>', this.colums);
   }
 
   // Funcion para importar & Procesar el archivo .csv
   importFile() {
-    console.log('Entrando a importar archivo');
+    // console.log('Entrando a importar archivo');
     const formData = new FormData();
     formData.append('file', this.fil, this.fil.name);
     const resolucion = this.secondFormGroup.value.resolucion;
     const resol = document.getElementById('resolucion') as HTMLInputElement
-    console.log('Resolucion =>', resolucion);
+    // console.log('Resolucion =>', resolucion);
 
-    console.log('File =>', formData);
+    // console.log('File =>', formData);
 
     Swal.fire({
       title: '¿Estás seguro de Cargar y Procesar estos Datos?',
@@ -142,19 +143,19 @@ export class ImportarBienComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         // El usuario ha aceptado la alerta
-        console.log('El usuario ha aceptado la alerta');
+        // console.log('El usuario ha aceptado la alerta');
         this.isLinear = true;
         this.unDisabled = true;
-        console.log('Valor de isLinear =>', this.isLinear);
+        // console.log('Valor de isLinear =>', this.isLinear);
         //Funcion para cargar los datos del archivo .csv
         this.srvInventario
-          .postFileBienes(formData, this.dataLength, resolucion)
+          .postFileBienes(formData, this.dataLength, resolucion, this.colums.length)
           .pipe(takeUntil(this.destroy$))
           .subscribe({
             next: (res:any) => {
               Swal.close();
               this.result = res;
-              console.log('Respuesta del servidor =>', res);
+              // console.log('Respuesta del servidor =>', res);
 
               if (res.status) {
 
@@ -164,6 +165,8 @@ export class ImportarBienComponent implements OnInit {
                   showDenyButton: false,
                   confirmButtonText: 'Aceptar',
                 });
+
+                this.ProcessFile();
                 this.isLinear = false;
                 this.message = true;
                 this.checker = res.status;
@@ -194,13 +197,13 @@ export class ImportarBienComponent implements OnInit {
               });
             },
             complete: () => {
-              console.log('Complete');
+              // console.log('Complete');
               this.unDisabled = false;
             },
           });
       } else if (result.isDismissed) {
         // El usuario ha cancelado la alerta
-        console.log('El usuario ha cancelado la alerta');
+        // console.log('El usuario ha cancelado la alerta');
       }
     });
   }
@@ -210,7 +213,7 @@ export class ImportarBienComponent implements OnInit {
 
   // Funcion para procesar el archivo .csv y llenar tablas
   ProcessFile(){
-    console.log('Entrando a procesar archivo');
+    // console.log('Entrando a procesar archivo');
 
     this.isProcess = true;
     this.message = true;
@@ -220,10 +223,10 @@ export class ImportarBienComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res) => {
-          console.log('Dentro del subscribe de proceso de datos');
+          // console.log('Dentro del subscribe de proceso de datos');
           Swal.close();
           this.result = res;
-          console.log('Respuesta del servidor para el PRoceso =>', res);
+          // console.log('Respuesta del servidor para el PRoceso =>', res);
           if (res) {
             Swal.fire({
               title: 'Los Bienes se han procesado correctamente!',
@@ -281,17 +284,17 @@ export class ImportarBienComponent implements OnInit {
       },
     });
     this.srvInventario
-      .getBienes({})
+      .getBienes({}, {})
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (dataOtros: any) => {
 
           if (dataOtros.body) {
 
-            console.log(
-              'Obteniendo Bienes Otros de la base de Datos',
-              dataOtros
-            );
+            // console.log(
+            //   'Obteniendo Bienes Otros de la base de Datos',
+            //   dataOtros
+            // );
             this.srvInventario.datosOtros = dataOtros.body;
           }
         },

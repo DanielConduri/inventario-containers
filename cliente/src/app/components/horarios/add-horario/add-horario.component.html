@@ -1,0 +1,46 @@
+<div *ngIf="loading" class="loading-indicator">
+  <p>Cargando horario...</p>
+</div>
+
+<div *ngIf="!loading">
+  <table>
+    <caption>Datos del Centro</caption>
+    <tr>
+      <th>ID</th>
+      <th>Nombre</th>
+    </tr>
+    <tr>
+      <td>{{ centroSeleccionado?.id_centro }}</td>
+      <td>{{ centroSeleccionado?.nombre_centro }}</td>
+    </tr>
+  </table>
+
+  <table>
+    <caption>Horario</caption>
+    <tr *ngFor="let dia of dias">
+      <td>{{ dia }}</td>
+      <td>
+        <div class="container-inter" *ngFor="let intervalo of horarioCentro[dia]; let i = index">
+          <input type="time" [(ngModel)]="intervalo.inicio">
+          <input type="time" [(ngModel)]="intervalo.fin">
+          <button *ngIf="horarioCentro[dia].length > 1" (click)="eliminarIntervalo(dia, i)">
+            <i class="material-icons">delete</i>
+          </button>
+        </div>
+        <button (click)="agregarIntervalo(dia)">
+          <i class="material-icons">add</i>
+        </button>
+      </td>
+    </tr>
+  </table>
+
+  <button class="btn-usuario" (click)="guardarHorario()" [disabled]="!esHorarioCompleto()">Guardar</button>
+
+</div>
+
+
+
+
+
+
+

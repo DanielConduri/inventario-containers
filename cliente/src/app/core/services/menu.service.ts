@@ -68,7 +68,7 @@ export class MenuService {
   icons: string[] = [
     '3d_rotation', 'ac_unit','access_alarm','access_time','accessibility','accessible','account_balance',
     'account_balance_wallet','account_box','account_circle','account_circle','adb', 'assignment',
-    'home','subdirectory_arrow_right','add_location','settings','assignment_turned_in','person'
+    'home','subdirectory_arrow_right','add_location','settings','assignment_turned_in','person', 'dvr', 'location_on', 'people'
   ]
 
   constructor(private http: HttpClient) { }
@@ -104,7 +104,7 @@ setData_subMenu(_id: number, _status: boolean){
 
   //obtiene los permisos del menu de un perfil
   getPermisos(_id:  number){
-    console.log('Que id de perfil le mando a homero: ', _id)
+    // console.log('Que id de perfil le mando a homero: ', _id)
     return this.http.get<permisosModel>(`${this.url_api_menu_permisos}/${_id}`, {
       withCredentials: true
     })
@@ -118,7 +118,7 @@ setData_subMenu(_id: number, _status: boolean){
 
   //envia los permisos del menu de un perfil
   UpdatePermisos(_id: number, _data: dataPermisosPerfil[]){
-    console.log('Que le mando a homero postPermisos: ', _id, _data)
+    // console.log('Que le mando a homero postPermisos: ', _id, _data)
     return this.http.put<permisosPerfilModel>(`${this.url_api_menu_permisos}/${_id}`, _data, {
       withCredentials: true
     })
@@ -133,7 +133,7 @@ setData_subMenu(_id: number, _status: boolean){
 
   //crea un nuevo menu
   postMenu(_data: dataNewMenu){
-    console.log('Que le mando a homero postMenu: ', _data)
+    // console.log('Que le mando a homero postMenu: ', _data)
     return this.http.post<newMenuModel>(`${this.url_api_menu}`, _data, {
       withCredentials: true
     })
@@ -167,7 +167,7 @@ setData_subMenu(_id: number, _status: boolean){
   }
 
   getPermisosLogin(_rol: string){
-    console.log('Que id de perfil le mando a homero: ', _rol)
+    // console.log('Que id de perfil le mando a homero: ', _rol)
     return this.http.get<permisosMenuModel>(`${this.url_api_permisos_login}/${_rol}`, {
       withCredentials: true
     })

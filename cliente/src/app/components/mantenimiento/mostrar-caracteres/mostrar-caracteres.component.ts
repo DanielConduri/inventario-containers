@@ -38,6 +38,7 @@ export class MostrarCaracteresComponent implements OnInit {
   constructor( public srvMantenimiento: MantenimientoService) { }
 
   ngOnInit(): void {
+    this.srvMantenimiento.preventivo = false
     const path: string = window.location.pathname.split('/').pop() || '';
     this.menuTabSelect.id = this.listaViews[path.toUpperCase()] || 0;
     this.isValue = 5;
@@ -48,7 +49,7 @@ export class MostrarCaracteresComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.buttonName = data.id;
-          console.log('lo mque llega ->>>>', this.buttonName)
+          // console.log('lo mque llega ->>>>', this.buttonName)
         }
       });
   }

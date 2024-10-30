@@ -6,6 +6,7 @@ import { PersonasService } from 'src/app/core/services/personas.service';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { MostrarPerRolComponent } from '../../mostrar-per-rol/mostrar-per-rol.component';
 import { editPorfileModel, perfilesModel } from 'src/app/core/models/personas';
+import config from 'config/config';
 
 @Component({
   selector: 'app-modificar-perfil',
@@ -55,7 +56,7 @@ export class ModificarPerfilComponent implements OnInit {
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (getId: number) => {
-        console.log("Dentro de CompleteForme, el id es: ", getId)
+        // console.log("Dentro de CompleteForme, el id es: ", getId)
         this.idPorfile = getId
         this.getPorfile();
       },
@@ -70,7 +71,7 @@ export class ModificarPerfilComponent implements OnInit {
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (dataPerfil: editPorfileModel) => {
-        console.log("Dentro de getPorfile, Body devuelto: ", dataPerfil.body);
+        // console.log("Dentro de getPorfile, Body devuelto: ", dataPerfil.body);
         Swal.fire({
           title: 'Cargando datos',
           didOpen: () => {
@@ -94,7 +95,7 @@ export class ModificarPerfilComponent implements OnInit {
 
   modifyProfile(){
     this.getIdPorfile()
-    console.log("Dentro de modifyProfile, el id es: ", this.idPorfile);
+    // console.log("Dentro de modifyProfile, el id es: ", this.idPorfile);
     const modiData = this.myForm.value;
     Swal.fire({
       title: '¿Está seguro que desea modificar este perfil?',
@@ -132,6 +133,8 @@ export class ModificarPerfilComponent implements OnInit {
           console.log(err);
         },
         complete: () => {
+          window.location.href = config.URL_BASE_PATH + '/welcome';
+
         }
       })
     }
@@ -145,7 +148,7 @@ export class ModificarPerfilComponent implements OnInit {
     .subscribe({
       next:( data )=>{
         this.idUser = data.id;
-        console.log(" RECIBIDO EN MODIFICAR-PERFIL el idUser es: ", this.idUser)
+        // console.log(" RECIBIDO EN MODIFICAR-PERFIL el idUser es: ", this.idUser)
       },
       complete:()=>{
         

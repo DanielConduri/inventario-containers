@@ -18,25 +18,33 @@ import reportesRoute from "../routes/reportes/reportes.routes.js"
 import custodiosRoute from "../routes/inventarios/custodios.routes.js"
 import documentosRoute from "./inventarios/documento.routes.js"
 import tipoDocumentosRoute from "./inventarios/tipo_documento.routes.js"
-import mantenimientoRoute from './mantenimiento/mantenimiento.routes.js';
 import nivelMantenimientoRoute from './mantenimiento/nivelMantenimiento.routes.js';
 import verificarPermisos from "../middleware/verificarPermisos.middleware.js"
+import intervalosRoute from "./inventarios/intervalos.routes.js";
+import centrosIntervalosRoute from "./inventarios/centrosIntervalos.routes.js";
 
 //Rutas para mantenimiento
 import planificacionBienRoute from "./mantenimiento/planificacion_bien.routes.js";
 import planificacionRoute from "./mantenimiento/planificacion.routes.js";
 import soporteRoute from "./mantenimiento/soporte.routes.js"
 import estadosMantenimientoRoute from "./mantenimiento/estado.routes.js"
-import registroBienRoute from "./mantenimiento/registroBien.routes.js"
-import registroEstadoRoute from "./mantenimiento/registroEstado.routes.js"
-import registroRoute from "./mantenimiento/registro.routes.js"
 import registroPreventivoRoute from "./mantenimiento/mantenimientoPreventivo.routes.js"
 import registroCorrectivoRoute from "./mantenimiento/mantenimientoCorrectivo.routes.js"
 import tipoMantenimientoRoute from "./mantenimiento/tipo_mantenimiento.routes.js";
+import traspasoRoute from "./mantenimiento/traspaso.routes.js";
+import estadosPrestamosRoute from "./prestamos/estadosP.routes.js"
+import prestamosRoute from "./prestamos/prestamos.routes.js"
+import fechaPrestamoRoute from "./prestamos/fechaP.routes.js"
 
-const router = Router();
+
+//horario
+import horarioRoute from "./horario/horario.routes.js";
+
+//Firma
+import solicitudesRoute from "./firma/solicitudes.routes.js";
+
 const url = "/wsinventario";
-
+const router = Router();
 router.use(url + "/login", seguridadRoute);
 
 router.get(url + "/info", (req, res, next) => {
@@ -57,7 +65,7 @@ router.use(url + "/usuarios", usuariosRoute);         // usuarios de la tabla tb
 router.use(url + "/centralizadas", centralizadaRoute);
 // verificar si se usa luego
 router.use(url + "/menus", menusRoute);
-router.use(url + "/permisos",permisosRoute);
+router.use(url + "/permisos", permisosRoute);
 router.use(url + "/marcas", marcasRoute);                //Marcas
 router.use(url + "/estados", estadosRoute);              //Estados
 router.use(url + "/proveedores", proveedoresRoute);      //Proveedores
@@ -67,21 +75,29 @@ router.use(url + "/catalogo_bienes", catalogoBienesRoute);  //Catalogo de bienes
 router.use(url + "/reportes", reportesRoute);               //Reportes
 router.use(url + "/custodios", custodiosRoute);             //Custodios
 router.use(url + "/documentos", documentosRoute);           //Documentos
-router.use(url + "/tipo_documento", tipoDocumentosRoute);   //Tipos de documentos 
+router.use(url + "/tipo_documento", tipoDocumentosRoute);   //Tipos de documentos
+
 router.use(url + "/nivel_mantenimiento", nivelMantenimientoRoute);
 router.use(url + "/planificacion_bien", planificacionBienRoute);
-router.use(url + url + "/planificacion", planificacionRoute);
+router.use(url + "/planificacion", planificacionRoute);
 router.use(url + "/soporte", soporteRoute);
 router.use(url + "/tipo_mantenimiento", tipoMantenimientoRoute);
-
-router.use(url + "/mantenimiento", mantenimientoRoute);
 router.use(url + "/estado_mantenimiento", estadosMantenimientoRoute);
-
-router.use(url + "/registro", registroRoute);
 router.use(url + "/registro_preventivo", registroPreventivoRoute);
 router.use(url + "/registro_correctivo", registroCorrectivoRoute);
+router.use(url + "/traspaso", traspasoRoute);
 
-router.use(url + "/registro_bien", registroBienRoute);
-router.use(url + "/registro_estado", registroEstadoRoute );
+router.use(url + "/estado_prestamo", estadosPrestamosRoute)
+router.use(url + "/prestamos", prestamosRoute)
+router.use(url + "/fecha_prestamo", fechaPrestamoRoute)
+
+router.use(url + "/intervalos", intervalosRoute);
+router.use(url + "/centros_intervalos", centrosIntervalosRoute);
+
+router.use(url + "/horario", horarioRoute);
+
+router.use(url + "/solicitudes", solicitudesRoute)
+
+
 
 export default router;

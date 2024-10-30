@@ -19,18 +19,30 @@
                 <div class="container-Name">
 
                     <div class="centerName-Text">
-                        <label class="lbl-info" for="nombre">Descripcion del Soporte:</label>
+                        <label class="lbl-info" for="nombre">Nombre del Soporte:</label>
                     </div>
                     <div class="centerNambe-Input">
-                        <input class="inp-info" type="text" id="nombre" placeholder="Descripcion del Soporte"
+                        <input class="inp-info" type="text" id="nombre" placeholder="Nombre del Soporte"
                             formControlName="nombre" required="">
+                    </div>
+                </div>
+            </div>
+            <div class="cont-Center_Name">
+                <div class="container-Name">
+    
+                    <div class="centerName-Text">
+                        <label class="lbl-info" for="descripcion">Descripcion del Soporte:</label>
+                    </div>
+                    <div class="centerNambe-Input">
+                        <input class="inp-info" type="text" id="descripcion" placeholder="Descripcion del Soporte"
+                            formControlName="descripcion" required="">
                     </div>
                 </div>
             </div>
         </div>
         <div class="container-Btns">
-            <button class="btn-primary-add" type="submit"[disabled]="!myForm.valid">Guardar</button>
-    
+            <button class="btn-primary-add" type="submit" [disabled]="!myForm.valid">Guardar</button>
+
         </div>
     </form>
 </div>

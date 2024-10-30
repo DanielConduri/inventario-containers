@@ -6,6 +6,7 @@ import { dataUser } from 'src/app/core/models/personas';
 import { ModalService } from 'src/app/core/services/modal.service';
 
 import Swal from 'sweetalert2';
+import config from 'config/config';
 
 @Component({
   selector: 'app-mostrar-submenu',
@@ -83,6 +84,7 @@ export class MostrarSubmenuComponent implements OnInit {
   }
 
   getSubMenus(){
+    console.log('llega al get submenus')
     Swal.fire({
       title: 'Cargando...',
       didOpen: () => {
@@ -95,9 +97,9 @@ export class MostrarSubmenuComponent implements OnInit {
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (data: any) => {
-        console.log(" DATOS SUBMENU: ", data);
+        // console.log(" DATOS SUBMENU: ", data);
         if(data.status){
-          console.log('DATOS SUBMENU HOMERO: ', data.body);
+          // console.log('DATOS SUBMENU HOMERO: ', data.body);
           this.srvMenu.dataSubMenu = data.body;
         }
       },
@@ -134,7 +136,7 @@ export class MostrarSubmenuComponent implements OnInit {
 
   cambiarEstado( _id: number){
     Swal.fire({
-      title: "¿Está seguro que desea desactivar este Menú?",
+      title: "¿Está seguro que desea activar/desactivar este Menú?",
       text: 'Al deshabilitar un Menú, este no podra aparecer en el sistema. Este cambio puede ser revertido en cualquier momento',
       showDenyButton: true,
       confirmButtonText: `Si, cambiar`,
@@ -163,12 +165,14 @@ export class MostrarSubmenuComponent implements OnInit {
             setTimeout(() => {
               this.getMenu();
               this.getSubMenus();
+              window.location.href = config.URL_BASE_PATH + '/welcome';
             },3000)
           },
           error: (err) => {
             console.log(err);
           },
           complete: () => {
+            //location.reload();
           }
         })
       } else if (result.isDenied) {

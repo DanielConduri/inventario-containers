@@ -86,12 +86,13 @@
         </div> -->
         <div class="tab-pane fade" *ngIf="this.menuTabSelect.id=== 6" typeView=true;>
             <!-- <<app-tipo-soporte></app-tipo-soporte>> -->
-            <app-mostrar-registro-c></app-mostrar-registro-c>
+            <app-mostrar-registro-c *ngIf="!srvMantenimiento.preventivo"></app-mostrar-registro-c>
         </div>
   
         <div class="tab-pane fade" *ngIf="this.menuTabSelect.id === 7" typeView=true;>
             <!-- <app-tipo-mantenimiento></app-tipo-mantenimiento> -->
-            <app-mostrar-registro-p></app-mostrar-registro-p>
+            <app-mostrar-registro-p *ngIf="!srvMantenimiento.preventivo" ></app-mostrar-registro-p>
+            <app-editar-mantenimiento-preventivo *ngIf="srvMantenimiento.preventivo" > </app-editar-mantenimiento-preventivo>
         </div>
 
         <!-- <div class="tab-pane fade" *ngIf="this.menuTabSelect.id === 11" typeView=true;>

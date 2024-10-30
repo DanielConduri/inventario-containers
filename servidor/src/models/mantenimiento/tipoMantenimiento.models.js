@@ -10,8 +10,11 @@ export const TipoMantenimiento = sequelize.define(
             autoIncrement: true,
             allowNull: false,
         },
-        str_tipo_mantenimiento_descripcion: {
+        str_tipo_mantenimiento_nombre: {
             type: DataTypes.STRING(255),
+        },
+        str_tipo_mantenimiento_descripcion: {
+            type: DataTypes.TEXT,
         },
         str_tipo_mantenimiento_estado: {
             type: DataTypes.STRING(255),
@@ -21,8 +24,9 @@ export const TipoMantenimiento = sequelize.define(
             type: DataTypes.DATE,
             defaultValue: DataTypes.NOW,
         },
-        int_soporte_id: {
-            type: DataTypes.INTEGER,
+        dt_fecha_actualizacion: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW,
         },
     },
     {

@@ -1,0 +1,97 @@
+<div class="containerRes">
+    <div class="profile-Info">
+        <div style="display: grid; gap: 15px;" >
+            <div>
+                <div style="display: flex; align-items: center;">
+                    <p class="p-Title">NOMBRE DEL RESPONSABLE ACTUAL:</p>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 0.3fr; align-items: center;">
+                    <div style="display: flex; align-items: baseline;">
+                        <div>
+                            <h4 class="p-Content">
+                                {{userResoi}}
+                                <!-- <table class="table table-striped tabla-estilos table-respo">
+                                    <tbody>
+                                        <tr *ngFor="let us of userResoi; let index = index">
+                                            <td class="nameUserRespo">
+                                            </td>
+                                            
+                                        </tr>
+                                    </tbody>
+                                </table> -->
+                            </h4>
+                        </div>
+
+                    </div>
+                    <div>
+                        <button class="btn-primary-add" (click)="avanzar()"
+                            style="display: grid; align-items: center; margin-top: 0px !important;">
+                            <!-- Trasferir -->
+                            <i class="material-icons"> swap_horiz
+                            </i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="mostrar" >
+                <div style="display: flex; align-items: center;">
+                    <p class="p-Title">NOMBRE DEL NUEVO RESPONSABLE:</p>
+                </div>
+                <div style="display: flex; align-items: baseline;">
+                    <div>
+                        <h4 class="p-Content">
+                            {{user_Remp}}
+                            <!-- <table class="table table-striped tabla-estilos table-respo">
+                                <tbody>
+                                    <tr *ngFor="let us of userResoi; let index = index">
+                                        <td class="nameUserRespo">
+                                            {{userResoi}}
+                                        </td>
+                                        
+                                    </tr>
+                                </tbody>
+                            </table> -->
+                        </h4>
+                    </div>
+    
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="container-Find filtradoContainer" *ngIf="aggButton">
+            <div class="cont search">
+
+                <div class="containerInfo">
+                    <label for="text">Buscar Cédula:</label>
+                </div>
+
+                <div class="search-BarBtn">
+                    <input id="cedula_user" type="text" oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                        class="form-control" placeholder="0000000000" />
+                    <button type="submit" class="btnSearch" (click)="obtenerDatosCentralizada($event)">
+                        <i class="material-icons">search</i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="buttons-action">
+        <!-- <div class="container-Btns" *ngIf="paso>=1">
+          <button class="btn-primary-add" (click)="regresar()" [disabled]="paso<1"> Regresar</button>
+        </div> -->
+        <!-- <div class="container-Btns" *ngIf="paso!=2">
+          <button class="btn-primary-add" (click)="avanzar()"> Siguiente</button>
+        </div> -->
+        <div class="container-Btns">
+            <button class="btn-primary-add" (click)="send()" [disabled]="active!=true"> Completar traspaso </button>
+        </div>
+    </div>
+</div>

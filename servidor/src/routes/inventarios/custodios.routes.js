@@ -4,6 +4,6 @@ import routeCustodios from "../../controllers/inventarios/custodios.controllers.
 const router = Router();
 
 router.get("/", routeCustodios.obtenerCustodios);
-router.get("/:int_custodio_id", routeCustodios.obtenerCustodio);
+router.get("/:int_bien_id", routeCustodios.obtenerCustodio);
 
 export default router;

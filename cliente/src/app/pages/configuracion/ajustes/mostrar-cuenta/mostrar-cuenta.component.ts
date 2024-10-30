@@ -20,7 +20,7 @@ export class MostrarCuentaComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    console.log('Estoy en mi cueenta')
+    // console.log('Estoy en mi cueenta')
     Swal.fire({
       title: 'Cargando Cuenta...',
       didOpen: () => {
@@ -33,7 +33,7 @@ export class MostrarCuentaComponent implements OnInit {
       next:(_me) =>{
         if(_me.body){
           this.isData = true;
-          console.log('Recibiendo onInit de _me=>',_me)
+          // console.log('Recibiendo onInit de _me=>',_me)
           this.srvPersona.dataMe = _me.body
 
         }

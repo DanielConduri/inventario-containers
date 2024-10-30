@@ -64,7 +64,7 @@ export class AgregarRegistroComponent implements OnInit {
   }
 
   send(){
-    console.log('lo que sale->', this.myForm.value)
+    // console.log('lo que sale->', this.myForm.value)
     Swal.fire({
       title:'¿Está seguro de añadir este Registro ?',
       showDenyButton:true,
@@ -76,7 +76,7 @@ export class AgregarRegistroComponent implements OnInit {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next:(rest)=>{
-            console.log("Res: ", rest)
+            // console.log("Res: ", rest)
             if(rest.status){
               Swal.fire({
                 title:'Tipo Agregado Correctamente',
@@ -84,7 +84,7 @@ export class AgregarRegistroComponent implements OnInit {
                 showConfirmButton:false,
                 timer:1500
               });
-              console.log("Res: ", rest)
+              // console.log("Res: ", rest)
             }else{
               Swal.fire({
                 title:rest.message,
@@ -94,7 +94,7 @@ export class AgregarRegistroComponent implements OnInit {
               });
             }
             setTimeout(() => {
-              console.log('SettimeOut');
+              // console.log('SettimeOut');
               // this.showCenter()
               Swal.close();
             }, 3000);
@@ -139,7 +139,7 @@ export class AgregarRegistroComponent implements OnInit {
           this.srvRegistro.datosRegistro = data.body
           // this.metadata = data.total
         }
-        console.log('lo que llega', data)
+        // console.log('lo que llega', data)
         Swal.close();
         // this.dataPagina()
       },
@@ -147,6 +147,11 @@ export class AgregarRegistroComponent implements OnInit {
         console.log('Error', error)
       }
     })
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 }

@@ -1,0 +1,30 @@
+table{
+    width: 100%;
+    font-family: var(--font-family);
+  }
+  
+  .detalleP{
+    display: grid;
+    grid-template-columns: 0.6fr 1fr;
+    margin-bottom: 4px;
+  }
+  
+  .title{
+    background-color: var(--bs-gray-400);
+    padding: 3px 0px 3px 0px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+    height: 35px;
+  }
+  
+  .detalle{
+    padding: 3px 0px 3px 10px;
+    font-size: 0.8rem;
+    display: flex;
+    align-items: center;
+  }
+  
+  .tableP{
+    padding-top: 5%;
+  }

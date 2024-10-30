@@ -94,3 +94,45 @@ export interface detalleCent{
     str_centro_nombre_sede: string,
     str_centro_tipo_nombre: string
 }
+
+export interface CentroAcademico{
+    name: string;
+    type: string;
+    sede: string;
+    codfacultad: string;
+    codcarrera: string;
+}
+
+export interface CentroAdministrativo{
+    name: string;
+    type: string;
+    sede: string;
+    dependenciaId: number;
+    ubicacion: string;
+}
+
+export interface CentroGeneral{
+    name: string;
+    type: string;
+    sede: string;
+}
+
+export interface Facultad{
+    facult: string[];
+    cod: string[];
+}
+
+export interface Carrera{
+    carrera: string[];
+    cod: string[];
+}
+
+export interface Dependencia{
+    depen: string[];
+    cod: string[];
+}
+
+export interface Ubicacion{
+    ubica: string[];
+    cod: string[];
+}

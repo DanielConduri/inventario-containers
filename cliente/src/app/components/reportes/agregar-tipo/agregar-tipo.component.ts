@@ -34,7 +34,7 @@ export class AgregarTipoComponent implements OnInit {
   }
 
   send(){
-    console.log('valores ->', this.myForm.value);
+    // console.log('valores ->', this.myForm.value);
     Swal.fire({
       title:'¿Está seguro de añadir este Tipo de Informe ?',
       showDenyButton:true,
@@ -46,7 +46,7 @@ export class AgregarTipoComponent implements OnInit {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next:(rest)=>{
-            console.log("Res: ", rest)
+            // console.log("Res: ", rest)
             if(rest.status){
               Swal.fire({
                 title:'Tipo Agregado Correctamente',
@@ -54,7 +54,7 @@ export class AgregarTipoComponent implements OnInit {
                 showConfirmButton:false,
                 timer:1500
               });
-              console.log("Res: ", rest)
+              // console.log("Res: ", rest)
             }else{
               Swal.fire({
                 title:rest.message,
@@ -64,7 +64,7 @@ export class AgregarTipoComponent implements OnInit {
               });
             }
             setTimeout(() => {
-              console.log('SettimeOut');
+              // console.log('SettimeOut');
               // this.showCenter()
               Swal.close();
             }, 3000);
@@ -76,7 +76,7 @@ export class AgregarTipoComponent implements OnInit {
               showConfirmButton:false,
               timer:1500
             });
-            console.log("Error:", e)
+            // console.log("Error:", e)
           },
           complete: () => {
             // this.showCenter()
@@ -120,7 +120,7 @@ export class AgregarTipoComponent implements OnInit {
 //                 this.pdf +
 //                 '" type="application/pdf" width="100%" height="600" />';
 //             }
-        console.log('Lo que llega ->', data);
+        // console.log('Lo que llega ->', data);
       },
       error: (err) =>{
         console.log('Error ->', err);

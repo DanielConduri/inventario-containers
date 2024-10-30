@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 import { DatePipe } from '@angular/common';
 import { PaginacionService } from 'src/app/core/services/paginacion.service';
 import { MenuService } from 'src/app/core/services/menu.service';
-
+import { ModalService } from 'src/app/core/services/modal.service';
 
 @Component({
   providers: [DatePipe],
@@ -14,6 +14,18 @@ import { MenuService } from 'src/app/core/services/menu.service';
   styleUrls: ['./mostrar-custodios.component.css']
 })
 export class MostrarCustodiosComponent implements OnInit {
+
+  elementForm:{
+    form: string,
+    title: string,
+    special: boolean
+  } = {
+    form: '',
+    title: '',
+    special: true
+  }
+
+
 
   private destroy$ = new Subject<any>();
 
@@ -45,14 +57,15 @@ export class MostrarCustodiosComponent implements OnInit {
     public srvCustodios: CustodioService,
     public srvPaginacion: PaginacionService,
     public srvMenu: MenuService,
+    public srvModal: ModalService,
   ) { }
 
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.isLoading = false;
-      Swal.close();
-    }, 2000);
+    // setTimeout(() => {
+    //   this.isLoading = false;
+    //   Swal.close();
+    // }, 2000);
     this.pasarPagina(1);
   }
 
@@ -61,6 +74,8 @@ export class MostrarCustodiosComponent implements OnInit {
       title: 'Cargando Custodios',
       didOpen: () => {
         Swal.showLoading()
+        this.isLoading = true;
+        this.isData = true;
       }
     });
 
@@ -70,11 +85,14 @@ export class MostrarCustodiosComponent implements OnInit {
       next: (data) => {
         if(data.body){
           this.isData = true;
-          console.log("Obteniendo Custodios de la base de Datos", data.body);
+          // console.log("Obteniendo Custodios de la base de Datos", data.body);
           this.srvCustodios.datosCustodios = data.body;
           this.metadata = data.total;
-          Swal.close();
+        } else{
+          this.isLoading = false;
+        this.isData = false;
         }
+        Swal.close();
         this.dataPagina();
       },
       error: (err: any) => {
@@ -86,7 +104,7 @@ export class MostrarCustodiosComponent implements OnInit {
         });
       },
       complete: () => {
-        console.log("Custodios completados");
+        // console.log("Custodios completados");
         Swal.close();
       }
     });
@@ -101,7 +119,7 @@ export class MostrarCustodiosComponent implements OnInit {
 
   pasarPagina(page: number) {
     this.mapFiltersToRequest = { size: 10, page:page, parameter: this.parameter, data: this.data };
-    console.log('mapFiltersToRequest', this.mapFiltersToRequest);
+    // console.log('mapFiltersToRequest', this.mapFiltersToRequest);
     this.getCustodios();
   }
 
@@ -128,6 +146,17 @@ export class MostrarCustodiosComponent implements OnInit {
     permisoEliminar(path: string){
       return this.srvMenu.permisos.find(p => p.str_menu_path === path)?.bln_eliminar ?? false;
     }
+
+    mostrarInfoById(strCedula: string, _tittle:string, _form:string){
+      // console.log("Cedula del custodio a consultar", strCedula)
+      this.elementForm.form = _form;
+      this.elementForm.title = _tittle;
+      this.srvModal.setForm(this.elementForm);
+      this.srvModal.setSelectCedula_Custodio(strCedula);
+      //this.srvModal.setSelectID_Bien(5);
+      this.srvModal.openModal();
+    }
+  
 
   ngOnDestroy(): void {
     this.destroy$.next({});

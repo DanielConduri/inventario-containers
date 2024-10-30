@@ -21,6 +21,12 @@ export const Centros = sequelize.define(
         int_centro_sede_id:{
             type: DataTypes.INTEGER
         },
+        dc_centro_coordenada_uno:{
+            type: DataTypes.DECIMAL
+        },
+        dc_centro_coordenada_dos:{
+            type: DataTypes.DECIMAL
+        },
         str_centro_nombre_sede:{ 
             type: DataTypes.STRING 
         },
@@ -56,6 +62,9 @@ export const Centros = sequelize.define(
         str_centro_estado:{
             type: DataTypes.STRING
         },
+        str_centro_celular_custodio: {
+            type: DataTypes.STRING(10)
+        }
     },
     {
         schema: "inventario",

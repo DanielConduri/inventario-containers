@@ -13,6 +13,8 @@ import { BienesModule } from '../pages/admin/bienes/bienes.module';
 import { AjustesBienesModule } from '../components/ajustes-bienes/ajustes-bienes.module';
 import { ReportesModule1 } from '../components/reportes/reportes.module';
 import { MantenimientoModule1 } from '../components/mantenimiento/mantenimiento.module';
+import { HorariosModule } from '../components/horarios/horarios.module';
+import { PrestamoModule } from '../components/prestamo/prestamo.module';
 
 
 @NgModule({
@@ -31,7 +33,9 @@ import { MantenimientoModule1 } from '../components/mantenimiento/mantenimiento.
         BienesModule,
         AjustesBienesModule,
         ReportesModule1,
-        MantenimientoModule1
+        MantenimientoModule1,
+        HorariosModule,
+        PrestamoModule
         // ConfiguracionModule,
         // AdminModule,
     ]

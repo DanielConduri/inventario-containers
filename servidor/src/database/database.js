@@ -1,5 +1,5 @@
 import { Sequelize } from "sequelize";
-import {dbVariables} from "../config/variables.config.js";
+import { dbVariables, dbVariables2 } from "../config/variables.config.js";
 
 export const sequelize = new Sequelize(
   dbVariables.dbName,
@@ -13,19 +13,18 @@ export const sequelize = new Sequelize(
   }
 );
 
+export const secondDB = new Sequelize(
+  dbVariables2.dbDatabase2,
+  dbVariables2.dbUser2,
+  dbVariables2.dbPassword2,
+  {
+    host: dbVariables2.dbServer2,
+    dialect: "postgres",
+    port: dbVariables2.dbPort2,
+  }
+);
 
 
-// export const sequelize = new Sequelize(
-//   'db_inventario_local',
-//   dbVariables.dbUser,
-//   'backend',
-//   {
-//     host:'localhost',
-//     logging:false,
-//     dialect: dbVariables.dbDialect,
-//   //port: 3311
-//   }
-// );
 
 
 

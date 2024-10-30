@@ -2,16 +2,14 @@
 <div class="body-Form">
     <form [formGroup]="myForm" action="formCenterAdd" (ngSubmit)="send()">
         <div class="containerItems">
-
             <div class="cont-Center_Name">
                 <div class="container-Name">
-
                     <div class="centerName-Text">
                         <label class="lbl-info" for="nombre">Nombre del Centro:</label>
                     </div>
                     <div class="centerNambe-Input">
                         <input class="inp-info" type="text" id="nombre" placeholder="Nombre del Centro"
-                            formControlName="centro_nombre" required="">
+                            formControlName="centro_nombre" required="" />
                     </div>
                 </div>
             </div>
@@ -24,7 +22,9 @@
 
                     <div class="container-Select">
                         <select formControlName="centro_tipo">
-                            <option [selected]="true" select disabled>Seleccione un tipo</option>
+                            <option [selected]="true" select disabled>
+                                Seleccione un tipo
+                            </option>
                             <option>ACADÉMICO</option>
                             <option>ADMINISTRATIVO</option>
                         </select>
@@ -36,103 +36,152 @@
                         <label for="text">Sede</label>
                     </div>
 
-                    <div class="search-BarBtn theselect " >
+                    <div class="search-BarBtn theselect">
                         <select formControlName="centro_sede" *ngIf="myForm.value.centro_tipo == 'ACADÉMICO'">
-                            <option [selected]="true" select disabled>Seleccione una cede</option>
+                            <option [selected]="true" select disabled>
+                                Seleccione una sede
+                            </option>
                             <option>MATRIZ RIOBAMBA</option>
-                            <option >ESPOCH - SEDE MORONA SANTIAGO</option>
+                            <option>ESPOCH - SEDE MORONA SANTIAGO</option>
                             <option>ESPOCH - SEDE ORELLANA</option>
                         </select>
                         <select formControlName="centro_sede" *ngIf="myForm.value.centro_tipo == 'ADMINISTRATIVO'">
-                            <option [selected]="true" select disabled>Seleccione una cede</option>
+                            <option [selected]="true" select disabled>
+                                Seleccione una sede
+                            </option>
                             <option>MATRIZ RIOBAMBA</option>
                         </select>
                     </div>
                 </div>
-
             </div>
-
-
         </div>
-        <!-- <button class="btn-primary-add" type="submit" *ngIf="myFormAc.value.centro_tipo"
-            [disabled]="!myFormAc.valid">Guardar</button> -->
 
-    </form>
+        <!-- </form> -->
 
-    <form [formGroup]="myFormAc" *ngIf="myForm.value.centro_tipo == 'ACADÉMICO'" action="formCenterAdd" (ngSubmit)="send()">
-        <div class="containerInfo">
+        <!-- <form [formGroup]="myFormAc"  (ngSubmit)="send()"> -->
+        <div *ngIf="myForm.value.centro_tipo == 'ACADÉMICO'" action="formCenterAdd">
+            <div class="containerInfo">
+                <div class="academico">
+                    <div class="cont search">
+                        <div class="search-Label">
+                            <label for="text">Facultad</label>
+                        </div>
 
-            <div class="academico">
-                <div class="cont search">
-                    <div class="search-Label">
-                        <label for="text">Facultad</label>
+                        <div class="search-BarBtn theselect">
+                            <select formControlName="nombre_facultad" (change)="getF($event)">
+                                <option [selected]="true" select disabled>
+                                    Seleccione una facultad
+                                </option>
+                                <option *ngFor="let op of facultad.facult; let index = index"
+                                    id="{{ facultad.cod[index] }}">
+                                    {{ op }}
+                                </option>
+                            </select>
+                        </div>
                     </div>
+                    <div class="cont search">
+                        <div class="search-Label">
+                            <label for="text">Carrera</label>
+                        </div>
 
-                    <div class="search-BarBtn theselect">
-                        <select formControlName="nombre_facultad" (change)="getF($event)">
-                            <option [selected]="true" select disabled>Seleccione una facultad</option>
-                            <option *ngFor="let op of facultad.facult; let index = index" id="{{facultad.cod[index]}}" >{{op}}</option>
-                        </select>
+                        <div class="search-BarBtn theselect">
+                            <select formControlName="nombre_carrera" (change)="getC($event)">
+                                <option [selected]="true" select disabled>
+                                    Seleccione una carrera
+                                </option>
+                                <option *ngFor="let op of carrera.carrera; let index = index"
+                                    id="{{ carrera.cod[index] }}">
+                                    {{ op }}
+                                </option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div class="cont search">
-                    <div class="search-Label">
-                        <label for="text">Carrera</label>
-                    </div>
 
-                    <div class="search-BarBtn theselect">
-                        <select formControlName="nombre_carrera" (change)="getC($event)">
-                            <option [selected]="true" select disabled>Seleccione una carrera</option>
-                            <option *ngFor="let op of carrera.carrera">{{op}}</option>
-                        </select>
+                <div class="col-12 mt-4 my-google-map">
+                    <label class="form-label text-center">Coordenadas del Centro</label>
+                    <google-map [width]="null" [height]="null" [options]="mapOptions" (mapClick)="moveMap($event)">
+                        <map-marker [position]="marker.position"></map-marker>
+                    </google-map>
+                </div>
+
+                <div class="col-3 pe-2 mt-4 contentenedor-control">
+                    <label class="form-label">Coordenada 1 (latitud)</label>
+                    <input type="text" (input)="changeCordenada1($event)" class="form-control"
+                        formControlName="dc_centro_coordenada_uno" value="{{ myForm.value.dc_centro_coordenada_uno }}"
+                        placeholder="Ingrese la primera Coordenada" pattern="-?\d+(,\d+)?" />
+
+                    <div class="alert alert-danger mt-4 control-error" *ngIf="
+              myForm.get('dc_centro_coordenada_uno')!.hasError('required') &&
+              myForm.get('dc_centro_coordenada_uno')!.touched
+            ">
+                        El campo es requerido.
                     </div>
                 </div>
 
+                <div class="col-3 ps-2 mt-4 contentenedor-control">
+                    <label class="form-label">Coordenada 2 (longitud)</label>
+                    <input type="text" (input)="changeCordenada2($event)" class="form-control"
+                        formControlName="dc_centro_coordenada_dos" value="{{ myForm.value.dc_centro_coordenada_dos }}"
+                        placeholder="Ingrese la segunda Coordenada" pattern="-?\d+(,\d+)?" />
+                    <div class="alert alert-danger mt-4 control-error" *ngIf="
+              myForm.get('dc_centro_coordenada_dos')!.hasError('required') &&
+              myForm.get('dc_centro_coordenada_dos')!.touched
+            ">
+                        El campo es requerido.
+                    </div>
+                </div>
             </div>
-
+            <button class="btn-primary-add" type="submit">Guardar</button>
         </div>
-        <button class="btn-primary-add" type="submit" [disabled]="!myFormAc.valid && !myForm.valid ">Guardar</button>
-    </form>
+        <!-- </form> -->
 
-    <form [formGroup]="myFormAd" action="formCenterAdd" *ngIf="myForm.value.centro_tipo == 'ADMINISTRATIVO'" (ngSubmit)="send()">
-        <div class="containerInFo">
-            
-        
-            <div class="administrativo">
-                <div class="cont search">
-                    <div class="search-Label">
-                        <label for="text">Dependencia</label>
-                    </div>
+        <!-- <form [formGroup]="myFormAd"
+        (ngSubmit)="send()"> -->
+        <div action="formCenterAdd" *ngIf="myForm.value.centro_tipo == 'ADMINISTRATIVO'">
+            <div class="containerInFo">
+                <div class="administrativo">
+                    <div class="cont search">
+                        <div class="search-Label">
+                            <label for="text">Dependencia</label>
+                        </div>
+                        <div class="container-Btns">
+                            <button class="btn-primary-add" type="submit" [disabled]=" !myForm.valid ">Guardar</button>
 
-                    <div class="search-BarBtn theselect">
-                        <select formControlName="nombre_dependencia" (change)="depende($event)">
-                            <option [selected]="true" select disabled>Seleccione una Dependencia</option>
-                            <option *ngFor="let op of dependencia.depen; let index = index" id="{{dependencia.cod[index]}}">{{op}}</option>
-                        </select>
+                            <div class="search-BarBtn theselect" style="align-items: normal !important">
+                                <select formControlName="nombre_dependencia" (change)="depende($event)">
+                                    <option [selected]="true" select disabled>
+                                        Seleccione una Dependencia
+                                    </option>
+                                    <option *ngFor="let op of dependencia.depen; let index = index"
+                                        id="{{ dependencia.cod[index] }}">
+                                        {{ op }}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="cont search">
+                            <div class="search-Label">
+                                <label for="text">Ubicación</label>
+                            </div>
+
+                            <div class="search-BarBtn theselect" style="align-items: normal !important">
+                                <select formControlName="nombre_ubicacion" (change)="getUbi($event)">
+                                    <option [selected]="true" select disabled>
+                                        Seleccione una Ubicación
+                                    </option>
+                                    <option *ngFor="let op of ubicacion.ubica">{{ op }}</option>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="cont search">
-                    <div class="search-Label">
-                        <label for="text">Ubicación</label>
-                    </div>
-
-                    <div class="search-BarBtn theselect">
-                        <select formControlName="nombre_ubicacion" (change)="getUbi($event)">
-                            <option [selected]="true" select disabled>Seleccione una Ubicación</option>
-                            <option *ngFor="let op of ubicacion.ubica">{{op}}</option>
-                        </select>
-                    </div>
+                <div class="container-Btns">
+                    <button class="btn-primary-add" type="submit" [disabled]="!myForm.valid">
+                        Guardar
+                    </button>
                 </div>
-
             </div>
-            
-
         </div>
-        <div class="container-Btns">
-        <button class="btn-primary-add" type="submit"[disabled]="!myFormAd.valid && !myForm.valid ">Guardar</button>
-
-        </div>
-
     </form>
-
 </div>

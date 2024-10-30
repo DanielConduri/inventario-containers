@@ -1,0 +1,587 @@
+<div class="body-Form" *ngIf="aggBien && !verResumen">
+    <form [formGroup]="formCentro" action="">
+
+        <h3>Información Ubicacion</h3>
+        <div class="container-DataInfoFind">
+
+            <div class="container-Find filtradoContainer">
+                <div class="containerInfo">
+                    <label for="">Buscar Centro</label>
+                    <div class="container-Input">
+                        <input class="" id="inp-Centro" type="text" autocomplete="off" (input)="changeCentro($event)"
+                            placeholder="DIGITE NOMBRE CENTRO" formControlName="str_centro_nombre" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-BodyData">
+
+                <div class="container-Left">
+
+                    <div class="containerInfo">
+                        <label for="">Tipo Centro*</label>
+                        <div class="container-Input">
+                            <input type="text" placeholder="TIPO DE CENTRO" formControlName="str_centro_tipo_nombre"
+                                [attr.disabled]="true">
+                        </div>
+                    </div>
+
+                    <div class="containerInfo">
+                        <label for="">Nombre Centro*</label>
+                        <div class="container-Input">
+                            <input type="text" placeholder="NOMBRE DEL CENTRO" formControlName="str_centro_nombre"
+                                [attr.disabled]="true" required>
+                        </div>
+                    </div>
+
+                    <div class="containerInfo" *ngIf="dataCentros.str_centro_tipo_nombre === 'ACADÉMICO'">
+                        <label for="">Facultad*</label>
+                        <div class="container-Input">
+                            <input type="text" placeholder="FACULTAD" formControlName="str_centro_nombre_facultad"
+                                [attr.disabled]="true">
+                        </div>
+                    </div>
+
+                    <div class="containerInfo" *ngIf="dataCentros.str_centro_tipo_nombre === 'ADMINISTRATIVO'">
+                        <label for="">Dependencia*</label>
+                        <div class="container-Input">
+                            <input type="text" placeholder="DEPENDENCIA" formControlName="str_centro_nombre_dependencia"
+                                [attr.disabled]="true">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="container-Right">
+
+                    <div class="containerInfo">
+                        <label for="">Sede Centro*</label>
+                        <div class="container-Input">
+                            <input type="text" placeholder="SEDE DEL CENTRO" formControlName="str_centro_nombre_sede"
+                                [attr.disabled]="true">
+                        </div>
+                    </div>
+
+                    <div class="containerInfo" *ngIf="dataCentros.str_centro_tipo_nombre === 'ACADÉMICO'">
+                        <label for="">Carrera*</label>
+                        <div class="container-Input">
+                            <input type="text" placeholder="CARRERA" formControlName="str_centro_nombre_carrera"
+                                [attr.disabled]="true">
+                        </div>
+                    </div>
+
+                    <div class="containerInfo" *ngIf="dataCentros.str_centro_tipo_nombre === 'ADMINISTRATIVO'">
+                        <label for="">Proceso*</label>
+                        <div class="container-Input">
+                            <input type="text" placeholder="PROCESO" formControlName="str_centro_nombre_proceso"
+                                [attr.disabled]="true">
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </div>
+    </form>
+    <form [formGroup]="myForm">
+        <div style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: solid 0.5px var(--bs-gray-ccc);">
+            <div class="containerInfo">
+                <label>Nivel de Mantenimiento</label>
+                <!-- <h3>Nivel de Mantenimiento</h3> -->
+                <div class="container-Select">
+                    <select formControlName="int_nivel_mantenimiento_id" (change)="getNivelName($event)">
+                        <option [selected]="true" select disabled>Seleccione un nivel</option>
+                        <option *ngFor="let op of srvPlanificacion.datosNivelMantenimiento; let index = index"
+                            id="{{op.int_nivel_mantenimiento_id}}">{{op.str_nivel_mantenimiento_descripcion}}</option>
+
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr ; gap: 35px;">
+            <div>
+                <h3>Fecha de Inicio</h3>
+                <div class="containerInfo ">
+                    <input type="date" formControlName="fechaInicio">
+                </div>
+            </div>
+            <div>
+                <h3>Fecha de Final</h3>
+                <div class="containerInfo ">
+                    <input type="date" formControlName="fechaFin" min="{{myForm.value.fechaInicio}}">
+                </div>
+            </div>
+        </div>
+
+        <div class="container-Btns">
+            <button class="btn-primary-add" type="submit" (click)="avanzarB()"
+                [disabled]="!myForm.valid">Guardar</button>
+        </div>
+
+    </form>
+</div>
+<div *ngIf="!aggBien && !verResumen">
+    <div>
+        <button style="margin-top: 0px !important;" class="btn-primary-add" (click)="regresar()"> Regresar</button>
+    </div>
+    <div class="body-Form" style="margin-bottom: 20px !important">
+        <div class="containerRes">
+            <!-- <mat-accordion> -->
+            <!-- <mat-expansion-panel> -->
+            <!-- <mat-expansion-panel-header> -->
+            <!-- <mat-panel-title> -->
+            <!-- Agregar Bienes -->
+            <!-- </mat-panel-title> -->
+            <!-- </mat-expansion-panel-header> -->
+
+
+            <div class="padre-check" style="display: grid; gap: 20px;">
+
+                <div>
+
+                    <div class="container-Find filtradoContainer" style="margin-bottom: 0px !important;">
+                        <div class="containerInfo">
+                            <!-- <label for="">Buscar Bienes</label> -->
+                            <div class="container-Input">
+                                <input class="" id="inp-Centro" type="text" autocomplete="off"
+                                    (input)="changeBien($event)" placeholder="DIGITE NOMBRE/CÓDIGO DEL BIEN" required>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="tabla-check" style="margin-top: 0px !important; height: 150px !important;">
+                        <table class="table table-striped tabla-estilos">
+                            <thead>
+                                <tr class="encabezado">
+                                    <th class="th-head">
+                                        <div class="d-flex"> # </div>
+                                    </th>
+                                    <th class="th-head">
+                                        <div class="d-flex">Codigo</div>
+                                    </th>
+                                    <th class="th-head">
+                                        <div class="d-flex">Nombre</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <td>
+                                    <input id="flexCheckDefaultAll" type="checkbox" (click)="getAllChecks()"
+                                    [disabled]="!this.srvInforme.datosSearch">
+                                </td>
+                                <td>
+                                    Seleccionar todo
+                                </td>
+
+
+                                <tr *ngFor="let bien of srvInforme.datosSearch; let i = index; let c = index">
+
+                                    <td>
+                                        <input class="flexCheck" (click)="getCheckData($event, i, bien.str_codigo_bien, bien.str_bien_nombre)" id="{{bien.str_codigo_bien}}"
+                                            type="checkbox">
+
+                                    </td>
+
+                                    <td id="dato-check">
+                                        {{bien.str_codigo_bien}}
+                                    </td>
+                                    <td id="name-check">
+                                        {{bien.str_bien_nombre}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+
+                <div>
+                    <!-- <br> -->
+                    <div class="container-Find filtradoContainer">
+                        <div class="containerInfo">
+                            <label for="">Bienes seleccionados</label>
+                        </div>
+                    </div>
+
+                    <div style="height: 150px;overflow: auto;">
+                        <table class="table table-striped tabla-estilos">
+                            <thead>
+                                <tr class="encabezado">
+                                    <th class="th-head">
+                                        <div class="d-flex"> # </div>
+                                    </th>
+                                    <th class="th-head">
+                                        <div class="d-flex">Nombre</div>
+                                    </th>
+                                    <th class="th-head">
+                                        <div class="d-flex">Codigo</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let bien of arrNotificar ;let i = index; let c = index">
+                                    <td>
+                                        <input class="flexCheck" (click)="getCheckData($event, i, bien.id ,bien.name)" type="checkbox"
+                                            checked>
+                                    </td>
+                                    <td id="name-check">
+                                        <div class="d-flex">{{bien.name}}</div>
+
+                                    </td>
+                                    <td id="dato-check">
+                                        {{bien.id}}
+                                    </td>
+                                    <!-- <td>
+                                                <textarea formControlName="area" (click)="selectArea(i)" (change)="observaciones(bien.id)" placeholder="Observaciones" type="text" name="" id="obser" cols="30" rows="10"></textarea>
+                                            </td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- </mat-expansion-panel> -->
+            <!-- </mat-accordion> -->
+        </div>
+        <div class="container-Btns">
+            <button class="btn-primary-add" type="submit" (click)="avanzarR()">Vista Previa</button>
+        </div>
+    </div>
+</div>
+<div *ngIf="aggBien && verResumen" style="height: 450px;">
+    <div>
+        <button class="btn-primary-add" (click)="regresar2()"> Regresar</button>
+    </div>
+
+    <!-- <p>detalles-centros works!</p> -->
+    <div style="height: 85%; overflow: auto;">
+        <div class="tableP" *ngIf="dataCentros.str_centro_tipo_nombre == 'ACADÉMICO'">
+            <table>
+                <thead>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="detalleP">
+                                <div class="title">
+                                    NOMBRE DEL CENTRO
+                                </div>
+                                <div class="detalle">
+                                    {{dataCentros.str_centro_nombre}}
+                                </div>
+                            </div>
+                            <div class="detalleP">
+                                <div class="title">
+                                    TIPO
+                                </div>
+                                <div class="detalle">
+                                    {{dataCentros.str_centro_tipo_nombre}}
+                                </div>
+                            </div>
+                            <div class="detalleP">
+                                <div class="title">
+                                    SEDE
+                                </div>
+                                <div class="detalle">
+                                    {{dataCentros.str_centro_nombre_sede}}
+                                </div>
+                            </div>
+                            <div class="detalleP">
+                                <div class="title">
+                                    NOMBRE DE LA FACULTAD
+                                </div>
+                                <div class="detalle">
+                                    {{dataCentros.str_centro_nombre_facultad}}
+                                </div>
+                            </div>
+                            <div class="detalleP">
+                                <div class="title">
+                                    CÓDIGO DE LA FACULTAD
+                                </div>
+                                <div class="detalle">
+                                    {{dataCentros.str_centro_cod_facultad}}
+                                </div>
+                            </div>
+                            <div class="detalleP">
+                                <div class="title">
+                                    NOMBRE DE LA CARRERA
+                                </div>
+                                <div class="detalle">
+                                    {{dataCentros.str_centro_nombre_carrera}}
+                                </div>
+                            </div>
+                            <div class="detalleP">
+                                <div class="title">
+                                    CÓDIGO DE LA CARRERA
+                                </div>
+                                <div class="detalle">
+                                    {{dataCentros.str_centro_cod_carrera}}
+                                </div>
+                            </div>
+                            <div class="detalleP">
+                                <div class="title">
+                                    ESTADO
+                                </div>
+                                <div class="detalle">
+                                    {{dataCentros.str_centro_estado}}
+                                </div>
+                            </div>
+    
+                        </td>
+    
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    
+        <div class="tableP" *ngIf="dataCentros.str_centro_tipo_nombre == 'ADMINISTRATIVO'">
+            <table>
+                <thead>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="detalleP">
+                                <div class="title">
+                                    NOMBRE DEL CENTRO
+                                </div>
+                                <div class="detalle">
+                                    {{dataCentros.str_centro_nombre}}
+                                </div>
+                            </div>
+                            <div class="detalleP">
+                                <div class="title">
+                                    TIPO
+                                </div>
+                                <div class="detalle">
+                                    {{dataCentros.str_centro_tipo_nombre}}
+                                </div>
+                            </div>
+                            <div class="detalleP">
+                                <div class="title">
+                                    SEDE
+                                </div>
+                                <div class="detalle">
+                                    {{dataCentros.str_centro_nombre_sede}}
+                                </div>
+                            </div>
+                            <div class="detalleP">
+                                <div class="title">
+                                    NOMBRE DE LA DEPENDENCIA
+                                </div>
+                                <div class="detalle">
+                                    {{dataCentros.str_centro_nombre_dependencia}}
+                                </div>
+                            </div>
+                            <!-- <div class="detalleP">
+                            <div class="title">
+                                Codigo de la facultad
+                            </div>
+                            <div class="detalle">
+                                {{detalles.str_centro_cod_facultad}}
+                            </div>
+                        </div> -->
+                            <div class="detalleP">
+                                <div class="title">
+                                    NOMBRE DE LA UBICACIÓN
+                                </div>
+                                <div class="detalle">
+                                    {{dataCentros.str_centro_nombre_proceso}}
+                                </div>
+                            </div>
+                            <!-- <div class="detalleP">
+                            <div class="title">
+                                Codigo de la carrera
+                            </div>
+                            <div class="detalle">
+                                {{detalles.str_centro_cod_carrera}}
+                            </div>
+                        </div> -->
+                            <div class="detalleP">
+                                <div class="title">
+                                    Estado
+                                </div>
+                                <div class="detalle">
+                                    {{dataCentros.str_centro_estado}}
+                                </div>
+                            </div>
+    
+                        </td>
+    
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    
+        <div class="tableP">
+            <table>
+                <thead>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="detalleP">
+                                <div class="title">
+                                    NIVEL DE MANTENIMIENTO
+                                </div>
+                                <div class="detalle">
+                                    {{nivel_nombre}}
+                                </div>
+                            </div>
+                            <div class="detalleP">
+                                <div class="title">
+                                    FECHA DE INICIO
+                                </div>
+                                <div class="detalle">
+                                    {{myForm.value.fechaInicio}}
+                                </div>
+                            </div>
+                            <div class="detalleP">
+                                <div class="title">
+                                    FECHA DE FINALIZACIÓN
+                                </div>
+                                <div class="detalle">
+                                    {{myForm.value.fechaFin}}
+                                </div>
+                            </div>
+                            <div class="detalleP">
+                                <div class="title">
+                                    CANTIDAD DE BIENES
+                                </div>
+                                <div class="detalle">
+                                    {{arrBien.length}}
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <mat-accordion>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      Bienes Agregados
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+          
+          
+                  <div class="padre-check" style="display: grid; gap: 20px;">
+              
+                    <!-- <div>
+              
+                      <div class="container-Find filtradoContainer">
+                        <div class="containerInfo">
+                          <label for="">Buscar Bienes</label>
+                          <div class="container-Input">
+                            <input class="" id="inp-Centro" type="text" autocomplete="off" (input)="changeBien($event)"
+                              placeholder="DIGITE NOMBRE DEL BIEN" required>
+                          </div>
+                        </div>
+                      </div>
+              
+              
+                      <div class="tabla-check">
+                        <table class="table table-striped tabla-estilos">
+                          <thead>
+                            <tr class="encabezado">
+                              <th class="th-head">
+                                <div class="d-flex"> # </div>
+                              </th>
+                              <th class="th-head">
+                                <div class="d-flex">Nombre</div>
+                              </th>
+                              <th class="th-head">
+                                <div class="d-flex">Codigo</div>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <td>
+                              <input id="flexCheckDefaultAll" type="checkbox" (click)="getAllChecks()"
+                                [disabled]="!this.srvInforme.datosSearch">
+                            </td>
+                            <td>
+                              Seleccionar todo
+                            </td>
+              
+              
+                            <tr *ngFor="let bien of srvInforme.datosSearch; let i = index; let c = index">
+              
+                              <td>
+                                <input class="flexCheck" (click)="getCheckData($event, i)" id="{{i}}" type="checkbox">
+              
+                              </td>
+              
+                              <td id="name-check">
+                                {{bien.str_bien_nombre}}
+                              </td>
+                              <td id="dato-check">
+                                {{bien.str_codigo_bien}}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+              
+                    </div>
+               -->
+              
+                    <div>
+                      <!-- <br> -->
+                      <!-- <div class="container-Find filtradoContainer">
+                        <div class="containerInfo">
+                          <label for="">Bienes seleccionados</label>
+                        </div>
+                      </div> -->
+              
+                      <div style="height: 250px;overflow: auto;">
+                        <table class="table table-striped tabla-estilos">
+                          <thead>
+                            <tr class="encabezado">
+                              <!-- <th class="th-head">
+                                <div class="d-flex"> # </div>
+                              </th> -->
+                              <th class="th-head">
+                                <div class="d-flex">Codigo</div>
+                              </th>
+                              <th class="th-head">
+                                <div class="d-flex">Nombre</div>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let bien of arrNotificar; let i = index; let c = index">
+                              <!-- <td>
+                                <input class="flexCheck" (click)="getCheckData($event, i)" type="checkbox" checked>
+                              </td> -->
+                              <td id="dato-check">
+                                {{bien.id}}
+                              </td>
+                              <td id="name-check">
+                                {{bien.name}}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+              
+                  </div>
+          
+          
+                </mat-expansion-panel>
+              </mat-accordion>
+        </div>
+    </div>
+    <div class="container-Btns">
+        <button class="btn-primary-add" type="submit" (click)="send()">Finalizar </button>
+    </div>
+
+</div>

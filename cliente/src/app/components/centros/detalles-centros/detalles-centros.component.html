@@ -1,19 +1,19 @@
 <!-- <p>detalles-centros works!</p> -->
-<div class="tableP" *ngIf="detalles.str_centro_tipo_nombre == 'ACADÉMICO'">
-    <table>
-        <thead>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <div class="detalleP">
-                        <div class="title">
-                            NOMBRE DEL CENTRO
-                        </div>
-                        <div class="detalle">
-                            {{detalles.str_centro_nombre}}
-                        </div>
+<table>
+    <thead>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <div class="detalleP">
+                    <div class="title">
+                        NOMBRE DEL CENTRO
                     </div>
+                    <div class="detalle">
+                        {{detalles.str_centro_nombre}}
+                    </div>
+                </div>
+                <div class="tableP" *ngIf="detalles.str_centro_tipo_nombre == 'ACADÉMICO'">
                     <div class="detalleP">
                         <div class="title">
                             TIPO
@@ -48,7 +48,7 @@
                     </div>
                     <div class="detalleP">
                         <div class="title">
-                           NOMBRE DE LA CARRERA
+                            NOMBRE DE LA CARRERA
                         </div>
                         <div class="detalle">
                             {{detalles.str_centro_nombre_carrera}}
@@ -70,29 +70,10 @@
                             {{detalles.str_centro_estado}}
                         </div>
                     </div>
-                    
-                </td>
-    
-            </tr>
-        </tbody>
-    </table>
-</div>
 
-<div class="tableP" *ngIf="detalles.str_centro_tipo_nombre == 'ADMINISTRATIVO'">
-    <table>
-        <thead>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <div class="detalleP">
-                        <div class="title">
-                            NOMBRE DEL CENTRO
-                        </div>
-                        <div class="detalle">
-                            {{detalles.str_centro_nombre}}
-                        </div>
-                    </div>
+                </div>
+                <div class="tableP" *ngIf="detalles.str_centro_tipo_nombre == 'ADMINISTRATIVO'">
+
                     <div class="detalleP">
                         <div class="title">
                             TIPO
@@ -149,10 +130,31 @@
                             {{detalles.str_centro_estado}}
                         </div>
                     </div>
-                    
+                </div>
+            </td>
+
+        </tr>
+    </tbody>
+</table>
+
+    <!-- <table>
+        <thead>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="detalleP">
+                        <div class="title">
+                            NOMBRE DEL CENTRO
+                        </div>
+                        <div class="detalle">
+                            {{detalles.str_centro_nombre}}
+                        </div>
+                    </div>
+
                 </td>
-    
+
             </tr>
         </tbody>
-    </table>
-</div>
+    </table> -->
+<!-- </div> -->

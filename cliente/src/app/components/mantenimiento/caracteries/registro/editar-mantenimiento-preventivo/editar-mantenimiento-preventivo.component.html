@@ -1,0 +1,173 @@
+<div class="back">
+    <button class="btn-primary-add" (click)="regresar()"> Regresar</button>
+</div>
+<div style="display: grid; gap: 20px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+        <form [formGroup]="formCentro" action="">
+            <div class="containerItems">
+                <div class="container-Find filtradoContainer">
+                    <div class="containerInfo">
+                        <label for="">Nombre del Centro</label>
+                        <div class="container-Input">
+                            <input class="" id="inp-Centro" type="text" autocomplete="off" [attr.disabled]="true"
+                                placeholder="DIGITE NOMBRE CENTRO" formControlName="str_centro_nombre" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form [formGroup]="formPlanificacion" action="">
+            <div class="containerItems">
+                <div class="container-Find filtradoContainer">
+                    <div class="containerInfo">
+                        <label for="">Cantidad de bienes</label>
+                        <div class="container-Input">
+                            <input class="" id="inp-Centro" type="number" autocomplete="off" [attr.disabled]="true"
+                                placeholder="" formControlName="cantidadBienes" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form [formGroup]="formNivel">
+            <div class="containerItems">
+                <div class="container-Find filtradoContainer">
+                    <div class="containerInfo">
+                        <label for="">Nivel</label>
+                        <div class="container-Input">
+                            <input class="" id="inp-Centro" type="text" autocomplete="off" [attr.disabled]="true"
+                                placeholder="" formControlName="nivel_descripción" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <form [formGroup]="myForm">
+        <div style="display: grid; gap: 20px;">
+            <div class="containerRes">
+                <div style="padding-bottom: 10px;">
+                    Agregar Observaciones
+                </div>
+                <div class="padre-check" style="display: grid; gap: 20px;">
+                    <div>
+                        <div>
+                            <table class="table table-striped tabla-estilos">
+                                <thead>
+                                    <tr class="encabezado">
+                                        <th class="th-head">
+                                            <div class="d-flex">Codigo</div>
+                                        </th>
+                                        <th class="th-head">
+                                            <div class="d-flex">Nombre</div>
+                                        </th>
+                                        <th class="th-head">
+                                            <div class="d-flex">Responsable</div>
+                                        </th>
+                                        <th class="th-head">
+                                            <div class="d-flex">Observaciones</div>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let bien of arrNotificar ;let i = index; let c = index">
+                                        <td id="dato-check">
+                                            {{bien.cod}}
+                                        </td>
+                                        <td id="name-check">
+                                            <div class="d-flex">{{bien.name}}</div>
+                                        </td>
+                                        <td>
+                                            <div class="containerRes">
+                                                
+                                                <div class="container-Find filtradoContainer" *ngIf="aggButton">
+                                                    <div class="cont search">
+                                                        
+                                                        <div class="containerInfo">
+                                                            <label for="text">Buscar Cédula:</label>
+                                                        </div>
+                                                        <div class="search-BarBtn">
+                                                            <input id="cedula_user_{{i}}" type="text"
+                                                                oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                                                class="form-control" placeholder="0000000000" />
+                                                            <button type="submit" class="btnSearch"
+                                                                (click)="obtenerDatosCentralizada(bien.id, $event, i)">
+                                                                <i class="material-icons">search</i>
+                                                            </button>
+                                                        </div>
+                                                        <div style="width: 80%;">
+                                                            <p class="p-Title">NOMBRE DEL/LOS RESPONSABLE:</p>
+                                                            <div>
+                                                                <h4 class="p-Content">
+                                                                    <table
+                                                                        class="table table-striped tabla-estilos table-respo">
+                                                                        <tbody>
+                                                                            <tr *ngIf="responsablesBien[i]">
+                                                                                <td class="nameUserRespo">
+                                                                                    {{ responsablesBien[i].nombre }}
+                                                                                    <!-- {{bien.responsable}} -->
+                                                                                </td>
+                                                                                <td>
+                                                                                    <button class="btn btn-primary"
+                                                                                        (click)="deleteUser(i)">
+                                                                                        <i class="material-icons"> delete</i>
+                                                                                    </button>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr *ngIf="bien.responsable">
+                                                                                <td class="nameUserRespo">
+                                                                                    <!-- {{ responsablesBien[i].nombre }} -->
+                                                                                    {{bien.responsable}}
+                                                                                </td>
+                                                                                <!-- <td>
+                                                                                    <button class="btn btn-primary"
+                                                                                        (click)="deleteUser(i)">
+                                                                                        <i class="material-icons"> delete</i>
+                                                                                    </button>
+                                                                                </td> -->
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div formArrayName="area">
+                                                <textarea style="resize: none;" value="bien.desc"
+                                                    (click)="selectArea(i)" (change)="observaciones(bien.id, $event, i)"
+                                                    placeholder="Observaciones" name="" id="obser" cols="30" rows="10"
+                                                    formControlName="{{i}}">
+                                                </textarea>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <!-- </mat-expansion-panel>
+                </mat-accordion> -->
+            </div>
+        </div>
+    </form>
+
+    <div class="container-Btns" style="margin-bottom: 10px; display: flex; justify-content: center; gap: 30px;">
+        <div>
+            <button class="btn-primary-add" (click)="saved()" [disabled]="!myForm.valid "> Guardar</button>
+        </div>
+        <div>
+            <button class="btn-primary-add" (click)="send()" [disabled]="!myForm.valid "> Finalizar</button>
+        </div>
+    </div>
+</div>

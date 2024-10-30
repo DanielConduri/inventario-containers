@@ -155,7 +155,7 @@ menuTabSelected: number = 0;
       .subscribe({
         next: (data) => {
           this.buttonName = data.id;
-          console.log('lo mque llega ->>>>', this.buttonName)
+          // console.log('lo mque llega ->>>>', this.buttonName)
         }
       });
   }

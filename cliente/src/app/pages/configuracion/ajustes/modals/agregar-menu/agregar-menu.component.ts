@@ -28,7 +28,7 @@ export class AgregarMenuComponent implements OnInit {
   constructor( public srvMenu: MenuService,
     public srvModal: ModalService,
     public fb: FormBuilder,
-    ) { 
+    ) {
       this.myForm = this.fb.group({
 
         str_menu_icono:[
@@ -50,12 +50,13 @@ export class AgregarMenuComponent implements OnInit {
         [Validators.required],
       ]
 
-  
+
       });
     }
 
   ngOnInit(): void {
-    
+    // console.log("SI ENTRO AL componente agregar menu")
+
 
     this.srvMenu.selectData_menu$
       .pipe(takeUntil(this.destroy$))
@@ -66,7 +67,7 @@ export class AgregarMenuComponent implements OnInit {
         }
       })
 
-      console.log('ID MENU: ', this._idMenu);
+      // console.log('ID MENU: ', this._idMenu);
 
       // this.menuPadre = {nombre: this.srvMenu.datosMenu[this._idMenu].str_menu_nombre, id: this.srvMenu.datosMenu[this._idMenu].int_menu_id}
 
@@ -89,7 +90,7 @@ export class AgregarMenuComponent implements OnInit {
     const iconControl = this.myForm.get('str_menu_icono');
     const menuPadreControl = this.myForm.get('int_menu_padre');
     // this.selectedOption = event.target.value;
-    console.log('this.typeViewMenu: ', this.typeViewMenu);
+    // console.log('this.typeViewMenu: ', this.typeViewMenu);
     if(/*this.selectedOption === 'Menú Padre'*/this.typeViewMenu){
       iconControl!.setValidators([Validators.required]);
       menuPadreControl!.clearValidators();
@@ -102,6 +103,7 @@ export class AgregarMenuComponent implements OnInit {
   }
 
   agregarMenu(){
+    console.log('ENTRO A AGREGAR MENU');
 
   if(/*this.selectedOption === 'Menú Padre'*/this.typeViewMenu){
     this.myForm.patchValue({
@@ -152,7 +154,7 @@ export class AgregarMenuComponent implements OnInit {
                 timer: 3000
               });
             }
-            setTimeout(() => {            
+            setTimeout(() => {
               this.myForm.reset();
               this.getMenus();
             }, 2500);
@@ -160,7 +162,8 @@ export class AgregarMenuComponent implements OnInit {
             this.myForm.reset();
             console.log('err', error);
           },
-          complete:()=>{        
+          complete:()=>{
+            location.reload()
           }
         });
       }
@@ -169,6 +172,7 @@ export class AgregarMenuComponent implements OnInit {
   }
 
   getMenus(){
+    console.log('carga hasta aqui???')
     Swal.fire({
       title: 'Cargando...',
       didOpen: () => {
@@ -180,7 +184,7 @@ export class AgregarMenuComponent implements OnInit {
     .subscribe({
       next: (data: any) => {
         if(data.status){
-          this.srvMenu.datosMenu = data.body;              
+          this.srvMenu.datosMenu = data.body;
           if(!this.typeViewMenu){
             this.getSubMenus();
             }
@@ -196,6 +200,7 @@ export class AgregarMenuComponent implements OnInit {
   }
 
   getSubMenus(){
+    console.log(' o carga hasat aqui')
     Swal.fire({
       title: 'Cargando...',
       didOpen: () => {
@@ -203,7 +208,7 @@ export class AgregarMenuComponent implements OnInit {
       }
     });
 
-    console.log(" DATOS MENU: ", this.srvMenu.datosMenu)
+    // console.log(" DATOS MENU: ", this.srvMenu.datosMenu)
     this.srvMenu.datosSubMenu = []; // Reinicializa el arreglo datosSubMenu
     this.srvMenu.datosSubMenu = this.srvMenu.datosMenu.filter( item => item.int_menu_id === this._idMenu);
 
@@ -212,7 +217,7 @@ export class AgregarMenuComponent implements OnInit {
     .subscribe({
       next: (data: any) => {
         if(data.status){
-          console.log('DATOS SUBMENU HOMERO: ', data.body);
+          // console.log('DATOS SUBMENU HOMERO: ', data.body);
           this.srvMenu.dataSubMenu = data.body;
         }
       },

@@ -1,0 +1,117 @@
+<div class="father">
+  <div class="containerBody">
+
+    <!-- Seccion Titulo 'Pantalla de Configuracion' -->
+    <div class="titleConfiguration">
+      <div class="titleButton">
+        <div class="title">
+          <h1>Pantalla de
+            <span style="color:#B41A12 ;">
+              Prestamos
+            </span>
+          </h1>
+          <span style="color:rgb(160, 160, 160);
+              font-family: 'Roboto', Arial, sans-serif;
+              font-size: 14px;">
+            Listado de Prestamos de bienes
+          </span>
+        </div>
+
+        <div class="buttonAgg"  *ngIf="this.menuTabsSelected === 1  &&  permisoCrear('prestamos') && this.srvPrestamo.typeview==false">
+          <app-button [form]="''" [title]="'Agregar Prestamos'" (click)="agg()"></app-button>
+        </div>
+        <div class="buttonAgg"  *ngIf="this.menuTabsSelected === 2  &&  permisoCrear('prestamos/gestion')">
+          <app-button [form]="'agregarEstadosPrestamo'" [title]="'Agregar Estados de Prestamo'" (click)="agg()"></app-button>
+        </div>
+      </div>
+
+      <nav class="navSection">
+
+        <div class="containerNavOptions" id="menu">
+
+          <div class="container-button" id="nav-Report" *ngIf="permisoVer('prestamos/prestamo')">
+            <button class="nav-link {{this.menuTabsSelected === 1 ? 'active' : isValue == 1  }} " id="nav-report"
+              [routerLink]="'/prestamos/'+ baseUrl + 'prestamo'" type="button">
+
+              Prestamo
+            </button>
+          </div>
+
+          <!-- <div class="container-button" id="nav-Inform" *ngIf="permisoVer('mantenimiento/caracteres')">
+              <button class="nav-link {{this.menuTabsSelected === 1 ? 'active' : isValue == 1 }}" id="nav-inform"
+                [routerLink]="'/mantenimiento/'+ baseUrl + 'caracteres'" type="button">
+                Caracteristicas
+              </button>
+            </div> -->
+
+          <div class="container-button" id="nav-Report" *ngIf="permisoVer('prestamos/gestion')">
+            <button class="nav-link {{this.menuTabsSelected === 2 ? 'active' : isValue == 2 }}" id="nav-inform"
+              [routerLink]="'/prestamos/'+ baseUrl + 'gestion'" type="button">
+              Gestion
+            </button>
+          </div>
+
+
+        </div>
+
+
+
+      </nav>
+
+      <div class="containerContent">
+
+        <div class="tab-pane fade" id="nav-report" *ngIf=" this.menuTabsSelected === 1">
+          <!-- <app-mostrar-reporte></app-mostrar-reporte> -->
+          <!-- <app-reporte></app-reporte> -->
+          <app-mostrar-prestamo *ngIf="!srvPrestamo.typeview"></app-mostrar-prestamo>
+          <app-agregar-prestamo *ngIf="srvPrestamo.typeview"></app-agregar-prestamo>
+        </div>
+
+        <div class="tab-pane fade" id="nav-inform" *ngIf="this.menuTabsSelected === 2" typeView=true>
+          <app-mostrar-estados></app-mostrar-estados>
+          <!-- <app-mostrar-informe *ngIf="this.srvInformes.typeviw"></app-mostrar-informe> -->
+          <!-- <app-agregar-informe *ngIf="!this.srvInformes.typeviw && !srvInformes.typeview"></app-agregar-informe> -->
+          <!-- <app-modificar-informe *ngIf="!this.srvInformes.typeviw && srvInformes.typeview"></app-modificar-informe> -->
+
+          <!-- <div class="containerBtnAgregar" *ngIf=" this.menuTabsSelected === 1">
+    
+    
+    
+              <div class="component">
+                
+              </div>
+    
+    
+            </div> -->
+
+          </div>
+          <div class="container-Welcome" *ngIf="this.menuTabsSelected === 0">
+            <div class="container-Left">
+                <h1 style="font-size: 50px;
+                font-family: var(--font-family);
+                font-weight: var(--font-weight-bold);
+                color: var(--bs-gray-600);">
+                    Módulo de
+                    <span>Préstamos</span>
+                </h1>
+                <p>
+                    Apartado donde podrá realizar préstamos de bienes pertenecientes 
+                    a un laboratorio o departamento de la ESPOCH.
+                </p>
+            </div>
+      
+            <!-- Contenedor de Logos/Imagenes_SVG -->
+            <div class="container-Right">
+                <img class="logo-Espoch" src="../../../../assets/img/logo-espoch.svg" alt="logo-espoch">
+                <img class="logo-Inventory" src="../../../../assets/img/characteristics.svg" alt="logo-characteristics">
+            </div>
+        </div>
+       
+
+      </div>
+
+
+    </div>
+
+  </div>
+</div>

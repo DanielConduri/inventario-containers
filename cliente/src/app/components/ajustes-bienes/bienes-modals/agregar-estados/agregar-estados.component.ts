@@ -51,7 +51,7 @@ export class AgregarEstadosComponent implements OnInit {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (resEstado) => {
-            console.log('Recibiendo data del AgregarEstado =>', resEstado);
+            // console.log('Recibiendo data del AgregarEstado =>', resEstado);
             if(resEstado.status){
               Swal.fire({
                 title:'Estado agregado con exito!',
@@ -59,7 +59,7 @@ export class AgregarEstadosComponent implements OnInit {
                 showConfirmButton:false,
                 timer:1500
               })
-              console.log('Data Agregada del AgregarEstado =>', resEstado);
+              // console.log('Data Agregada del AgregarEstado =>', resEstado);
             }else{
               Swal.fire({
                 title:'Error al agregar el Estado!',
@@ -94,7 +94,7 @@ export class AgregarEstadosComponent implements OnInit {
         this.srvCaracteristicas.datosEstados = resEstado.body;
       },
       error: (err) => {
-        console.log('Error al mostrar los estados =>', err);
+        // console.log('Error al mostrar los estados =>', err);
       },
       complete: () => {
         this.myForm.reset();

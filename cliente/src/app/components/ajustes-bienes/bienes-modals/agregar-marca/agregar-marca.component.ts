@@ -66,7 +66,7 @@ export class AgregarMarcaComponent implements OnInit {
           .pipe(takeUntil(this.destroy$))
           .subscribe({
             next: (resMarca) => {
-              console.log('Recibiendo data del AgregarMarca =>', resMarca);
+              // console.log('Recibiendo data del AgregarMarca =>', resMarca);
               if(resMarca.status){
                 Swal.fire({
                   title:'Marca agregada con éxito!',
@@ -74,7 +74,7 @@ export class AgregarMarcaComponent implements OnInit {
                   showConfirmButton:false,
                   timer:1500
                 })
-                console.log('Data Agregada del AgregarMarca =>', resMarca);
+                // console.log('Data Agregada del AgregarMarca =>', resMarca);
               }else{
                 Swal.fire({
                   title:'Error al agregar la marca!',

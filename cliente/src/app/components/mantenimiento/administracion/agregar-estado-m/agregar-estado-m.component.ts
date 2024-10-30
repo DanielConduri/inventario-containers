@@ -27,14 +27,16 @@ export class AgregarEstadoMComponent implements OnInit {
   ) {
     this.myForm = this.fb.group({
       descripcion: ["", [Validators.required]],
+      nombre:["", [Validators.required]]
     })
    }
 
   ngOnInit(): void {
+    this.myForm.reset()
   }
 
   send(){
-    console.log('lo que se va ->', this.myForm.value)
+    // console.log('lo que se va ->', this.myForm.value)
     Swal.fire({
       title:'¿Está seguro de añadir este Estado de Mantenimiento ?',
       showDenyButton:true,
@@ -46,7 +48,7 @@ export class AgregarEstadoMComponent implements OnInit {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next:(rest)=>{
-            console.log("Res: ", rest)
+            // console.log("Res: ", rest)
             if(rest.status){
               Swal.fire({
                 title:'Estado Agregado Correctamente',
@@ -54,7 +56,7 @@ export class AgregarEstadoMComponent implements OnInit {
                 showConfirmButton:false,
                 timer:1500
               });
-              console.log("Res: ", rest)
+              // console.log("Res: ", rest)
             }else{
               Swal.fire({
                 title:rest.message,
@@ -64,7 +66,7 @@ export class AgregarEstadoMComponent implements OnInit {
               });
             }
             setTimeout(() => {
-              console.log('SettimeOut');
+              // console.log('SettimeOut');
               // this.showCenter()
               Swal.close();
             }, 3000);
@@ -106,11 +108,16 @@ export class AgregarEstadoMComponent implements OnInit {
           this.isLoading = true;
           this.srvEstado.datosEstadoMantenimiento = data.body
         }
-        console.log('lo que llega', data)
+        // console.log('lo que llega', data)
         Swal.close();
       },
       error: (error) => {console.log(error)}
     })
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 }

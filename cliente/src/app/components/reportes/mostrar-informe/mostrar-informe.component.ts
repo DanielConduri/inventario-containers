@@ -34,6 +34,17 @@ export class MostrarInformeComponent implements OnInit {
   currentPage = 1;
   metadata: any;
 
+  fechas: any = []
+  lugar!: string[]
+  partes!: any[]
+  parte: {
+    lugar: string[],
+    fecha: string[]
+  } = {
+    lugar: [],
+    fecha: []
+  }
+
   elementForm: {
     //Establecemos los elementos "formulario" y "title" a los que les
     //designaremos sus respectivos tipos
@@ -47,11 +58,20 @@ export class MostrarInformeComponent implements OnInit {
       special: true
     }
 
+      //Variables para el filtro
+  options: string[] = ['titulo','id'];
+  searchResult: any = null;
+  data: string = '';
+  parameter: string = '';
+
   constructor(public srvInformes: InformesService,
     public srvModal: ModalService,
-    public srvPaginacion: PaginacionService) { }
+    public srvPaginacion: PaginacionService,
+  ) { }
 
   ngOnInit(): void {
+    this.srvInformes.typeviw = true
+    this.srvInformes.datosSearch = []
     this.pasarPagina(1);
     this.getInforme()
   }
@@ -81,20 +101,35 @@ export class MostrarInformeComponent implements OnInit {
         this.dataPagina()
         
         // this.pdf = data.body
-//         let viewpdf = document.getElementById('ver-pdf-solicitud');
-//             if (viewpdf) {
-//               viewpdf.innerHTML =
-//                 ' <iframe src="' +
-//                 'data:application/pdf;base64,' +
-//                 this.pdf +
-//                 '" type="application/pdf" width="100%" height="600" />';
-//             }
-        console.log('Lo que llega ->', data);
+        //         let viewpdf = document.getElementById('ver-pdf-solicitud');
+        //             if (viewpdf) {
+          //               viewpdf.innerHTML =
+          //                 ' <iframe src="' +
+          //                 'data:application/pdf;base64,' +
+          //                 this.pdf +
+          //                 '" type="application/pdf" width="100%" height="600" />';
+          //             }
+        // console.log('Lo que llega ->', data);
       },
       error: (err) =>{
         console.log('Error ->', err);
       }
     })
+  }
+
+  extraer(fechalugar: any){
+    // console.log('lleha la fecha', fechalugar)
+    // const partes 
+    for(let i = 0; i < fechalugar.length; i++){
+      this.partes = fechalugar[i].str_documento_fecha.split(',');
+      // console.log('sale o no sale ->', this.partes)
+      this.parte.fecha[i] = this.partes[0]
+      this.parte.lugar[i] = this.partes[1]
+      this.fechas.push(this.partes[1])
+      // console.log('sellena--->', this.fechas)
+    }
+    // console.log('las fechas', this.parte.fecha)
+    // console.log('las lugares', this.parte.lugar)
   }
 
   mostrarPDF(id: number, _title: string ,_form: string){
@@ -104,43 +139,17 @@ export class MostrarInformeComponent implements OnInit {
     this.elementForm.title = _title;
     this.srvModal.setForm(this.elementForm);
     this.srvModal.openModal();
-    // this.srvInformes.getInf(id).
-    // pipe(takeUntil(this.destroy$)).
-    // subscribe({
-    //   next: (data: any) => {
-    //     console.log('Lo que llega ->', data);
-    //     this.srvInformes.pdf = data. body
-    //   },
-    //   error: (err) =>{
-    //     console.log('Error ->', err);
-    //   }
-    // })
   }
 
   edidInf(id: number){
     this.srvInformes.idInf = id
     this.srvInformes.typeviw = false
     this.srvInformes.typeview = true 
-     
-    // this.srvInformes.getInfed(id)
-    // .pipe(takeUntil(this.destroy$))
-    // .subscribe({
-    //   next: (data: any) =>{
-    //     console.log('lo que llega edid ->', data);
-    //     this.srvInformes.datosArr = data.body
-    //     console.log('lo que llega edid al servicio ->', this.srvInformes.datosArr);
-         
-
-    //   },
-    //   error: (err) => {
-    //     console.log('Error ->', err);
-    //   }
-    // })
   }
 
   pasarPagina(page: number) {
     this.mapFiltersToRequest = { size: 10, page, parameter: '', data: 0  };
-    console.log('mapFiltersToRequest', this.mapFiltersToRequest);
+    // console.log('mapFiltersToRequest', this.mapFiltersToRequest);
     this.getInforme();
   }
 
@@ -149,6 +158,20 @@ export class MostrarInformeComponent implements OnInit {
     this.elementPagina.metaData = this.metadata;
     this.elementPagina.currentPage = this.mapFiltersToRequest.page
     this.srvPaginacion.setPagination(this.elementPagina)
+  }
+
+  handleSearch(result: any) {
+    this.searchResult = result;
+    if (this.searchResult.data === '' || this.searchResult.data === null || this.searchResult.data === undefined) {
+      this.parameter = ''
+      this.data = '';
+      this.pasarPagina(1);
+    } else {
+      this.parameter = 'str_documento_' + this.searchResult.parameter;
+      this.data = this.searchResult.data;
+      this.mapFiltersToRequest = { size: 10, page: 1, parameter: this.parameter, data: this.searchResult.data };
+      this.getInforme();
+    }
   }
 
 

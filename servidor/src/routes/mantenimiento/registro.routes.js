@@ -1,7 +1,5 @@
 import { Router } from "express";
 import routeRegistro from "../../controllers/mantenimiento/registro.controllers.js"
-import routeRegistroMantenimientoCorrectivo from "../../controllers/mantenimiento/mantenimientoCorrectivo.controllers.js"
-import routeRegistroMantenimientoPreventivo from "../../controllers/mantenimiento/mantenimientoPreventivo.controllers.js"
 const router = Router();
 
 router.post("/", routeRegistro.crearRegistroMantenimiento);

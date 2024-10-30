@@ -5,6 +5,7 @@ import { perRolesModel, dataUser, usuarioModel, perfilesModel, porfileModel } fr
 import { ModalService } from 'src/app/core/services/modal.service';
 import Swal from 'sweetalert2';
 import { MenuService } from 'src/app/core/services/menu.service';
+import config from 'config/config';
 
 @Component({
   selector: 'app-mostrar-per-rol',
@@ -62,7 +63,7 @@ export class MostrarPerRolComponent implements OnInit {
     .subscribe({
       next:( data )=>{
         this.id_perf = data.id;
-        console.log(" RECIBIDO EN MOSTRAR PER-ROL el id es: ", this.id_perf)
+        // console.log(" RECIBIDO EN MOSTRAR PER-ROL el id es: ", this.id_perf)
         this.getInfUser();
         this. getPerfiles();
       },
@@ -94,7 +95,7 @@ export class MostrarPerRolComponent implements OnInit {
         this.srvPersonas.datosUser = data.body
         this.srvPersonas.datosUser.dt_fecha_creacion = data.body.dt_fecha_creacion.substring(0,10)
         this.srvPersonas.datosUser.dt_fecha_actualizacion = data.body.dt_fecha_actualizacion.substring(0,10)
-        console.log("Los datos recibidos después de buscar",data)
+        // console.log("Los datos recibidos después de buscar",data)
       },
       error: (err) => {
         console.log(err);
@@ -105,7 +106,7 @@ export class MostrarPerRolComponent implements OnInit {
   }
 
   getPerfiles(){
-    console.log("entro a obtener perfiles")
+    // console.log("entro a obtener perfiles")
     Swal.fire({
       title: 'Cargando...',
       didOpen: () => {
@@ -118,7 +119,7 @@ export class MostrarPerRolComponent implements OnInit {
       next: (data: perfilesModel) => {
         Swal.close();
         this.srvPersonas.datosPerfiles = data.body
-        console.log("para la tabla, datos reci después de buscar",data)
+        // console.log("para la tabla, datos reci después de buscar",data)
       },error: (err) => {
         console.log(err);
       },
@@ -151,7 +152,7 @@ export class MostrarPerRolComponent implements OnInit {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (res) => {
-            console.log("respuesta de eliminar",res);
+            // console.log("respuesta de eliminar",res);
             this.status = res.status;
             if (this.status) {
               Swal.fire({
@@ -166,6 +167,7 @@ export class MostrarPerRolComponent implements OnInit {
             console.log(err);
           },
           complete: () => {
+          window.location.href = config.URL_BASE_PATH + '/welcome';
             this.getPerfiles();
           }
         })
@@ -174,14 +176,14 @@ export class MostrarPerRolComponent implements OnInit {
   }
 
   editPorfile( _id: number, _tittle: string, _from: string){
-    console.log("el id del perfil a editar es: ", _id)
+    // console.log("el id del perfil a editar es: ", _id)
     this.addForm.title = _tittle
     this.addForm.form = _from
     this.srvModal.setForm(this.addForm)
     this._Form.id = _id;
     this.srvPersonas.setData_porfile(this._Form);
      this.srvModal.setIdPorfile(_id);
-     console.log( "srvModal.selectIdUser$ ", this.srvModal.selectIdUser$)
+    //  console.log( "srvModal.selectIdUser$ ", this.srvModal.selectIdUser$)
     this.srvModal.openModal();
     // this.getPerfiles();
   }
@@ -189,8 +191,8 @@ export class MostrarPerRolComponent implements OnInit {
   editPermissions( _id: number, _tittle: string, _form: string){
     this.addForm.title = _tittle
     this.addForm.form = _form
-    console.log("el formulario en editPermissions a abrir es: ", this.addForm)
-    console.log("el id del usuario a agregar rol es: ", this.id_perf)
+    // console.log("el formulario en editPermissions a abrir es: ", this.addForm)
+    // console.log("el id del usuario a agregar rol es: ", this.id_perf)
     this.srvModal.setForm(this.addForm)
     this.srvModal.setIdUser(this.id_perf);
     this.srvModal.setIdPorfile(_id);
@@ -205,7 +207,7 @@ export class MostrarPerRolComponent implements OnInit {
       bln_editar: this.srvMenu.permisos.find(p => p.str_menu_path === 'ajustes/usuarios')?.bln_editar ?? false,
       bln_eliminar: this.srvMenu.permisos.find(p => p.str_menu_path === 'ajustes/usuarios')?.bln_eliminar ?? false
     };
-    console.log("los permisos son: ", this.permiso)
+    // console.log("los permisos son: ", this.permiso)
   }
 
   ngOnDestroy(): void {

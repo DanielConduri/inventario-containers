@@ -1,0 +1,285 @@
+<div style="height: 85%; overflow: auto;">
+    <div class="tableP" *ngIf="dataCentros?.str_centro_tipo_nombre == 'ACADÉMICO'">
+        <table>
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <!-- <div class="detalleP">
+                            <div class="title">
+                                NOMBRE DEL CENTRO
+                            </div>
+                            <div class="detalle">
+                                {{dataCentros.str_centro_nombre}}
+                            </div>
+                        </div> -->
+                        <div class="detalleP">
+                            <div class="title">
+                                TIPO
+                            </div>
+                            <div class="detalle">
+                                {{dataCentros.str_centro_tipo_nombre}}
+                            </div>
+                        </div>
+                        <div class="detalleP">
+                            <div class="title">
+                                SEDE
+                            </div>
+                            <div class="detalle">
+                                {{dataCentros.str_centro_nombre_sede}}
+                            </div>
+                        </div>
+                        <div class="detalleP">
+                            <div class="title">
+                                NOMBRE DE LA FACULTAD
+                            </div>
+                            <div class="detalle">
+                                {{dataCentros.str_centro_nombre_facultad}}
+                            </div>
+                        </div>
+                        <div class="detalleP">
+                            <div class="title">
+                                CÓDIGO DE LA FACULTAD
+                            </div>
+                            <div class="detalle">
+                                {{dataCentros.str_centro_cod_facultad}}
+                            </div>
+                        </div>
+                        <div class="detalleP">
+                            <div class="title">
+                                NOMBRE DE LA CARRERA
+                            </div>
+                            <div class="detalle">
+                                {{dataCentros.str_centro_nombre_carrera}}
+                            </div>
+                        </div>
+                        <div class="detalleP">
+                            <div class="title">
+                                CÓDIGO DE LA CARRERA
+                            </div>
+                            <div class="detalle">
+                                {{dataCentros.str_centro_cod_carrera}}
+                            </div>
+                        </div>
+                        <div class="detalleP">
+                            <div class="title">
+                                ESTADO
+                            </div>
+                            <div class="detalle">
+                                {{dataCentros.str_centro_estado}}
+                            </div>
+                        </div>
+
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tableP" *ngIf="dataCentros?.str_centro_tipo_nombre == 'ADMINISTRATIVO'">
+        <table>
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <!-- <div class="detalleP">
+                            <div class="title">
+                                NOMBRE DEL CENTRO
+                            </div>
+                            <div class="detalle">
+                                {{dataCentros.str_centro_nombre}}
+                            </div>
+                        </div> -->
+                        <div class="detalleP">
+                            <div class="title">
+                                TIPO
+                            </div>
+                            <div class="detalle">
+                                {{dataCentros.str_centro_tipo_nombre}}
+                            </div>
+                        </div>
+                        <div class="detalleP">
+                            <div class="title">
+                                SEDE
+                            </div>
+                            <div class="detalle">
+                                {{dataCentros.str_centro_nombre_sede}}
+                            </div>
+                        </div>
+                        <div class="detalleP">
+                            <div class="title">
+                                NOMBRE DE LA DEPENDENCIA
+                            </div>
+                            <div class="detalle">
+                                {{dataCentros.str_centro_nombre_dependencia}}
+                            </div>
+                        </div>
+                        <!-- <div class="detalleP">
+                        <div class="title">
+                            Codigo de la facultad
+                        </div>
+                        <div class="detalle">
+                            {{detalles.str_centro_cod_facultad}}
+                        </div>
+                    </div> -->
+                        <div class="detalleP">
+                            <div class="title">
+                                NOMBRE DE LA UBICACIÓN
+                            </div>
+                            <div class="detalle">
+                                {{dataCentros.str_centro_nombre_proceso}}
+                            </div>
+                        </div>
+                        <!-- <div class="detalleP">
+                        <div class="title">
+                            Codigo de la carrera
+                        </div>
+                        <div class="detalle">
+                            {{detalles.str_centro_cod_carrera}}
+                        </div>
+                    </div> -->
+                        <div class="detalleP">
+                            <div class="title">
+                                Estado
+                            </div>
+                            <div class="detalle">
+                                {{dataCentros.str_centro_estado}}
+                            </div>
+                        </div>
+
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="tableP">
+        <table>
+            <thead>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <!-- <div class="detalleP">
+                            <div class="title">
+                                NOMBRE DEL CENTRO
+                            </div>
+                            <div class="detalle">
+                                {{dataCentros.str_centro_nombre}}
+                            </div>
+                        </div> -->
+                        <div class="detalleP">
+                            <div class="title">
+                                NIVEL DE MANTENIMIENTO
+                            </div>
+                            <div class="detalle">
+                                {{nivel}}
+                            </div>
+                        </div>
+                        <div class="detalleP">
+                            <div class="title">
+                                FECHA DE INICIO
+                            </div>
+                            <div class="detalle">
+                                {{planificacion?.inicio.substring(0, 10)}}
+                            </div>
+                        </div>
+                        <div class="detalleP">
+                            <div class="title">
+                                FECHA DE FINALIZACIÓN
+                            </div>
+                            <div class="detalle">
+                                {{planificacion?.fin.substring(0, 10)}}
+                            </div>
+                        </div>
+                        <div class="detalleP">
+                            <div class="title">
+                                CANTIDAD DE BIENES
+                            </div>
+                            <div class="detalle">
+                                {{arrayBienes?.length}}
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <mat-accordion>
+            <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Bienes Agregados
+                    </mat-panel-title>
+                </mat-expansion-panel-header>
+
+
+                <div class="padre-check" style="display: grid; gap: 20px;">
+
+
+                    <div>
+
+                        <div style="height: 250px;overflow: auto;">
+                            <table class="table table-striped tabla-estilos">
+                                <thead>
+                                    <tr class="encabezado">
+
+                                        <th class="th-head">
+                                            <div style="display: grid; grid-template-columns: 2fr 1fr;">
+                                                <div class="d-flex" style="display: grid; justify-content: space-around;">Codigo</div>
+                                                <div class="d-flex">Nombre</div>
+                                            </div>
+                                        </th>
+                                        <!-- <th class="th-head">
+                                        </th> -->
+                                    </tr>
+                                </thead>
+                                <tbody style="display: grid; gap: 10px;">
+                                    <tr  *ngFor="let bien of arrayBienes; let i = index; let c = index" >
+                                        <td style="border: 0.5px solid var(--bs-gray-400);">
+                                            <div style="display: grid; grid-template-columns: 2fr 1fr; border-bottom: 0.5px solid var(--bs-gray-400) ;">
+                                                <div class="d-flex" style="display: grid; justify-content: space-around;">
+                                                    {{bien.codigo}}
+                                                </div>
+                                                <div class="d-flex">
+                                                    {{bien.nombre}}
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="d-flex">
+                                                    {{bien.descrip}}
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <!-- <td>
+                                            <div>
+                                            </div>
+                                        </td> -->
+                                        <!-- <td>
+                                        </td> -->
+                                        <!-- <div>
+                                            <td id="name-check">
+                                            </td>
+                                            <td id="dato-check">
+                                            </td>
+                                            <td>
+                                            </td>
+                                        </div> -->
+                                        <!-- <textarea style="resize: none;" name="" id="" cols="30" rows="10">
+                                        </textarea> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </mat-expansion-panel>
+        </mat-accordion>
+    </div>
+</div>

@@ -25,7 +25,7 @@ const obtenerEstados = async (req, res) => {
 };
 
 const obtenerEstado =   async (req, res) => {
-    console.log("req.params: ", req.params);
+    
     try {
         const { int_estado_bien_id } = req.params;
         const estado = await Estados.findOne({
@@ -86,7 +86,7 @@ const insertarEstado = async (req, res) => {
 };
 
 const actualizarEstado = async (req, res) => {
-    console.log("req.body: ", req.body);
+    
 
     const { int_estado_bien_id } = req.params;
     const { str_estado_bien_nombre } = req.body;

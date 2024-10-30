@@ -1,12 +1,15 @@
-import { Router } from "express";
-import routeRegistroMantenimientoCorrectivo from "../../controllers/mantenimiento/mantenimientoCorrectivo.controllers.js"
+import { Router } from 'express';
+import routeMantenimientoC from '../../controllers/mantenimiento/mantenimientoCorrectivo.controllers.js'
+
 const router = Router();
 
-router.post("/", routeRegistroMantenimientoCorrectivo.crearMantenimientoCorrectivo);
-router.get("/", routeRegistroMantenimientoCorrectivo.obtenerMantenimientosCorrectivos);
-router.get("/:id", routeRegistroMantenimientoCorrectivo.obtenerMantenimientoCorrectivoPorId);
-router.put("/:id", routeRegistroMantenimientoCorrectivo.editarMantenimientoCorrectivo);
-router.delete("/:id", routeRegistroMantenimientoCorrectivo.eliminarMantenimientoCorrectivo);
+router.post("/", routeMantenimientoC.crearMantenimientoCorrectivo);
+router.get("/:id", routeMantenimientoC.obtenerMantenimientoCorrectivoPorId);
+router.get("/", routeMantenimientoC.obtenerMantenimientosCorrectivos);
+router.put("/:id", routeMantenimientoC.editarMantenimientoCorrectivo);
+
+router.delete("/:id", routeMantenimientoC.eliminarMantenimientoCorrectivo);
+
 
 
 

@@ -73,7 +73,7 @@ export class AgregarCatalogoComponent implements OnInit {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (resCatalogo) => {
-            console.log("Recibiendo data del AgregarCatalogo =>", resCatalogo);
+            // console.log("Recibiendo data del AgregarCatalogo =>", resCatalogo);
             if(resCatalogo.status){
               //Configuramos el SweetAlert
               Swal.fire({
@@ -82,7 +82,7 @@ export class AgregarCatalogoComponent implements OnInit {
                 showConfirmButton:false,
                 timer:1500,
               })
-              console.log("Data Agregada con exito");
+              // console.log("Data Agregada con exito");
             }else{
               //Configuramos el SweetAlert
               Swal.fire({
@@ -91,7 +91,7 @@ export class AgregarCatalogoComponent implements OnInit {
                 showConfirmButton:false,
                 timer:1500,
               })
-              console.log("Error al agregar el catalogo");
+              // console.log("Error al agregar el catalogo");
             }
             //configuramos un setTiomout para que el sweetalert se cierre y luego se cierre el modal
             setTimeout(()=>{
@@ -101,7 +101,7 @@ export class AgregarCatalogoComponent implements OnInit {
           },
           error: (err) => {
             //configuramos el mensaje de error
-            console.log("Error al agregar el catalogo =>", err);
+            // console.log("Error al agregar el catalogo =>", err);
             //Configuramos el SweetAlert
             Swal.fire({
               title:'Error al agregar el catalogo',
@@ -111,7 +111,7 @@ export class AgregarCatalogoComponent implements OnInit {
             })
           },
           complete: () => {
-            console.log("Petición catalogo completa");
+            // console.log("Petición catalogo completa");
             //configuramos un setTiomout para que el sweetalert se cierre y luego se cierre el modal
             setTimeout(()=>{
               this.getCatalogo();
@@ -144,7 +144,7 @@ export class AgregarCatalogoComponent implements OnInit {
         })
       },
       complete: () => {
-        console.log("Peticion catalogos completa");
+        // console.log("Peticion catalogos completa");
         //reiniciamos el formulario
         this.myForm.reset();
       }

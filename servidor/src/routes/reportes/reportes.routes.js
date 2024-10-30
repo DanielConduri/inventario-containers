@@ -1,50 +1,39 @@
 import { Router } from "express";
 import routeReportes from "../../controllers/reportes/reportes.controllers.js";
+import routeReportesMantenimiento from "../../controllers/reportes/reportesMantenimiento.controllers.js";
 const router = new Router();
 
 router.get("/generarPdf", routeReportes.generarReporteMarcas);
 router.get("/marcasActivas", routeReportes.marcasActivas);
 
 //Bienes
-router.get("/origenIngreso", routeReportes.reporteOrigenIngreso);
-router.get("/tipoIngreso", routeReportes.reporteTipoIngreso);
-router.get("/bienesFechaCompra", routeReportes.reporteBienesPorFechaCompra);
+router.get("/origenIngreso/:valor", routeReportes.reporteOrigenIngreso);
+router.get("/tipoIngreso/:valor", routeReportes.reporteTipoIngreso);
+router.get("/bienesFechaCompra/:valor", routeReportes.reporteBienesPorFechaCompra);
 router.get("/bienesConGarantia", routeReportes.reporteBienesConGarantia);
 router.get("/bienesConGarantiaPorFecha",routeReportes.reporteBienesConGarantiaPorFecha);
-router.get("/bienesFechaCompra2", routeReportes.reporteFechaCompraAnual);
+router.get("/bienesFechaCompra2/:valor", routeReportes.reporteFechaCompraAnual);
+router.get("/totalBienes/:valor", routeReportes.reporteBienesTotal);
+
+router.get("/bienesPorCatalogo/:id/:valor", routeReportes.reporteBienesPorCatalogo);
 
 
-//Bienes por catalogo
-router.get("/bienesPorCatalogo/:id", routeReportes.reporteBienesPorCatalogo);
+router.get("/bienesPorMarca/:id/:valor", routeReportes.reporteBienesPorMarca);
+router.get("/bienesPorDescripcion/:data/:valor", routeReportes.reporteBienesPorDescripcion);
 
-//Bienes por marca
-router.get("/bienesPorMarca/:id", routeReportes.reporteBienesPorMarca);
+router.get("/bienesPorHistorial/:id/:valor", routeReportes.reporteBienesPorhistorial);
 
+router.get("/bienesPorUbicacion/:id/:responsable/:valor", routeReportes.reporteBienesPorUbicacion);
 
+//mantenimiento
 
-//Reporte 1
-
-//Reporte 2 -- Bienes, manteniendo un registro de c/u con datos de identificación, ubicación, estado o
-//condiciones y responsable de uso
-
-router.get("/bienesPorHistorial/:id", routeReportes.reporteBienesPorhistorial);
-
-//Reporte 3
-
-//Reporte 4 -- Listar los bienes por dependencia y ubicación
-router.get("/bienesPorUbicacion/:id", routeReportes.reporteBienesPorUbicacion);
-
-//Reporte 5-- Informes técnicos emitido por un tecnico en un rango de fechas
-
-//Reporte 6
+router.get("/bienesMantenimientoCorrectivoPorFechas", routeReportesMantenimiento.reporteBienesMantenimientoCorrectivoPorFechas);
+router.get("/mantenimientosCorrectivosPorCodigoBien", routeReportesMantenimiento.reporteMantenimientosCorrectivosPorCodigoBien);
+router.get("/mantenimientosCorrectivosPorTecnicoFechas", routeReportesMantenimiento.reporteMantenimientosCorrectivosPorTecnicoFechas);
+router.get("/bienesMantenimientoPreventivoPorPlanificacion/:int_planificacion_id", routeReportesMantenimiento.reporteBienesMantenimientoPreventivoPorPlanificacion);
+router.get("/mantenimientoPreventivoPorCentro", routeReportesMantenimiento.reporteMantenimientoPreventivoPorCentro)
 
 
-
-//Reporte 8--Informe de equipos por marca
-
-//Reporte 9 -- Bienes con garantía a la fecha que se generar el reporte
-
-//Reporte 10--Excel ?
 
 
 router.get("/prueba", routeReportes.prueba);

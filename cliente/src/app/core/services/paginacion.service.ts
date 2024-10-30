@@ -30,7 +30,7 @@ export class PaginacionService {
   }
 
   setPagination(data: paginacion) {
-    console.log('revicio de paginacion setPaginacion',data);
+    // console.log('revicio de paginacion setPaginacion',data);
     this.pagina$.next(data)
   }
 

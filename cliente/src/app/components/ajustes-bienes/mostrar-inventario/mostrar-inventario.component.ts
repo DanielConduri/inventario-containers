@@ -4,7 +4,7 @@ import { BienesService } from 'src/app/core/services/Bienes-Services/bienes.serv
 import { InventarioService } from 'src/app/core/services/Bienes-Services/inventario-service/inventario.service';
 import Swal from 'sweetalert2';
 import { MenuService } from 'src/app/core/services/menu.service';
-
+import { HistorialArchivosComponent } from 'src/app/components/ajustes-bienes/bienes-modals/historial-archivos/historial-archivos.component';
 @Component({
   selector: 'app-mostrar-inventario',
   templateUrl: './mostrar-inventario.component.html',
@@ -13,7 +13,10 @@ import { MenuService } from 'src/app/core/services/menu.service';
 export class MostrarInventarioComponent implements OnInit {
   @ViewChild('miElemento') miElementoRef!: ElementRef;
 
-
+  isLoading: boolean = false
+  isData: boolean = false;
+  estadoProceso : boolean = false;
+  
   menuTabSelected: number = 0;
   typeView: boolean = false;
   isValue: number = 3;
@@ -60,7 +63,7 @@ export class MostrarInventarioComponent implements OnInit {
   .pipe(takeUntil(this.destroy$))
   .subscribe({
     next: (data) =>{
-      console.log("Valor de Data al seleccionar un bien: ", data)
+      // console.log("Valor de Data al seleccionar un bien: ", data)
       // this.typeViewMenu = data;
       if(data){
         this.typeViewMenu = true;
@@ -96,6 +99,22 @@ export class MostrarInventarioComponent implements OnInit {
     this.srvBienes.setButtonName(this.menuTabSelected);
     this.isValue = 5;
 
+    this.getArchivos();
+  }
+
+  getArchivos(){
+    this.srvInventario.getArchivos({})
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (data) => {
+        Swal.close()
+        if(data.estadoCarga === 1)
+          this.estadoProceso = true //Existe un proceso en ejecución
+      },
+      error: (error) => {
+        console.log('Error ->', error)
+      }
+    })
   }
 
   insertarBien(){

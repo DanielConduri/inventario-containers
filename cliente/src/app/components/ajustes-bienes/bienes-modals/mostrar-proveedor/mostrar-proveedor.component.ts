@@ -83,11 +83,11 @@ private destroy$ = new Subject<any>();
         if(data.body){
           this.metadata = data.total
           this.isData = true;
-          console.log("Obteniendo Respuesta del Servidor =>", data)
+          // console.log("Obteniendo Respuesta del Servidor =>", data)
           // console.log("Obteniendo Proveedores de la base de Datos", data.body);
           this.srvCaracteristicas.datosProveedor = data.body;
         }else{
-          console.log("No se obtuvo respuesta del servidor =>", data)
+          // console.log("No se obtuvo respuesta del servidor =>", data)
         }
         this.dataPagina();
       },
@@ -123,7 +123,7 @@ private destroy$ = new Subject<any>();
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (data: any) => {
-            console.log("Estado Eliminado => ", data);
+            // console.log("Estado Eliminado => ", data);
             if(data.status){
               Swal.fire({
                 title: data.message,
@@ -147,7 +147,7 @@ private destroy$ = new Subject<any>();
             console.log("Error al eliminar el Proveedor =>",err);
           },
           complete: () => {
-            console.log("Proceso de eliminacion de Proveedor completado");
+            // console.log("Proceso de eliminacion de Proveedor completado");
           }
         });
       }
@@ -163,7 +163,7 @@ private destroy$ = new Subject<any>();
 
   pasarPagina(page: number) {
     this.mapFiltersToRequest = { size: 10, page:page, parameter: this.parameter, data: this.data };
-    console.log('mapFiltersToRequest en pasasr pag en roles', this.mapFiltersToRequest);
+    // console.log('mapFiltersToRequest en pasasr pag en roles', this.mapFiltersToRequest);
     this.getProveedor();
   }
 
@@ -175,7 +175,7 @@ private destroy$ = new Subject<any>();
       this.data = '';
       this.pasarPagina(1);
     } else {
-      console.log('handleSearch else');
+      // console.log('handleSearch else');
       this.parameter = 'str_rol_' + this.searchResult.parameter;
       this.data = this.searchResult.data;
       this.mapFiltersToRequest = { size: 10, page: 1, parameter: this.parameter, data: this.searchResult.data };

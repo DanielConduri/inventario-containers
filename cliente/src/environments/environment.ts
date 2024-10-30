@@ -14,6 +14,7 @@ export const environment = {
   // urlApi: 'https://26.157.36.117:8000/',              //Servidor VyV readmi
   // urlApi: 'https://192.168.1.107:8001/',           //Wifi Ruben
   urlApi: 'https://localhost:8001/wsinventario/',               //Local de Daniel
+  //urlApi: 'https://pruebasinventario.me/wsinventario/',
   //urlApi: 'https://localhost:8000/',               //Local de Homero
 
   CodigoSistemaOneDrive: 'ARCHPOLI',

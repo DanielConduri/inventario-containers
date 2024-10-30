@@ -88,7 +88,7 @@ export class MostrarMarcaComponent implements OnInit {
             }else{
             this.isLoading = true
             this.isData = true;
-            console.log("Obteniendo Marcas de la base de Datos", data.body);
+            // console.log("Obteniendo Marcas de la base de Datos", data.body);
             this.srvCaracteristicas.datosMarcas = data.body;
             }
           }else{
@@ -130,7 +130,7 @@ export class MostrarMarcaComponent implements OnInit {
           .pipe(takeUntil(this.destroy$))
           .subscribe({
             next: (data) => {
-              console.log("Marca desactivada", data);
+              // console.log("Marca desactivada", data);
               if (data.status) {
                 Swal.fire({
                   title: data.message,
@@ -154,7 +154,7 @@ export class MostrarMarcaComponent implements OnInit {
               console.log("Error al desactivar la marca", err);
             },
             complete: () => {
-              console.log("Marca desactivada");
+              // console.log("Marca desactivada");
             }
           })
       }
@@ -172,7 +172,7 @@ export class MostrarMarcaComponent implements OnInit {
 
   pasarPagina(page: number) {
     this.mapFiltersToRequest = { size: 10, page:page, parameter: this.parameter, data: this.data };
-    console.log('mapFiltersToRequest en pasasr pag en roles', this.mapFiltersToRequest);
+    // console.log('mapFiltersToRequest en pasasr pag en roles', this.mapFiltersToRequest);
     this.getMarcas();
   }
 
@@ -183,7 +183,7 @@ export class MostrarMarcaComponent implements OnInit {
       this.data = '';
       this.pasarPagina(1);
     } else {
-      console.log('handleSearch else');
+      // console.log('handleSearch else');
       this.parameter = 'str_marca_' + this.searchResult.parameter;
       this.data = this.searchResult.data;
       this.mapFiltersToRequest = { size: 10, page: 1, parameter: this.parameter, data: this.searchResult.data };

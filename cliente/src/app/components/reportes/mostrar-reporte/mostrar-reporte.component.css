@@ -11,3 +11,41 @@
     display: flex;
     justify-content: space-around;
 }
+
+.btn-excel{
+    /*float: right;*/
+    float: right;
+    text-align: right;
+    margin-top: 0px;
+}
+
+.container-btn-excel{
+    display: grid;
+    float: right;
+    place-content: center;
+    margin: 10px 0px 10px 0px;
+  }
+
+    
+.containerInfo2 {
+    width: 100%;
+  }
+  
+  .containerInfo2 label {
+    font-family: var(--font-family);
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+  }
+  
+  .containerInfo2 select,
+  .containerInfo2 input {
+    border: none;
+    margin-top: 10px;
+    border-radius: 4px;
+    padding-left: 5px;
+    height: 28px;
+    width: 100%;
+  }
+  
+
+

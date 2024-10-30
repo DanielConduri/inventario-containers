@@ -40,7 +40,7 @@ export class ModificarEstadosComponent implements OnInit {
   }
 
   completeForm(){
-    console.log("Recibiendo el Valor del ID ESTADO =>", this.srvModal.SelectID_Estado$)
+    // console.log("Recibiendo el Valor del ID ESTADO =>", this.srvModal.SelectID_Estado$)
     this.srvModal.SelectID_Estado$
     .pipe(takeUntil(this.destroy$))
     .subscribe({

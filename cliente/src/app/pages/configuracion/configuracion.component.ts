@@ -90,9 +90,12 @@ export class ConfiguracionComponent implements OnInit {
     // const path: string = window.location.pathname.split('/').pop() || '';
     // this.menuTabsSelected = this.listaViews[path.toUpperCase()] || 0;
     
-    console.log('probando 1-------->', this.menuTabsSelected);
+    console.log('probando 1-------->', this.listaViews);
+    console.log('lo que sale aqui --->', this.listaViews[this.path.toUpperCase()])
     this.srvAjustes.setDataVistaConfiguracion(this.menuTabsSelected);
-    console.log('probando 2-------->', this.menuTabsSelected);
+
+    // this.srvAjustes.
+    // console.log('probando 2-------->', this.menuTabsSelected);
     this.srvPersonas.selectData_rol$
       .pipe(takeUntil(this.destroy$))
       .subscribe({
@@ -107,6 +110,7 @@ export class ConfiguracionComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data) => {
+          console.log('lo que trae esto ..Z', data)
           this.typeViewMenu = data.status;
 
         }
@@ -145,12 +149,25 @@ export class ConfiguracionComponent implements OnInit {
 
   //funcion para permisos de ver
   permisoVer(path: string){
-    let per = this.srvMenu.permisos.find(p => p.str_menu_path === path)?.bln_ver ?? false;
-    return per
+    console.log('aqui si llega tood? ', this.srvMenu.permisos)
+    if(this.srvMenu.permisos ){
+      //console.log('entra aqui?')
+      // return this.srvMenu.permisos?.find(p => p.str_menu_path === path)?.bln_ver 
+        let per = this.srvMenu.permisos.find(p => p.str_menu_path === path)?.bln_ver ?? false;
+        return per
+    }else{
+    window.location.href = '/welcome';
+      return true
+    }
   }
 
   //funcion para permisos de crear
   permisoCrear(path: string){
+    console.log('aqui?')
+    console.log('lo que sale en el path ->', path);
+    console.log(this.srvMenu.permisos)
+    console.log('que hace aqui ->', this.srvMenu.permisos.find(p => p.str_menu_path === path)?.bln_crear ?? false);
+    console.log('entonces no leyo lo anterior')
     return this.srvMenu.permisos.find(p => p.str_menu_path === path)?.bln_crear ?? false;
   }
 

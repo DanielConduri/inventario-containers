@@ -1,20 +1,6 @@
 import { DataTypes } from "sequelize";
 import {sequelize } from "../../database/database.js";
 
-/* 
-["codigoBien", "codigoAnterior","identificador", "numActaMatriz","BLD_BCA", "bien",
-            "serieIdentificacion","modeloCaracteristicas", "marca","critico","Moneda",
-            "ValorCompra","Recompra","Color","Material","Dimensiones","CondicionBien",
-            "Habilitado","EstadoBien","IdBodega","Bodega","IdUbicacion","UbicacionBodega",
-            "CedulaRUC","CustodioActual","CustodioActivo","OrigenIngreso",
-            "TipoIngreso","NroCompromiso","EstadoActa","ContabilizadoActa",
-            "ContabilizadoBien","Descripcion","ItemRenglon","Cuenta Contable","Depreciable",
-            "FechaIngreso","FechaUltimaDepreciacion","VidaUtil","FechaTerminoDepreciacion",
-            "ValorContable","ValorResidual","ValorEnLibros","ValorDepreciacionAcumulada","Comodato"],
-
-
-*/
-
 export const Datos = sequelize.define(
     "tb_datos",
     {
@@ -132,6 +118,9 @@ export const Datos = sequelize.define(
           type: DataTypes.BOOLEAN
         },
         fecha_ingreso: {
+          type: DataTypes.STRING
+        },
+        fecha_creacion: {
           type: DataTypes.STRING
         },
         fecha_ultima_depreciacion: {

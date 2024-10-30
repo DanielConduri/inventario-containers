@@ -70,7 +70,16 @@ export interface BienDataModel{
   status: boolean;
   message: string;
   body: dataBien;
+  custodioInterno: []
 }
+
+
+export interface BienDataCustodioModel{
+  status: boolean;
+  message: string;
+  body: dataBienCustodio[]
+}
+
 
 // export interface dataBien{
 //   int_bien_id: number,
@@ -167,6 +176,7 @@ export interface dataBien{
   str_custodio_activo:string,
   str_custodio_cedula:string,
   str_custodio_nombre:string,
+  str_custodio_interno_nombre: string,
   str_fecha_ultima_depreciacion:string,
   str_marca_nombre:string,
   str_ubicacion_nombre:string
@@ -176,6 +186,13 @@ export interface dataBien{
     dt_bien_fecha_compra_interno: any,
     str_ubicacion_nombre_interno: string,
 }
+
+
+export interface dataBienCustodio{
+  str_codigo_bien: string,
+  str_catalogo_bien_descripcion: string
+}
+
 
 //Anadir nuevo bien
 export interface addBienesModel{

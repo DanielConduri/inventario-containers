@@ -43,7 +43,7 @@
             </table>
           </div>
           <div class="container-Import">
-            <button class="btn-usuario" matStepperNext>Next</button>
+            <button class="btn-usuario" matStepperNext>Siguiente</button>
           </div>
           
         </form>
@@ -65,7 +65,7 @@
           <!-- Boton que se encarga de Cargar los datos del archivo importado -->
           <div class="container-Import">
             <button class="btn-usuario"  (click)="importFile()" [disabled]="unDisabled">
-              Importar
+              Importar y Procesar
             </button>
           </div>
           <!-- Mensaje y Animacion de Proceso de Carga -->
@@ -129,10 +129,10 @@
 
 
       <!-- Tercer STEP: PROCESAR -->
-      <mat-step [stepControl]="thirdFormGroup" label="Procesar" #stepperDos>
-        <form [formGroup]="thirdFormGroup">
+      <!-- <mat-step [stepControl]="thirdFormGroup" label="Procesar" #stepperDos>
+        <form [formGroup]="thirdFormGroup"> -->
           <!-- Boton que se encarga de Cargar los datos del archivo importado -->
-          <div class="container-Import">
+          <!-- <div class="container-Import">
             <button class="btn-usuario" (click)="ProcessFile()">
               Procesar
             </button>
@@ -212,7 +212,7 @@
             </table>
           </div>
         </form>
-      </mat-step>
+      </mat-step> -->
 
       <!-- Cuarto STEP: FINALIZADO -->
       <mat-step #stepper>

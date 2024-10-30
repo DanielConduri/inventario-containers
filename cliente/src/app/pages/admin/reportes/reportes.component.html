@@ -64,7 +64,9 @@
               class="nav-link {{this.menuTabsSelected === 1 ? 'active' : isValue == 1 }}" 
               id="nav-inform"
               [routerLink]="'/reportes/'+ baseUrl + 'informe'"
-              type="button">
+              type="button"
+              (click)="reinicio()"
+              >
                 Informes
               </button>
             </div>
@@ -108,7 +110,8 @@
         <div class="containerContent">
 
           <div class="tab-pane fade" id="nav-report" *ngIf=" this.menuTabsSelected === 0">
-            <app-mostrar-reporte></app-mostrar-reporte>
+            <!-- <app-mostrar-reporte></app-mostrar-reporte> -->
+            <app-reporte></app-reporte>
           </div>
     
           <div class="tab-pane fade" id="nav-inform" *ngIf="this.menuTabsSelected === 1" typeView=true>

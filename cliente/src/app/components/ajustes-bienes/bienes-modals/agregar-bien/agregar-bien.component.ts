@@ -224,7 +224,7 @@ export class AgregarBienComponent implements OnInit {
 
   ngOnInit(): void {
     this.searchEstado();
-    console.log("Valor del Disabled Buton =>", this.disableBtn )
+    // console.log("Valor del Disabled Buton =>", this.disableBtn )
     this.fechaActual = new Date().toISOString().split('T')[0];
     this.disabledSelect = true;
   }
@@ -252,7 +252,7 @@ export class AgregarBienComponent implements OnInit {
                   showConfirmButton: false,
                   timer: 1500,
                 });
-                console.log('Data del Bien Agregada =>', bienes);
+                // console.log('Data del Bien Agregada =>', bienes);
               } else {
                 Swal.fire({
                   title: 'Error al agregar proveedor!',
@@ -260,7 +260,7 @@ export class AgregarBienComponent implements OnInit {
                   showConfirmButton: false,
                   timer: 1500,
                 });
-                console.log('Error al Cargar la Data del Bien =>', bienes);
+                // console.log('Error al Cargar la Data del Bien =>', bienes);
               }
               setTimeout(() => {
                 this.getBienesOtros();
@@ -282,7 +282,7 @@ export class AgregarBienComponent implements OnInit {
           });
       }
     });
-    console.log("Valor de myForms => ", this.myForm.value);
+    // console.log("Valor de myForms => ", this.myForm.value);
   }
 
   // Funcion para mostrar bienes OTROS
@@ -294,11 +294,11 @@ export class AgregarBienComponent implements OnInit {
       },
     });
     this.srvInventario
-      .getBienes({})
+      .getBienes({}, {})
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (bienes: any) => {
-          console.log('Informacion de Bienes Body =>', bienes);
+          // console.log('Informacion de Bienes Body =>', bienes);
           this.srvInventario.datosOtros = bienes.data;
           Swal.close();
         },
@@ -321,7 +321,7 @@ export class AgregarBienComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (estado: EstadosShowModel) => {
-          console.log('Informacion de Estados Body =>', estado.body);
+          // console.log('Informacion de Estados Body =>', estado.body);
           this.estadoNombre = estado.body;
           Swal.close();
         },
@@ -340,10 +340,10 @@ export class AgregarBienComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (resProveedor: ProveedorShowModel) => {
-          console.log(
-            'Informacion que llega a searchProveedor =>',
-            resProveedor
-          );
+          // console.log(
+          //   'Informacion que llega a searchProveedor =>',
+          //   resProveedor
+          // );
           this.autocomplete(
             document.getElementById('inp-Proveedor') as HTMLInputElement,
             resProveedor.body,
@@ -362,7 +362,7 @@ export class AgregarBienComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (resCentro: centrosModel) => {
-          console.log('Informacion que llega a searchCentro =>', resCentro);
+          // console.log('Informacion que llega a searchCentro =>', resCentro);
           this.autocomplete(
             document.getElementById('inp-Centro') as HTMLInputElement,
             resCentro.body,
@@ -380,7 +380,7 @@ export class AgregarBienComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (resCustodio: personasModel) => {
-          console.log('Informacion que llega a searchCentro =>', resCustodio);
+          // console.log('Informacion que llega a searchCentro =>', resCustodio);
           this.autocomplete(document.getElementById('inp-Custodio') as HTMLInputElement, resCustodio.body, parametro, 'custodio')
         }
       })
@@ -394,7 +394,7 @@ export class AgregarBienComponent implements OnInit {
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next:(resCatalogo: CatalogoShowModel)=>{
-        console.log("Informacion que llega a searchCatalogo =>", resCatalogo);
+        // console.log("Informacion que llega a searchCatalogo =>", resCatalogo);
         this.autocomplete(document.getElementById('inp-Catalogo') as HTMLInputElement, resCatalogo.body, parametro, 'catalogo')
       }
     })
@@ -410,7 +410,7 @@ export class AgregarBienComponent implements OnInit {
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next:(resMarca: MarcasShowModel)=>{
-        console.log("Informacion que llega a searchMarca =>", resMarca);
+        // console.log("Informacion que llega a searchMarca =>", resMarca);
         this.autocomplete(document.getElementById('inp-Marca') as HTMLInputElement, resMarca.body, parametro, 'marca')
       }
     });
@@ -564,10 +564,10 @@ export class AgregarBienComponent implements OnInit {
           b.addEventListener('click', function (e) {
             inp.value = this.getElementsByTagName('input')[0].value;
             ithis.dataCentros = arr[i];
-            console.log(
-              'Esto es lo que se le asigna a dataCentros =>',
-              ithis.dataCentros
-            );
+            // console.log(
+            //   'Esto es lo que se le asigna a dataCentros =>',
+            //   ithis.dataCentros
+            // );
             switch (name) {
               case 'centro':
                 ithis.myForm
@@ -709,7 +709,7 @@ export class AgregarBienComponent implements OnInit {
     const dateValue = event.target.value;
     const selectElement = this.selectElement.nativeElement;
     this.dateInit = new Date(dateValue);
-    console.log("Valor de DateInit => ", this.dateInit)
+    // console.log("Valor de DateInit => ", this.dateInit)
     if(dateValue){
       selectElement.disabled = false;
     }else{
@@ -721,7 +721,7 @@ export class AgregarBienComponent implements OnInit {
     if(this.selectElement.nativeElement.value === 'SI'){
       const numberValue = event.target.value;
       const anios = parseInt(this.numberInput.nativeElement.value);
-      console.log("valor de yearsToAdd => ", anios);
+      // console.log("valor de yearsToAdd => ", anios);
       this.disabledSelect = false;
       if(this.numberInput.nativeElement.value === '' || this.numberInput.nativeElement.value === null){
         this.myForm.get('dt_garantia_fecha_final')?.setValue('');
@@ -729,7 +729,7 @@ export class AgregarBienComponent implements OnInit {
         const fechaFinal = new Date(this.dateInit.getFullYear() + anios, this.dateInit.getMonth(), this.dateInit.getDate());
         this.dateInputFin.nativeElement.value = fechaFinal.toISOString().slice(0,10);
         this.myForm.get('dt_garantia_fecha_final')?.setValue(this.dateInputFin.nativeElement.value);
-        console.log("Valor de la Fecha Final =>", this.myForm.get('dt_garantia_fecha_final')?.value);
+        // console.log("Valor de la Fecha Final =>", this.myForm.get('dt_garantia_fecha_final')?.value);
       }
     }else{
       this.disabledSelect = true;
@@ -780,7 +780,7 @@ export class AgregarBienComponent implements OnInit {
 
     this.resetFormValues();
 
-    console.log("Valor de items => ", this.items);
+    // console.log("Valor de items => ", this.items);
 
   }
 
@@ -794,7 +794,7 @@ export class AgregarBienComponent implements OnInit {
         this.disableBtn = true;
       }
     }
-    console.log("Valor de items => ", this.items);
+    // console.log("Valor de items => ", this.items);
   }
 
 
@@ -822,12 +822,12 @@ export class AgregarBienComponent implements OnInit {
       this.editarIndex = -1;
       this.disableBtn = true;
     }
-    console.log("Valor de items => ", this.items);
+    // console.log("Valor de items => ", this.items);
   }
 
   verConsola(){
     //Ver el contenido de myForm en consola
-    console.log("Valor de myForms => ", this.myForm.value);
+    // console.log("Valor de myForms => ", this.myForm.value);
   }
 
   ngOnDestroy(): void {

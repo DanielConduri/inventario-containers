@@ -9,49 +9,61 @@ import parser from "csv-parser";
 import fs from "fs";
 import obtenerPrimeraFila from "../../utils/obtenerHeadersCsv.utils.js";
 import { eliminarFichero } from "../../utils/eliminarFichero.utils.js";
+import { insertarAuditoria } from "../../utils/insertarAuditoria.utils.js";
 
 import fetch from "node-fetch"; //para consumir una API
 import https from "https";
+import crypto from "crypto";
 
-const agent = new https.Agent({ rejectUnauthorized: false }); //Validar credenciales
+// Configurar el agente HTTPS
+const httpsAgentOptions = {
+  secureOptions: crypto.constants.SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION,
+};
+
+// Verificar si estamos en entorno de desarrollo
+  httpsAgentOptions.rejectUnauthorized = false;
+
+
+const httpsAgent = new https.Agent(httpsAgentOptions);
+
+//const agent = new https.Agent({ rejectUnauthorized: false }); //Validar credenciales
 
 //registra usuarios  y crea un perfil por defecto con Rol público
 export const insertarPersonaRol = async (req, res) => {
-  console.log("Ingresa otro usuario");
+  
   try {
     //recibo datos del frontend que no tiene el CAS
     const personaRol = req.body;
-    console.log("datos cedula",req.body );
-    console.log("personaRol\n", personaRol);
+    
     //completar los datos con el CAS
     const cedula = personaRol.per_cedula;
     const url = configVariables.urlServicioCentralizado + cedula;
 
-    const response = await fetch(url, { agent });
+    const response = await fetch(url, { agent: httpsAgent  });
     const body = await response.json();
 
     if (body.success === false) {
-      console.log("No se encontró el usuario en el CAS, verifique la cédula");
+      
       return res.json({
         status: false,
         message: "No se encontró el usuario en el CAS, verifique la cédula",
       });
     }
     const apellidos =
-      body.datos.per_primerApellido + " " + body.datos.per_segundoApellido;
+      body.listado[0].per_primerApellido + " " + body.listado[0].per_segundoApellido;
 
     const datosUsuario = {
-      int_per_idcas: body.datos.per_id,
-      str_per_nombres: body.datos.per_nombres,
+      int_per_idcas: body.listado[0].per_id,
+      str_per_nombres: body.listado[0].per_nombres,
       str_per_apellidos: apellidos,
-      str_per_email: body.datos.per_email,
+      str_per_email: body.listado[0].per_email,
       str_per_cedula: personaRol.per_cedula,
       str_per_cargo: personaRol.per_cargo.toUpperCase(),
       str_per_telefono: personaRol.per_telefono,
       str_per_val_antiguo: null,
     };
 
-    console.log("Entró al query", datosUsuario);
+    
 
     const resultado = await sequelize.query(
       `Select seguridad.f_insertar_usuario(
@@ -69,7 +81,7 @@ export const insertarPersonaRol = async (req, res) => {
       { type: QueryTypes.SELECT }
     );
     const resultJson = JSON.stringify(resultado[0].f_insertar_usuario);
-    console.log(resultJson);
+    
 
     if (resultJson == 1) {
       return res.json({
@@ -89,13 +101,24 @@ export const insertarPersonaRol = async (req, res) => {
       );
       return permiso;
     });
-    //insertarAuditoria(datosUsuario);  //Insertar en la tabla auditoria
+    
+    insertarAuditoria(
+      null,
+      "tb_personas",
+      "CREATE",
+      datosUsuario,
+      req.ip,
+      req.headers.host,
+      req,
+      "Se ha creado un perfil"
+    )
     return res.json({
       status: true,
       message: "Usuario ingresado exitosamente",
     });
   } catch (error) {
-    console.log("Entró al catch", error.message);
+    //console.log(error)
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -109,7 +132,7 @@ export const obtenerPersonaRol = async (req, res) => {
       );
 
       const jsonPerfil = Object.assign({}, perfil[0]);
-      console.log("obtenerPersonarol", jsonPerfil);
+      
 
       if (!perfil || perfil.length === 0) {
         return res.json({
@@ -124,7 +147,7 @@ export const obtenerPersonaRol = async (req, res) => {
         });
       }
     } catch (error) {
-      console.log(error.message);
+      res.status(500).json({ message: error.message });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -140,13 +163,13 @@ export const obtenerDatosPerfil = async (req, res) => {
     );
 
     const jsonDatos = Object.assign({}, datosPerfil[0]);
-    console.log("obtenerDatosPerfil", jsonDatos);
+    
     const data = {
       str_rol_nombre: jsonDatos.str_rol_nombre,
       str_perfil_dependencia: jsonDatos.str_perfil_dependencia,
       str_rol_descripcion: jsonDatos.str_rol_descripcion,
     };
-    console.log("Data", data);
+    
     if (!datosPerfil || datosPerfil.length === 0) {
       return res.json({
         status: false,
@@ -159,7 +182,7 @@ export const obtenerDatosPerfil = async (req, res) => {
       body: data,
     });
   } catch (error) {
-    console.log(error.message);
+    
     res.status(500).json({ message: error.message });
   }
 };
@@ -205,6 +228,16 @@ export const eliminarPersonaRol = async (req, res) => {
           message: "Rol con estado ACTIVO",
         });
       }
+      insertarAuditoria(
+        null,
+        "tb_perfiles",
+        "DELETE",
+        persona,
+        req.ip,
+        req.headers.host,
+        req,
+        "Se ha eliminado un perfil"
+      )
       return res.json({
         status: true,
         message: "Personas encontradas",
@@ -220,7 +253,7 @@ export const actualizarPersonaRol = async (req, res) => {
   const { id_perfil } = req.params;
   let { str_perfil_dependencia } = req.body;
   str_perfil_dependencia = str_perfil_dependencia.toUpperCase();
-  console.log("Entro a actualizar perfil", req.body);
+  
   try {
     if (!validar(str_perfil_dependencia)) {
       return res.json({
@@ -243,6 +276,23 @@ export const actualizarPersonaRol = async (req, res) => {
     }
     perfil.str_perfil_dependencia = str_perfil_dependencia;
     await perfil.save();
+
+    const nuevo = await personaRol.findOne({
+      where: {
+        int_perfil_id: id_perfil,
+      },
+    });
+
+    insertarAuditoria(
+      perfil,
+      "tb_perfiles",
+      "UPDATE",
+      nuevo,
+      req.ip,
+      req.headers.host,
+      req,
+      "Se ha actualizado un perfil"
+    )
 
     return res.json({
       status: true,
@@ -276,10 +326,10 @@ export const insertarPerfil = async (req, res) => {
       { type: DataTypes.SELECT }
     );
 
-    console.log("respuesta perfil", perfil);
+    
     const jsonPerfil = Object.assign({}, perfil[0]);
     const jsonRes = jsonPerfil[0].f_insertar_perfil;
-    console.log(jsonRes);
+    
 
     if (jsonRes === 0) {
       return res.json({
@@ -328,8 +378,7 @@ export const personaPerfilId = async (req, res) => {
         message: "Error al obtener los datos",
       });
     }
-    //const jsonPersona = Object.assign({}, datos[0]);
-    //console.log(jsonPersona);
+
     res.json({
       status: true,
       message: "Datos del usuario encontrados",
@@ -347,7 +396,7 @@ export const perfilesPersona = async (req, res) => {
       `SELECT roles.str_rol_nombre, roles.str_rol_descripcion,perfiles.int_perfil_id, perfiles.str_perfil_dependencia, perfiles.str_perfil_estado FROM seguridad.tb_roles AS roles JOIN seguridad.tb_perfiles as perfiles on roles.int_rol_id= perfiles.int_rol_id  WHERE perfiles.int_per_id='${id}'`,
       { type: QueryTypes.SELECT }
     );
-    console.log(perfiles);
+    
     if (!perfiles || perfiles.length === 0) {
       return res.json({
         status: false,
@@ -372,7 +421,7 @@ export const importarCsv = async (req, res) => {
   }
   // obtener la primera fila del archivo csv
   const primeraFila = await obtenerPrimeraFila(file.path);
-  console.log("Primera fila de Usuarios", primeraFila);
+  
   const encabezadosValidos = ["cedula", "cargo", "telefono"];
   const headers = Object.keys(primeraFila);
   // Verificar que los encabezados del archivo csv sean válidos
@@ -381,20 +430,20 @@ export const importarCsv = async (req, res) => {
     const encabezados = headers[0]
       .split(separador)
       .map((encabezado) => encabezado.trim().toLowerCase());
-    console.log("Encabezados del archivo csv", encabezados);
+    
     return encabezados.every((encabezado) =>
       encabezadosValidos.includes(encabezado)
     );
   } 
 
   const sonValidos = verificarEncabezadosValidos(headers, encabezadosValidos);
-  console.log("Son validos", sonValidos);
+ 
 
   if (sonValidos) {
-    console.log("Antes de leer el archivo");
+    
     try {
       const arrayCentrosCsv = await leerArchivoCsv(file.path);
-      console.log("DATOS DEL CSV: ", arrayCentrosCsv);
+      
       let usuariosIngresados = 0;
       let usuariosNoIngresados = 0;
       let usuariosSinCorreo = 0;
@@ -425,9 +474,7 @@ export const importarCsv = async (req, res) => {
 
       for (let usuario of arrayCentrosCsv) {
         const cedulaCsv = Object.values(usuario);
-        console.log("Cedula del csv", cedulaCsv[0]);
-        console.log("Cargo del csv", cedulaCsv[1]);
-        console.log("Telefono del csv", cedulaCsv[2]);
+        
         const datosUsuario = await obtenerEmail(cedulaCsv[0]);
 
         if (datosUsuario !== false) {
@@ -476,7 +523,7 @@ export const importarCsv = async (req, res) => {
                 info.usuariosNoIngresados.cedulas.push(datos.str_per_cedula);
               }
             } catch (error) {
-              console.log(error.message);
+              
               return res.status(500).json({ message: error.message });
             }
           } else {

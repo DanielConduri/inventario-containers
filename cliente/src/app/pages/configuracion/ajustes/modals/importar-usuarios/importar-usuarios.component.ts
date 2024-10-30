@@ -88,11 +88,11 @@ export class ImportarUsuariosComponent implements OnInit {
     const rows = csvText.split('\n');
     this.data = rows.map(row => row.split(/[,;]/));
     this.colums = Object.keys(this.data[0])
-    console.log('Dentro de parse Cvs1 que tiene colums => ', this.colums);
+    // console.log('Dentro de parse Cvs1 que tiene colums => ', this.colums);
   }
 
   importFile() {
-    console.log('Entre al click')
+    // console.log('Entre al click')
     const formData = new FormData();
     formData.append('file', this.fil, this.fil.name);
     Swal.fire({
@@ -107,7 +107,7 @@ export class ImportarUsuariosComponent implements OnInit {
         next: (rest) => {
           Swal.close();
           this.result = rest;
-          console.log("Que me responde el homero: ", rest);
+          // console.log("Que me responde el homero: ", rest);
           if (rest.status) {
             if (rest.info.cedulasInvalidas.cantidad < 0 || rest.info.usuariosNoIngresados.cantidad < 0 || rest.info.usuariosSinCorreo.cantidad < 0) {
               Swal.close();
@@ -149,7 +149,7 @@ export class ImportarUsuariosComponent implements OnInit {
             }
 
           } else {
-            console.log("Entra al else: ", rest)
+            // console.log("Entra al else: ", rest)
             Swal.close();
             Swal.fire({
               title: rest.message,
@@ -198,14 +198,14 @@ export class ImportarUsuariosComponent implements OnInit {
   }
 
   moreInformation() {
-    console.log("MÁS INFORMACIÓN", this.result);
+    // console.log("MÁS INFORMACIÓN", this.result);
     this.table = false;
     this.tablaInfo = true;
     this.info = false;
   }
 
   returnView() {
-    console.log("return");
+    // console.log("return");
     this.table = true;
     this.tablaInfo = false;
     this.info = true;

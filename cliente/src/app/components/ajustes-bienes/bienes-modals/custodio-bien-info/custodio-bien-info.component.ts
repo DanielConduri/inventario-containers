@@ -30,7 +30,7 @@ export class CustodioBienInfoComponent implements OnInit {
   }
 
   completeModal(){
-    console.log("recibiendo informacion del Bien seleccionado =>", this.srvModal.SelectID_Bien$)
+    // console.log("recibiendo informacion del Bien seleccionado =>", this.srvModal.SelectID_Bien$)
 
     this.srvModal.SelectID_Bien$
     .pipe(takeUntil(this.destroy$))
@@ -62,7 +62,7 @@ export class CustodioBienInfoComponent implements OnInit {
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (dataBien) => {
-        console.log("Informacion General del Bien =>", dataBien)
+        // console.log("Informacion General del Bien =>", dataBien)
         Swal.fire({
           title: 'Cargando',
           didOpen: () => {
@@ -71,10 +71,10 @@ export class CustodioBienInfoComponent implements OnInit {
         });
         this.srvInventario.dataBienInfo = dataBien.body;
         // this.idCustodio = dataBien.body.int_custodio_id;
-        console.log("Informacion del Bien Escogido =>", this.srvInventario.dataBienInfo)
+        // console.log("Informacion del Bien Escogido =>", this.srvInventario.dataBienInfo)
 
         const id = this.srvInventario.dataBienInfo.int_bien_id;
-        console.log("id del Bien =>", id)
+        // console.log("id del Bien =>", id)
         this.getCustodioID(id);
 
       },
@@ -88,16 +88,16 @@ export class CustodioBienInfoComponent implements OnInit {
   }
 
   getCustodioID(int_bien_id: number){
-    console.log("data en onInit Custodio =>", this.idCustodio)
+    // console.log("data en onInit Custodio =>", this.idCustodio)
 
     this.srvCustodio.getCustodioID(int_bien_id)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (dataCustodio: custodiosIDModel) => {
-        console.log("Informacion del Custodio =>", dataCustodio.body)
+        // console.log("Informacion del Custodio =>", dataCustodio.body)
         if(dataCustodio.body.length > 0){
           this.srvCustodio.datosCustodios = dataCustodio.body;
-          console.log("Informacion del Custodio =>", this.srvCustodio.datosCustodios)
+          // console.log("Informacion del Custodio =>", this.srvCustodio.datosCustodios)
         }
       },
       error:(err) =>{
@@ -107,7 +107,7 @@ export class CustodioBienInfoComponent implements OnInit {
         });
       },
       complete: () => {
-        console.log("Complete")
+        // console.log("Complete")
         Swal.close();
       }
     });

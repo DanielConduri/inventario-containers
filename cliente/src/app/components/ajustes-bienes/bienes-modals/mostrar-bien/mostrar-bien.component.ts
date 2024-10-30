@@ -80,19 +80,19 @@ export class MostrarBienComponent implements OnInit {
         Swal.showLoading()
       }
     });
-    console.log('mapFiltersToRequest mostrar bien ->', this.mapFiltersToRequest)
-    this.srvInventario.getBienes(this.mapFiltersToRequest)
+    // console.log('mapFiltersToRequest mostrar bien ->', this.mapFiltersToRequest)
+    this.srvInventario.getBienes(this.mapFiltersToRequest, {})
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (dataOtros: OtrosShowModelPag) => {
-        console.log("Obteniendo Bienes Otros de la base de Datos", dataOtros);
+        // console.log("Obteniendo Bienes Otros de la base de Datos", dataOtros);
         if(dataOtros.body){
 
           this.isData = true;
-          console.log("Obteniendo Bienes Otros de la base de Datos", dataOtros);
+          // console.log("Obteniendo Bienes Otros de la base de Datos", dataOtros);
           this.srvInventario.datosOtros = dataOtros.body;
           this.metadata = dataOtros.total;
-          console.log('metadatos ->', this.metadata);
+          // console.log('metadatos ->', this.metadata);
           Swal.close();
         }
       },
@@ -118,7 +118,7 @@ export class MostrarBienComponent implements OnInit {
   }
 
   mostrarInfoById(idBien: number, _tittle:string, _form:string){
-    console.log("ID del Bien a mostrar", idBien)
+    // console.log("ID del Bien a mostrar", idBien)
     this.elementForm.form = _form;
     this.elementForm.title = _tittle;
     this.srvModal.setForm(this.elementForm);
@@ -128,7 +128,7 @@ export class MostrarBienComponent implements OnInit {
 
 
   ModifyBienById(idBien: number, _tittle:string, _form:string){
-    console.log("Funcion para editar el bien por ID")
+    // console.log("Funcion para editar el bien por ID")
     this.elementForm.form = _form;
     this.elementForm.title = _tittle;
     this.srvModal.setForm(this.elementForm);
@@ -137,7 +137,7 @@ export class MostrarBienComponent implements OnInit {
   };
 
   HistoryBien(idBien:number, _tittle:string, _form:string){
-    console.log("Metodo para mostrar el Historial del bien");
+    // console.log("Metodo para mostrar el Historial del bien");
     this.elementForm.form = _form;
     this.elementForm.title = _tittle;
     this.srvModal.setForm(this.elementForm);
@@ -159,7 +159,7 @@ export class MostrarBienComponent implements OnInit {
       this.data = '';
       this.pasarPagina(1);
     } else {
-      console.log('handleSearch else -> como lega el parametro', this.searchResult.parameter);
+      // console.log('handleSearch else -> como lega el parametro', this.searchResult.parameter);
       //'nombre', 'modelo', 'marca', 'serie', 'estado'
       if(this.searchResult.parameter === 'estado_logico' || this.searchResult.parameter === 'nombre' || this.searchResult.parameter === 'modelo' || this.searchResult.parameter === 'serie' ){
       this.parameter = 'str_bien_' + this.searchResult.parameter;
@@ -172,7 +172,7 @@ export class MostrarBienComponent implements OnInit {
       }else{
         this.parameter = 'str_' + this.searchResult.parameter;
       }
-      console.log('handleSearch else -> como queda el parametro ->', this.parameter);
+      // console.log('handleSearch else -> como queda el parametro ->', this.parameter);
       this.data = this.searchResult.data;
      this.mapFiltersToRequest = { size: 10, page: 1, parameter: this.parameter, data: this.searchResult.data };
      this.getBienesOtros();
@@ -198,7 +198,7 @@ export class MostrarBienComponent implements OnInit {
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (dataGarantia: any) => {
-        console.log("Obteniendo Bienes Garantia de la base de Datos", dataGarantia);
+        // console.log("Obteniendo Bienes Garantia de la base de Datos", dataGarantia);
         if(dataGarantia.status === true){
           Swal.fire({
             icon: 'success',
@@ -216,7 +216,7 @@ export class MostrarBienComponent implements OnInit {
         console.log("Error al obtener los Bienes Garantia", err);
       },
       complete: () => {
-        console.log("Completado");
+        // console.log("Completado");
       }
     })
   }

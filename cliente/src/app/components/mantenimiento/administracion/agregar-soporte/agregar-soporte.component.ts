@@ -27,14 +27,16 @@ export class AgregarSoporteComponent implements OnInit {
   ) { 
     this.myForm = this.fb.group({
       nombre: ["", [Validators.required]],
+      descripcion: ["", [Validators.required]]
     })
   }
 
   ngOnInit(): void {
+    this.myForm.reset()
   }
 
   send(){
-    console.log('valores ->', this.myForm.value);
+    // console.log('valores ->', this.myForm.value);
     Swal.fire({
       title:'¿Está seguro de añadir este Soporte ?',
       showDenyButton:true,
@@ -46,7 +48,7 @@ export class AgregarSoporteComponent implements OnInit {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next:(rest)=>{
-            console.log("Res: ", rest)
+            // console.log("Res: ", rest)
             if(rest.status){
               Swal.fire({
                 title:'Soporte Agregado Correctamente',
@@ -54,7 +56,7 @@ export class AgregarSoporteComponent implements OnInit {
                 showConfirmButton:false,
                 timer:1500
               });
-              console.log("Res: ", rest)
+              // console.log("Res: ", rest)
             }else{
               Swal.fire({
                 title:rest.message,
@@ -64,7 +66,7 @@ export class AgregarSoporteComponent implements OnInit {
               });
             }
             setTimeout(() => {
-              console.log('SettimeOut');
+              // console.log('SettimeOut');
               // this.showCenter()
               Swal.close();
             }, 3000);
@@ -108,12 +110,17 @@ export class AgregarSoporteComponent implements OnInit {
           this.srvSoporte.datosSoporte = data.body
           // this.metadata = data.total
         }
-        console.log('lo que llega', data)
+        // console.log('lo que llega', data)
         Swal.close();
         // this.dataPagina()
       },
       error: (error) => {console.log(error)}
     })
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 }

@@ -11,6 +11,8 @@ export interface datosPlanificacion{
     int_planificacion_id: number;
     int_ubicacion_id: number;
     str_planificacion_estado: string;
+    str_planificacion_centro: string
+    str_planificacion_codigo: string
 }
 
 export interface pagPlanificacion{

@@ -18,7 +18,7 @@ export class PermissionsGuard implements CanActivate {
   let path: string = state.url;
   //eliminar el primer caracter del path
    path = path.substring(1);
-   console.log('guardsss', this.srvMenu.permisos)
+  //  console.log('guardsss', this.srvMenu.permisos)
   
     if (this.permisoVer(path)) {
       return true;
@@ -30,6 +30,7 @@ export class PermissionsGuard implements CanActivate {
 
   permisoVer(path: string) {
     if(this.srvMenu.permisos ){
+      //console.log('entra aqui?')
       return this.srvMenu.permisos?.find(p => p.str_menu_path === path)?.bln_ver 
     } else{
     window.location.href = '/welcome';

@@ -1,40 +1,28 @@
 import { PlanificacionBien } from "../../models/mantenimiento/planificacionBien.models.js";
-
+import { paginarDatos } from "../../utils/paginacion.utils.js";
 
 const crearPlanificacionBien = async (req, res) => {
     try {
-        const { bienId, motivo, diagnostico, personaId } = req.body;
-        //mayusculas
-        const motivoM = motivo.toUpperCase();
-        const diagnosticoM = diagnostico.toUpperCase();
+        const { codigosBienes, idPlanificacion } = req.body;
 
-        //comprobar si existe la planificacion por bienId, motivo, diagnostico y personaId
-        const planificacionBienDB = await PlanificacionBien.findOne({
-            where: { int_bien_id: bienId, str_planificacionBien_motivo: motivoM, str_planificacionBien_diagnostico: diagnosticoM, int_persona_id: personaId },
+        //codigoBienes es un array de codigos de bienes string
+        //idPlanificacion es el id de la planificacion
+       
+        //creamos los registros en la tabla tb_planificacion_bien
+        codigosBienes.forEach(async (codigoBien) => {
+            const planificacionBien = await PlanificacionBien.create({
+                str_codigo_bien: codigoBien,
+                int_planificacion_id: idPlanificacion
+            });
         });
-        if (planificacionBienDB) {
-            return res.json({
-                status: false,
-                message: "Ya existe la planificacion",
-                body: {}
-            })
-        }
-        //crear la planificacion
-        const newPlanificacionBien = await PlanificacionBien.create({
-            int_bien_id: bienId,
-            str_planificacionBien_motivo: motivoM,
-            str_planificacionBien_diagnostico: diagnosticoM,
-            int_persona_id: personaId
-        });
-        if (newPlanificacionBien) {
-            return res.json({
-                status: true,
-                message: "Planificacion creada correctamente",
-                body: newPlanificacionBien
-            })
-        }
+        
+        return res.json({
+            status: true,
+            message: "Planificación creada correctamente",
+            body: {}
+        }) 
     } catch (error) {
-        console.log(error);
+        
         return res.status(500).json({
             message: `Error al crear la planificacion ${error}`,
             data: {}
@@ -47,9 +35,10 @@ const obtenerPlanificacionBienPorId = async (req, res) => {
         const { id } = req.params;
 
         //comprobar si existe la planificacion
-        const planificacionBien = await PlanificacionBien.findOne({
-            where: { int_planificacionBien_id: id },
+        const planificacionBien = await PlanificacionBien.findAll({
+            where: { int_planificacion_bien_id: id },
         });
+        
         if (!planificacionBien) {
             return res.json({
                 status: false,
@@ -63,7 +52,7 @@ const obtenerPlanificacionBienPorId = async (req, res) => {
             body: planificacionBien
         })
     } catch (error) {
-        console.log(error);
+        
         return res.status(500).json({
             message: `Error al obtener la planificacion ${error}`,
             data: {}
@@ -112,7 +101,7 @@ const obtenerPlanificacionesBien = async (req, res) => {
             total: total
         })
     } catch (error) {
-        console.log(error);
+        
         return res.status(500).json({
             message: `Error al obtener las planificaciones ${error}`,
             data: {}
@@ -125,7 +114,7 @@ const cambiarEstadoPlanificacionBien = async (req, res) => {
         const { id } = req.params;
 
         const planificacionBien = await PlanificacionBien.findOne({
-            where: { int_planificacionBien_id: id },
+            where: { int_planificacion_bien_id: id },
         });
         //comprobar si existe la planificacion
         if (!planificacionBien) {
@@ -137,7 +126,7 @@ const cambiarEstadoPlanificacionBien = async (req, res) => {
         }
         //cambiar estado
         let estado = "";
-        if (planificacionBien.str_planificacionBien_estado === "ACTIVO") {
+        if (planificacionBien.str_planificacion_bien_estado === "ACTIVO") {
             estado = "INACTIVO";
         }
         else {
@@ -156,7 +145,7 @@ const cambiarEstadoPlanificacionBien = async (req, res) => {
         })
 
     } catch (error) {
-        console.log(error);
+        
         return res.status(500).json({
             message: `Error al cambiar el estado de la planificacion ${error}`,
             data: {}
@@ -167,41 +156,39 @@ const cambiarEstadoPlanificacionBien = async (req, res) => {
 const actualizarPlanificacionBien = async (req, res) => {
     try {
         const { id } = req.params;
-        const { bienId, motivo, diagnostico, personaId } = req.body;
-        //mayusculas
-        const motivoM = motivo.toUpperCase();
-        const diagnosticoM = diagnostico.toUpperCase();
 
-        //comprobar si existe la planificacion
-        const planificacionBienDB = await PlanificacionBien.findOne({
-            where: { int_planificacionBien_id: id },
+        const planificacionBien = await PlanificacionBien.findOne({
+            where: { int_planificacion_bien_id: id },
         });
-        if (!planificacionBienDB) {
+        //comprobar si existe la planificacion
+        if (!planificacionBien) {
             return res.json({
                 status: false,
                 message: "No existe la planificacion",
                 body: {}
             })
         }
-        //actualizar la planificacion
-        const planificacionBien = await PlanificacionBien.update({
-            int_bien_id: bienId,
-            str_planificacionBien_motivo: motivoM,
-            str_planificacionBien_diagnostico: diagnosticoM,
-            int_persona_id: personaId
+        //actualizar datos
+        const { codigosBienes, idPlanificacion } = req.body;
+        //codigoBienes es un array de codigos de bienes string
+        
+        //actualizamos todos los registros con el id de la planificacion
+        const planificacionBienUpdate = await PlanificacionBien.update({
+            str_codigo_bien: codigosBienes,
+            int_planificacion_id: idPlanificacion
         }, {
-            where: { int_planificacionBien_id: id }
+            where: { int_planificacion_bien_id: id },
         });
-        if (planificacionBien) {
-            return res.json({
-                status: true,
-                message: "Planificacion actualizada correctamente",
-                body: planificacionBien
-            })
-        }
+
+        return res.json({
+            status: true,
+            message: "Planificacion actualizada correctamente",
+            body: planificacionBienUpdate
+        })
+
 
     } catch (error) {
-        console.log(error);
+       
         return res.status(500).json({
             message: `Error al actualizar la planificacion ${error}`,
             data: {}

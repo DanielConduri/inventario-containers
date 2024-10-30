@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { DesplegableComponent } from './desplegable/desplegable.component';
 import { PaginationModule } from '../shared/pagination/pagination.module';
 import { AjustesBienesModule } from './ajustes-bienes/ajustes-bienes.module';
+import { MostrarBienesComponent } from './bienes-custodio/mostrar-bienes/mostrar-bienes.component';
 
 
 

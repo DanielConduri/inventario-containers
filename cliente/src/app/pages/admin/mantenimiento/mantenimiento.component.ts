@@ -50,25 +50,28 @@ export class MantenimientoComponent implements OnInit, OnDestroy {
   special_agg!: boolean
 
   ngOnInit(): void {
+    this.srvMantenimiento.especial = false
+    this.srvMantenimiento.edidMantenimientoCorrectivo = false
+    this.srvMantenimiento.preventivo = false
     // this.special = true
     if(this.srvMantenimiento.typeviw){
-      console.log('dentro del if')
+      // console.log('dentro del if')
       // this.special_agg = true
     }else{
-      console.log('fuera del if')
+      // console.log('fuera del if')
     }
 
     const path: string = window.location.pathname.split('/').pop() || '';
     this.menuTabsSelected = this.listaViews[path.toUpperCase()] || 0;
-    console.log('probando -------->', this.menuTabsSelected);
+    // console.log('probando -------->', this.menuTabsSelected);
     this.srvMantenimiento.SelectButtonName$
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data) => {
           this.menuTabInventory = data.id;
-          console.log('lo que viene del type ->', data);
+          // console.log('lo que viene del type ->', data);
           this.srvMantenimiento.typeviw = data.status;
-          console.log('que sale ->', this.menuTabInventory);
+          // console.log('que sale ->', this.menuTabInventory);
           // if (!this.srvMantenimiento.typeviw && this.menuTabInventory != 0) {
           //   this.special = true;
           //   // console.log('en el if otra vez')

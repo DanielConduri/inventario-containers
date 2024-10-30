@@ -1,0 +1,172 @@
+<div style="display: grid; width: 100%; grid-template-columns: 2fr 0.5fr;">
+    <app-filter [options]="options" (search)="handleSearch($event)"></app-filter>
+    <div *ngIf="reporte" style="display: flex; justify-content: center;">
+        <button class="btn-primary-add" (click)="getReporte('Solicitud', 'solicitudPrestamo',true)">
+            Reporte
+        </button>
+    </div>
+</div>
+
+
+
+<div class="tabla-cuerpo">
+    <div class="tableBo" *ngIf="isLoading && isData">
+        <table class="table table-striped tabla-estilos">
+
+            <thead>
+                <tr class="encabezado">
+                    <th>
+                        <div class="d-flex"> # </div>
+                    </th>
+                    <th>
+                        <div class="d-flex">Prestamo</div>
+                    </th>
+                    <th>
+                        <div class="d-flex">Fecha Prestamo</div>
+                    </th>
+                    <th>
+                        <div class="d-flex">Cliente</div>
+                    </th>
+                    <th>
+                        <div class="d-flex">Estado</div>
+                    </th>
+                    <th>
+                        <div class="d-flex">Acciones</div>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let infor of this.srvPrestamos.datosPrestamo , let i = index">
+                    <td> {{i+1}}</td>
+                    <td> {{infor.str_prestamo_codigo}} </td>
+                    <td>{{infor.dt_fecha_prestamo.substring(0, 10)}} </td>
+                    <td>{{infor.str_prestamo_persona_nombre}}</td>
+                    <td *ngIf="infor.str_estado_prestamo_nombre==='ENVIADO'">
+                        <div class="estado">
+                            <div class="evolucion">
+                                {{infor.str_estado_prestamo_nombre}}
+                            </div>
+                        </div>
+                    </td>
+                    <td *ngIf="infor.str_estado_prestamo_nombre==='ACEPTADO'">
+                        <div class="estado">
+                            <div class="activo">
+                                {{infor.str_estado_prestamo_nombre}}
+                            </div>
+                        </div>
+                    </td>
+                    <td *ngIf="infor.str_estado_prestamo_nombre==='RECHAZADO'">
+                        <div class="estado">
+                            <div class="inactivo">
+                                {{infor.str_estado_prestamo_nombre}}
+                            </div>
+                        </div>
+                    </td>
+                    <td *ngIf="infor.str_estado_prestamo_nombre==='FINALIZADO'">
+                        <div class="estado">
+                            <div class="finalizado">
+                                {{infor.str_estado_prestamo_nombre}}
+                            </div>
+                        </div>
+                    </td>
+                    <td *ngIf="infor.str_estado_prestamo_nombre==='PENDIENTE'">
+                        <div class="estado">
+                            <div class="proceso">
+                                {{infor.str_estado_prestamo_nombre}}
+                            </div>
+                        </div>
+                    </td>
+                    <td *ngIf="infor.str_estado_prestamo_nombre==='EN USO'">
+                        <div class="estado">
+                            <div class="enuso">
+                                {{infor.str_estado_prestamo_nombre}}
+                            </div>
+                        </div>
+                    </td>
+                    <td *ngIf="infor.str_estado_prestamo_nombre==='REVISION'">
+                        <div class="estado">
+                            <div class="revision">
+                                {{infor.str_estado_prestamo_nombre}}
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+
+                        <!-- Boton que ayuda con la informacion general del prestamos -->
+                        <button class="btn btn-primary"
+                            (click)="interaccionCustodio(infor.int_prestamo_id, 'Informacion del Prestamo', 'interacionCustodio', true, infor.int_estados_prestamo_id, infor.int_prestamo_custodio_id, false)">
+                            <i class="material-icons"> info_outline </i>
+                        </button>
+
+                        <!-- Boton que indica si se acepta o no el prestamo -->
+                        <button class="btn btn-primary"
+                            *ngIf="infor.str_estado_prestamo_nombre==='ENVIADO' && infor.int_prestamo_custodio_id=== cedulaLogin"
+                            (click)="interaccionCustodio(infor.int_prestamo_id, 'Informacion del Prestamo', 'interacionCustodio', false, infor.int_estados_prestamo_id, infor.int_prestamo_custodio_id, false)">
+                            <i class="material-icons"> create </i>
+                        </button>
+
+                        <!-- Boton que indica si el solicitante llegó al prestamos como se indica -->
+                        <button class="btn btn-primary"
+                            *ngIf="infor.str_estado_prestamo_nombre==='ACEPTADO' && infor.int_prestamo_custodio_id=== cedulaLogin"
+                            (click)="interaccionCustodio(infor.int_prestamo_id, 'Informacion del Prestamo', 'interacionCustodio',false, infor.int_estados_prestamo_id, infor.int_prestamo_custodio_id, true)">
+                            <i class="material-icons"> check </i>
+                        </button>
+
+                        <!-- boton que indica que se terminó el uso del bien  -->
+                        <button class="btn btn-primary"
+                            *ngIf="infor.str_estado_prestamo_nombre==='EN USO' && infor.int_prestamo_custodio_id=== cedulaLogin"
+                            (click)="interaccionCustodio(infor.int_prestamo_id, 'Informacion del Prestamo', 'interacionCustodio',false, infor.int_estados_prestamo_id, infor.int_prestamo_custodio_id, true)">
+                            <i class="material-icons"> check </i>
+                        </button>
+
+                        <!-- boton que indica la firma del solicitante -->
+                        <button class="btn btn-primary"
+                            *ngIf=" infor.str_documento_base64===null && infor.str_estado_prestamo_nombre==='PENDIENTE'"
+                            (click)="getpdf(infor.int_prestamo_id, 'Solicitud', 'solicitudPrestamo', infor.int_prestamo_persona_id, infor.str_estado_prestamo_nombre, 0, infor.int_estados_prestamo_id, infor.int_prestamo_custodio_id)">
+                            <i class="material-icons"> border_color </i>
+                        </button>
+
+                        <!-- Boton que indica la firma del custodio -->
+                        <button class="btn btn-primary" *ngIf="infor.str_documento_base64!==null"
+                            (click)="getFirma(infor.int_prestamo_id, 'Solicitud', 'solicitudPrestamo', infor.str_estado_prestamo_nombre, infor.int_prestamo_persona_id, infor.int_prestamo_custodio_id,1,infor.int_estados_prestamo_id, infor.int_horario_id)">
+                            <i class="material-icons"> border_color </i>
+                        </button>
+
+                        <!-- boton que indica las observaciones del custodio -->
+                        <button class="btn btn-primary"
+                            *ngIf="infor.str_estado_prestamo_nombre==='REVISION' && infor.int_prestamo_custodio_id=== cedulaLogin && infor.bl_prestamo_observacion == null"
+                            (click)="interaccionCustodio(infor.int_prestamo_id, 'Informacion del Prestamo', 'interacionCustodio', false, infor.int_estados_prestamo_id, infor.int_prestamo_custodio_id, false)">
+                            <i class="material-icons"> comment </i>
+                        </button>
+                        
+                        <!-- boton que indica las observaciones del solicitante -->
+                        <button class="btn btn-primary"
+                            *ngIf="infor.str_estado_prestamo_nombre==='REVISION' && infor.int_prestamo_persona_id== cedulaLogin"
+                            (click)="interaccionCustodio(infor.int_prestamo_id, 'Informacion del Prestamo', 'interacionCustodio', false, infor.int_estados_prestamo_id, infor.int_prestamo_custodio_id, false)">
+                            <i class="material-icons"> comment </i>
+                        </button>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+
+    <div class="containerNoData" *ngIf="!isLoading && !isData">
+
+        <div _ngcontent-lne-c77="" class="mx-auto" style="margin-top: 64px; margin-bottom: 64px;">
+            <svg _ngcontent-lne-c77="" xmlns="http://www.w3.org/2000/svg" height="32" width="32" viewBox="0 0 48 48">
+                <path _ngcontent-lne-c77=""
+                    d="M38.7 40.85 26.65 28.8q-1.5 1.3-3.5 2.025-2 .725-4.25.725-5.4 0-9.15-3.75T6 18.75q0-5.3 3.75-9.05 3.75-3.75 9.1-3.75 5.3 0 9.025 3.75 3.725 3.75 3.725 9.05 0 2.15-.7 4.15-.7 2-2.1 3.75L40.95 38.7q.45.4.45 1.025 0 .625-.5 1.125-.45.45-1.1.45-.65 0-1.1-.45Zm-19.85-12.3q4.05 0 6.9-2.875Q28.6 22.8 28.6 18.75t-2.85-6.925Q22.9 8.95 18.85 8.95q-4.1 0-6.975 2.875T9 18.75q0 4.05 2.875 6.925t6.975 2.875Z">
+                </path>
+            </svg>
+            <h5 _ngcontent-lne-c77="" class="mt-2">Resultado sin datos</h5>
+            <h6 _ngcontent-lne-c77="">No se encontraron elementos para esta lista.</h6>
+        </div>
+    </div>
+
+    <div class="pagi">
+        <app-pagination (nextPage)="pasarPagina($event)"></app-pagination>
+    </div>
+
+</div>

@@ -1,0 +1,103 @@
+.select{
+    padding: 10px 5px 10px 5px;
+    width: 10px;
+}
+
+.select {
+    cursor: pointer;
+}
+
+th {
+    color: var(--bs-gray-900);
+    border-bottom: 1px solid var(--bs-gray-ccc);
+    border-right: 1px solid var(--bs-gray-ccc);
+    border-left: 1px solid var(--bs-gray-ccc);
+    font-size: var(--font-size);
+    padding: 5px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+th:first-child {
+    border-top-left-radius: 3px;
+}
+
+th:last-child {
+    border-top-right-radius: 3px;
+    border-left: none;
+    border-right: 1px solid var(--bs-gray-ccc);
+    ;
+}
+
+tr {
+    border-top: 1px solid var(--bs-gray-ccc);
+    border-bottom: 1px solid var(--bs-gray-ccc);
+    border-left: 1px solid var(--bs-gray-ccc);
+    border-right: 1px solid var(--bs-gray-ccc);
+    color: var(--bs-gray-ccc);
+    font-size: var(--font-size);
+    font-weight: normal;
+    text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
+}
+
+tr:first-child {
+    border-top: none;
+}
+
+tr:last-child {
+    border-bottom: none;
+}
+
+td {
+    background: var(--color-bg);
+    padding: 5px;
+    text-align: left;
+    vertical-align: middle;
+    font-size: var(--font-size);
+    border-right: 1px solid var(--bs-gray-ccc);
+    border-left: 1px solid var(--bs-gray-ccc);
+    ;
+    border-bottom: 1px solid var(--bs-gray-ccc);
+    ;
+    font-family: var(--font-family);
+    text-transform: uppercase;
+    color: var(--color-black);
+}
+
+td:last-child {
+    border-left: none;
+}
+
+.span-Subtitle {
+    font-size: 16px;
+    font-weight: var(--font-weight-bold);
+    margin-top: 3rem;
+}
+
+textarea {
+    border: 0.5px solid var(--bs-gray-ccc);
+    border-radius: 4px;
+    padding-left: 5px;
+    height: 100px;
+    width: 100%;
+}
+
+.buttons-action {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 15px;
+}
+
+h4{
+    font-size: 20px;
+    font-weight: var(--bs-gray-700);
+    /* margin-top: 3rem; */
+}
+
+textarea{
+    border: 0.5px solid var(--bs-gray-ccc);
+    border-radius: 4px;
+    padding-left: 5px;
+    height: 100px;
+    width: 100%;
+  }

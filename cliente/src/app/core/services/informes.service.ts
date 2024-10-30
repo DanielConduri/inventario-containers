@@ -41,6 +41,8 @@ export class InformesService {
   typeviw!: boolean
   typeview!: boolean
 
+  permisosInforme!: boolean
+
   constructor(private http: HttpClient) { }
 
 
@@ -71,14 +73,14 @@ export class InformesService {
   }
 
   postInfoEd(file: any, id:number){
-    console.log('enviado al servidor ->', file);
+    // console.log('enviado al servidor ->', file);
     return this.http.put<any>(this.URL_API_INFORMES + '/' + id, file, {
       withCredentials: true
     })
   }
 
   postInfo(file: any){
-    console.log('enviado al servidor ->', file);
+    // console.log('enviado al servidor ->', file);
     return this.http.post<formatoDoc>(this.URL_API_INFORMES, file, {
       withCredentials: true
     })

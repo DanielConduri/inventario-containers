@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs'
 import config from 'config/config';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { addBienDataById, addOtrosData, addOtrosModel, BienDataModel, bienInfoModel, dataBien, historicoBienData, modBienesModel, OtrosOtros, OtrosShowModelPag } from 'src/app/core/models/Bienes/Inventario/otros';
+import { addBienDataById, addOtrosData, addOtrosModel, BienDataModel, BienDataCustodioModel, bienInfoModel, dataBien, historicoBienData, modBienesModel, OtrosOtros, OtrosShowModelPag, dataBienCustodio} from 'src/app/core/models/Bienes/Inventario/otros';
 import GetFinalFiltersQuery from 'src/app/utils/filter/GetFinalFiterQuery';
 
 
@@ -15,6 +15,13 @@ export class InventarioService {
   getMarcaById(int_marcas_id: number) {
     throw new Error('Method not implemented.');
   }
+
+  //ruta para mostrar los bienes de cada custodio
+  private urlApi_BienesCustodio: string = config.URL_API_BASE + 'bienes/custodio';
+
+  //ruta para mostrar los bienes de cada custodio por cédula
+  private urlApi_BienesCedula: string = config.URL_API_BASE + 'bienes/cedula';
+
   //ruta para mostrar los bienes
   private urlApi_Bienes: string = config.URL_API_BASE + 'bienes';
   // ruta para mostrar los detalles de un bien
@@ -99,6 +106,18 @@ export class InventarioService {
 
   archivos: any[] = [];
 
+  detalleCarga: any [] = [];
+  
+
+  dataBienCustodiosInfo!:  dataBienCustodio[];
+
+  dataBienCedulaInfo:  dataBienCustodio  = {
+    str_codigo_bien: "",
+    str_catalogo_bien_descripcion: "",
+  }
+
+  arrayCustodios: any = [];
+
   dataBienInfo: dataBien = {
 
     dt_bien_fecha_compra: "",
@@ -149,6 +168,7 @@ export class InventarioService {
     str_custodio_activo: "",
     str_custodio_cedula: "",
     str_custodio_nombre: "",
+    str_custodio_interno_nombre: "",
     str_fecha_ultima_depreciacion: "",
     str_marca_nombre: "",
     str_ubicacion_nombre: "",
@@ -171,7 +191,7 @@ export class InventarioService {
   }
 
   setData_Bool$(dataBool: boolean) {
-    console.log('SET DATA BOOL enviado del boto -> ', dataBool);
+    // console.log('SET DATA BOOL enviado del boto -> ', dataBool);
     this.data_Bool$.next(dataBool);
   }
 
@@ -183,7 +203,7 @@ export class InventarioService {
   //   });
   // }
 
-  getBienes(pagination: any) {
+  getBienes(pagination: any, cedulaLogin: any) {
     // const queryPagination = pagination
     //   ? `?pagination={"page":${pagination.page}, "size":${pagination.saze}}`
     //   : '';
@@ -196,14 +216,41 @@ export class InventarioService {
     //   }
     // );
 
-    console.log('datos rutas roles paginacion: ->', pagination);
-    const params = new HttpParams()
+    const cedulaLongitud = JSON.stringify({cedulaLogin})
+    // console.log('cedula', cedulaLongitud)
+    // console.log('tamaño cedula', cedulaLongitud.length)
+
+    //   console.log('datos rutas roles paginacion: ->', pagination);
+       const params = new HttpParams()
         .set('page', pagination.page)
         .set('size', pagination.size)
         .set('parameter', pagination.parameter)
         .set('data', pagination.data);
 
       return this.http.get<OtrosShowModelPag>(this.urlApi_Bienes + '?' +params,
+        {
+          withCredentials: true,
+        }
+        );
+  }
+
+  getBienesPorCustodio(pagination: any, cedulaLogin: any) {
+    // let params = null;
+    // const cedulaLongitud = JSON.stringify({cedulaLogin})
+    // console.log('cedula', cedulaLongitud)
+    // console.log('tamaño cedula', cedulaLongitud.length)
+
+      // console.log('datos rutas roles paginacion: ->', pagination);
+      const params = new HttpParams()
+        .set('page', pagination.page)
+        .set('size', pagination.size)
+        .set('parameter', pagination.parameter)
+        .set('data', pagination.data)
+        .set('cedulaLogeada', cedulaLogin)
+        .set('cedulaPorCustodio', 1);
+
+
+      return this.http.get<OtrosShowModelPag>(this.urlApi_BienesCustodio + '?' +params,
         {
           withCredentials: true,
         }
@@ -231,11 +278,12 @@ export class InventarioService {
   //   });
   // }
 
-  postFileBienes(file: any, cant: number, reso: any) {
-    console.log('lo que envio en el file ->', file + cant + reso)
+  postFileBienes(file: any, cant: number, reso: any, columns: number) {
+    // console.log('lo que envio en el file ->', file + cant + reso)
     // this.file._file = file
+    //console.log('# columnas', columns)
 
-    return this.http.post<any>(`${this.urlApi_bienesImport}/${cant}/${reso}`, file , {
+    return this.http.post<any>(`${this.urlApi_bienesImport}/${cant}/${reso}/${columns}`,  file,{
       withCredentials: true,
     });
   }
@@ -251,13 +299,23 @@ export class InventarioService {
 
   // Funcion para obtener un Bien por el Id
   getBienById(id_bien: number) {
-    console.log('Id del Birn dentro del getBienById: ', id_bien);
+    // console.log('Id del Birn dentro del getBienById: ', id_bien);
     return this.http.get<BienDataModel>(
       `${this.urlApi_BienDetalle}/${id_bien}`,
       {
         withCredentials: true,
       }
     );
+  }
+
+  getBienesCustodioById(strCedula: string){
+    // console.log('Cedula del custodio', strCedula)
+    return this.http.get<BienDataCustodioModel>(
+      `${this.urlApi_BienesCedula}/${strCedula}`,
+      {
+        withCredentials: true
+      }
+    )
   }
 
   EliminarInfoAdicional(idBien: number, dataBien: any) {
@@ -329,8 +387,20 @@ export class InventarioService {
   }
 
   //funcion para obtener el historial de archivos
-  getArchivos(){
-    return this.http.get<any>(this.urlApi_bienArchivos, {
+  getArchivos(pagination: any){
+    const params = new HttpParams()
+        .set('page', pagination.page)
+        .set('size', pagination.size)
+        .set('parameter', pagination.parameter)
+        .set('data', pagination.data);
+        
+    return this.http.get<any>(this.urlApi_bienArchivos + '?'+params, {
+      withCredentials: true,
+    })
+  }
+
+  getArchivoById(idArchivo: any) {
+    return this.http.get<any>(`${this.urlApi_bienArchivos}/${idArchivo}`, {
       withCredentials: true,
     })
   }

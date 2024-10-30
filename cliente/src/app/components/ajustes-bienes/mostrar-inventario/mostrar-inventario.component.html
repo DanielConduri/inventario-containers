@@ -85,7 +85,19 @@
 
     <!-- Apartado de Carga de Bienes -->
     <div *ngIf="this.menuTabSelected === 4">
-      <app-importar-bien></app-importar-bien>
+      <div *ngIf="this.estadoProceso === false">
+        <app-importar-bien></app-importar-bien>
+      </div>
+
+      <div *ngIf="this.estadoProceso === true">
+        
+        <h4 _ngcontent-lne-c77="" class="mt-2">
+          EXISTE UN PROCESO EN EJECUCIÓN, 
+          ESPERE A QUE SE TERMINE DE PROCESAR EL ARCHIVO</h4>
+      
+      </div>
+
+      
     </div>
 
     <!-- Apartado de Ingreso de Bien -->

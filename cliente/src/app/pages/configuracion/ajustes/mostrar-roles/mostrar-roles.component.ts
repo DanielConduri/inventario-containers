@@ -96,16 +96,16 @@ export class MostrarRolesComponent implements OnInit, OnDestroy {
         next: (roles) => {
           if (roles.status) {
             this.metadata = roles.total
-            console.log('roles anates del if leanght', roles)
+            // console.log('roles anates del if leanght', roles)
             if (roles.total === 0) {
               this.isData = false;
-              console.log('no hay datos')
+              // console.log('no hay datos')
 
             } else {
               this.isLoading = true;
               this.isData = true;
               this.srvAjustes.datosRoles = roles.body
-              console.log('roles', roles.body)
+              // console.log('roles', roles.body)
             }
           } else {
             this.isLoading = false;
@@ -118,7 +118,7 @@ export class MostrarRolesComponent implements OnInit, OnDestroy {
           console.log(err)
         },
         complete: () => {
-          console.log('CARGA, DATOS', this.isLoading, this.isData)
+          // console.log('CARGA, DATOS', this.isLoading, this.isData)
         }
       })
   }
@@ -195,7 +195,7 @@ export class MostrarRolesComponent implements OnInit, OnDestroy {
 
   pasarPagina(page: number) {
     this.mapFiltersToRequest = { size: 10, page:page, parameter: this.parameter, data: this.data };
-    console.log('mapFiltersToRequest en pasasr pag en roles', this.mapFiltersToRequest);
+    // console.log('mapFiltersToRequest en pasasr pag en roles', this.mapFiltersToRequest);
     this.getRoles();
   }
 
@@ -215,7 +215,7 @@ export class MostrarRolesComponent implements OnInit, OnDestroy {
       this.data = '';
       this.pasarPagina(1);
     } else {
-      console.log('handleSearch else');
+      // console.log('handleSearch else');
       this.parameter = 'str_rol_' + this.searchResult.parameter;
       this.data = this.searchResult.data;
       this.mapFiltersToRequest = { size: 10, page: 1, parameter: this.parameter, data: this.searchResult.data };

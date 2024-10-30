@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import config from 'config/config';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 import GetFinalFiltersQuery from 'src/app/utils/filter/GetFinalFiterQuery';
-import { addCent, addCenter, cargaLoading, centrosModel, dataCentros, detalleCent, pagCenter, } from '../models/centros';
+import { CentroGeneral, addCent, addCenter, cargaLoading, centrosModel, dataCentros, detalleCent, pagCenter, } from '../models/centros';
 
 const isCarga: {
   isLoading: boolean;
@@ -17,6 +17,8 @@ const isCarga: {
   providedIn: 'root'
 })
 export class CentrosService {
+  private destroy$ = new Subject<any>(); //Se crea para que no exista desbordamiento de datos
+
 
   private URL_API_CENTROS: string = config.URL_API_BASE + 'centros';
   private URL_API_PAG: string = config.URL_API_BASE + 'centros/paginacion';
@@ -32,7 +34,7 @@ export class CentrosService {
   datosCarrera!: string[]
 
   datosUbicacion!: []
-  datosDependencia:[] = []
+  datosDependencia!: string[]
 
   datosCentros!: dataCentros[]
 
@@ -40,8 +42,27 @@ export class CentrosService {
 
   idModify!: number
 
+  nombreCentroSeleccionado!: any;
+
+  elementCenterAc: addCenter = {
+    type: '',
+    sede: '',
+    codfacultad: '',
+    codcarrera: ''
+  }
+  
+  elementCenterAd: addCent = {
+    type: '',
+    sede: '',
+    dependenciaId: 0,
+    ubicacion: ''
+  }
+
+  private centroSeleccionado$ = new BehaviorSubject<any>({});
+  private dataCentro$ = new BehaviorSubject<dataCentros[]>(this.datosCentros);
+
   constructor(private http: HttpClient) {
-   }
+  }
 
   // private data_detalle$ = new BehaviorSubject<detalleCent>(detalleC);
   private isCarga$ = new BehaviorSubject<cargaLoading>(isCarga);
@@ -50,23 +71,37 @@ export class CentrosService {
     return this.isCarga$.asObservable()
   }
 
+  setCentroSeleccionado(data: any) {
+    this.centroSeleccionado$.next(data);
+  }
+  get SelectCentroSeleccionado$(): Observable<any> {
+    return this.centroSeleccionado$.asObservable();
+  }
+
   setIsCarga(data: cargaLoading) {
     this.isCarga$.next(data);
   }
 
+  get SelectDataCentro$(): Observable<dataCentros[]> {
+    return this.dataCentro$.asObservable();
+  }
 
+  setCentros(data: dataCentros[]) {
+    this.dataCentro$.next(data);
+  }
 
   //funcion para eliminar centros (eliminado logico)
 
-  deleteCenter(idCent: number) {
-    return this.http.delete<centrosModel>(`${this.URL_API_CENTROS}/${idCent}`,
+  deleteCenter(id_centro: number) {
+    console.log('va al servicio', id_centro)
+    return this.http.delete<centrosModel>(`${this.URL_API_CENTROS}/${id_centro}`,
       {
         withCredentials: true,
       },
     )
   }
 
-  //funcion para agregar centros 
+  //funcion para agregar centros
 
   postFile(file: any) {
     return this.http.post<any>(this.URL_API_CENTROS, file,
@@ -76,101 +111,143 @@ export class CentrosService {
     )
   }
 
-  //funcion para editar los centros con el id del centro y el contenido 
+  //funcion para editar los centros con el id del centro y el contenido
 
-  editCentros(id: number, file: any){
-    return this.http.put<any>(`${this.URL_API_CENTROS}/${id}`, file,{
+  editCentros(id: number, file: any) {
+    return this.http.put<any>(`${this.URL_API_CENTROS}/${id}`, file, {
       withCredentials: true
     })
   }
 
-  //funcion para la paginacion y mostrar los centros 
+  //funcion para la paginacion y mostrar los centros
 
-  getCenter( pagination: any) {
-    // const queryPagination = pagination
-    //   ? `?pagination={"page":${pagination.page}, "size":${pagination.saze}, "parameter":${pagination.parameter}, "data":${pagination.data}}`
-    //   : '';
-    //   // console.log('datos rutas: ->', pagination.page, pagination.size);
-    //   // const queryFilter = filter ? `&filter=${JSON.stringify(filter)}` : '';
-    //   return this.http.get<pagCenter>(
-    //     this.URL_API_PAG + queryPagination,
-    //     {
-    //       withCredentials: true,
-    //     }
-    //   );
+  getCenter(pagination: any) {
     const params = new HttpParams()
-        .set('page', pagination.page)
-        .set('size', pagination.size)
-        .set('parameter', pagination.parameter)
-        .set('data', pagination.data);
-    
-      return this.http.get<pagCenter>(this.URL_API_PAG + '?' +params,
-        {
-          //withCredentials: true,
-        }
-        );
+      .set('page', pagination.page)
+      .set('size', pagination.size)
+      .set('parameter', pagination.parameter)
+      .set('data', pagination.data);
+
+    return this.http.get<pagCenter>(this.URL_API_PAG + '?' + params,
+      {
+        withCredentials: true,
+      }
+    );
   }
 
   //funcion para obtener las ubicaciones segun el tipo y la cede para academico
 
-  getTypeAc(type: addCenter){
+  getTypeAc(type: addCenter) {
+    console.log('lo que llega --->', type)
     const queryType = type
-    ? `?center={"type": "${type.type}", "sede":"${type.sede}"}`
-    : ``
-    return this.http.get<addCenter>(this.URL_API_TYPE + queryType,{
+      ? `?center={"type": "${type.type}", "sede":"${type.sede}"}`
+      : ``
+    return this.http.get<addCenter>(this.URL_API_TYPE + queryType, {
       withCredentials: true
     })
   }
 
   //funcion para obtener las ubicaciones segun el tipo y la cede para administrativo
 
-  getTypeAd(type: addCent){
+  getTypeAd(type: addCent) {
     const queryType = type
-    ? `?center={"type": "${type.type}", "sede":"${type.sede}"}`
-    : ``
-    return this.http.get<addCenter>(this.URL_API_TYPE + queryType,{
+      ? `?center={"type": "${type.type}", "sede":"${type.sede}"}`
+      : ``
+    return this.http.get<addCenter>(this.URL_API_TYPE + queryType, {
       withCredentials: true
     })
   }
 
+  //funcion para obtemer las carreras segun la facultad
 
-  //funcion para obtemer las carreras segun la facultad 
-
-  getCarrera(type: addCenter){
+  getCarrera(type: addCenter) {
     const queryType = type
-    ? `?center={"sede": "${type.sede}", "facultad":"${type.codfacultad}"}`
-    : ``
-    return this.http.get<addCenter>(this.URL_API_CARRERA + queryType,{
+      ? `?center={"sede": "${type.sede}", "facultad":"${type.codfacultad}"}`
+      : ``
+    return this.http.get<addCenter>(this.URL_API_CARRERA + queryType, {
       withCredentials: true
     })
   }
 
-  //funcion para obtener la ubicacion (proceso) segun la dependencia 
+  //funcion para obtener la ubicacion (proceso) segun la dependencia
 
- getDependencia(type: addCent){
-  const queryType = type
-    ? `?center={"sede": "${type.sede}", "dependenciaId":"${type.dependenciaId}"}`
-    : ``
-    return this.http.get<addCenter>(this.URL_API_UBICACION + queryType,{
+  getDependencia(type: addCent) {
+    const queryType = type
+      ? `?center={"sede": "${type.sede}", "dependenciaId":"${type.dependenciaId}"}`
+      : ``
+    return this.http.get<addCenter>(this.URL_API_UBICACION + queryType, {
       withCredentials: true
     })
- }
+  }
 
- //funcion para obtener las informacion completa segun el id del centro 
+  //funcion para obtener las informacion completa segun el id del centro
 
- getDetalles(detalleId: number){
-  return this.http.get<number>(this.URL_API_DETALLES + '/' + detalleId, {
-    withCredentials: true
-  })
- }
+  getDetalles(detalleId: number) {
+    return this.http.get<centrosModel>(this.URL_API_DETALLES + '/' + detalleId, {
+      withCredentials: true
+    })
+  }
 
-
-//  Funcion para obtener los datos de los centros filtrados
-  getCentrosFiltrados(filter: any){
+  //  Funcion para obtener los datos de los centros filtrados
+  getCentrosFiltrados(filter: any) {
     const centrosFilter = GetFinalFiltersQuery(filter);
     return this.http.get<centrosModel>(this.URL_API_CENTROSFILTRADOS + centrosFilter, {
       withCredentials: true
     });
+  }
+
+  obtenerCentros(id: number) {
+    this.getDetalles(id).
+      pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (rest: any) => {
+          console.log('rest ->', rest.body)
+          if(rest.body.str_centro_nombre_sede){
+            console.log('existe la sede', rest.body.str_centro_nombre_sede)
+            if (rest.body.str_centro_tipo_nombre === "ACADÉMICO") {
+              this.elementCenterAc.type = rest.body.str_centro_tipo_nombre;
+              this.elementCenterAc.sede = rest.body.str_centro_nombre_sede;
+              this.obtenerFacultad(this.elementCenterAc)
+            } else {
+              console.log('entra en el else')
+              this.elementCenterAd.type = rest.body.str_centro_tipo_nombre;
+              this.elementCenterAd.sede = rest.body.str_centro_nombre_sede;
+              this.obtenerUbicacion(this.elementCenterAd)
+            }
+          }
+        },
+        error(err) {
+          console.log('Error: ', err)
+        },
+      })
+  }
+
+
+  obtenerFacultad(type: any) {
+    this.getTypeAc(type)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (rest: any) => {
+          this.datosFacultad = rest.body
+        },
+        error(err) {
+          console.log('Error: ', err)
+        },
+      })
+  }
+
+  obtenerUbicacion(type: any) {
+    console.log('cuando entra aqui')
+    this.getTypeAd(type)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (rest: any) => {
+          this.datosDependencia = rest.body
+        },
+        error(err) {
+          console.log('Error: ', err)
+        },
+      })
   }
 
 }

@@ -43,7 +43,7 @@ export class ModificarProveedorComponent implements OnInit {
   }
 
   completeForm(){
-    console.log("Recibiendo el Valor del ID PROVEEDOR =>", this.srvModal.SelectID_Proveedor$)
+    // console.log("Recibiendo el Valor del ID PROVEEDOR =>", this.srvModal.SelectID_Proveedor$)
     this.srvModal.SelectID_Proveedor$
     .pipe(takeUntil(this.destroy$))
     .subscribe({

@@ -26,12 +26,12 @@ private destroy$ = new Subject<any>();
 
     this.formType = '';
     this.titleModal = '';
-    console.log("dentro de modal.compo.ts: ", this.formType);
+    // console.log("dentro de modal.compo.ts: ", this.formType);
     this.srvModal.selectForm$
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next:(form)=>{
-         console.log("form en el modal.ts ->", form);
+        //  console.log("form en el modal.ts ->", form);
         this.formType = form.form;
         this.titleModal = form.title;
         this.triggerModal = form.special;

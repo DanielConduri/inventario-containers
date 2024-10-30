@@ -1,3 +1,23 @@
+<div class="titleConfiguration">
+    <div class="titleButton">
+        <div class="title">
+            <h1>Agregar Mantenimiento
+                <span style="color:#B41A12 ;">
+                    Correctivo
+                </span>
+            </h1>
+            <!-- <span style="color:rgb(160, 160, 160);
+            font-family: 'Roboto', Arial, sans-serif;
+            font-size: 14px;">
+                Listado de Bienes en Mantenimiento
+            </span> -->
+        </div>
+    </div>
+</div>
+
+
+
+
 <div class="back">
     <button class="btn-primary-add" (click)="regresar()"> Regresar</button>
 </div>
@@ -6,7 +26,7 @@
 
 
     <form [formGroup]="myForm">
-        <div style="display: grid; gap: 35px;" >
+        <div style="display: grid; gap: 35px;">
 
             <div class="containerRes">
                 <div class="container-Find filtradoContainer">
@@ -18,54 +38,31 @@
                         </div>
                     </div>
                 </div>
-                <div class="padre-check">
+                <div class="padre-check" style="height: 100%;">
 
 
 
 
-                    <div class="tabla-cuerpo" *ngIf="moTabla">
+                    <div class="tabla-cuerpo" style="height: 90% !important;" *ngIf="moTabla">
                         <table class="table table-striped tabla-estilos">
                             <thead>
-                                <tr class="encabezado">
-                                    <!-- <th class="th-head">
-                  <div class="d-flex"> # </div>
-                </th> -->
-                                    <th class="th-head">
-                                        <div class="d-flex">Nombre</div>
-                                    </th>
-                                    <th class="th-head">
-                                        <div class="d-flex">Codigo</div>
-                                    </th>
-                                    <th class="th-head">
-                                        <div class="d-flex">Garantia</div>
-                                    </th>
-                                </tr>
                             </thead>
                             <tbody>
-                                <!-- <td>
-                <input id="flexCheckDefaultAll" type="checkbox" (click)="getAllChecks()"
-                  [disabled]="!this.srvInforme.datosSearch">
-              </td>
-              <td>
-                Seleccionar todo
-              </td> -->
 
 
                                 <tr *ngFor="let bien of srvMantenimiento.datosSearch; let i = index; let c = index">
 
-                                    <!-- <td>
-                  <input class="flexCheck"  (click)="getCheckData($event, i)" id="{{i}}" type="checkbox" >
-  
-                </td> -->
-                                    <!-- <td *ngIf="checkbo">
-                  <input class="flexCheck"  (click)="getCheckData($event, i)" id="{{i}}" type="checkbox" checked>
-  
-                </td> -->
+                                    <td class="select" id="dato-check" (click)="checkData(bien.int_bien_id)">
+                                        {{bien.str_codigo_bien}}
+                                    </td>
                                     <td class="select" id="name-check" (click)="checkData(bien.int_bien_id)">
                                         {{bien.str_bien_nombre}}
                                     </td>
                                     <td class="select" id="dato-check" (click)="checkData(bien.int_bien_id)">
-                                        {{bien.str_codigo_bien}}
+                                        {{bien.str_bien_modelo}}
+                                    </td>
+                                    <td class="select" id="dato-check" (click)="checkData(bien.int_bien_id)">
+                                        {{bien.str_bien_serie}}
                                     </td>
                                     <td class="select" id="dato-check" (click)="checkData(bien.int_bien_id)">
                                         {{bien.str_bien_garantia}}
@@ -75,50 +72,10 @@
                         </table>
                     </div>
 
-                    <!-- <div *ngIf="arrNotificar.length>0">
-          <br>
-          <div class="container-Find filtradoContainer">
-            <div class="containerInfo">
-              <label for="">Bienes seleccionados</label>
-            </div>
-          </div>
-  
-          <div style="height: 250px;overflow: auto;">
-            <table class="table table-striped tabla-estilos">
-              <thead>
-                <tr class="encabezado">
-                  <th class="th-head">
-                    <div class="d-flex"> # </div>
-                  </th>
-                  <th class="th-head">
-                    <div class="d-flex">Nombre</div>
-                  </th>
-                  <th class="th-head">
-                    <div class="d-flex">Codigo</div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let bien of arrNotificar; let i = index; let c = index">
-                  <td>
-                    <input class="flexCheck" (click)="getCheckData($event, i)" type="checkbox" checked>
-                  </td>
-                  <td id="name-check">
-                    {{bien.name}}
-                  </td>
-                  <td id="dato-check">
-                    {{bien.id}}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div> -->
-
                 </div>
             </div>
             <div class="tableBo" *ngIf="moTabla2">
-                <h3>Informacion del Sbay del Bien</h3>
+                <h3>Informacion del EsBay del Bien</h3>
                 <table class="table table-striped tabla-estilos">
                     <thead>
                         <tr class="encabezado">
@@ -135,27 +92,18 @@
                     </thead>
 
                     <tbody>
-                        <!-- <tr class="container-Row">
-                    <td>Codigo del Bien</td>
-                    <td> {{this.srvInventario.dataBienInfo.str_codigo_bien_cod}}</td>
-                </tr>
-                <tr class="container-Row">
-                    <td>Numero de Acta</td>
-                    <td> {{this.srvInventario.dataBienInfo.int_bien_numero_acta}}</td>
-                </tr>
-                <tr class="container-Row">
-                    <td>BLD / BCA</td>
-                    <td> {{this.srvInventario.dataBienInfo.str_bien_bld_bca}}</td>
-                </tr> -->
+
+                        <tr class="container-Row">
+                            <td style="font-size: 13px; font-weight: bold;">Código del Bien</td>
+                            <td style="font-size: 13px; font-weight: bold;">
+                                {{this.srvInventario.dataBienInfo.str_codigo_bien_cod}}</td>
+                        </tr>
                         <tr class="container-Row">
                             <td>Nombre del Bien</td>
                             <td> {{this.srvInventario.dataBienInfo.str_catalogo_bien_descripcion
                                 }}</td>
                         </tr>
-                        <!-- <tr class="container-Row">
-                    <td>Serie del Bien</td>
-                    <td> {{this.srvInventario.dataBienInfo.str_bien_serie}}</td>
-                </tr> -->
+
                         <tr class="container-Row">
                             <td>Modelo del Bien</td>
                             <td> {{this.srvInventario.dataBienInfo.str_bien_modelo}}</td>
@@ -164,34 +112,7 @@
                             <td>Marca del Bien</td>
                             <td> {{this.srvCaracteristicas.dataMarca.str_marca_nombre}}</td>
                         </tr>
-                        <!-- <tr>
-                    <td>Critico</td>
-                    <td>{{this.srvInventario.dataBienInfo.str_bien_critico}}</td>
-                </tr>
-                <tr>
-                    <td>Valor Compra</td>
-                    <td>{{this.srvInventario.dataBienInfo.str_bien_valor_compra}}</td>
-                </tr>
-                <tr>
-                    <td>Recompra</td>
-                    <td>{{this.srvInventario.dataBienInfo.str_bien_recompra}}</td>
-                </tr>
-                <tr>
-                    <td>Recompra</td>
-                    <td>{{this.srvInventario.dataBienInfo.str_bien_recompra}}</td>
-                </tr> -->
-                        <!-- <tr class="container-Row">
-                    <td>Color del Bien</td>
-                    <td> {{this.srvInventario.dataBienInfo.str_bien_color}}</td>
-                </tr>
-                <tr class="container-Row">
-                    <td>Material del Bien</td>
-                    <td> {{this.srvInventario.dataBienInfo.str_bien_material}}</td>
-                </tr>
-                <tr class="container-Row">
-                    <td>Dimensiones del Bien</td>
-                    <td> {{this.srvInventario.dataBienInfo.str_bien_dimensiones}}</td>
-                </tr> -->
+
                         <tr class="container-Row">
                             <td>Condicion del Bien</td>
                             <td> {{this.srvInventario.dataBienInfo.str_condicion_bien_nombre}}</td>
@@ -212,18 +133,7 @@
                             <td>Origen de Ingreso</td>
                             <td> {{this.srvInventario.dataBienInfo.str_bien_origen_ingreso}}</td>
                         </tr>
-                        <!-- <tr class="container-Row">
-                    <td>Tipo de Ingreso</td>
-                    <td> {{this.srvInventario.dataBienInfo.str_bien_tipo_ingreso}}</td>
-                </tr>
-                <tr class="container-Row">
-                    <td>Precio del Bien</td>
-                    <td> {{this.srvInventario.dataBienInfo.str_bien_valor_compra}}</td>
-                </tr>
-                <tr class="container-Row">
-                    <td>Version del Bien</td>
-                    <td> {{this.srvInventario.dataBienInfo.str_bien_serie}}</td>
-                </tr> -->
+
                         <tr class="container-Row">
                             <td>Estado del Bien</td>
                             <td> {{this.srvInventario.dataBienInfo.str_bien_estado_logico}}</td>
@@ -252,33 +162,45 @@
                 </table>
             </div>
             <div *ngIf="moTabla2">
-                <h3>Informacion sobre el Custodio</h3>
-                <table class="table table-striped tabla-estilos">
-                    <thead>
-                        <tr class="encabezado">
+                <div>
+                    <h3>Informacion sobre el Custodio</h3>
+                    <table class="table table-striped tabla-estilos">
+                        <thead>
+                            <tr class="encabezado">
 
-                            <th>
-                                <div class="d-flex">Titulo</div>
-                            </th>
+                                <th>
+                                    <div class="d-flex">Titulo</div>
+                                </th>
 
-                            <th>
-                                <div class="d-flex">Descripcion</div>
-                            </th>
+                                <th>
+                                    <div class="d-flex">Descripcion</div>
+                                </th>
 
-
-                    </thead>
-                    <tbody>
-                        <tr class="container-Row">
-                            <td>Cedula del Custodio</td>
-                            <td> {{this.srvInventario.dataBienInfo.str_custodio_cedula}}</td>
-                        </tr>
-                        <tr class="container-Row">
-                            <td>Nombre del custodio</td>
-                            <td> {{this.srvInventario.dataBienInfo.str_custodio_nombre}}</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="cont-Center_Name" style="margin-top: 20px;">
+                        </thead>
+                        <tbody>
+                            <tr class="container-Row">
+                                <td>Cedula</td>
+                                <td> {{this.srvInventario.dataBienInfo.str_custodio_cedula}}</td>
+                            </tr>
+                            <tr class="container-Row">
+                                <td>Nombre</td>
+                                <td> {{this.srvInventario.dataBienInfo.str_custodio_nombre}}</td>
+                            </tr>
+                            <tr>
+                                <td>Teléfono</td>
+                                <td>
+                                    <div class="container-Input"
+                                        style="margin-top: 0px !important; height: 100% !important;">
+                                        <input class="inp-info" type="text" id="nombre"
+                                            placeholder="Ingrese el teléfono del custodio"
+                                            formControlName="str_mantenimiento_correctivo_telefono" required="">
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- <div class="cont-Center_Name" style="margin-top: 20px;">
                     <div class="container-Name">
 
                         <div class="centerName-Text">
@@ -286,61 +208,96 @@
                         </div>
                         <div class="container-Input">
                             <input class="inp-info" type="text" id="nombre" placeholder="Telefono del custodio"
-                                formControlName="str_correctivo_telefono" required="">
+                                formControlName="str_mantenimiento_correctivo_telefono" required="">
                         </div>
+                    </div>
+                </div> -->
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                <div class="containerInfo" *ngIf="moTabla2">
+                    <h3>Nivel de Mantenimiento</h3>
+                    <div class="container-Select">
+                        <select formControlName="int_nivel_mantenimiento_id" (change)="getNivelName($event)">
+                            <option [selected]="true" select disabled>Seleccione un nivel</option>
+                            <option *ngFor="let op of srvNivelM.datosNivelMantenimiento; let index = index"
+                                id="{{op.int_nivel_mantenimiento_id}}">{{op.str_nivel_mantenimiento_descripcion}}
+                            </option>
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="containerInfo" *ngIf="moTabla2">
+                    <h3>Estado de Mantenimiento</h3>
+                    <div class="container-Select">
+                        <select formControlName="int_estado_mantenimiento_id" (change)="getEstadoName($event)">
+                            <option [selected]="true" select disabled>Seleccione un estado</option>
+                            <option *ngFor="let op of srvNivelM.datosEstadoMantenimiento; let index = index"
+                                id="{{op.int_estado_mantenimiento_id}}">{{op.str_estado_mantenimiento_descripcion}}
+                            </option>
+
+                        </select>
                     </div>
                 </div>
             </div>
 
-            <div class="containerInfo" *ngIf="moTabla2">
-                <h3>Nivel de Mantenimiento</h3>
-                <div class="container-Select">
-                    <select formControlName="int_correctivo_nivel_mantenimiento" (change)="getNivelName($event)" >
-                        <option [selected]="true" select disabled>Seleccione un tipo</option>
-                        <option *ngFor="let op of srvNivelM.datosNivelMantenimiento; let index = index" id="{{op.int_nivelMantenimiento_id}}" >{{op.str_nivelMantenimiento_descripcion}}</option>
-                        
-                    </select>
+            <div style="display: grid; gap: 20px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
+                    <div *ngIf="moTabla2">
+                        <h3>Descripcion del problema</h3>
+                        <div class="containerInfo ">
+                            <!-- <label for="">Introcucción de informe</label> -->
+                            <br>
+                            <textarea type="text" placeholder="DESCRIPCION DEL PROBLEMA" rows="7" cols="5000"
+                                formControlName="str_mantenimiento_correctivo_motivo">
+
+                      </textarea>
+                        </div>
+                    </div>
+
+                    <div *ngIf="moTabla2">
+                        <h3>Descripcion del diagnostico</h3>
+                        <div class="containerInfo ">
+                            <!-- <label for="">Introcucción de informe</label> -->
+                            <br>
+                            <textarea type="text" placeholder="DESCRIPCION DEL PROBLEMA" rows="7" cols="5000"
+                                formControlName="int_mantenimiento_diagnostico">
+
+                      </textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="moTabla2">
+                    <h3>Descripcion de la Solucion</h3>
+                    <div class="containerInfo ">
+                        <!-- <label for="">Introcucción de informe</label> -->
+                        <br>
+                        <textarea type="text" placeholder="DESCRIPCION DE LA SOLUCION" rows="7" cols="5000"
+                            formControlName="str_mantenimiento_correctivo_descripcion_solucion">
+
+                  </textarea>
+                    </div>
                 </div>
             </div>
 
-            <div *ngIf="moTabla2">
-                <h3>Descripcion del problema</h3>
-                <div class="containerInfo ">
-                    <!-- <label for="">Introcucción de informe</label> -->
-                    <br>
-                    <textarea type="text" placeholder="DESCRIPCION DEL PROBLEMA" rows="7" cols="5000"
-                        formControlName="str_correctivo_problema">
-
-              </textarea>
-                </div>
-            </div>
-            
-            <div *ngIf="moTabla2">
-                <h3>Descripcion de la Solucion</h3>
-                <div class="containerInfo ">
-                    <!-- <label for="">Introcucción de informe</label> -->
-                    <br>
-                    <textarea type="text" placeholder="DESCRIPCION DE LA SOLUCION" rows="7" cols="5000"
-                        formControlName="str_correctivo_solucion">
-
-              </textarea>
-                </div>
-            </div>
             <div style="display: grid; grid-template-columns: 1fr 1fr ; gap: 35px;">
                 <div *ngIf="moTabla2">
-                <h3>Fecha de Ingreso</h3>
-                <div class="containerInfo ">
-                    <input type="date" formControlName="dt_fecha_ingreso">
+                    <h3>Fecha de Ingreso</h3>
+                    <div class="containerInfo ">
+                        <input type="date" formControlName="dt_mantenimiento_correctivo_fecha_revision">
+                    </div>
+                </div>
+                <div *ngIf="moTabla2">
+                    <h3>Fecha de entrega</h3>
+                    <div class="containerInfo ">
+                        <input type="date" min="{{myForm.value.dt_mantenimiento_correctivo_fecha_revision}}"
+                            formControlName="dt_mantenimiento_correctivo_fecha_entrega">
+                    </div>
                 </div>
             </div>
-            <div *ngIf="moTabla2">
-                <h3>Fecha de entrega</h3>
-                <div class="containerInfo ">
-                    <input type="date" formControlName="dt_fecha_entrega">
-                </div>
-            </div>
-            </div>
-            
+
         </div>
     </form>
     <div class="buttons-action" *ngIf="moTabla2">

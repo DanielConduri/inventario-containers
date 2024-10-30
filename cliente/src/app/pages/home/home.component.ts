@@ -29,7 +29,7 @@ export class HomeComponent implements OnInit {
           if (this.casclient.isAuth()) {
             window.location.href = config.URL_BASE_PATH + '/welcome';
           }else{
-            console.log('PASO 2 Xd');
+            // console.log('PASO 2 Xd');
             await this.loginWithTicket(params);
           }
           this.isLoading = true;

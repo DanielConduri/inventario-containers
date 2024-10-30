@@ -2,20 +2,32 @@
     <form [formGroup]="myForm" action="" (ngSubmit)="send()">
         <div class="containerItems">
 
-            <div class="containerInfo">
+            <!-- <div class="containerInfo">
                 <label for="text"> Seleccione un Soporte:</label>
                 <div class="container-Select">
                   <select formControlName="idSoporte">
                     <option [selected]="true" placeholder="Seleccione un Soporte" select disabled>Seleccione un Soporte</option>
-                    <option *ngFor="let op of this.srvTipo.datosSoporte, let i = index " [value]="op.int_soporte_id">
+                    <option *ngFor="let op of this.srvTipo.auxTipoM, let i = index " [value]="op.int_soporte_id">
                       {{op.str_soporte_descripcion}}
                     </option>
                   </select>
                 </div>
         
-              </div>
+            </div> -->
 
 
+            <div class="cont-Center_Name">
+                <div class="container-Name">
+
+                    <div class="centerName-Text">
+                        <label class="lbl-info" for="nombre">Nombre del Tipo de mantenimiento:</label>
+                    </div>
+                    <div class="centerNambe-Input">
+                        <input class="inp-info" type="text" id="nombre" placeholder="Nombre del Tipo de mantenimiento"
+                            formControlName="nombre" required="">
+                    </div>
+                </div>
+            </div>
             <div class="cont-Center_Name">
                 <div class="container-Name">
 

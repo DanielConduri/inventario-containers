@@ -35,7 +35,7 @@ const obtenerTiposDocumentos = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error.message);
+   
     return res.status(500).json({ message: error.message });
   }
 };
@@ -78,7 +78,7 @@ const filtrarTiposDocumentos = async (req, res) => {
       body: tiposDocumentos,
     });
   } catch (error) {
-    console.log(error.message);
+    
     return res.status(500).json({ message: error.message });
   }
 };
@@ -148,34 +148,7 @@ const obtenerTipoDocumento = async (req, res) => {
     }
 };
 const eliminarTipoDocumento = async (req, res) => {
-/*
-    try {
-        const marca = await Marcas.findOne({
-            where: {
-                int_marca_id: int_marca_id
-            }
-        });
-        if (!marca) {
-            return res.json({
-                status: false,
-                message: "No se encontró la marca"
-            });
-        } else if (marca.str_marca_estado == "ACTIVO") {
-            marca.str_marca_estado = "INACTIVO";
-        } else {
-            marca.str_marca_estado = "ACTIVO";
-        }
-        await marca.save();
 
-        return res.json({
-            status: true,
-            message: "Marca eliminada correctamente",
-            body: marca,
-        });
-    } catch (error) {
-        return res.status(500).json({ message: error.message });
-    }
-*/
 
     try {
       const tipoDocumento = await TipoDocumento.findOne({

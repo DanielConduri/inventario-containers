@@ -53,6 +53,9 @@ export class TipoInformeComponent implements OnInit {
           this.isData = true;
           this.srvInformes.datosTipos = data.body
           // this.metadata = roles.total
+        }else{
+          this.isData = false
+          this.isLoading = false
         }
         Swal.close();
         // this.pdf = data.body
@@ -64,7 +67,7 @@ export class TipoInformeComponent implements OnInit {
 //                 this.pdf +
 //                 '" type="application/pdf" width="100%" height="600" />';
 //             }
-        console.log('Lo que llega ->', data);
+        // console.log('Lo que llega ->', data);
       },
       error: (err) =>{
         console.log('Error ->', err);
@@ -78,7 +81,7 @@ export class TipoInformeComponent implements OnInit {
     this.elementForm.title = _title
     this.srvModal.setForm(this.elementForm)
     this.srvModal.openModal() 
-    console.log('llega bien el tiempo')
+    // console.log('llega bien el tiempo')
   }
 
   deleteTipo(id: number){

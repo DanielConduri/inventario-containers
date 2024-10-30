@@ -8,6 +8,15 @@
       Regresar
     </button>
 
+    <!-- <button class="btn-usuario" mat-stroked-button>
+      <i class="material-icons">vertical_align_bottom</i>
+      Descargar Formato
+    </button> -->
+
+    <a download="formato_bienes.csv" href="../../../../../assets/formatos/formato_bienes.csv" class="btn-usuario" style="text-decoration: none;" target="_blank"> 
+      <i class="material-icons">vertical_align_bottom</i>
+      Descargar Formato</a>
+
     <button class="btn-usuario" (click)="updateGarantia()" mat-stroked-button>
       <i class="material-icons">autorenew</i>
       Actualizar Garantia
@@ -123,7 +132,7 @@
             <button
               class="btn btn-primary"
               [disabled]="otros.str_bien_garantia === 'S' || otros.str_bien_garantia === ''"
-              (click)="ModifyBienById(otros.int_bien_id, 'Informacion Adiconal', 'addInfoBien')"
+              (click)="ModifyBienById(otros.int_bien_id, 'Información Adicional', 'addInfoBien')"
               >
               <i class="material-icons"> add_circle_outline</i>
             </button>
@@ -137,7 +146,7 @@
 
             <button
               class="btn btn-primary"
-              (click)="mostrarInfoById(otros.int_bien_id, 'Informacion del Bien', 'infoBien')"
+              (click)="mostrarInfoById(otros.int_bien_id, 'Información del Bien', 'infoBien')"
               >
               <i class="material-icons"> info_outline </i>
             </button>

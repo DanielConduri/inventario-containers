@@ -1,13 +1,18 @@
+import { sequelize } from "../../database/database.js";
 import { nivelMantenimiento } from "../../models/mantenimiento/nivelMantenimiento.models.js";
+import { Soporte } from "../../models/mantenimiento/soporte.models.js";
+import { TipoMantenimiento } from "../../models/mantenimiento/tipoMantenimiento.models.js"
 import { paginarDatos } from "../../utils/paginacion.utils.js";
+import { insertarAuditoria } from "../../utils/insertarAuditoria.utils.js";
 const crearNivelMantenimiento = async (req, res) => {
   try {
-    const { descripcion, idTipoMantenimiento } = req.body;
+    const { descripcion, idTipoMantenimiento, idSoporte } = req.body;
+   
     //poner a mayusculas la descripcion
-    const descripcionM = descripcion.toUpperCase();
+    const descripcionM = descripcion.toUpperCase(); 
     //comprobar si existe el nivel de mantenimiento
     const nivelMantenimientoDB = await nivelMantenimiento.findOne({
-        where: { str_nivelMantenimiento_descripcion: descripcionM },
+        where: { str_nivel_mantenimiento_descripcion: descripcionM },
     });
     if (nivelMantenimientoDB) {
       return res.json({
@@ -18,10 +23,21 @@ const crearNivelMantenimiento = async (req, res) => {
     }
     //crear el nivel de mantenimiento
     const newNivelMantenimiento = await nivelMantenimiento.create({
-      str_nivelMantenimiento_descripcion: descripcionM,
-      int_tipoMantenimiento_id: idTipoMantenimiento,
+      str_nivel_mantenimiento_descripcion: descripcionM,
+      int_tipo_mantenimiento_id: idTipoMantenimiento,
+      int_soporte_id: idSoporte
     });
     if (newNivelMantenimiento) {
+      insertarAuditoria(
+        "Null",
+        "tb_nivel_mantenimiento",
+        "INSERT",
+        newNivelMantenimiento,
+        req.ip,
+        req.headers.host,
+        req,
+        "Se ha creado un nuevo nivel de mantenimiento"
+      )
       return res.json({
         status: true,
         message: "Nivel de mantenimiento creado correctamente",
@@ -29,7 +45,7 @@ const crearNivelMantenimiento = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
+   
     return res.status(500).json({
       message: `Error al crear el nivel de mantenimiento ${error}`,
       data: {},
@@ -39,11 +55,11 @@ const crearNivelMantenimiento = async (req, res) => {
 
 const editarNivelMantenimiento = async (req, res) => {
   try {
-    const { descripcion } = req.body;
+    const { descripcion, idTipoMantenimiento, idSoporte } = req.body;
     const { id } = req.params;
     const descripcionM = descripcion.toUpperCase();
     const nivelMantenimientoDB = await nivelMantenimiento.findOne({
-      where: { int_nivelMantenimiento_id: id },
+      where: { int_nivel_mantenimiento_id: id },
     });
     if (!nivelMantenimientoDB) {
       return res.json({
@@ -54,13 +70,31 @@ const editarNivelMantenimiento = async (req, res) => {
     }
     const nivelMantenimientoUpdate = await nivelMantenimiento.update(
       {
-        str_nivelMantenimiento_descripcion: descripcionM,
+        str_nivel_mantenimiento_descripcion: descripcionM,
+        int_tipo_mantenimiento_id: idTipoMantenimiento,
+        int_soporte_id: idSoporte,
+        dt_fecha_actualizacion: new Date(),
+        
       },
       {
-        where: { int_nivelMantenimiento_id: id },
+        where: { int_nivel_mantenimiento_id: id },
       }
-    );
+      );
+      // console.log('hasta aqui llega ', req.body, '---', req.params)
     if (nivelMantenimientoUpdate) {
+      const nuevo = await nivelMantenimiento.findOne({
+        where: { int_nivel_mantenimiento_id: id },
+      });
+      insertarAuditoria(
+        nivelMantenimientoDB,
+        "tb_nivel_mantenimiento",
+        "UPDATE",
+        nuevo,
+        req.ip,
+        req.headers.host,
+        req,
+        "Se ha editado un nivel de mantenimiento"
+      )
       return res.json({
         status: true,
         message: "Nivel de mantenimiento actualizado correctamente",
@@ -68,6 +102,7 @@ const editarNivelMantenimiento = async (req, res) => {
       });
     }
   } catch (error) {
+    console.log(error.message);
     return res.status(500).json({
       message: `Error al editar el nivel de mantenimiento ${error}`,
       data: {},
@@ -79,7 +114,7 @@ const cambiarEstadoNivelMantenimiento = async (req, res) => {
   try {
     const { id } = req.params;
     const nivelMantenimientoDB = await nivelMantenimiento.findOne({
-      where: { int_nivelMantenimiento_id: id },
+      where: { int_nivel_mantenimiento_id: id },
     });
     if (!nivelMantenimientoDB) {
       return res.json({
@@ -90,20 +125,33 @@ const cambiarEstadoNivelMantenimiento = async (req, res) => {
     }
     //cambiar estado INACTIVO O ACTIVO
     let estado = "";
-    if (nivelMantenimientoDB.str_nivelMantenimiento_estado === "ACTIVO") {
+    if (nivelMantenimientoDB.str_nivel_mantenimiento_estado === "ACTIVO") {
       estado = "INACTIVO";
     } else {
       estado = "ACTIVO";
     }
     const nivelMantenimientoUpdate = await nivelMantenimiento.update(
       {
-        str_nivelMantenimiento_estado: estado,
+        str_nivel_mantenimiento_estado: estado,
       },
       {
-        where: { int_nivelMantenimiento_id: id },
+        where: { int_nivel_mantenimiento_id: id },
       }
     );
     if (nivelMantenimientoUpdate) {
+      const nuevo = await nivelMantenimiento.findOne({
+        where: { int_nivel_mantenimiento_id: id },
+      });
+      insertarAuditoria(
+        nivelMantenimientoDB,
+        "tb_nivel_mantenimiento",
+        "UPDATE",
+        nuevo,
+        req.ip,
+        req.headers.host,
+        req,
+        "Se ha cambiado el estado de un nivel de mantenimiento"
+      )
       return res.json({
         status: true,
         message: "Nivel de mantenimiento actualizado correctamente",
@@ -118,10 +166,57 @@ const cambiarEstadoNivelMantenimiento = async (req, res) => {
   }
 };
 
+
+
+
+async function datosPaginacion(datos) {
+  const array = [];
+  try {
+    for (let nivelM of datos) {
+      const planificacion = await sequelize.query(
+        `SELECT
+        nm.int_nivel_mantenimiento_id,
+        nm.str_nivel_mantenimiento_descripcion,
+        nm.str_nivel_mantenimiento_estado,
+        nm.int_tipo_mantenimiento_id,
+        tm.str_tipo_mantenimiento_descripcion,
+        nm.dt_fecha_creacion
+        FROM mantenimiento.tb_nivel_mantenimiento nm
+        INNER JOIN mantenimiento.tb_tipo_mantenimiento tm
+        ON nm.int_tipo_mantenimiento_id = tm.int_tipo_mantenimiento_id`
+        ,
+        { type: QueryTypes.SELECT }
+      );
+      array.push(planificacion);
+    }
+    return array;
+  } catch (error) {
+    
+  }
+}
+
 const obtenerNivelesMantenimiento = async (req, res) => {
     try{
 
         const paginationData = req.query;
+        const nivelesMantenimiento = await sequelize.query(
+          `SELECT
+          nm.int_nivel_mantenimiento_id,
+          nm.str_nivel_mantenimiento_descripcion,
+          nm.str_nivel_mantenimiento_estado,
+          nm.int_tipo_mantenimiento_id,
+          tm.str_tipo_mantenimiento_descripcion,
+          sp.int_soporte_id,
+          sp.str_soporte_nombre,
+          nm.dt_fecha_creacion
+          FROM mantenimiento.tb_nivel_mantenimiento nm
+          INNER JOIN mantenimiento.tb_tipo_mantenimiento tm
+          ON nm.int_tipo_mantenimiento_id = tm.int_tipo_mantenimiento_id
+          INNER JOIN mantenimiento.tb_soporte sp 
+		      ON nm.int_soporte_id = sp.int_soporte_id`
+          /*,
+          { type: QueryTypes.SELECT }*/
+        );
 
         if(paginationData.page === "undefined"){
           const {datos, total} = await paginarDatos(
@@ -134,14 +229,13 @@ const obtenerNivelesMantenimiento = async (req, res) => {
           return res.json({
             status: true,
             message: "Niveles de mantenimiento encontrados",
-            body: datos,
+            body: nivelesMantenimiento[0],
             total: total,
           });
         }
-
-        const nivelesMantenimiento = await nivelMantenimiento.findAll({
-            limit: 5,
-        });
+        // const nivelesMantenimiento = await nivelMantenimiento.findAll({
+        //     limit: 5,
+        // });
         if(!nivelesMantenimiento  || nivelesMantenimiento.length === 0){
             return res.json({
                 status:false,
@@ -156,29 +250,28 @@ const obtenerNivelesMantenimiento = async (req, res) => {
                 paginationData.parameter,
                 paginationData.data
             );
-            console.log(total)
+            
             return res.json({
                 status:true,
                 message:"Niveles de mantenimiento encontrados",
-                body:datos,
+                body:nivelesMantenimiento[0],
                 total:total
             })
         }
-
     }catch(error){
         return res.status(500).json({
             message:`Error al obtener los niveles de mantenimiento ${error}`,
             data:{}
         })
-        
     }
 }
 const obtenerNivelMantenimientoPorId = async (req, res) => {
     try{
         const { id } = req.params;
-        const nivelMantenimientoDB = await nivelMantenimiento.findOne({
-            where: { int_nivelMantenimiento_id: id }
+        let nivelMantenimientoDB = await nivelMantenimiento.findOne({
+            where: { int_nivel_mantenimiento_id: id }
         });
+
         if(!nivelMantenimientoDB){
             return res.json({
                 status: false,
@@ -186,19 +279,33 @@ const obtenerNivelMantenimientoPorId = async (req, res) => {
                 body: {}
             })
         }
+
+        const nombreSoporte = await Soporte.findOne({
+          where: { int_soporte_id: nivelMantenimientoDB.int_soporte_id }
+      });
+
+        const nombreTipo = await TipoMantenimiento.findOne({
+          where: {int_tipo_mantenimiento_id: nivelMantenimientoDB.int_tipo_mantenimiento_id}
+        })
+
+      // console.log(nombreSoporte.dataValues.str_soporte_nombre);
+      nivelMantenimientoDB.dataValues.str_soporte_nombre = nombreSoporte.dataValues.str_soporte_nombre;
+      nivelMantenimientoDB.dataValues.str_soporte_descripcion = nombreSoporte.dataValues.str_soporte_descripcion;
+      nivelMantenimientoDB.dataValues.str_tipo_mantenimiento_nombre = nombreTipo.dataValues.str_tipo_mantenimiento_nombre
+      // console.log('lo que sale ---->', nivelMantenimientoDB.dataValues.str_tipo_mantenimiento_nombre)
+
         return res.json({
             status: true,
             message: "Nivel de mantenimiento",
             body: nivelMantenimientoDB
         })
-
     }catch(error){
+      console.log(error.message);
         return res.status(500).json({
             message:`Error al obtener el nivel de mantenimiento ${error}`,
             data:{}
         })
     }
-
 }
 
 export default {

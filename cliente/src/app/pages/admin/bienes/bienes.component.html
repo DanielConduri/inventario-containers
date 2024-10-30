@@ -21,6 +21,7 @@
           <div class="btn-agg-Inventary" *ngIf="this.menuTabSelected === 0">
 
             <div *ngIf="this.menuTabInventory === 0">
+              <!-- <a href="">Formato csv</a> -->
             </div>
             <!-- Apartado Botones Inventario -->
             <!-- <div class="btn-agg-Inventary" *ngIf="this.menuTabInventory === 3">
@@ -59,6 +60,12 @@
               [form]="'ingresarMarcas'"
               [title]="'Agregar Marca'">
               </app-button>
+            </div>
+
+            <div class="btn-agg-Inventary" *ngIf="this.menuTabInventory === 9" >
+              <a download="formato_catalogo.csv" href="../../../../assets/formatos/catalogo_bienes.csv" class="btn-usuario" mat-stroked-button style="text-decoration: none;"> 
+                <i class="material-icons">vertical_align_bottom</i>
+                Descargar Formato</a>
             </div>
 
             <div class="btn-agg-Inventary" *ngIf="this.menuTabInventory === 9">

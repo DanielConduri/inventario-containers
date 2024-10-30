@@ -6,10 +6,13 @@ export interface dataNivel{
 
 export interface datosNivel{
     dt_fecha_creacion: string;
-    int_nivelMantenimiento_id: number;
+    int_nivel_mantenimiento_id: number;
     int_tipoMantenimiento_id: number;
-    str_nivelMantenimiento_descripcion: string;
-    str_nivelMantenimiento_estado: string
+    str_tipo_mantenimiento_descripcion: string;
+    str_nivel_mantenimiento_estado: string;
+    str_nivel_mantenimiento_descripcion: string
+    str_soporte_descripcion: string
+    str_soporte_nombre:string
 }
 
 export interface pagNivelMantenimiento{

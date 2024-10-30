@@ -1,0 +1,53 @@
+<div
+  class="back"
+  style="display: flex; justify-content: center; margin: 10px"
+  *ngIf="
+    cedulaLogin === srvPrestamos.cedulaPrestamo &&
+    srvPrestamos.cedulaCustodio !== cedulaLogin &&
+    srvPrestamos.estadoPrestamo === 'PENDIENTE' &&
+    srvPrestamos.proceso === 0
+  "
+>
+  <button class="btn-primary-add" (click)="firmar()">Firmar documento</button>
+</div>
+
+<div
+  class="back"
+  style="display: flex; justify-content: center; margin: 10px"
+  *ngIf="
+    srvPrestamos.cedulaCustodio === cedulaLogin &&
+    cedulaLogin !== srvPrestamos.cedulaPrestamo &&
+    srvPrestamos.estadoPrestamo === 'PENDIENTE' &&
+    srvPrestamos.proceso === 1
+  "
+>
+  <button class="btn-primary-add" (click)="firmar()">Firmar documento</button>
+</div>
+
+<div
+  class="back"
+  style="display: flex; justify-content: center; margin: 10px"
+  *ngIf="
+    srvPrestamos.cedulaCustodio !== cedulaLogin &&
+    cedulaLogin !== srvPrestamos.cedulaPrestamo &&
+    srvPrestamos.cedulaDecano === cedulaLogin &&
+    srvPrestamos.estadoPrestamo === 'PENDIENTE' &&
+    srvPrestamos.proceso === 1
+  "
+>
+  <button class="btn-primary-add" (click)="firmar()">Firmar documento</button>
+</div>
+
+<div
+  *ngIf="srvPrestamos.linkOneDrive===''"
+  id="ver-pdf-solicitud"
+  style="width: 100%; height: 400px"
+></div>
+
+<div
+  *ngIf="srvPrestamos.linkOneDrive!==''"
+  id="ver-pdf-firmado"
+  style="width: 100%; height: 400px"
+>
+  <iframe [src]="src" width="100%" height="400" title="Mostrar PDF"></iframe>
+</div>

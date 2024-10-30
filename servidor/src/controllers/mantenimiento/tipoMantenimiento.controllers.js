@@ -1,14 +1,15 @@
 import { TipoMantenimiento } from "../../models/mantenimiento/tipoMantenimiento.models.js";
 import { paginarDatos } from "../../utils/paginacion.utils.js";
-import { Soporte } from "../../models/mantenimiento/soporte.models.js";
+import { insertarAuditoria } from "../../utils/insertarAuditoria.utils.js";
 const crearTipoMantenimiento = async (req, res) => {
   try {
-    const { descripcion, idSoporte } = req.body;
+    const { descripcion,nombre } = req.body;
     //mayusculas
     const descripcionM = descripcion.toUpperCase();
+    const nombreM = nombre.toUpperCase();
     //comprobar si existe el tipo de mantenimiento
     const tipoMantenimientoDB = await TipoMantenimiento.findOne({
-      where: { str_tipo_mantenimiento_descripcion: descripcionM },
+      where: { str_tipo_mantenimiento_nombre: nombreM },
     });
     if (tipoMantenimientoDB) {
       return res.json({
@@ -20,9 +21,19 @@ const crearTipoMantenimiento = async (req, res) => {
     //crear el tipo de mantenimiento
     const newTipoMantenimiento = await TipoMantenimiento.create({
       str_tipo_mantenimiento_descripcion: descripcionM,
-      int_soporte_id: idSoporte,
+      str_tipo_mantenimiento_nombre: nombreM,
     });
     if (newTipoMantenimiento) {
+      insertarAuditoria(
+        "Null",
+        "tb_tipo_mantenimiento",
+        "INSERT",
+        newTipoMantenimiento,
+        req.ip,
+        req.headers.host,
+        req,
+        "Se ha creado un nuevo tipo de mantenimiento"
+      );
       return res.json({
         status: true,
         message: "Tipo de mantenimiento creado correctamente",
@@ -30,7 +41,7 @@ const crearTipoMantenimiento = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
+    
     return res.status(500).json({
       message: `Error al crear el tipo de mantenimiento ${error}`,
       data: {},
@@ -58,7 +69,7 @@ const obtenerTipoMantenimientoPorId = async (req, res) => {
       body: tipoMantenimiento,
     });
   } catch (error) {
-    console.log(error);
+    
     return res.status(500).json({
       message: `Error al obtener el tipo de mantenimiento ${error}`,
       data: {},
@@ -69,7 +80,7 @@ const obtenerTipoMantenimientoPorId = async (req, res) => {
 const actualizarTipoMantenimiento = async (req, res) => {
   try {
     const { id } = req.params;
-    const { descripcion, idSoporte } = req.body;
+    const { descripcion } = req.body;
 
     //comprobar si existe el tipo de mantenimiento
     const tipoMantenimientoDB = await TipoMantenimiento.findOne({
@@ -86,13 +97,27 @@ const actualizarTipoMantenimiento = async (req, res) => {
     const tipoMantenimiento = await TipoMantenimiento.update(
       {
         str_tipo_mantenimiento_descripcion: descripcion,
-        int_soporte_id: idSoporte,
+        dt_fecha_actualizacion: new Date(),
+
       },
       {
         where: { int_tipo_mantenimiento_id: id },
       }
     );
     if (tipoMantenimiento) {
+      const nuevo = await TipoMantenimiento.findOne({
+        where: { int_tipo_mantenimiento_id: id },
+      });
+      insertarAuditoria(
+        tipoMantenimientoDB,
+        "tb_tipo_mantenimiento",
+        "UPDATE",
+        nuevo,
+        req.ip,
+        req.headers.host,
+        req,
+        "Se ha actualizado un tipo de mantenimiento"
+      );
       return res.json({
         status: true,
         message: "Tipo de mantenimiento actualizado correctamente",
@@ -100,7 +125,7 @@ const actualizarTipoMantenimiento = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
+    
     return res.status(500).json({
       message: `Error al actualizar el tipo de mantenimiento ${error}`,
       data: {},
@@ -144,7 +169,7 @@ const cambiarEstadoTipoMantenimiento = async (req, res) => {
       body: tipoMantenimientoEstado,
     });
   } catch (error) {
-    console.log(error);
+    
     return res.status(500).json({
       message: `Error al cambiar el estado del tipo de mantenimiento ${error}`,
       data: {},
@@ -155,7 +180,7 @@ const cambiarEstadoTipoMantenimiento = async (req, res) => {
 const obtenerTiposMantenimiento = async (req, res) => {
   try {
     const paginationData = req.query;
-    console.log(paginationData);
+    
     if (paginationData.page === "undefined") {
       const { datos, total } = await paginarDatos(
         1,
@@ -165,8 +190,7 @@ const obtenerTiposMantenimiento = async (req, res) => {
         ""
       );
       //llamo a la funcion para hallar el nombre del soporte
-      await hallarSoporte(datos);
-        console.log("s",total);
+        
       return res.json({
         status: true,
         message: "Tipos de mantenimiento encontrados",
@@ -192,8 +216,6 @@ const obtenerTiposMantenimiento = async (req, res) => {
       );
 
       //llamo a la funcion para hallar el nombre del soporte
-      await hallarSoporte(datos);
-        console.log("tooo",total)
       return res.json({
         status: true,
         message: "Tipos de mantenimiento encontrados",
@@ -202,24 +224,14 @@ const obtenerTiposMantenimiento = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
+    
     return res.status(500).json({
       message: `Error al obtener los tipos de mantenimiento ${error}`,
       data: {},
     });
   }
 };
-//creo una funcion para no repetir codigo de hallar el nombre del soporte
-const hallarSoporte = async (datos) => {
-  for (let i = 0; i < datos.length; i++) {
-    const soporte = await Soporte.findOne({
-      where: { int_soporte_id: datos[i].int_soporte_id },
-    });
-    datos[i].dataValues.str_soporte_descripcion =
-      soporte.str_soporte_descripcion;
-  }
 
-};
 
 export default {
   crearTipoMantenimiento,

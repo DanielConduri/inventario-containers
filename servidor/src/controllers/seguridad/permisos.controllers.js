@@ -3,6 +3,7 @@ import { sequelize } from "../../database/database.js";
 import { Permisos } from "../../models/seguridad/permisos.models.js";
 import jwt from "jsonwebtoken";
 import { jwtVariables } from "../../config/variables.config.js";
+import { insertarAuditoria } from "../../utils/insertarAuditoria.utils.js";
 export const obtenerPermisos = async (req, res) => {
   try {
     const permisos = await sequelize.query(
@@ -38,7 +39,7 @@ export const obtenerPermisosPorPerfil = async (req, res) => {
         type: QueryTypes.SELECT,
       }
     );
-    console.log("Permisos: ", permisos);
+    
 
     if (!permisos || permisos.length === 0) {
       return res.json({
@@ -60,9 +61,16 @@ export const obtenerPermisosPorRol = async (req, res) => {
   try {
     const { rol } = req.params;
     const { token } = req.cookies;
+
+    console.log('--> ROL', rol)
+
     const usuario = jwt.verify(token, jwtVariables.jwtSecret);
 
+    console.log('--> USUARIO', usuario)
+
     if (rol === "@d$") {
+
+      console.log('entra al if ----')
       //el rol es proviniente de la cookie y podemos consultar los permisos del usuario
       const permisosUser = await permisosRol(usuario.perfil_id);
       const menusUser = await menusRol(usuario.perfil_id);
@@ -84,12 +92,12 @@ export const obtenerPermisosPorRol = async (req, res) => {
       }
     );
 
-    console.log("Datos: ", datos);
+    
     //obtengo los permisos del rol y lso menus
     const permisos = await permisosRol(datos[0].int_perfil_id);
     const menusConSubmenus = await menusRol(datos[0].int_perfil_id);
 
-    console.log("Permisos: ", permisos);
+    
     if (!permisos || permisos.length === 0) {
       return res.json({
         status: false,
@@ -114,7 +122,7 @@ export const obtenerPermisosPorRol = async (req, res) => {
       );
 
       menusPrincipales.forEach((menu) => {
-        // console.log("dentro del foreach: ", permisosF);
+        
         menu.submenus = obtenerSubmenus(menu.int_menu_id, permisosF);
       });
 
@@ -175,7 +183,7 @@ export const obtenerPermisosPorRol = async (req, res) => {
     const tokenF = jwt.sign(usuarioToken, jwtVariables.jwtSecret, {
       expiresIn: "7d",
     });
-    console.log("Nuevotoken: ", tokenF);
+    
     res.set('Authorization', 'Bearer ' + tokenF); // Establece el nuevo token en la cabecera "Authorization"
 
     res.cookie("token", tokenF, {
@@ -204,11 +212,7 @@ export const crearPermiso = async (req, res) => {
   //recorrer el arreglo de permisos e insertar en la base de datos
   permisos.map(
     async ({ int_menu_id, bln_ver, bln_editar, bln_crear, bln_eliminar }) => {
-      console.log("menu_id: ", int_menu_id);
-      console.log("bln_ver: ", bln_ver);
-      console.log("bln_editar: ", bln_editar);
-      console.log("bln_crear: ", bln_crear);
-      console.log("bln_eliminar: ", bln_eliminar);
+
 
       const permiso = await Permisos.create({
         int_perfil_id: id_perfil,
@@ -231,7 +235,7 @@ export const actualizarPermiso = async (req, res) => {
   try {
     const { id_perfil } = req.params;
     const permisos = req.body;
-    console.log("Permisos: ",permisos);
+    
     const ver = "bln_ver";
     const editar = "bln_editar";
     const crear = "bln_crear";
@@ -239,7 +243,7 @@ export const actualizarPermiso = async (req, res) => {
 
     //opcion 1
     let bandera = await actualizarPermisosInterno();
-    console.log("bandera: ", bandera);
+    
     async function actualizarPermisosInterno() {
       let cont = 0;
       await Promise.all(
@@ -251,11 +255,7 @@ export const actualizarPermiso = async (req, res) => {
             bln_crear,
             bln_eliminar,
           }) => {
-            console.log("menu_id: ", int_menu_id);
-            console.log("bln_ver: ", bln_ver);
-            console.log("bln_editar: ", bln_editar);
-            console.log("bln_crear: ", bln_crear);
-            console.log("bln_eliminar: ", bln_eliminar);
+
             //antes de actualizar verificar si el permiso es el mismo
 
             const verificarPermiso = await Permisos.findOne({
@@ -314,6 +314,17 @@ export const actualizarPermiso = async (req, res) => {
         message: "No se encontraron cambios en los permisos",
       });
     }
+    insertarAuditoria(
+      null,
+      "tb_permisos",
+      "UPDATE",
+      permisos,
+      req.ip,
+      req.headers.host,
+      req,
+      "Se ha actualizado un permiso"
+    
+    );
     return res.json({
       status: true,
       message: "Permisos actualizados",
@@ -335,7 +346,7 @@ async function actualizarPermisoDePerfil(
     SET ${permiso}=${valor}
     WHERE int_perfil_id='${id_perfil}' and int_menu_id ='${int_menu_id}'`
   );
-  console.log("Permiso actualizado");
+  
 }
 
 export const eliminarPermiso = async (req, res) => {};

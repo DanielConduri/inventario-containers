@@ -7,8 +7,8 @@ import { PaginationModule } from 'src/app/shared/pagination/pagination.module';
 import { AgregarCentrosComponent } from './agregar-centros/agregar-centros.component';
 import { EditarCentrosComponent } from './editar-centros/editar-centros.component';
 import { DetallesCentrosComponent } from './detalles-centros/detalles-centros.component';
-
-
+import { GoogleMapsModule } from '@angular/google-maps';
+// import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [
@@ -21,15 +21,14 @@ import { DetallesCentrosComponent } from './detalles-centros/detalles-centros.co
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    // ComponentsModule,
-    PaginationModule
-
+    PaginationModule,
+    GoogleMapsModule, // Add GoogleMapsModule as a reference
   ],
-  exports:[
+  exports: [
     MostrarCentrosComponent,
     AgregarCentrosComponent,
     EditarCentrosComponent,
-    DetallesCentrosComponent
-  ]
+    DetallesCentrosComponent,
+  ],
 })
-export class CentrosModule1 { }
+export class CentrosModule1 {}

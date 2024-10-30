@@ -36,6 +36,10 @@
                     <th>
                         <div class="d-flex">Estado</div>
                     </th>
+
+                    <th>
+                        <div class="d-flex">Acciones</div>
+                    </th>
                 </tr>
             </thead>
 
@@ -71,6 +75,14 @@
                             </div>
                         </div>
                     </td>
+
+
+                    <td>
+                        <button class="btn btn-primary"
+                            (click)="mostrarInfoById(custodio.str_custodio_cedula, 'Información de Bienes del Custodio', 'infoBienesCustodio')">
+                            <i class="material-icons"> info_outline </i>
+                        </button>
+                    </td>
                 </tr>
 
             </tbody>
@@ -83,3 +95,5 @@
     </div>
 
 </div>
+
+<!-- <app-mostrar-bienes-custodio></app-mostrar-bienes-custodio> -->

@@ -56,18 +56,21 @@ export class ReportesComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.srvInformes.typeviw = true
+    // this.srvInformes.typeviw = true
+    // this.srvInforme.datosSearch = []
 
     const path: string = window.location.pathname.split('/').pop() || '';
     this.menuTabsSelected = this.listaViews[path.toUpperCase()] || 0;
-    console.log('probando -------->', this.menuTabsSelected);
+    // console.log('probando -------->', this.menuTabsSelected);
     this.srvReportes.SelectButtonName$
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (data: any) => {
           this.menuTabInventory = data;
-          console.log('lo que viene del type ->', data);
-          this.srvInformes.typeviw = data.status;
-          console.log('que sale ->', this.menuTabInventory);
+          // console.log('lo que viene del type ->', data);
+          // this.srvInformes.typeviw = data.status;
+          // console.log('que sale ->', this.menuTabInventory);
         }
 
       })
@@ -85,6 +88,14 @@ export class ReportesComponent implements OnInit {
       //   }
       // })
 
+  }
+
+  reinicio(){
+    console.log('si entra a la funcion')
+    this.srvInformes.typeviw = true
+    // this.srvInformes.typeview = true
+    console.log('se debio cambiar')
+    // this.srvInformes.typeviw = true
   }
 
     //funcion para permisos de ver

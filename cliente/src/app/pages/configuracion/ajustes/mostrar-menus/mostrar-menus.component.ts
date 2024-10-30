@@ -3,6 +3,7 @@ import { MenuService } from 'src/app/core/services/menu.service';
 import { Subject, takeUntil } from 'rxjs';
 import Swal from 'sweetalert2';
 import { ModalService } from 'src/app/core/services/modal.service';
+import config from 'config/config';
 
 @Component({
   selector: 'app-mostrar-menus',
@@ -42,6 +43,7 @@ export class MostrarMenusComponent implements OnInit {
   }
 
   getMenus(){
+    console.log('llega al get menus')
     Swal.fire({
       title: 'Cargando...',
       didOpen: () => {
@@ -55,7 +57,7 @@ export class MostrarMenusComponent implements OnInit {
         if(data.status){
           this.isData = true;
           this.srvMenu.datosMenu = data.body;
-          console.log('datosMenu: ', data);
+          // console.log('datosMenu: ', data);
           Swal.close();
         }
       },
@@ -113,6 +115,8 @@ export class MostrarMenusComponent implements OnInit {
             console.log(err);
           },
           complete: () => {
+          window.location.href = config.URL_BASE_PATH + '/welcome';
+            location.reload()
           }
         })
       } else if (result.isDenied) {
@@ -122,6 +126,7 @@ export class MostrarMenusComponent implements OnInit {
    }
 
    permisos(){
+    console.log('donde llegaaa')
     this.permiso = {
       bln_editar: this.srvMenu.permisos.find(p => p.str_menu_path === 'ajustes/menus')?.bln_editar ?? false,
       bln_eliminar: this.srvMenu.permisos.find(p => p.str_menu_path === 'ajustes/menus')?.bln_eliminar ?? false

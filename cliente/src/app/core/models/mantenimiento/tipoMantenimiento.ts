@@ -10,6 +10,7 @@ export interface datosMantenimiento{
     int_tipo_mantenimiento_id: number;
     str_tipo_mantenimiento_descripcion: string;
     str_tipo_mantenimiento_estado: string;
+    str_tipo_mantenimiento_nombre: string
     str_soporte_descripcion: string
 }
 

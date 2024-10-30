@@ -49,7 +49,7 @@ export class BodyComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.typeView = data.status;
-          console.log('body typeView', this.typeView);
+          // console.log('body typeView', this.typeView);
         }
 
       })
@@ -63,10 +63,10 @@ export class BodyComponent implements OnInit {
     // const menu = document.querySelector('.container-button')
     this.open = !this.open
 
-    console.log('el cambiador ->', this.open);
+    // console.log('el cambiador ->', this.open);
 
 
-    console.log('body',this.elementForm);
+    // console.log('body',this.elementForm);
     this.elementForm.title = _title
     this.elementForm.form = _form
 

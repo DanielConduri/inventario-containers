@@ -1,0 +1,57 @@
+<div class="body-Form">
+    <div class="tableBo" *ngIf="this.estadoCodigos == true">   
+        <h3 id="h3-Title">Bienes no insertados: {{this.codigos.length}} </h3>
+        <label for="">Los bienes no constan en el catálogo</label>
+        <table class="table table-striped tabla-estilos">
+            <thead>
+                <tr class="encabezado">
+                    <th>
+                        <div class="d-flex">Código</div>
+                    </th>
+                    <th>
+                        <div class="d-flex">Descripcion</div>
+                    </th>
+            </thead>
+
+            <tbody>
+                <!-- <tr class="container-Row" *ngFor="let detalle of this.srvInventario.detalleCarga, let i = index">
+                    <td>{{this.detalle.str_error_mensaje}}</td>
+                    <td>{{this.detalle.str_error_descripcion
+                    }}</td>
+                </tr>  -->
+
+                <tr class="container-Row" *ngFor="let detalle of this.codigos, let i = index">
+                    <td>{{this.detalle.codigo_bien}}</td>
+                    <td>{{this.detalle.bien}}</td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+
+    <div class="tableBo" *ngIf="this.estadoCodigos == false">   
+        <!-- <h3 id="h3-Title">Información detallada</h3> -->
+        <table class="table table-striped tabla-estilos">
+            <thead>
+                <tr class="encabezado">
+                    <th>
+                        <div class="d-flex">Mensaje</div>
+                    </th>
+                    <th>
+                        <div class="d-flex">Descripcion</div>
+                    </th>
+            </thead>
+
+            <tbody>
+                <tr class="container-Row" *ngFor="let detalle of this.srvInventario.detalleCarga, let i = index">
+                    <td>{{this.detalle.str_error_mensaje}}</td>
+                    <td>{{this.detalle.str_error_descripcion
+                    }}</td>
+                </tr>
+
+
+            </tbody>
+        </table>
+    </div>
+</div>

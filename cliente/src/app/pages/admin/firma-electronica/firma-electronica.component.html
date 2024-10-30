@@ -1,0 +1,136 @@
+<div class="">
+  <div class="containerBody">
+    <div class="titleConfiguration" style="padding: 2rem; min-width: 250px">
+      <!-- contenedor de encabezado de la tabla  -->
+      <div class="titleButton">
+        <div class="title">
+          <h1>
+            Pantalla de
+            <span style="color: #b41a12"> Firma </span>
+          </h1>
+          <span
+            style="
+              color: rgb(160, 160, 160);
+              font-family: 'Roboto', Arial, sans-serif;
+              font-size: 14px;
+            "
+          >
+            Documento a firmar
+          </span>
+        </div>
+        <button
+          *ngIf="estaFirmado && loading"
+          class="btn-primary-add"
+          (click)="guardarDocFir()"
+        >
+          Guardar documento firmado
+        </button>
+      </div>
+
+      <div class="contenedor-tabla" *ngIf="!request && !loading">
+        <!-- WIDGET WIZARD -->
+        <div
+          class="widget col-md-12 col-sm-12 col-xs-12"
+          style="padding: 0 !important; border-bottom-color: #657382"
+        >
+          <div class="widget-content">
+            <div class="custom-tabs-right">
+              <div class="tab-content clearfix">
+                <div class="tab-pane active" id="step1">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                      <button
+                        class="btn btn-success"
+                        style="padding: 5px;"
+                        id="prev"
+                        (click)="onPrevPage()"
+                        title="Pagina Anterior Firmar"
+                      >
+                        <span class="fa fa-arrow-circle-left"></span> Anterior
+                      </button>
+                      &nbsp; &nbsp;
+                      <button
+                        class="btn btn-success"
+                        style="padding: 5px;"
+                        id="next"
+                        (click)="onNextPage()"
+                        title="Pagina Siguiente Firmar"
+                      >
+                        <span class="fa fa-arrow-circle-right"></span> Siguiente
+                      </button>
+                      &nbsp; &nbsp;
+                      <button
+                        class="btn btn-success"
+                        style="padding: 5px;"
+                        (click)="clearZone()"
+                        title="Limpiar Página"
+                      >
+                        <span class="fa fa-eraser"></span>Limpiar
+                      </button>
+                      &nbsp; &nbsp;
+                      <button
+                        class="btn btn-success"
+                        style="padding: 5px;"
+                        (click)="RecuperarArEc()"
+                        title="Recuperar Archivo"
+                        [disabled]="!estaFirmado"
+                      >
+                        <span class="fa fa-eraser"></span>Recuperar Archivo
+                      </button>
+                    </div>
+                    <div lass="col-md-12 col-sm-12 col-xs-12 text-center">
+                      &nbsp; &nbsp;
+                      <div style="text-align: center; font-weight: bold">
+                        <span
+                          >Páginas: <span id="page_num">{{ pageNum }}</span> /
+                          <span id="page_count">{{ pageCount }}</span></span
+                        >
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 text-center">
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div
+                          id="container"
+                          style="
+                            text-align: center;
+                            height: 600px;
+                            overflow: auto;
+                          "
+                        >
+                          <canvas id="canvasId" #canvasRef> </canvas>
+                        </div>
+                        <div style="display: none">
+                          <img
+                            id="source"
+                            src="data:image/png;base64,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"
+                            width="50"
+                            height="50"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div lass="col-md-12 col-sm-12 col-xs-12 text-center">
+                      &nbsp; &nbsp;
+                      <div style="text-align: center; font-weight: bold">
+                        <span
+                          >Páginas: <span id="page_num">{{ pageNum }}</span> /
+                          <span id="page_count">{{ pageCount }}</span></span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  *ngIf="estaFirmado && loading"
+  id="ver-pdf-docFirmado"
+  style="width: 100%; height: 700px; margin-top: 25px"
+></div>

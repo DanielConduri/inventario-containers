@@ -78,3 +78,7 @@
   .container-DataInfoFind{
     padding-bottom: 20px;
   }
+
+  select{
+    width: 100%;
+  }

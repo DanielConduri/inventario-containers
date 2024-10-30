@@ -68,7 +68,7 @@ function generarPDFBienesConGarantiaPorFechas(contenido, titulo,fechaInicio,fech
       [
         { key: "str_codigo_bien", label: "CÓDIGO", align: "center", width:100, },
         { key: "str_bien_nombre", label: "NOMBRE", align: "center", width:100,},
-        { key: "int_bien_anios_garantia", label: "AÑOS DE GARANTÍA", align: "center", width:100,},
+        { key: "int_bien_anios_garantia", label: "AÑOS DE GARANTÍA", align: "center", width:100},
         { key: "dt_bien_fecha_compra", label: "FECHA DE COMPRA", align: "center", width:100,},
 
       ],

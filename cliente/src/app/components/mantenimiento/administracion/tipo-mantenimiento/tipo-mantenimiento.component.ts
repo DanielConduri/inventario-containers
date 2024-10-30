@@ -60,7 +60,7 @@ export class TipoMantenimientoComponent implements OnInit {
 
   ngOnInit(): void {
     this.pasarPagina(1)
-    console.log('entrando a tipo')
+    // console.log('entrando a tipo')
     // this.obtenerTipoMantenimiento()
   }
 
@@ -82,11 +82,11 @@ export class TipoMantenimientoComponent implements OnInit {
           this.isLoading = true;
           this.srvMantenimiento.datosTipoMantenimiento = data.body
           this.metadata = data.total
-          console.log('la metadata ->>>>>', this.metadata)
+          // console.log('la metadata ->>>>>', this.metadata)
 
         }
         
-        console.log('lo que llega', data)
+        // console.log('lo que llega', data)
         Swal.close();
 
         this.dataPagina()
@@ -97,11 +97,61 @@ export class TipoMantenimientoComponent implements OnInit {
   }
 
   modifyTipo(id: number, _title: string, _form: string){
-
+    this.srvMantenimiento.idTipoMModify = id
+    this.elementForm.form = _form;
+    this.elementForm.title = _title;
+    // this.elementForm.special = false;
+    this.srvModal.setForm(this.elementForm)
+    this.srvModal.openModal()
   }
 
   deleteTipo(id: number){
-
+    Swal.fire({
+      title: '¿Está seguro que desea modificar este Tipo de Mantenimiento?',
+      showDenyButton: true,
+      text: 'Al deshabilitar un Tipo de Mantenimiento, este no podra acceder al sistema. Este cambio puede ser revertido en cualquier momento',
+      confirmButtonText: 'Si, modificar',
+      denyButtonText: 'Cancelar',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: 'Modificando Tipo de Mantenimiento...',
+          didOpen: () => {
+            Swal.showLoading();
+          },
+        });
+        this.srvMantenimiento
+          .deleteTipoMantenimiento(id)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe({
+            next: (res:any) => {
+              if (res.status) {
+                Swal.fire({
+                  title: 'Tipo de Mantenimiento modificado corectamente',
+                  icon: 'success',
+                  showConfirmButton: false,
+                  timer: 3000,
+                });
+              } else {
+                Swal.fire({
+                  title: 'No se modifico el Tipo de Mantenimiento',
+                  icon: 'error',
+                  showConfirmButton: false,
+                  timer: 3000,
+                });
+              }
+              this.obtenerTipoMantenimiento();
+              setTimeout(() => {
+                Swal.close();
+              }, 3000);
+            },
+            error: (error) => {
+              console.log('err', error);
+            },
+            complete: () => {},
+          });
+      }
+    });
   }
 
   dataPagina() {
@@ -113,7 +163,7 @@ export class TipoMantenimientoComponent implements OnInit {
 
   pasarPagina(page: number) {
     this.mapFiltersToRequest = { size: 10, page, parameter: '', data: 0  };
-    console.log('mapFiltersToRequest', this.mapFiltersToRequest);
+    // console.log('mapFiltersToRequest', this.mapFiltersToRequest);
     this.obtenerTipoMantenimiento();
   }
 
@@ -126,6 +176,9 @@ export class TipoMantenimientoComponent implements OnInit {
     return this.srvMenu.permisos.find(p => p.str_menu_path === path)?.bln_eliminar ?? false;
   }
 
-
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
+  }
 
 }

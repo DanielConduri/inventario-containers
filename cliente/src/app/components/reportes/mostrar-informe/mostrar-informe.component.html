@@ -3,6 +3,7 @@
   id="ver-pdf-solicitud"
   style="width: 100%; height: 600px"
 ></div> -->
+<app-filter [options]="options" (search)="handleSearch($event)"></app-filter>
 
 <div class="tabla-cuerpo">
   <div class="tableBo" *ngIf="isLoading && isData">
@@ -14,13 +15,19 @@
             <div class="d-flex"> # </div>
           </th>
           <th>
-            <div class="d-flex">Nombre</div>
+            <div class="d-flex">Titulo</div>
           </th>
           <th>
             <div class="d-flex">ID</div>
           </th>
           <th>
-            <div class="d-flex">Fecha</div>
+            <div class="d-flex">Fecha de creacion</div>
+          </th>
+          <!-- <th>
+            <div class="d-flex">Fecha del documento</div>
+          </th> -->
+          <th>
+            <div class="d-flex">Estado</div>
           </th>
           <th>
             <div class="d-flex">Acciones</div>
@@ -29,15 +36,32 @@
       </thead>
 
       <tbody>
-        <tr *ngFor="let infor of srvInformes.datosInformes, let i = index">
+        <tr *ngFor="let infor of srvInformes.datosInformes, let i = index,">
           <td> {{i+1}}</td>
           <td> {{infor.str_documento_titulo}} </td>
           <td>{{infor.str_documento_id}} </td>
           <td> {{infor.dt_fecha_creacion.substring(0, 10)}} </td>
+          <!-- <td>
+            {{fec}}
+          </td> -->
+          <td *ngIf="infor.str_documento_estado==='DESARROLLO'">
+            <div class="estado">
+              <div class="activo">
+                {{infor.str_documento_estado}}
+              </div>
+            </div>
+          </td>
+          <td *ngIf="infor.str_documento_estado==='FINALIZADO'">
+            <div class="estado">
+              <div class="inactivo">
+                {{infor.str_documento_estado}}
+              </div>
+            </div>
+          </td>
           <td>
-            <button class="btn btn-primary"> <i class="material-icons"(click)="edidInf(infor.int_documento_id)"> create </i>
+            <button class="btn btn-primary" [disabled]="infor.str_documento_estado==='FINALIZADO'" (click)="edidInf(infor.int_documento_id)" > <i class="material-icons"> create </i>
             </button>
-            <button class="btn btn-primary"> <i class="material-icons" (click)="mostrarPDF(infor.int_documento_id, 'Informe' ,'mostrar-pdf')"> local_printshop </i>
+            <button class="btn btn-primary" (click)="mostrarPDF(infor.int_documento_id, 'Informe' ,'mostrar-pdf')"> <i class="material-icons" > local_printshop </i>
             </button>
             <!-- <button class="btn btn-danger" ><i class="material-icons"> delete </i> 
             </button> -->

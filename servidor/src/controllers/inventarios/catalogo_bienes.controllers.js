@@ -10,14 +10,14 @@ import { eliminarFichero } from "../../utils/eliminarFichero.utils.js";
 import { paginarDatos } from "../../utils/paginacion.utils.js";
 
 export const obtenerCatalogoBienes = async (req, res) => {
-  console.log("Entra a obtener bienes");
-  console.log("req.query: ", req.query);
+  
+  
   try {
     const paginationData = req.query/*.pagination.substring(8, 17)*/;
-    console.log("paginationData", paginationData.page)
+    
     if (paginationData.page === "undefined") {
       const { datos, total } = await paginarDatos(1, 10, CatalogoBienes,'','');
-      console.log("total 1: ", total);
+      
     
       return res.json({
         status: true,
@@ -28,19 +28,6 @@ export const obtenerCatalogoBienes = async (req, res) => {
       
     }
 
-    /*if (datos.lenght === 0 || !datos) {
-      return res.json({
-        status: false,
-        message: "No se encontraron bienes",
-      });
-    } else {
-      return res.json({
-        status: true,
-        message: "Bienes encontrados",
-        body: datos,
-        total: total,
-      });
-    }*/
     const catalogo_bienes = await CatalogoBienes.findAll({limit:5});
     //const paginationData = JSON.parse(req.query.pagination);
     if (catalogo_bienes.lenght === 0 || !catalogo_bienes) {
@@ -56,7 +43,7 @@ export const obtenerCatalogoBienes = async (req, res) => {
         paginationData.parameter,
         paginationData.data
       );
-      console.log("total 2: ", total);
+      
       return res.json({
         status: true,
         message: "Bienes encontrados",
@@ -73,9 +60,9 @@ export const obtenerCatalogoBienes = async (req, res) => {
 
 export const obtenerCatalogoBien = async (req, res) => {
   try {
-    console.log("Entra");
+    
     const { int_catalogo_bien_id } = req.params;
-    console.log("Entra id", int_catalogo_bien_id);
+    
     const catalogo_bien = await CatalogoBienes.findOne({
       where: {
         int_catalogo_bien_id: int_catalogo_bien_id,
@@ -96,6 +83,8 @@ export const obtenerCatalogoBien = async (req, res) => {
     return res.status(500).json({ message: error.message });
   }
 };
+
+
 export const insertarCatalogoBien = async (req, res) => {
   try {
     const {
@@ -133,9 +122,9 @@ export const insertarCatalogoBien = async (req, res) => {
 };
 export const actualizarCatalogoBien = async (req, res) => {
   try {
-    console.log("Entra a actualizar");
+    
     const { int_catalogo_bien_id } = req.params;
-    console.log(req.body);
+   
     const {
       str_catalogo_bien_descripcion,
       str_catalogo_bien_id_bien,
@@ -208,14 +197,14 @@ export const eliminarCatalogoBien = async (req, res) => {
 export const importarCatalogoBienes = async (req, res) => {
   try {
     const file = req.file;
-    console.log("file", file.path);
+    
     if (!file) {
       return res.status(400).send("No se ha seleccionado ningún archivo");
     }
 
     //obtener la primera fila del csv
     const primeraFila = await obtenerPrimeraFila(file.path);
-    console.log("primeraFila", primeraFila);
+    
     const encabezadosValidos = [
       "id_bien",
       "descripcion",
@@ -223,7 +212,7 @@ export const importarCatalogoBienes = async (req, res) => {
       "cuenta_contable",
     ];
     const headers = Object.keys(primeraFila);
-    console.log("headers", headers);
+    
 
     //validar que los encabezados del csv sean válidos
     function validarEncabezados(headers, encabezadosValidos) {
@@ -237,12 +226,12 @@ export const importarCatalogoBienes = async (req, res) => {
     }
 
     const sonValidos = validarEncabezados(headers, encabezadosValidos);
-    console.log("sonValidos", sonValidos);
+    
     if (sonValidos) {
       const arrayCatalogoBienes = await leerArchivoCsv(file.path);
       let CHUNK_SIZE = 0;
 
-      console.log("arrayCatalogoBienes", arrayCatalogoBienes);
+      
 
       //definimos el tamaño del bloque de datos a insertar
       if (arrayCatalogoBienes.length > 10000) {
@@ -268,7 +257,7 @@ export const importarCatalogoBienes = async (req, res) => {
             if (!created) {
               // si el registro ya existe, aumentar el contador
               repetidos++;
-              console.log("repetidos", repetidos);
+              
             }
           });
         });
@@ -329,7 +318,7 @@ function obtenerDatosCsv(path, separador) {
         resultado.push(rowToInsert);
       })
       .on("end", () => {
-        //console.log("resultado", resultado);
+        
         resolve(resultado);
         
       })
@@ -368,18 +357,15 @@ function leerArchivoCsv(path) {
 
 const filtrarCatalogoBienes = async (req, res) => {
 
-  //console.log('obtener catalogo bienes', req.body);
-  //console.log(req);
   try {
 
     const { filter } = req.query;
-    console.log('Datos del filtro de ctalogooooo', filter);
+   
     const filtro = JSON.parse(filter);
     const dato = filtro.like.data.toUpperCase();
     const estado = filtro.status.data;
 
-    console.log('Dato a buscar', dato);
-    console.log('Estado', estado);
+
 
   
     const catalogoBienes = await CatalogoBienes.findAll({
@@ -399,15 +385,7 @@ const filtrarCatalogoBienes = async (req, res) => {
         str_catalogo_bien_estado: estado,
       },
     });
-    //let data = 'MUS';
-    /*const catalogoBienes = await sequelize.query(
-      `SELECT * FROM inventario.tb_catalogo_bienes WHERE str_catalogo_bien_descripcion LIKE '%${dato}%'`,
-      {
-        type: QueryTypes.SELECT,
-      }
-    );*/
 
-    console.log('catalogoBien encontrado',catalogoBienes);
     if(catalogoBienes.length === 0 || !catalogoBienes){
       return res.json({	
         status: false,

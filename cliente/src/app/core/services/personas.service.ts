@@ -1,5 +1,5 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import {BehaviorSubject, Observable} from 'rxjs'
+import {BehaviorSubject, Observable, Subject} from 'rxjs'
 import { Injectable } from '@angular/core';
 
 import config from 'config/config';
@@ -123,13 +123,15 @@ export class PersonasService {
   private data_porfile$ = new BehaviorSubject<porfileModel>(intPorfile);
   private data_nameRol$ = new BehaviorSubject<string>(nameRol);
 
+  private permiso_rol$ = new Subject<string>();
+
    // Funciones para pasar los valores del forn de Rol persna-rol
   get selectData_rol$(): Observable<perRolesModel>{
     return this.data_rol$.asObservable();
   }
 
   setData_rol(data: perRolesModel) {
-    console.log('SET DATA enviando del boton ->', data);
+    // console.log('SET DATA enviando del boton ->', data);
     this.data_rol$.next(data);
   }
 
@@ -139,7 +141,7 @@ export class PersonasService {
   }
 
   setData_porfile(data: porfileModel) {
-    console.log('SET DATA enviando del boton ->', data);
+    // console.log('SET DATA enviando del boton ->', data);
     this.data_porfile$.next(data);
   }
 
@@ -159,6 +161,15 @@ export class PersonasService {
     localStorage.removeItem('userRole');
     this.data_nameRol$.next('');
   }
+
+  setPermisoRol(data: string){
+    this.permiso_rol$.next(data);
+  }
+
+  get selectPermisoRol$(): Observable<string>{
+    return this.permiso_rol$.asObservable();
+  }
+
 
   //metodo para obtener todas las personas
   // getPersonas() {
@@ -184,7 +195,7 @@ export class PersonasService {
 
   //metodo para agregar una nueva persona
   postUsuarios(data: dataNuevaPersona){
-    console.log("data dentro post",data);
+    // console.log("data dentro post",data);
     return this.http.post<personaNuevaModel>( `${this.urlApi_personas}`, data, {
       withCredentials: true,
     });
@@ -192,7 +203,7 @@ export class PersonasService {
 
 //metodo para cambiar el estado de la persona: Activo o Inactivo
   putUsuarios(_id: number){
-    console.log("id de la persona dentro de putUsuarios",_id);
+    // console.log("id de la persona dentro de putUsuarios",_id);
     return this.http.put<personaNuevaModel>( `${this.urlApi_personas}/${_id}`, {
       withCredentials: true,
     });
@@ -200,7 +211,7 @@ export class PersonasService {
 
  //Metodo para buscar una persona por su id
   getPersona(_id: number){
-    console.log("id de la persona dentro de getPersona",_id);
+    // console.log("id de la persona dentro de getPersona",_id);
     return this.http.get<personaEditModel>(`${this.urlApi_usuarios}/${_id}`,{
       withCredentials: true,
     })
@@ -208,7 +219,7 @@ export class PersonasService {
 
 //metodo para actualizar los datos de la persona-perfil
   UpdateUsuarios(data: dataNuevaPersona, id: number){
-    console.log("data dentro de UpdateUsuarios",data);
+    // console.log("data dentro de UpdateUsuarios",data);
     return this.http.put<personaNuevaModel>( `${this.urlApi_usuarios}/${id}`,data, {
       withCredentials: true,
     });
@@ -216,7 +227,7 @@ export class PersonasService {
 
   //Eliminado logico
   deleteUsuarios(_id: number){
-    console.log("id de la persona dentro de deleteUsuarios",_id);
+    // console.log("id de la persona dentro de deleteUsuarios",_id);
     return this.http.delete<personaNuevaModel>( `${this.urlApi_usuarios}/${_id}`, {
       withCredentials: true,
     });

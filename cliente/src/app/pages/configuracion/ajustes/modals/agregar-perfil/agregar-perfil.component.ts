@@ -7,6 +7,7 @@ import { perfilesModel } from 'src/app/core/models/personas';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { AjustesService } from 'src/app/core/services/ajustes.service';
 import { rolesModel } from 'src/app/core/models/roles';
+import config from 'config/config';
 
 @Component({
   selector: 'app-agregar-perfil',
@@ -59,7 +60,7 @@ export class AgregarPerfilComponent implements OnInit {
     .subscribe({
       next: (getId: number) => {
         
-      console.log("Dentro de CompleteForme, el id es: ", getId)
+      // console.log("Dentro de CompleteForme, el id es: ", getId)
       this.idUser = getId
       this.myForm.value.int_per_id = this.idUser
       // this.ggetPersona()
@@ -72,10 +73,10 @@ export class AgregarPerfilComponent implements OnInit {
 
 
   addProfile(){ 
-    console.log("Funciona el click");
+    // console.log("Funciona el click");
     this.getIdPorfile()
     const data = this.myForm.value;
-    console.log("ADDpROFILE: ", data);
+    // console.log("ADDpROFILE: ", data);
 
     Swal.fire({
       title: '¿Está seguro que desea agregar este perfil?',
@@ -107,7 +108,7 @@ export class AgregarPerfilComponent implements OnInit {
                 timer: 3000,
               });
             }
-            console.log('Agregar Perfil', res);
+            // console.log('Agregar Perfil', res);
             setTimeout(() => {            
               this.myForm.reset();
               this.getPerfiles();
@@ -117,6 +118,8 @@ export class AgregarPerfilComponent implements OnInit {
             console.log('err', error);
           },
           complete:()=>{
+            window.location.href = config.URL_BASE_PATH + '/welcome';
+
           }
         })
       }
@@ -152,7 +155,7 @@ export class AgregarPerfilComponent implements OnInit {
       .pipe(takeUntil(this.destroy$)) //
       .subscribe({
         next: (roles: rolesModel) => {
-          console.log("Roles Body =>", roles.body)
+          // console.log("Roles Body =>", roles.body)
           // this.srvAjustes.datosRoles = roles.body 
           this.rolNombre = roles.body.map((rol: any) => rol.str_rol_nombre)
           Swal.close();

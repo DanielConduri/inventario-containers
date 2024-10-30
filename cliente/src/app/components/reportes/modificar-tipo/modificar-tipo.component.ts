@@ -46,7 +46,7 @@ export class ModificarTipoComponent implements OnInit {
     .subscribe({
       next: (data:any) => {
       Swal.close()
-      console.log('lo que llega ->', data)
+      // console.log('lo que llega ->', data)
       this.myForm = this.fb.group({
         str_tipo_documento_nombre: [data.body.str_tipo_documento_nombre, [Validators.required]],
         str_tipo_documento_descripcion: [data.body.str_tipo_documento_descripcion,],})
@@ -58,7 +58,7 @@ export class ModificarTipoComponent implements OnInit {
   }
 
   send(){
-    console.log('valores ->', this.myForm.value);
+    // console.log('valores ->', this.myForm.value);
     Swal.fire({
       title:'¿Está seguro de modificar este Tipo de Informe ?',
       showDenyButton:true,
@@ -70,7 +70,7 @@ export class ModificarTipoComponent implements OnInit {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next:(rest)=>{
-            console.log("Res: ", rest)
+            // console.log("Res: ", rest)
             if(rest.status){
               Swal.fire({
                 title:'Tipo Modificado Correctamente',
@@ -78,7 +78,7 @@ export class ModificarTipoComponent implements OnInit {
                 showConfirmButton:false,
                 timer:1500
               });
-              console.log("Res: ", rest)
+              // console.log("Res: ", rest)
             }else{
               Swal.fire({
                 title:rest.message,
@@ -88,7 +88,7 @@ export class ModificarTipoComponent implements OnInit {
               });
             }
             setTimeout(() => {
-              console.log('SettimeOut');
+              // console.log('SettimeOut');
               // this.showCenter()
               Swal.close();
             }, 3000);
@@ -142,7 +142,7 @@ export class ModificarTipoComponent implements OnInit {
 //                 this.pdf +
 //                 '" type="application/pdf" width="100%" height="600" />';
 //             }
-        console.log('Lo que llega ->', data);
+        // console.log('Lo que llega ->', data);
       },
       error: (err) =>{
         console.log('Error ->', err);

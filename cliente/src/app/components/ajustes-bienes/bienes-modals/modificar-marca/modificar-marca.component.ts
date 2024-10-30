@@ -50,7 +50,7 @@ export class ModificarMarcaComponent implements OnInit {
             Swal.showLoading()
           }
         });
-        console.log("Estoy recibiendo el id de la marca...", getId)
+        // console.log("Estoy recibiendo el id de la marca...", getId)
         this.id = getId
         this.getMarcaID();
       },
@@ -61,12 +61,12 @@ export class ModificarMarcaComponent implements OnInit {
    }
 
    getMarcaID(){
-    console.log("data en oninit id Marca=>",this.id)
+    // console.log("data en oninit id Marca=>",this.id)
     this.srvCaracteristicas.getMarcaId(this.id)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (dataMarca: modMarcaModel) => {
-        console.log("Llegando data modMarcaModel =>", dataMarca.body)
+        // console.log("Llegando data modMarcaModel =>", dataMarca.body)
         Swal.fire({
           title: 'Cargando',
           didOpen: () => {
@@ -91,7 +91,7 @@ export class ModificarMarcaComponent implements OnInit {
         });
       },
       complete: () => {
-        console.log("Complete")
+        // console.log("Complete")
         Swal.close();
       }
     });
@@ -145,7 +145,7 @@ export class ModificarMarcaComponent implements OnInit {
   // }
 
   modifyMarca(){
-    console.log("id en modifyMArca =>", this.id)
+    // console.log("id en modifyMArca =>", this.id)
     const modifyDataMarca = this.myForm.value;
     Swal.fire({
       title: 'Esta seguro de modificar la marca?',

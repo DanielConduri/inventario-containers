@@ -1,9 +1,10 @@
 import { Roles } from "../../models/seguridad/roles.models.js";
 import { paginarDatos } from "../../utils/paginacion.utils.js";
+import { insertarAuditoria } from "../../utils/insertarAuditoria.utils.js";
 //obtener todos los roles de la BD
 export const obtenerRoles = async (req, res) => { 
   try {
-    console.log("req.query: ", req.query) 
+    
     const select = Object.keys(req.query).length===0;
     // para enviar roles activos cuando quiera crear un perfil a un usuario
     if(select){
@@ -65,7 +66,7 @@ export const obtenerRoles = async (req, res) => {
 const obtenerRol = async (req, res) => {
   const { rol_id } = req.params;
   try {
-    console.log(rol_id);
+    
     const rol = await Roles.findOne({
       where: {
         int_rol_id: rol_id,
@@ -119,6 +120,17 @@ const actualizarRol = async (req, res) => {
         rol.str_rol_descripcion = rol_descripcion;
         await rol.save();
 
+        insertarAuditoria(
+          rol,
+          "tb_roles",
+          "UPDATE",
+          rol,
+          req.ip,
+          req.hearders.host,
+          req,
+          "Se ha actualizado un rol"
+        )
+
         return res.json({
           status: true,
           message: "Rol actualizado",
@@ -171,6 +183,16 @@ const eliminarRol = async (req, res) => {
           },
         }
       );
+      insertarAuditoria(
+        rol,
+        "tb_roles",
+        "UPDATE",
+        rol,
+        req.ip,
+        req.hearders.host,
+        req,
+        "Se ha actualizado un rol"
+      )
       return res.json({
         status: true,
         message: "Rol con estado ACTIVO",
@@ -185,7 +207,7 @@ const insertarRol = async (req, res) => {
   let {  rol_nombre, rol_descripcion } = req.body;
   rol_nombre= rol_nombre.toUpperCase();
   rol_descripcion= rol_descripcion.toUpperCase();
-  console.log(req.body);
+  
   try {
     try {
       const rol = await Roles.create({
@@ -198,10 +220,21 @@ const insertarRol = async (req, res) => {
           message: "Error al ingresar el rol",
         });
       } 
+      insertarAuditoria(
+        "Null",
+        "tb_roles",
+        "INSERT",
+        rol,
+        req.ip,
+        req.hearders.host,
+        req,
+        "Se ha insertado un rol"
+      )
       return res.json({
           status: true,
           message: "Rol ingresado correctamente",
       });
+
       
     } catch (error) {
       return res.json({

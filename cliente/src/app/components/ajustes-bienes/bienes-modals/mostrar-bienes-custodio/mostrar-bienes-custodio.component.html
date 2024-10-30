@@ -1,0 +1,24 @@
+<div class="body-Form">
+    <div class="tableBo">
+        <h3 id="h3-Title">Bienes del Custodio</h3>
+        <table class="table table-striped tabla-estilos">
+            <thead>
+                <tr class="encabezado">
+                    <th>
+                        <div class="d-flex">Código</div>
+                    </th>
+                    <th>
+                        <div class="d-flex">Descripcion</div>
+                    </th>
+            </thead>
+
+            <tbody>
+                <tr class="container-Row" *ngFor="let bien of srvInventario.dataBienCustodiosInfo, let i = index">
+                    <td>{{this.bien.str_codigo_bien}}</td>
+                    <td>{{this.bien.str_catalogo_bien_descripcion}}</td>
+                </tr>
+
+            </tbody>
+        </table>
+
+    </div>

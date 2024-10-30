@@ -39,6 +39,8 @@ import { HistorialArchivosComponent } from './bienes-modals/historial-archivos/h
 
 import {MatExpansionModule} from '@angular/material/expansion';
 import { ComponentsModule } from '../components.module';
+import { MostrarBienesCustodioComponent } from './bienes-modals/mostrar-bienes-custodio/mostrar-bienes-custodio.component';
+import { DetalleCargaComponent } from './bienes-modals/detalle-carga/detalle-carga.component';
 
 
 @NgModule({
@@ -72,6 +74,8 @@ import { ComponentsModule } from '../components.module';
     ModificarBienInternoComponent,
     HistorialBienComponent,
     HistorialArchivosComponent,
+    MostrarBienesCustodioComponent,
+    DetalleCargaComponent,
   ],
   imports: [
     CommonModule,
@@ -100,6 +104,7 @@ import { ComponentsModule } from '../components.module';
 
 
     MostrarBienComponent,
+    MostrarBienesCustodioComponent,
     ModificarBienComponent,
     AgregarBienComponent,
     ModificarEstadosComponent,
@@ -121,7 +126,8 @@ import { ComponentsModule } from '../components.module';
     CustodioBienInfoComponent,
     ModificarBienInternoComponent,
     HistorialBienComponent,
-    HistorialArchivosComponent
+    HistorialArchivosComponent,
+    DetalleCargaComponent,
   ]
 })
 export class AjustesBienesModule { }

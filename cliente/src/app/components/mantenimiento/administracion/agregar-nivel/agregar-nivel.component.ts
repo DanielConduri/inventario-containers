@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
 import { pagNivelMantenimiento } from 'src/app/core/models/mantenimiento/nivelMantenimiento';
+import { pagSoporte } from 'src/app/core/models/mantenimiento/soporte';
 import { pagTipoMantenimiento } from 'src/app/core/models/mantenimiento/tipoMantenimiento';
 import { CaracteristicasMantenimientoService } from 'src/app/core/services/mantenimiento/caracteristicas-mantenimiento.service';
 import { ModalService } from 'src/app/core/services/modal.service';
@@ -21,24 +22,62 @@ export class AgregarNivelComponent implements OnInit {
   isLoading: boolean = false
   isData: boolean = false;
 
+  soportId!: number
+  soportName!: string
+
+  tipoId!: number
+  tipoName!: string
+
+  // tiposM:string[] = []
+
   constructor(
     public fb: FormBuilder,
     public srvModal: ModalService,
-    public srvNivel: CaracteristicasMantenimientoService
+    public srvNivel: CaracteristicasMantenimientoService,
+    public srvSoporte: CaracteristicasMantenimientoService
   ) {
     this.myForm = this.fb.group({
       descripcion: ["", [Validators.required]],
-      idTipoMantenimiento: ["", [Validators.required]],
+      idSoporte: [0, [Validators.required]],
+      idTipoMantenimiento: [0, [Validators.required]],
     })
    }
 
   ngOnInit(): void {
+    this.myForm.reset()
     this.getMantenimiento()
+    this.getSoporte()
+  }
+
+  getSoporte() {
+    Swal.fire({
+      title: 'Cargando...',
+      didOpen: () => {
+        Swal.showLoading();
+        this.isLoading = true;
+        this.isData = true;
+      },
+    });
+
+    this.srvSoporte.getSoporte({})
+    .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: (data: pagSoporte) => {
+        if(data.body.length > 0){
+          this.isData = true;
+          this.isLoading = true;
+          this.srvSoporte.datosSoporte= data.body
+        }
+      },
+      error: (error) => {console.log(error)},
+      complete: () => {Swal.close()}
+    })
+
   }
 
   getMantenimiento(){
     Swal.fire({
-      title: 'Cargando Soportes...',
+      title: 'Cargando...',
       didOpen: () => {
         Swal.showLoading();
         this.isLoading = true;
@@ -53,17 +92,43 @@ export class AgregarNivelComponent implements OnInit {
           this.isData = true;
           this.isLoading = true;
           this.srvNivel.datosTipoMantenimiento = data.body
-          // this.metadata = data.total
         }
-        console.log('lo que llega', this.srvNivel.datosTipoMantenimiento)
-        Swal.close();
-        // this.dataPagina()
       },
-      error: (error) => {console.log(error)}
+      error: (error) => {console.log(error)},
+      complete: () => {Swal.close()}
     })
   }
 
+  selectSoporte(e: any) {
+    // console.log('para agarrar el nivel', e.value)
+    const selectedOption: HTMLOptionElement = e.target['options'][e.target['selectedIndex']]; // 
+    // console.log('lo que llega ->', selectedOption)
+    const selectedValue: string = selectedOption.value;
+    const selectedId: string = selectedOption.id;
+    this.soportId = parseInt(selectedId)
+    this.soportName = selectedValue
+    // console.log('el id y el nombre', selectedId, selectedValue)
+    // this.myForm.value.int_correctivo_nivel_mantenimiento = selectedId
+    // this.myForm.value.str_correctivo_nivel_nombre = selectedValue
+
+  }
+  selectTipo(e: any) {
+    // console.log('para agarrar el nivel', e.value)
+    const selectedOption: HTMLOptionElement = e.target['options'][e.target['selectedIndex']]; // 
+    // console.log('lo que llega ->', selectedOption)
+    const selectedValue: string = selectedOption.value;
+    const selectedId: string = selectedOption.id;
+    this.tipoId = parseInt(selectedId)
+    this.tipoName = selectedValue
+    // console.log('el id y el nombre', selectedId, selectedValue)
+    // this.myForm.value.int_correctivo_nivel_mantenimiento = selectedId
+    // this.myForm.value.str_correctivo_nivel_nombre = selectedValue
+
+  }
+
   send(){
+    this.myForm.value.idSoporte = this.soportId
+    this.myForm.value.idTipoMantenimiento = this.tipoId
     console.log('valores ->', this.myForm.value)
     Swal.fire({
       title:'¿Está seguro de añadir este Nivel de Mantenimiento  ?',
@@ -84,7 +149,7 @@ export class AgregarNivelComponent implements OnInit {
                 showConfirmButton:false,
                 timer:1500
               });
-              console.log("Res: ", rest)
+              // console.log("Res: ", rest)
             }else{
               Swal.fire({
                 title:rest.message,
@@ -94,7 +159,7 @@ export class AgregarNivelComponent implements OnInit {
               });
             }
             setTimeout(() => {
-              console.log('SettimeOut');
+              // console.log('SettimeOut');
               // this.showCenter()
               Swal.close();
             }, 3000);
@@ -138,12 +203,17 @@ export class AgregarNivelComponent implements OnInit {
           this.srvNivel.datosNivelMantenimiento = data.body
           // this.metadata = data.total
         }
-        console.log('lo que llega en el nivel ->', data)
+        // console.log('lo que llega en el nivel ->', data)
         Swal.close();
         // this.dataPagina()
       },
       error: (error) => {console.log(error)}
     })
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 
 }

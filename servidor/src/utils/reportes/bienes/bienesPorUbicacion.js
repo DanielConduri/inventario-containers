@@ -5,7 +5,7 @@ import path from "path";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-function generarPDFBienesPorUbicacion(contenido, titulo) {
+function generarPDFBienesPorUbicacion(contenido, titulo, responsable) {
   const headerImage1 = path.join(__dirname, "../../recursos/Banderin.png");
   const headerImage2 = path.join(__dirname, "../../recursos/Espoch-Dtic.png");
   const footerImage1 = path.join(__dirname, "../../recursos/PieDePágina.png");
@@ -30,6 +30,12 @@ function generarPDFBienesPorUbicacion(contenido, titulo) {
       doc.font("Times-Bold").fontSize(12);
       doc.text(titulo, {
         align: "center",
+      });
+      doc.font("Times-Bold").fontSize(10);
+      doc.x = 90;
+      doc.moveDown(1);
+      doc.text("RESPONSABLE: " + responsable, {
+        // align: "center",
       });
       doc.text('', {
         align: "center",
@@ -65,7 +71,6 @@ function generarPDFBienesPorUbicacion(contenido, titulo) {
         { key: "str_codigo_bien", label: " CÓDIGO ", align: "center" , width: 60 },
         { key: "str_bien_nombre", label: "NOMBRE", align: "center", width: 200 },
         { key: "str_ubicacion_nombre", label: "UBICACIÓN", align: "center" },
-     
       ],
       contenido,
       {

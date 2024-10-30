@@ -24,8 +24,25 @@ export const RegistroArchivos = sequelize.define(
         int_registro_num_filas_no_insertadas: {
             type: DataTypes.INTEGER
         },
+        str_registro_estado_carga: {
+            type: DataTypes.STRING(50)
+        },
+
+        str_registro_tiempo_carga: {
+            type: DataTypes.STRING(10)
+        },
+        int_registro_num_columnas: {
+            type: DataTypes.INTEGER
+        },
+        dt_fecha_actualizacion_carga: {
+            type:DataTypes.DATE
+        },
+        
         dt_fecha_creacion: {
             type: DataTypes.DATE
+        },
+        str_detalle_carga: {
+            type: DataTypes.JSONB
         }
     },
     {

@@ -10,8 +10,11 @@ export const Soporte = sequelize.define(
             autoIncrement: true,
             allowNull: false,
         },
-        str_soporte_descripcion: {
+        str_soporte_nombre: {
             type: DataTypes.STRING(255),
+        },
+        str_soporte_descripcion: {
+            type: DataTypes.TEXT,
         },
         str_soporte_estado: {
             type: DataTypes.STRING(255),
@@ -19,7 +22,12 @@ export const Soporte = sequelize.define(
         },
         dt_fecha_creacion: {
             type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW
         },
+        dt_fecha_actualizacion: {
+            type: DataTypes.DATE,
+            defaultValue: DataTypes.NOW
+        }
 
     },
     {

@@ -8,6 +8,10 @@ import { ReportesComponent } from './reportes/reportes.component';
 import { PermissionsGuard } from 'src/app/core/guards/permissions.guard';
 import { MantenimientoComponent } from './mantenimiento/mantenimiento.component';
 
+import { BienCustodioModule } from './bien-custodio/bien-custodio.module';
+import { PrestamosComponent } from './prestamos/prestamos.component';
+import { FirmaElectronicaComponent } from './firma-electronica/firma-electronica.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -44,6 +48,30 @@ const routes: Routes = [
             (m) => m.MantenimientoModule
           ),
       },
+      {
+        path: 'bienes-custodio',
+        canActivate: [PermissionsGuard],
+        loadChildren: () =>
+          import('./bien-custodio/bien-custodio.module').then(
+          (m) => m.BienCustodioModule
+        ),
+      },
+      {
+        path: 'prestamos',
+        canActivate: [PermissionsGuard],
+        loadChildren: () =>
+          import('./prestamos/prestamos.module').then(
+          (m) => m.PrestamosModule
+        ),
+      },
+      {
+        path: 'firma-electronica',
+        //canActivate: [PermissionsGuard],
+        loadChildren: () =>
+          import('./firma-electronica/firma-electronica.module').then(
+          (m) => m.FirmaElectronicaModule
+        ),
+      }
     ],
   },
 ];
@@ -53,4 +81,4 @@ const routes: Routes = [
   imports: [CommonModule, RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class AdminModule {}
+export class AdminModule { }

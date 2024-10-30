@@ -3,9 +3,10 @@ import { Menu } from "../../models/seguridad/menu.models.js";
 import { Personas } from "../../models/seguridad/personas.models.js";
 import { Op } from "sequelize";
 import { QueryTypes } from "sequelize";
+import { insertarAuditoria } from "../../utils/insertarAuditoria.utils.js";
 
 export const obtenerMenusSubmenus = async (req, res) => {
-  console.log("Entró a la función obtenerMenusSubmenus")
+ 
   try {
     const data = await sequelize.query("SELECT * FROM seguridad.tb_menus ", {
       type: sequelize.QueryTypes.SELECT,
@@ -29,7 +30,7 @@ export const obtenerMenusSubmenus = async (req, res) => {
         }));
     }
     const submenusPrincipal = obtenerSubmenus(1);
-    console.log("Datos enviados",submenusPrincipal);
+    
     return res.json({
       status: true,
       message: "Menús encontrados",
@@ -58,7 +59,7 @@ export const obtenerMenus = async (req, res) => {
 };
 const obtenerSubmenusDeUnMenu = async (req, res) => {
   try {
-    console.log("Entró a la función obtenerSubmenusDeUnMenu")
+    
     const { int_menu_id } = req.params;
     const menu = await Menu.findAll({
       where: {
@@ -71,7 +72,7 @@ const obtenerSubmenusDeUnMenu = async (req, res) => {
         message: "No se encontraron submenús",
       });
     }
-    console.log("Submenús",menu);
+    
     res.json({
       status: true,
       message: "Submenús encontrados",
@@ -91,13 +92,20 @@ const actualizarMenu = async (req, res) => {
       str_menu_icono,
       str_menu_path,
       int_menu_padre,
+      str_menu_descripcion
     } = req.body;
+    const antiguoValor = await Menu.findOne({
+      where: {
+        int_menu_id,
+      },
+    });
     const menu = await Menu.update(
       {
         str_menu_nombre,
         str_menu_icono,
         str_menu_path,
         int_menu_padre,
+        str_menu_descripcion
       },
       {
         where: {
@@ -105,6 +113,23 @@ const actualizarMenu = async (req, res) => {
         },
       }
     );
+
+    const nuevoValor = await Menu.findOne({
+      where: {
+        int_menu_id,
+      },
+    });
+    insertarAuditoria(
+      antiguoValor,
+      "tb_menus",
+      "UPDATE",
+      nuevoValor,
+      req.ip,
+      req.headers.host,
+      req,
+      "Se ha actualizado un menú"
+
+    )
     res.json({
       status: true,
       message: "Menú actualizado correctamente",
@@ -162,7 +187,22 @@ const eliminarMenu = async (req, res) => {
         body: menu,
       });
     }
-    await menu.save();
+    const nuevoUp = await menu.save();
+    const nuevo = await Menu.findOne({
+      where: {
+        int_menu_id,
+      },
+    });
+    insertarAuditoria(
+      menu,
+      "tb_menus",
+      "UPDATE",
+      nuevo,
+      req.ip,
+      req.headers.host,
+      req,
+      "Se ha actualizado un menú"
+    );
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -203,12 +243,23 @@ export const crearMenu = async (req, res) => {
       str_menu_descripcion,
     });
 
+    insertarAuditoria(
+      null,
+      "tb_menus",
+      "CREATE",
+      menu,
+      req.ip,
+      req.headers.host,
+      req,
+      "Se ha creado un menú"
+    );
+
     // actualizar los permisos de  todos los perfiles con este menu nuevo
     const perfilIdPermisos = await sequelize.query(
       `select distinct int_perfil_id from seguridad.tb_permisos`,
       { type: QueryTypes.SELECT }
     );
-    console.log("este es el perfilIdPermisos", perfilIdPermisos)
+    
 
     //creo el permiso con el menu llamando a la funcion de crear permiso
     const permiso = perfilIdPermisos.map(async (perfil) => {

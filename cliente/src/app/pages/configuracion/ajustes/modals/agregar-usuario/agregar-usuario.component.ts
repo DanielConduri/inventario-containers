@@ -7,6 +7,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { CentralizadaModel } from 'src/app/core/models/ajustes';
 import { ModalService } from 'src/app/core/services/modal.service';
 import { PaginacionService } from 'src/app/core/services/paginacion.service';
+import config from 'config/config';
 
 @Component({
   selector: 'app-agregar-usuario',
@@ -19,7 +20,7 @@ export class AgregarUsuarioComponent implements OnInit, OnDestroy {
 
 
   request = false;
-  
+
   elementPagina: {
     dataLength:     number,
     metaData:       number,
@@ -42,7 +43,7 @@ export class AgregarUsuarioComponent implements OnInit, OnDestroy {
     public srvPersonas: PersonasService,
     public srvPaginacion: PaginacionService,
     public srvModal: ModalService,
-   ) { 
+   ) {
 
     const nombre = ''
     const apellidos = ''
@@ -62,12 +63,12 @@ this.dataForm = this.fb.group({
     null,
     [Validators.required, Validators.pattern(/^[0-9]{10}$/)],
   ],
-  
+
 
 })
 
 this.myForm = this.fb.group({
-  
+
   per_cedula:[
       null,
       [Validators.required, Validators.pattern(/^[0-9]{10}$/)],
@@ -110,7 +111,7 @@ this.myForm = this.fb.group({
 
 //Buscar usuario en la centralizada y obtención de sus datos
   obtenerDatosCentralizada(_cedula: string){
-    console.log("Entra "+_cedula);
+    // console.log("Entra "+_cedula);
     Swal.fire({
       title: 'Buscando...',
       didOpen: () => {
@@ -142,20 +143,21 @@ this.srvAjustes
         timer: 3000,
       });
     }
-    
+
   },
   error: (error) => {
     console.log('err', error);
   },
   complete: () => {
   }
- 
-});}
+
+})
+;}
 
 //Funcion para agregar usuario
 agregarUsuario(){
-  console.log("Entra a agregar");
-  
+  // console.log("Entra a agregar");
+
   this.dataForm.patchValue(this.myForm.value);
   const data = this.dataForm.value;
   Swal.fire({
@@ -185,7 +187,7 @@ agregarUsuario(){
             });
             this.myForm.reset();
             this.srvModal.closeModal();
-            
+
           } else {
             Swal.close();
             Swal.fire({
@@ -194,8 +196,8 @@ agregarUsuario(){
               showConfirmButton: false,
               timer: 3000,
             });
-          }          
-          setTimeout(() => {            
+          }
+          setTimeout(() => {
           this.myForm.reset();
             this.getPersonas();
           }, 3000);
@@ -204,7 +206,8 @@ agregarUsuario(){
           console.log('err', error);
         },
         complete:()=>{
-          
+          window.location.href = config.URL_BASE_PATH + '/welcome';
+
         }
       })
     }

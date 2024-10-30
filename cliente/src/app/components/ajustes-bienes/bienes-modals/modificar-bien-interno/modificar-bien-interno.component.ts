@@ -67,6 +67,7 @@ export class ModificarBienInternoComponent implements OnInit {
   ) {
     this.myForm = this.fb.group({
       valorLleno: [2],
+      cedula_user: ['', [Validators.required]],
       str_custodio_interno: ['', [Validators.required]],
       dt_bien_fecha_compra_interno: ['', [Validators.required]],
       str_ubicacion_nombre_interno: ['', [Validators.required]],
@@ -77,7 +78,7 @@ export class ModificarBienInternoComponent implements OnInit {
     this.srvModal.SelectID_Bien$.pipe(takeUntil(this.destroy$)).subscribe({
       next: (res) => {
         this.idBien = res;
-        console.log('ID del bien => ', this.idBien);
+        // console.log('ID del bien => ', this.idBien);
       }
     });
 
@@ -88,7 +89,7 @@ export class ModificarBienInternoComponent implements OnInit {
   //Funcion para obtener los datos del usuario de la centralizada
   obtenerDatosCentralizada(e: any) {
     let cedula = document.getElementById('cedula_user') as any;
-    console.log('Entra ' + cedula.value);
+    // console.log('Entra ' + cedula.value);
     Swal.fire({
       title: 'Buscando...',
       didOpen: () => {
@@ -100,7 +101,7 @@ export class ModificarBienInternoComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res: any) => {
-          console.log(' lo que llega de la centralizada ->', res);
+          // console.log(' lo que llega de la centralizada ->', res);
           if (res.status) {
             Swal.close();
             Swal.fire({
@@ -112,8 +113,9 @@ export class ModificarBienInternoComponent implements OnInit {
             //Agregarmos el nombre y apellido del usuario encontrado a la tabla de responsables
             const encargardo = res.body.nombre + ' ' + res.body.apellidos;
             this.custodioValue = encargardo;
-            console.log('encargadoValue =>', this.custodioValue);
+            // console.log('encargadoValue =>', this.custodioValue);
             this.myForm.get('str_custodio_interno')?.setValue(this.custodioValue);
+            this.myForm.get('cedula_user')?.setValue(cedula.value);
 
             // this.inputEncargado.nativeElement.value = this.custodioValue;
             // this.jsonForm.get('encargado')?.setValue(this.custodioValue);
@@ -151,18 +153,20 @@ export class ModificarBienInternoComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (res: any) => {
-          console.log('Respuesta RES => ', res);
+          // console.log('Respuesta RES => ', res);
           if (res.body) {
             Swal.close();
 
             //imprimimos el valor que me llega a la consola
-            console.log('Valor de la respuesta => ', res.body);
+            // console.log('Valor de la respuesta => ', res.body);
 
             this.srvInventario.dataBienInfo = res.body;
 
             this.myForm.get('str_custodio_interno')?.setValue(res.body.str_custodio_interno);
+            this.myForm.get('cedula_user')?.setValue(res.body.str_custodio_cedula);
             this.myForm.get('dt_bien_fecha_compra_interno')?.setValue(res.body.dt_bien_fecha_compra_interno);
             this.myForm.get('str_ubicacion_nombre_interno')?.setValue(res.body.str_ubicacion_nombre_interno);
+            
           } else {
             Swal.close();
             Swal.fire({
@@ -178,7 +182,7 @@ export class ModificarBienInternoComponent implements OnInit {
           console.log('Error => ', error);
         },
         complete: () => {
-          console.log('Completado');
+          // console.log('Completado');
         }
       });
   }
@@ -191,7 +195,7 @@ export class ModificarBienInternoComponent implements OnInit {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: (resCentro: centrosModel) => {
-          console.log('Informacion que llega a searchCentro =>', resCentro);
+          // console.log('Informacion que llega a searchCentro =>', resCentro);
           this.autocomplete(
             document.getElementById('inp-Centro') as HTMLInputElement,
             resCentro.body,
@@ -229,7 +233,7 @@ export class ModificarBienInternoComponent implements OnInit {
         val = this.value;
       closeAllLists(arr);
       if (!val) {
-        return false;
+        //return false;
       }
       currentFocus = -1;
       a = document.createElement('DIV');
@@ -239,55 +243,7 @@ export class ModificarBienInternoComponent implements OnInit {
       a.setAttribute('class', 'autocomplete-items');
       this.parentNode?.appendChild(a);
 
-      let count = 0;
-
-      for (let i = 0; i < arr.length; i++) {
-        const text = arr[i][valor]?.toUpperCase();
-        if (text?.includes(val.trim().toUpperCase())) {
-          count++;
-          b = document.createElement('DIV');
-
-          const textDivList = text.split(val.toUpperCase());
-          b.innerHTML = arr[i][valor].substr(0, textDivList[0].length);
-          b.innerHTML +=
-            '<strong>' +
-            arr[i][valor].substr(textDivList[0].length, val.length) +
-            '</strong>';
-          b.innerHTML += arr[i][valor].substr(
-            textDivList[0].length + val.length
-          );
-          b.innerHTML += "<input type='hidden' value='" + arr[i][valor] + "'>";
-
-          if (valor.startsWith('str_ruc')) {
-            nombreC = arr[i]['str_nombre_contratista'];
-            b.innerHTML += ` - ${nombreC}`;
-          }
-
-          b.addEventListener('click', function (e) {
-            inp.value = this.getElementsByTagName('input')[0].value;
-            ithis.dataCentros = arr[i];
-            console.log(
-              'Esto es lo que se le asigna a dataCentros =>',
-              ithis.dataCentros
-            );
-            switch (name) {
-              case 'centro':
-                ithis.myForm
-                  .get('str_ubicacion_nombre_interno')!
-                  .setValue(arr[i].str_centro_nombre);
-                console.log("Valor del myForm =>", ithis.myForm.value)
-                break;
-            }
-            localStorage.setItem(
-              'dataForm',
-              JSON.stringify(ithis.myForm.value)
-            );
-            closeAllLists(arr);
-          });
-          a.appendChild(b);
-        }
-      }
-      return true;
+      
     });
 
     /*execute a function presses a key on the keyboard:*/
@@ -346,12 +302,12 @@ export class ModificarBienInternoComponent implements OnInit {
       cancelButtonText: 'No',
     }).then((result) => {
       if(result.isConfirmed){
-        console.log('Valor del myForm =>', this.myForm.value);
+        // console.log('Valor del myForm =>', this.myForm.value);
         this.srvInventario.putEditBien(this.idBien ,this.myForm.value)
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (res) => {
-            console.log('Respuesta de la edicion =>', res);
+            // console.log('Respuesta de la edicion =>', res);
             Swal.fire({
               title: 'Se ha editado correctamente',
               icon: 'success',
@@ -386,11 +342,11 @@ export class ModificarBienInternoComponent implements OnInit {
 
   //Funcion getBienes
   getBienes(){
-    this.srvInventario.getBienes(1)
+    this.srvInventario.getBienes(1,0)
     .pipe(takeUntil(this.destroy$))
     .subscribe({
       next: (res) => {
-        console.log('Respuesta de los bienes =>', res);
+        // console.log('Respuesta de los bienes =>', res);
       },
       error: (err) => {
         console.log('Error al obtener los bienes =>', err);

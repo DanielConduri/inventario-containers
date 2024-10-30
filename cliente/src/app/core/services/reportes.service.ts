@@ -4,7 +4,6 @@ import config from 'config/config';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { informeAgg } from '../models/informes';
 
-
 const intInfor: informeAgg = {
   id: 0,
   status: true
@@ -26,6 +25,19 @@ export class ReportesService {
   private URL_API_BIENES_POR_MARCA: string = config.URL_API_BASE + 'reportes/bienesPorMarca'
   private URL_API_BIENES_POR_UBICACION: string = config.URL_API_BASE + 'reportes/bienesPorUbicacion'
   private URL_API_BIENES_POR_HISTORIAL: string = config.URL_API_BASE + 'reportes/bienesPorHistorial'
+  private URL_API_TOTAL_BIENES: string = config.URL_API_BASE + 'reportes/totalBienes'
+  private URL_API_BIENES_POR_DESCRIPCION: string = config.URL_API_BASE + 'reportes/bienesPorDescripcion'
+
+  private URL_API_MANTENIMIENTO_C_FECHA: string = config.URL_API_BASE + 'reportes/bienesMantenimientoCorrectivoPorFechas'
+  private URL_API_MANTENIMIENTO_C_CODIGO_BIEN: string = config.URL_API_BASE + 'reportes/mantenimientosCorrectivosPorCodigoBien'
+  private URL_API_MANTENIMIENTO_C_TECNICO_FECHA: string = config.URL_API_BASE + 'reportes/mantenimientosCorrectivosPorTecnicoFechas'
+  private URL_API_MANTENIMIENTO_P_PLANIFICACION: string = config.URL_API_BASE + 'reportes/bienesMantenimientoPreventivoPorPlanificacion'
+  private URL_API_MANTENIMIENTO_P_CENTRO: string = config.URL_API_BASE + 'reportes/mantenimientoPreventivoPorCentro'
+
+  // router.get("/bienesMantenimientoCorrectivoPorFechas", routeReportesMantenimiento.reporteBienesMantenimientoCorrectivoPorFechas);
+  // router.get("/mantenimientosCorrectivosPorCodigoBien", routeReportesMantenimiento.reporteMantenimientosCorrectivosPorCodigoBien);
+  // router.get("/mantenimientosCorrectivosPorTecnicoFechas", routeReportesMantenimiento.reporteMantenimientosCorrectivosPorTecnicoFechas);
+  // router.get("/bienesMantenimientoPreventivoPorPlanificacion/:int_planificacion_id", routeReportesMantenimiento.reporteBienesMantenimientoPreventivoPorPlanificacion);
 
 
   private URL_API_UBICACIONES: string = config.URL_API_BASE + 'centros/filtradoUbicaciones'
@@ -67,95 +79,232 @@ export class ReportesService {
 
   /////////////////////////////////////////////////
 
-getOrigenIngreso() {
-  return this.http.get<any>(this.URL_API_ORIGEN_INGRESO, {
-    withCredentials: true
-  });
-}
-
-getTipoIngreso() {
-  return this.http.get<any>(this.URL_API_TIPO_INGRESO, {
-    withCredentials: true
-  });
-
-}
-
-getBienesFechaCompra() {
-
-  return this.http.get<any>(this.URL_API_BIENES_FECHA_COMPRA, {
-    withCredentials: true
-  });
-
-}
-
-getBienesFechaCompra2() {
-  return this.http.get<any>(this.URL_API_BIENES_FECHA_COMPRA2, {
-    withCredentials: true
-  });
-
-}
-
-getBienesConGarantia() {
-  return this.http.get<any>(this.URL_API_BIENES_CON_GARANTIA, {
-    withCredentials: true
-  });
+  getOrigenIngreso() {
+    return this.http.get<any>(`${this.URL_API_ORIGEN_INGRESO}/${0}`, {
+      withCredentials: true
+    });
+  }
 
 
-}
-
-getBienesConGarantiaPorFecha(fecha: any) {
-  const params = new HttpParams()
-  .set('fechaInicio', fecha.fechaI)
-  .set('fechaFinal', fecha.fechaF)
-
-  console.log('en el servicio ->', fecha)
-  return this.http.get<any>(this.URL_API_BIENES_CON_GARANTIA_FECHA + '?' + params, {
-    withCredentials: true
-  });
+  getIngresoOrigenExcel(ingreso: boolean): Observable<Blob>  {
+    return this.http.get(`${this.URL_API_ORIGEN_INGRESO}/${ingreso}`, {
+      responseType: 'blob',
+      withCredentials: true
+    });
+  }
 
 
 
-}
+  getBienesTotal(){
+    return this.http.get<any>(this.URL_API_TOTAL_BIENES + '/' + `${0}`, {
+      withCredentials: true,
+    });
+  }
 
-getBienesPorCatalogo(catalogo: number) {
-  return this.http.get<any>(this.URL_API_BIENES_POR_CATALOGO + '/' + catalogo, {
-    withCredentials: true
-  });
-}
-
-getBienesPorMarca(marca: number) {
-  return this.http.get<any>(this.URL_API_BIENES_POR_MARCA + '/' + marca, {
-    withCredentials: true
-  });
-}
-
-getBienesPorUbicacion(ubicacion: number) {
-  return this.http.get<any>(this.URL_API_BIENES_POR_UBICACION + '/' + ubicacion  , {
-    withCredentials: true
-  });
-}
-
-getBienesPorHistorial(historial: number) {
-  return this.http.get<any>(this.URL_API_BIENES_POR_HISTORIAL + '/' + historial, {
-    withCredentials: true
-  });
-}
+  getBienesTotalExcel(estado : boolean): Observable<Blob> {
+    return this.http.get(this.URL_API_TOTAL_BIENES + '/' + `${estado}`, {
+      responseType: 'blob', //Establece el tipo de respuesta de un archivo
+      withCredentials: true,
+    });
+  }
 
 
-// es un filtro por lo que se necesita parametros 
-getBienesUbicacion(pagination: any){
+  getTipoIngreso(estado: boolean) {
+    return this.http.get<any>(this.URL_API_TIPO_INGRESO + '/' + `${0}`, {
+      withCredentials: true
+    });
+  }
 
-  const params = new HttpParams()
-  .set('page', pagination.page)
-  .set('size', pagination.size)
-  .set('parameter', pagination.parameter)
-  .set('data', pagination.data)
-  console.log('lo que va en el servicio', pagination)
-  console.log('lo que lleva params', params)
-  return this.http.get<any>(this.URL_API_UBICACIONES + '?'+ params, {
-    withCredentials: true
-  })
-}
+  getTipoIngresoExcel(estado: boolean): Observable<Blob> {
+    return this.http.get(this.URL_API_TIPO_INGRESO + '/' + `${estado}`, {
+      responseType: 'blob',
+      withCredentials: true
+    });
+  }
 
+
+  getBienesFechaCompra() {
+    return this.http.get<any>(this.URL_API_BIENES_FECHA_COMPRA + '/' + `${0}`, {
+      withCredentials: true
+    });
+  }
+
+  getBienesFechaCompraExcel(estado: boolean): Observable<Blob> {
+    return this.http.get(this.URL_API_BIENES_FECHA_COMPRA + '/' + `${estado}`, {
+      responseType: 'blob',
+      withCredentials: true
+    });
+  }
+
+
+  getBienesFechaCompra2() {
+    return this.http.get<any>(this.URL_API_BIENES_FECHA_COMPRA2 + '/' + `${0}`, {
+      withCredentials: true
+    });
+  }
+
+  getBienesFechaCompraDosExcel(estado: boolean): Observable<Blob> {
+    return this.http.get(this.URL_API_BIENES_FECHA_COMPRA2 + '/' + `${estado}`, {
+      responseType: 'blob',
+      withCredentials: true
+    });
+  }
+
+  getBienesConGarantia() {
+    return this.http.get<any>(this.URL_API_BIENES_CON_GARANTIA, {
+      withCredentials: true
+    });
+
+
+  }
+
+  getBienesConGarantiaPorFecha(fecha: any) {
+    const params = new HttpParams()
+      .set('fechaInicio', fecha.fechaI)
+      .set('fechaFinal', fecha.fechaF)
+
+    // console.log('en el servicio ->', fecha)
+    return this.http.get<any>(this.URL_API_BIENES_CON_GARANTIA_FECHA + '?' + params, {
+      withCredentials: true
+    });
+
+
+
+  }
+
+  getBienesPorCatalogo(catalogo: number, estado: boolean) {
+    console.log('catalogo', catalogo)
+    console.log('estado', estado)
+    return this.http.get<any>(this.URL_API_BIENES_POR_CATALOGO + '/' + catalogo + '/' + `${false}`, {
+      withCredentials: true
+    });
+  }
+
+  getBienesPorCatalogoExcel(catalogo: number, estado: boolean): Observable<Blob> {
+    return this.http.get(this.URL_API_BIENES_POR_CATALOGO + '/' + catalogo + '/' + `${estado}`, {
+      responseType: 'blob',
+      withCredentials: true
+    });
+  }
+
+  getBienesPorMarca(marca: number, estado: boolean) {
+    return this.http.get<any>(this.URL_API_BIENES_POR_MARCA + '/' + marca + '/' + `${0}`, {
+      withCredentials: true
+    });
+  }
+
+  getBienesPorMarcaExcel(marca: number, estado: boolean): Observable<Blob>  {
+    return this.http.get(this.URL_API_BIENES_POR_MARCA + '/' + marca + '/' + `${estado}`, {
+      responseType: 'blob',
+      withCredentials: true
+    });
+  }
+
+  getBienesPorDescripcion(descripcion: string, estado: boolean) {
+    console.log(descripcion)
+    return this.http.get<any>(this.URL_API_BIENES_POR_DESCRIPCION + '/' + descripcion + '/' + `${0}`, {
+      withCredentials: true
+    });
+  }
+
+  getBienesPorDescripcionExcel(descripcion: string, estado: boolean): Observable<Blob>  {
+    return this.http.get(this.URL_API_BIENES_POR_DESCRIPCION + '/' + descripcion + '/' + `${estado}`, {
+      responseType: 'blob',
+      withCredentials: true
+    });
+  }
   
+
+
+  getBienesPorUbicacion(ubicacion: number, responsable:any ,estado: boolean) {
+    return this.http.get<any>(this.URL_API_BIENES_POR_UBICACION + '/' + ubicacion + '/' + responsable + '/' + `${0}`, {
+      withCredentials: true
+    });
+  }
+
+  getBienesPorUbicacionExcel(ubicacion: number, estado: boolean): Observable<Blob>  {
+    return this.http.get(this.URL_API_BIENES_POR_UBICACION + '/' + ubicacion + '/' + `${estado}`, {
+      responseType: 'blob',
+      withCredentials: true
+    });
+  }
+
+  getBienesPorHistorial(historial: number, estado: boolean) {
+    return this.http.get<any>(this.URL_API_BIENES_POR_HISTORIAL + '/' + historial +'/'+ `${0}`, {
+      withCredentials: true
+    });
+  }
+
+  getBienesPorHistorialExcel(historial: number, estado: boolean):  Observable<Blob>   {
+    return this.http.get(this.URL_API_BIENES_POR_HISTORIAL + '/' + historial +'/'+ `${estado}`, {
+      responseType: 'blob',
+      withCredentials: true
+    });
+  }
+
+
+  // es un filtro por lo que se necesita parametros 
+  getBienesUbicacion(pagination: any) {
+
+    const params = new HttpParams()
+      .set('page', pagination.page)
+      .set('size', pagination.size)
+      .set('parameter', pagination.parameter)
+      .set('data', pagination.data)
+    // console.log('lo que va en el servicio', pagination)
+    // console.log('lo que lleva params', params)
+    return this.http.get<any>(this.URL_API_UBICACIONES + '?' + params, {
+      withCredentials: true
+    })
+  }
+
+  ///////////////////////////////////////////////////////////////////////
+  getMantenimientoCorrectivoPorFechas(fecha: any) {
+    const params = new HttpParams()
+      .set('fechaInicio', fecha.fechaI)
+      .set('fechaFinal', fecha.fechaF)
+
+    // console.log('en el servicio ->', fecha)
+    return this.http.get<any>(this.URL_API_MANTENIMIENTO_C_FECHA + '?' + params, {
+      withCredentials: true
+    });
+  }
+
+  getmantenimientosCorrectivosPorCodigoBien(codigo: any){
+    //console.log('lo que llega aqui ---->', codigo)
+    const params = new HttpParams()
+    .set('str_codigo_bien', codigo)
+    return this.http.get<any>(this.URL_API_MANTENIMIENTO_C_CODIGO_BIEN + '?'+ params, {
+      withCredentials: true
+    })
+  }
+
+  getmantenimientosCorrectivosPorTecnicoFechas(tecnico:string ,fecha:any){
+    const params = new HttpParams()
+      .set('fechaInicio', fecha.fechaI)
+      .set('fechaFinal', fecha.fechaF)
+      .set('str_mantenimiento_correctivo_tecnico_responsable', tecnico.toString())
+
+    return this.http.get<any>(this.URL_API_MANTENIMIENTO_C_TECNICO_FECHA + '?' + params,{
+      withCredentials: true
+    })
+  }
+
+  getBienesMantenimientoPreventivoPorPlanificacion(id: number){
+    // const params = new HttpParams()
+    // .set('int_planificacion_id',id)
+
+    return this.http.get<any>(this.URL_API_MANTENIMIENTO_P_PLANIFICACION + '/' + id,{
+      withCredentials: true
+    })
+  }
+
+  getBienesMantenimientoPreventivoPorCentro(id: number){
+    const params = new HttpParams()
+    .set('int_planificacion_id',id.toString())
+    return this.http.get<any>(this.URL_API_MANTENIMIENTO_P_CENTRO + '?' + params,{
+      withCredentials: true
+    })
+  }
+
 }

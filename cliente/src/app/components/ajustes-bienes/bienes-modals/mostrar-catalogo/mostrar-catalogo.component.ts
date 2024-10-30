@@ -92,7 +92,7 @@ export class MostrarCatalogoComponent implements OnInit {
       next: (data: CatalogoShowModel1) => {
         if(data.body){
           this.isData = true;
-          console.log("Obteniendo Catalogo de la base de Datos", data.body);
+          // console.log("Obteniendo Catalogo de la base de Datos", data.body);
           this.srvCaracteristicas.datosCatalogo = data.body;
           this.metadata = data.total;
           if(this.srvModal.report){
@@ -101,17 +101,17 @@ export class MostrarCatalogoComponent implements OnInit {
               this.idReporte.push(this.srvCaracteristicas.datosCatalogo[i].int_catalogo_bien_id)
             }
           }
-          console.log('los id ->', this.idReporte)
+          // console.log('los id ->', this.idReporte)
         }else{
           this.isData = false;
-          console.log("No se pudo obtener el Catalogo de la base de Datos");
+          // console.log("No se pudo obtener el Catalogo de la base de Datos");
         }
       },
       error: (err: any) => {
         console.log("Error al obtener el Catalogo de la base de Datos", err);
       },
       complete: () => {
-        console.log("Peticion completa")
+        // console.log("Peticion completa")
         Swal.close();
         this.dataPagina()
       }
@@ -153,7 +153,7 @@ export class MostrarCatalogoComponent implements OnInit {
         .pipe(takeUntil(this.destroy$))
         .subscribe({
           next: (data: any) => {
-            console.log("Catalogo deshabilitado", data);
+            // console.log("Catalogo deshabilitado", data);
             if(data.status){
               Swal.fire({
                 title: 'Catalogo Deshabilitado',
@@ -177,7 +177,7 @@ export class MostrarCatalogoComponent implements OnInit {
             console.log("Error al deshabilitar el Catalogo", err);
           },
           complete: () => {
-            console.log("Peticion completa");
+            // console.log("Peticion completa");
           }
         });
       }
@@ -196,7 +196,7 @@ export class MostrarCatalogoComponent implements OnInit {
       this.parameter = 'str_catalogo_bien_' + this.searchResult.parameter;
       this.data = this.searchResult.data;
       this.mapFiltersToRequest = { size: 10, page: 1, parameter: this.parameter, data: this.searchResult.data };
-      console.log('lo que llega del filtro ->', this.searchResult.data)
+      // console.log('lo que llega del filtro ->', this.searchResult.data)
       this.getCatalogo();
     }
   }

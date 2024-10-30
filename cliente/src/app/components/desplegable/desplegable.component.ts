@@ -43,21 +43,24 @@ export class DesplegableComponent implements OnInit {
                 this.roles = this.srvPersona.datosPerfiles.map(
                   (item: dataPerfiles) => item.str_rol_nombre
                 );
-                console.log(
-                  'INICIO Obtengo el valor en desplegable =>',
-                  this.srvPersona.nameRol
-                );
+                // console.log(
+                //   'INICIO Obtengo el valor en desplegable =>',
+                //   this.srvPersona.nameRol
+                // );
+
                 if (this.srvPersona.nameRol === '@d$') {
                   this.nameRol = this.roles[0];
+                  // console.log('nameRol =>', this.nameRol);
                 } else {
                   this.nameRol = this.srvPersona.nameRol;
                 }
+                this.srvPersona.setPermisoRol(this.nameRol);
                 this.srvPersona.nameRol = this.nameRol;
 
-                console.log(
-                  'Obtengo el valor en desplegable =>',
-                  this.srvPersona.nameRol
-                );
+                // console.log(
+                //   'Obtengo el valor en desplegable =>',
+                //   this.srvPersona.nameRol
+                // );
               },
               error: (err) => {
                 console.log(err);
@@ -84,14 +87,14 @@ export class DesplegableComponent implements OnInit {
   // }
 
   mostrarAjustes() {
-    console.log('Haciendo click en mostrar ajustes');
+    // console.log('Haciendo click en mostrar ajustes');
   }
 
   getRolName(rolName: any) {
     this.nameRol = rolName;
     this.srvPersona.nameRol = rolName;
 
-    console.log(' getRolName =>', this.srvPersona.nameRol);
+    // console.log(' getRolName =>', this.srvPersona.nameRol);
     this.srvPersona.setData_nameRol(this.nameRol);
     // this.location.reload();
     // this.window.location.reload();

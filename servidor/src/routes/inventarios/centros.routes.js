@@ -23,7 +23,7 @@ router.get("/paginacion", routeCentros.obtenerCentrosPaginacion);
 
 router.put("/:int_centro_id", routeCentros.actualizarCentro);
 //router.put("/:id", routeCentros.obtenerCentrosApi);
-router.delete("/:id_centro", verificarPermisoDelete, routeCentros.eliminarCentro);
+router.delete("/:id_centro", routeCentros.eliminarCentro);
 router.post("/csv", upload.single('file') , routeCentros.importarCsv);
 
 

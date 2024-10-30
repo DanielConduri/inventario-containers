@@ -1,0 +1,352 @@
+<div class="back">
+  <button class="btn-primary-add" (click)="regresar()"> Regresar</button>
+</div>
+
+
+<div class="containerRes">
+  <div class="container-Find filtradoContainer" *ngIf="!moTabla2">
+    <div class="containerInfo">
+      <label for="">Buscar Bienes</label>
+      <div class="container-Input">
+        <input class="" id="inp-Centro" type="text" autocomplete="off" (input)="changeBien($event)"
+          placeholder="DIGITE NOMBRE DEL BIEN" required>
+      </div>
+    </div>
+  </div>
+  <div class="padre-check" style="height: 100%;">
+
+
+
+
+    <div class="tabla-cuerpo" style="height: 90% !important;" *ngIf="moTabla">
+      <table class="table table-striped tabla-estilos">
+        <thead>
+          <tr class="encabezado">
+
+            <th class="th-head">
+              <div class="d-flex">Codigo</div>
+            </th>
+            <th class="th-head">
+              <div class="d-flex">Nombre</div>
+            </th>
+            <th class="th-head">
+              <div class="d-flex">Custodio</div>
+            </th>
+            <th class="th-head">
+              <div class="d-flex">Descripción</div>
+            </th>
+            <th class="th-head">
+              <div class="d-flex">Ubicación</div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+
+
+          <tr *ngFor="let bien of srvPrestamos.datosSearch; let i = index; let c = index">
+
+            <td class="select" id="dato-check" (click)="checkData(bien.int_bien_id)">
+              {{bien.str_codigo_bien_cod}}
+            </td>
+            <td class="select" id="name-check" (click)="checkData(bien.int_bien_id)">
+              {{bien.str_bien_nombre}}
+            </td>
+            <td class="select" id="name-check" (click)="checkData(bien.int_bien_id)">
+              {{bien.str_custodio_nombre}}
+            </td>
+            <td class="select" id="dato-check" (click)="checkData(bien.int_bien_id)">
+              {{bien.str_bien_descripcion}}
+            </td>
+            <td class="select" id="name-check" (click)="checkData(bien.int_bien_id)">
+              {{bien.str_ubicacion_nombre_interno}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; padding-bottom: 20px;">
+  <div>
+    <div class="tableBo" *ngIf="moTabla2">
+      <h3>Informacion del Bien</h3>
+      <div>
+        <table class="table table-striped tabla-estilos" *ngFor="let bienS of bienesSelect; let i = index">
+          <div style="display: grid; grid-template-columns: 2fr 0.5fr;">
+            <div style="display: table; padding-bottom: 10px;">
+
+              <thead>
+                <tr class="encabezado">
+
+                  <th>
+                    <div class="d-flex">Titulo</div>
+                  </th>
+
+                  <th>
+                    <div class="d-flex">Descripcion</div>
+                  </th>
+                </tr>
+
+              </thead>
+              <tbody>
+
+                <tr class="container-Row">
+                  <td>Nombre del Bien</td>
+                  <td> {{this.bienS.str_catalogo_bien_descripcion
+                    }}</td>
+                </tr>
+
+                <tr class="container-Row">
+                  <td>Modelo del Bien</td>
+                  <td> {{this.bienS.str_bien_modelo}}</td>
+                </tr>
+
+                <tr class="container-Row">
+                  <td>Condicion del Bien</td>
+                  <td> {{this.bienS.str_condicion_bien_nombre}}</td>
+                </tr>
+                <tr class="container-Row">
+                  <td>Disponibilidad del Bien</td>
+                  <td> {{this.bienS.str_bien_habilitado}}</td>
+                </tr>
+                <tr class="container-Row">
+                  <td>Estado del Bien</td>
+                  <td> {{this.bienS.str_bien_estado}}</td>
+                </tr>
+
+                <tr class="container-Row">
+                  <td>Descripcion de Condicion</td>
+                  <td> {{this.bienS.str_condicion_bien_nombre}}</td>
+                </tr>
+                <tr class="container-Row">
+                  <td>Estado del Bien</td>
+                  <td> {{this.bienS.str_bien_estado_logico}}</td>
+                </tr>
+                <tr class="container-Row">
+                  <td>Ubicacion</td>
+                  <td> {{this.bienS.str_ubicacion_nombre}}</td>
+                </tr>
+              </tbody>
+            </div>
+
+            <div *ngIf="bienesSelect.length>1" style="display: flex; align-items: center; justify-content: center;">
+              <button class="btn-primary-add" (click)="quitarBien(i)"> X</button>
+            </div>
+          </div>
+          <!-- <div>
+            <span>Estado técnico del Bien</span>
+            <textarea style="resize: none;" (change)="EstadoTecnico($event)"
+              placeholder="Digite el estado técnico del bien" name="" id="{{bienS.str_codigo_bien_cod}}" rows="7"
+              cols="5000"></textarea>
+          </div> -->
+        </table>
+      </div>
+    </div>
+
+    <form action="" [formGroup]="myForm">
+      <div *ngIf="moTabla2" style="display: grid; padding-top: 10px; padding-bottom: 10px;">
+        <h3>Inducción</h3>
+        <span style="font-size: smaller; font-style: oblique; color: var(--bs-gray-600);">
+          *La inducción indica que no conoce el funcionamiento del equipo por
+          lo que requiere asistencia de parte de la persona encargada del bien.
+        </span>
+        <div style="display: grid; gap: 10px; padding: 10px;">
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <input type="radio" name="tipoPrestamo" (click)="tipoPrestamo('SI')" id="interno">
+            <label for="interno">Si</label>
+          </div>
+          <div style="display: flex; gap: 10px; align-items: center;">
+            <input type="radio" name="tipoPrestamo" (click)="tipoPrestamo('NO')" id="externo">
+            <label for="externo">No</label>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="moTabla2" class="containerInfo ">
+        <h3 for="">Objetivo de uso de los equipos</h3>
+        <br>
+        <textarea style="resize: none;" formControlName="objetoInvestigacion" type="text"
+          placeholder="Breve descripción del uso que se dará a el/los equipos" rows="7" cols="5000"></textarea>
+      </div>
+
+
+    </form>
+
+
+    <div *ngIf="moTabla2" style="margin-bottom: 20px; display: grid; gap: 15px;">
+      <h3>Horario y disponibilidad</h3>
+      <!-- <table>
+        <tbody>
+          <tr>
+            <th *ngFor="let global of srvHorario.horarioPrestamo">
+              <div style="display: grid; justify-content: center;">
+                {{global.dia}}
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <td *ngFor="let global of srvHorario.horarioPrestamo; let index = index">
+              <div *ngFor="let i of global.intervalos">
+                <div style="display: flex; gap: 10px; align-items: center;">
+                  <div>
+                    <input type="radio" name="disponibilidad" (click)="agregarHorario($event, index)" id="{{i.id}}"
+                      [disabled]="i.inicio == '00:00:00' ">
+                  </div>
+                  <div>
+                    <div>
+                      {{i.inicio}} -
+                      {{i.fin}}
+                    </div>
+                    <div>
+                      {{fechasSemana[index].fecha}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table> -->
+
+      <form action="" [formGroup]="myForm">
+
+        <div class="containerInfo" style="width: 25% !important;" *ngIf="moTabla2">
+          <h3>Fecha de petición del bien</h3>
+          <input type="date" name="" id="" (change)="obtenerfecha($event)" min="{{fechaValidacion}}"
+            formControlName="fechaPrestamo">
+        </div>
+      </form>
+
+      <table *ngIf="tablaFecha">
+        <tr>
+          <th>
+            <div style="display: grid; justify-content: center;">
+              {{diaNombre}}
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <div *ngFor="let i of intervalos">
+              <div style="display: flex; gap: 10px; align-items: center;">
+                <div>
+                  <input type="radio" name="disponibilidad" id="{{i.id}}"
+                    [disabled]="i.inicio == '00:00:00' || horarioId == i.id && fechaPrestamo === fec || fechaValidacion === fec"
+                    (click)="agregarHorario($event)">
+                </div>
+                <div>
+                  <div>
+                    {{i.inicio}} -
+                    {{i.fin}}
+                  </div>
+                  <div>
+                    {{i.fecha}}
+                    {{fec}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <form [formGroup]="myForm">
+      <div class="containerInfo" style="width: 25% !important;" *ngIf="!tipoP && moTabla2">
+        <h3>Fecha de devolución del bien</h3>
+        <input type="date" formControlName="fdevolucion" min="{{ myForm.value.fechaPrestamo}}" name="" id="">
+      </div>
+    </form>
+
+
+
+    <button class="btn-primary-add" (click)="agregarPrestamo()" [disabled]="!myForm.valid && !acept">
+      Guardar
+    </button>
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div style="height: 50vh;">
+    <div class="tableBo" *ngIf="moTabla2" style="height: 100%;">
+      <div style="padding-bottom: 10px;">
+        <h3>Bienes a cargo de:</h3>
+        <h4>{{srvInventario.dataBienInfo.str_custodio_nombre}}</h4>
+        <h3>Centro</h3>
+        <h4>{{ubicacion}}</h4>
+      </div>
+      <div style="height: 100%; overflow: auto;">
+        <table class="table table-striped tabla-estilos">
+          <thead>
+            <tr class="encabezado">
+
+              <th class="th-head">
+                <div class="d-flex">Codigo</div>
+              </th>
+              <th class="th-head">
+                <div class="d-flex">Nombre</div>
+              </th>
+              <!-- <th class="th-head">
+                <div class="d-flex">Descripcion</div>
+              </th> -->
+            </tr>
+          </thead>
+          <tbody>
+
+
+            <tr *ngFor="let bien of this.bienesCustodio ; let i = index; let c = index">
+
+              <td *ngIf="bien.str_ubicacion_nombre == ubicacion" class="select" id="dato-check"
+                (click)="Agregar(bien.int_bien_id)">
+                {{bien.str_codigo_bien}}
+              </td>
+              <td *ngIf="bien.str_ubicacion_nombre == ubicacion" class="select" id="name-check"
+                (click)="Agregar(bien.int_bien_id)">
+                {{bien.str_bien_nombre}}
+              </td>
+              <!-- <td class="select" id="dato-check" (click)="checkData(bien.int_bien_id)">
+                {{bien.str_bien_descripcion}}
+              </td> -->
+              <!-- <button class="btn-primary-add" (click)="Agregar()">+</button> -->
+              <!-- <div class="back">
+              </div> -->
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

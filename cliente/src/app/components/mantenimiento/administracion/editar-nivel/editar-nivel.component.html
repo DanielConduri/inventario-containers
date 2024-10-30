@@ -1,0 +1,63 @@
+<div class="body-Form">
+    <form [formGroup]="myForm" action="" (ngSubmit)="send()">
+        <div class="containerItems">
+
+            <!-- <div class="containerInfo">
+                <label for="text"> Seleccione un Tipo de Soporte:</label>
+                <div class="container-Select">
+                    <select formControlName="idTipoMantenimiento" (change)="selectSoporte($event)" >
+                        <option *ngFor="let op of this.srvNivel.datosTipoMantenimiento, let i = index "
+                            id="{{op.int_tipo_mantenimiento_id}}">
+                            {{op.str_tipo_mantenimiento_descripcion}}
+                        </option>
+                    </select>
+                </div>
+
+            </div> -->
+            <div class="containerInfo">
+                <label for="text"> Seleccione un Tipo de soporte:</label>
+                <div class="container-Select">
+                  <select formControlName="idSoporte" (change)="selectSoporte($event)">
+                    <!-- <option [selected]="true" select disabled>Seleccione un Tipo de soporte</option> -->
+                    <option *ngFor="let op of this.srvNivel.datosSoporte ,let i = index " id="{{op.int_soporte_id}}">
+                      {{op.str_soporte_nombre}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+            <div class="containerInfo">
+                <label for="text"> Seleccione un Tipo de mantenimiento:</label>
+                <div class="container-Select">
+                  <select formControlName="idTipoMantenimiento" (change)="selectTipo($event)">
+                    <!-- <option [selected]="true" select disabled>Seleccione un Tipo de mantenimiento</option> -->
+                    <option *ngFor="let op of this.srvNivel.datosTipoMantenimiento ,let i = index "
+                      id="{{op.int_tipo_mantenimiento_id}}">
+                      {{op.str_tipo_mantenimiento_nombre}}
+                    </option>
+                  </select>
+        
+                </div>
+        
+              </div>
+
+
+            <div class="cont-Center_Name">
+                <div class="container-Name">
+
+                    <div class="centerName-Text">
+                        <label class="lbl-info" for="nombre">Descripcion del Nivel:</label>
+                    </div>
+                    <div class="centerNambe-Input">
+                        <input class="inp-info" type="text" id="nombre" placeholder="Descripcion del Soporte"
+                            formControlName="descripcion" required="">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-Btns">
+            <button class="btn-primary-add" type="submit" [disabled]="!myForm.valid">Guardar</button>
+
+        </div>
+    </form>
+</div>

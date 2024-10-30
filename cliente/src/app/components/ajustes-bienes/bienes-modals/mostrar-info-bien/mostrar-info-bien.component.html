@@ -1,6 +1,6 @@
 <div class="body-Form">
   <div class="tableBo">
-    <h3 id="h3-Title">Informacion del Sbay del Bien - {{this.srvInventario.dataBienInfo.str_codigo_bien_cod}}</h3>
+    <h3 id="h3-Title">Información del EsBye del Bien - {{this.srvInventario.dataBienInfo.str_codigo_bien_cod}}</h3>
     <table class="table table-striped tabla-estilos">
       <thead>
         <tr class="encabezado">
@@ -130,7 +130,7 @@
     </table>
 
     <div>
-      <h3>Informacion Interna del Bien</h3>
+      <h3>Información Interna del Bien</h3>
       <table class="table table-striped tabla-estilos">
         <thead>
           <tr class="encabezado">
@@ -149,7 +149,7 @@
         <tbody>
           <tr class="container-Row">
             <td>Custodio Interno del Bien</td>
-            <td > {{this.srvInventario.dataBienInfo.str_custodio_nombre_interno}}</td>
+            <td > {{this.srvInventario.dataBienInfo.str_custodio_interno_nombre}}</td>
           </tr>
           <tr class="container-Row">
             <td>Ubicacion interna del Bien</td>
@@ -161,6 +161,101 @@
           </tr>
         </tbody>
       </table>
+    </div>
+
+
+    <div>
+      <h3>Historial del Custodio Interno</h3>
+      <div class="body-Form">
+
+        <label for="">Custodio Actual</label>
+      
+        <div class="tableBo">
+          <table class="table table-striped tabla-estilos">
+            <thead>
+              <tr class="encabezado">
+      
+                <th>
+                  <div class="d-flex">Cedula Custodio</div>
+                </th>
+      
+                <th>
+                  <div class="d-flex">Nombres y Apellidos</div>
+                </th>
+                <th>
+                  <div class="d-flex">Fecha Creacion</div>
+                </th>
+                <th>
+                  <div class="d-flex">Estado</div>
+                </th>
+      
+      
+            </thead>
+      
+            <tbody>
+              <tr class="container-Row" *ngFor="let custodio of srvInventario.arrayCustodios, let i = index">
+                <td *ngIf="this.custodio.str_persona_bien_activo == true">
+                  {{this.custodio.str_custodio_interno_cedula}}
+                </td>
+                <td *ngIf="this.custodio.str_persona_bien_activo == true">
+                  {{this.custodio.str_custodio_interno_nombre}}
+                </td>
+                <td *ngIf="this.custodio.str_persona_bien_activo == true">
+                  {{this.custodio.dt_fecha_creacion | date: 'dd/MM/yyyy'}}
+                </td>
+                <td *ngIf="this.custodio.str_persona_bien_activo == true">
+                  ACTIVO
+                </td>
+              </tr>
+            </tbody>
+      
+          </table>
+        </div>
+      <br>
+        <label for="">Custodios Anteriores</label>
+        <div class="tableBo">
+          <table class="table table-striped tabla-estilos">
+            <thead>
+              <tr class="encabezado">
+      
+                <th>
+                  <div class="d-flex">Cedula Custodio</div>
+                </th>
+      
+                <th>
+                  <div class="d-flex">Nombres y Apellidos</div>
+                </th>
+                <th>
+                  <div class="d-flex">Fecha Creacion</div>
+                </th>
+                <th>
+                  <div class="d-flex">Estado</div>
+                </th>
+      
+      
+            </thead>
+      
+            <tbody>
+              <tr class="container-Row" *ngFor="let custodio of srvInventario.arrayCustodios, let i = index">
+                <td *ngIf="this.custodio.str_persona_bien_activo == false">
+                  {{this.custodio.str_custodio_interno_cedula}}
+                </td>
+                <td *ngIf="this.custodio.str_persona_bien_activo == false">
+                  {{this.custodio.str_custodio_interno_nombre}}
+                </td>
+                <td *ngIf="this.custodio.str_persona_bien_activo == false">
+                  {{this.custodio.dt_fecha_creacion | date: 'dd/MM/yyyy'}}
+                </td>
+                <td *ngIf="this.custodio.str_persona_bien_activo == false">
+                  INACTIVO
+                </td>
+              </tr>
+            </tbody>
+      
+          </table>
+        </div>
+      </div>
+
     </div>
 
     <div>

@@ -73,14 +73,14 @@ const obtenerProveedoresActivos = async (req, res) => {
 const obtenerRucNombre = async (req, res) => {
   try {
     const { dato } = req.params;
-    console.log("dato", dato);
+    
     let proveedor = null;
     const ruc = await Proveedores.findOne({
       where: {
         str_proveedor_ruc: dato,
       },
     });
-    console.log("ruc", ruc);
+    
 
     const nombre = await Proveedores.findOne({
       where: {
@@ -88,7 +88,7 @@ const obtenerRucNombre = async (req, res) => {
       },
     });
 
-    console.log("nombre", nombre);
+   
 
     if (!ruc && !nombre) {
       return res.json({
@@ -111,19 +111,18 @@ const obtenerRucNombre = async (req, res) => {
   }
 };
 const insertarProveedores = async (req, res) => {
-  console.log("ingreso a insertarProveedores", req.body);
+
 
   try {
     const { str_proveedor_ruc, str_proveedor_nombre } = req.body;
-    console.log("ruc", str_proveedor_ruc);
-    console.log("nombre", str_proveedor_nombre);
+    
 
     const buscarProveedor = await Proveedores.findOne({
       where: {
         str_proveedor_ruc: str_proveedor_ruc,
       },
     });
-    console.log("buscarProvedor", buscarProveedor);
+    
     if (!buscarProveedor) {
       const nuevoProveedor = await Proveedores.create({
         str_proveedor_ruc,
@@ -202,14 +201,14 @@ const eliminarProveedores = async (req, res) => {
 
 const filtradoProveedores = async (req, res) => {
   try {
-    console.log("filtradooooo", req.query);
+   
     const { filter } = req.query;
     //transformar el string en un objeto
     const filtro = JSON.parse(filter);
     let dato = filtro.like.data;
     dato = dato.toUpperCase();
     const estado = filtro.status.data;
-    console.log("dato?????", dato);
+    
 
     //buscar por nombre o por ruc
     const proveedores = await Proveedores.findAll({

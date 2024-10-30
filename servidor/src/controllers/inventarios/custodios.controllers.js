@@ -43,17 +43,10 @@ const obtenerCustodios = async (req, res) => {
 };
 
 const obtenerCustodio = async (req, res) => {
-  console.log('Ingreso a obtener custodio');
-  //console.log(req);
 
   try {
-    const { int_custodio_id } = req.params;
-    console.log('int_bien_id ', int_custodio_id);
-    /*const custodio = await Custodios.findOne({
-      where: {
-        int_custodio_id: int_custodio_id,
-      },
-    });*/
+    const { int_bien_id } = req.params;
+
     const custodio = await sequelize.query(
       `SELECT 
       cst.int_custodio_id,
@@ -64,11 +57,11 @@ const obtenerCustodio = async (req, res) => {
       cb.dt_fecha_creacion
       FROM inventario.tb_custodio_bien cb
       INNER JOIN inventario.tb_custodios cst ON cst.int_custodio_id = cb.int_custodio_id
-      WHERE cb.int_bien_id = ${int_custodio_id}`,
+      WHERE cb.int_bien_id = ${int_bien_id}`,
       { type: sequelize.QueryTypes.SELECT }
     );
 
-    console.log('custodio: ', custodio)
+  
 
     if (!custodio) {
       return res.json({

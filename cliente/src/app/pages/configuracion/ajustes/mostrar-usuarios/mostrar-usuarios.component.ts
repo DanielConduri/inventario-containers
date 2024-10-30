@@ -133,7 +133,7 @@ export class MostrarUsuariosComponent /*implements OnInit */ {
   }
 
   cambiarEstado(_id: number) {
-    console.log('cambiarEstado');
+    // console.log('cambiarEstado');
     Swal.fire({
       title: "¿Está seguro que desea desactivar este Usuario?",
       text: 'Al deshabilitar un Usuario, este no podra acceder al sistema. Este cambio puede ser revertido en cualquier momento',
@@ -147,7 +147,7 @@ export class MostrarUsuariosComponent /*implements OnInit */ {
           .pipe(takeUntil(this.destroy$))
           .subscribe({
             next: (res) => {
-              console.log("res dentro del next CAMBIAR ESTADO: ", res);
+              // console.log("res dentro del next CAMBIAR ESTADO: ", res);
               if (res.status) {
                 Swal.fire({
                   title: res.message,
@@ -195,7 +195,7 @@ export class MostrarUsuariosComponent /*implements OnInit */ {
 
   pasarPagina(page: number) {
     this.mapFiltersToRequest = { size: 10, page:page , parameter: this.parameter, data: this.data };
-    console.log('mapFiltersToRequest', this.mapFiltersToRequest);
+    // console.log('mapFiltersToRequest', this.mapFiltersToRequest);
     this.getPersonas();
   }
 

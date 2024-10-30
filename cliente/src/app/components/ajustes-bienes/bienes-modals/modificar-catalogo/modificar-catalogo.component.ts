@@ -50,7 +50,7 @@ export class ModificarCatalogoComponent implements OnInit {
   }
 
   completeForm(){
-    console.log("Recibiendo el Valor del ID PROVEEDOR =>", this.srvModal.SelectID_Catalogo$)
+    // console.log("Recibiendo el Valor del ID PROVEEDOR =>", this.srvModal.SelectID_Catalogo$)
     this.srvModal.SelectID_Catalogo$
     .pipe(takeUntil(this.destroy$))
     .subscribe({

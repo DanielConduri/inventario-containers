@@ -55,9 +55,6 @@ function generarPDFTipoIngreso(contenido, titulo) {
           }
         );
     });
-
-    console.log(contenido);
-
     doc.addTable(
       [
         { key: "str_bien_origen_ingreso", label: "ORIGEN", align: "center"},
@@ -74,7 +71,6 @@ function generarPDFTipoIngreso(contenido, titulo) {
         headFontSize: 8,
       }
     );
-
     // render tables
     doc.render();
     doc.setPageNumbers((p, c) => `${p}/${c}`, "right top");

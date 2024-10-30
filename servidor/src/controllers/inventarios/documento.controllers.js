@@ -12,7 +12,7 @@ import { Op } from "sequelize";
 import {  CustodiosBien } from "../../models/inventario/custodios_bienes.models.js";
 import generarPDFInforme from "../../utils/informes/informe.js";
 
-
+ 
 const obtenerDocumentos = async (req, res) => {
   try {
     const paginationData = req.query;
@@ -29,13 +29,11 @@ const obtenerDocumentos = async (req, res) => {
       limit: 10,
     });
     if(informes.length === 0){
-      console.log("informes no encontrados", informes);
       return res.json({
         status: false,
         message: "Documentos no encontrados",
       });
     } else {
-      console.log("informes encontrados", informes);
       const { datos, total } = await paginarDatos(
         paginationData.page,
         paginationData.size,
@@ -51,7 +49,6 @@ const obtenerDocumentos = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };
@@ -60,6 +57,17 @@ const obtenerDocumentos = async (req, res) => {
 const obtenerDocumento = async (req, res) => {
   try {
     const { id } = req.params;
+    //actualizo la fecha de impresion del documento
+    await Documento.update(
+      {
+        dt_fecha_impresion: new Date(),
+      },
+      {
+        where: {
+          int_documento_id: id,
+        },
+      }
+    );
     const informe = await Documento.findOne({
       where: {
         int_documento_id: id,
@@ -161,10 +169,10 @@ const obtenerDocumento = async (req, res) => {
         responsables: responsables,
       };
 
-      console.log("informeCompleto", informeCompleto)
+      
 
       //const informePDF = await generarInformePDF(informeCompleto);
-      console.log("generar")
+    
       const inf = await generarPDFInforme(informeCompleto);
      // const inf = await generarInformePDF(informeCompleto);
       //IMPRIMIR EN EL NAVEGADOR
@@ -184,7 +192,8 @@ const obtenerDocumento = async (req, res) => {
       });
       
       
-     // res.send(Buffer.from(informePDF, "base64")); // para ver directamente el pdf en el navegador
+      
+     //res.send(Buffer.from(informePDF, "base64")); // para ver directamente el pdf en el navegador
     }
     //llamo a un funcion para que me devuelva el informe en base64
     //res.send(Buffer.from(pdfBase64String, 'base64')); // para ver directamente el pdf en el navegador
@@ -194,7 +203,7 @@ const obtenerDocumento = async (req, res) => {
 };
 
 const crearDocumento = async (req, res) => {
-  console.log("Llega a la ruta para crear!!!!!!!!!!!!!!!", req.body);
+  
   try {
     const {
       str_documento_titulo,
@@ -207,8 +216,9 @@ const crearDocumento = async (req, res) => {
       str_documento_recomendaciones,
       str_documento_fecha,
       int_tipo_documento_id,
+      str_documento_estado,
     } = req.body;
-    console.log("fecha", str_documento_fecha)
+    
     const bienes = req.body.str_codigo_bien;
     const responsables = req.body.id_cas_responsables;
     const nombresResponsables = req.body.str_nombres_responsables;
@@ -219,7 +229,6 @@ const crearDocumento = async (req, res) => {
       const codigoDocumento = await generarCodigoDocumento(
         int_tipo_documento_id
       );
-      console.log("0");
       const informe = await Documento.create(
         {
           int_tipo_documento_id,
@@ -233,6 +242,8 @@ const crearDocumento = async (req, res) => {
           str_documento_conclusiones,
           str_documento_recomendaciones,
           str_documento_fecha,
+          str_documento_estado,
+          dt_fecha_creacion: new Date(),
         },
         { transaction: t }
       );
@@ -250,8 +261,7 @@ const crearDocumento = async (req, res) => {
       await Promise.all(bienesPromises);
 
       //Inserto en la tabla tb_persona_documento con el informe.int_documento_id todos los responsables [1,2,3] y los nombres de los responsables ["juan","pedro","maria"]
-      
-      console.log("llll");
+    
       const responsablesPromises = responsables.map((responsable, index) => {
         return PersonaDocumento.create(
           {
@@ -274,11 +284,9 @@ const crearDocumento = async (req, res) => {
               raw: true,
             });
             const cantidadDocumentos = documentos.length;
-            console.log("cantidadDocumentos", cantidadDocumentos);
             const codigoDocumento = `DOC-${int_tipo_documento_id}-${
               cantidadDocumentos + 1
             }`;
-            console.log("codigoDocumento", codigoDocumento);
             resolve(codigoDocumento);
           } catch (error) {
             reject(error);
@@ -288,7 +296,7 @@ const crearDocumento = async (req, res) => {
 
     });
 
-    console.log("informe", informes);
+    
     if (!informes  || informes.length === 0) {
       return res.json({
         status: false,
@@ -301,7 +309,6 @@ const crearDocumento = async (req, res) => {
       body: informes,
     });
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };
@@ -363,7 +370,6 @@ const actualizarDocumento = async (req, res) => {
         );
       });
       await Promise.all(bienesPromises);
-      console.log("0");
       //Inserto en la tabla tb_persona_documento con el informe.int_documento_id todos los responsables [1,2,3] ademas de los nombres de los responsables
       const responsablesPromises= responsables.map((responsable, index) => {
         return PersonaDocumento.create(
@@ -378,7 +384,6 @@ const actualizarDocumento = async (req, res) => {
       await Promise.all(responsablesPromises);
       return informe;
     });
-    console.log("informe", informeT);
     if (!informeT) {
       return res.json({
         status: false,
@@ -390,7 +395,6 @@ const actualizarDocumento = async (req, res) => {
       message: "Documento actualizado",
     });
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };
@@ -445,13 +449,13 @@ const obtenerDocumentoEspecifico = async (req, res) => {
         message: "Documento no encontrado",
       });
     }
+
     return res.json({
       status: true,
       message: "Documento encontrado",
       body: informe,
     });
   } catch (error) {
-    console.log(error.message);
     return res.status(500).json({ message: error.message });
   }
 };

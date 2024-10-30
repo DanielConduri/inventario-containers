@@ -29,7 +29,7 @@ export class MainComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    console.log('el main ejecutandose')
+    // console.log('el main ejecutandose')
    
   
   }

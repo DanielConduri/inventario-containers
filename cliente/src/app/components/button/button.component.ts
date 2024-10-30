@@ -35,7 +35,7 @@ export class ButtonComponent implements OnInit {
 
   openModal(){
     // console.log('modal abierto');
-    console.log('abriendo modal del boton');
+    // console.log('abriendo modal del boton');
     this.element.form = this.form
     this.element.title = this.title
     // console.log('boton->', this.element);
@@ -43,7 +43,7 @@ export class ButtonComponent implements OnInit {
 
     if(this.element.form)
     {
-      console.log('entra al modal');
+      // console.log('entra al modal');
       this.srvModal.openModal()
     } else{
       this.srvInforme.typeviw = false
