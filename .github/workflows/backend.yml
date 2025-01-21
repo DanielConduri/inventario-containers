@@ -23,18 +23,6 @@ jobs:
         run: |
           touch ./server/src/.env
           echo "${{secrets.ENV_INVENTARIO_CONTAINERS }}" > ./server/src/.env
-          #touch .env
-          #echo NODE_ENV=production >> .env
-          # echo SERVER_HOST=${{ secrets.SERVER_HOST }} >> .env
-          # echo SERVER_PORT=${{ secrets.SERVER_PORT }} >> .env
-          # echo DB_USER=${{ secrets.DB_USER }} >> .env
-          # echo DB_SERVER=${{ secrets.DB_SERVER }} >> .env
-          # echo DB_PASSWORD=${{ secrets.DB_PASSWORD }} >> .env
-          # echo DB_DIALECT=${{ secrets.DB_DIALECT }} >> .env
-          # echo DB_PORT=${{ secrets.DB_PORT }} >> .env
-          # echo DB_NAME=${{ secrets.DB_NAME }} >> .env
-          # echo JWT_SECRET=${{ secrets.JWT_SECRET }} >> .env
-          # echo JWT_EXPIRES_IN=${{ secrets.JWT_EXPIRES_IN }} >> .env
 
   build:
     name: DEPLOY
