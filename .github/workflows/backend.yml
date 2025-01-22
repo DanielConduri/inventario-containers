@@ -37,6 +37,8 @@ jobs:
         run: |
           touch ./servidor/.env
           echo "${{secrets.ENV_INVENTARIO_CONTAINERS }}" > ./servidor/.env
+          chmod +x ./servidor/start.sh
+          ./servidor/start.sh
 
   build:
     name: DEPLOY 
@@ -46,8 +48,8 @@ jobs:
       - name: build
         run: |
           docker compose up --build -d
-          #cd cliente
-          # npm ci
-          # ng build --configuration production
-          #sudo cp -rf dist/ /var/www/inventario
-          sudo cp -rf ./cliente/dist/cliente /var/www/inventario
+          cd cliente
+          npm ci
+          ng build --configuration production
+          sudo cp -rf dist/ /var/www/inventario
+          #sudo cp -rf ./cliente/dist/cliente /var/www/inventario
