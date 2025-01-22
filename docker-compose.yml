@@ -2,6 +2,8 @@ version: "3.9"
 
 services:
   api:
+    image: img-node
+    container_name: api-inventario
     build: ./servidor
     ports:
       - "8001:8001"
