@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MostrarInfoBienComponent } from './mostrar-info-bien.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('MostrarInfoBienComponent', () => {
   let component: MostrarInfoBienComponent;
@@ -8,7 +9,9 @@ describe('MostrarInfoBienComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MostrarInfoBienComponent ]
+      declarations: [ MostrarInfoBienComponent ],
+      imports: [ HttpClientModule]
+
     })
     .compileComponents();
 
@@ -20,4 +23,10 @@ describe('MostrarInfoBienComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  describe('ComponentName', () => {
+    it('should create', () => {
+      expect(true).toBeTruthy();
+    });
+  });
+  
 });

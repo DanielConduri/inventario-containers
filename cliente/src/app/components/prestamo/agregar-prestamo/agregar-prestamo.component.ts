@@ -63,6 +63,7 @@ export class AgregarPrestamoComponent implements OnInit {
   aux!: any[]
 
   ubicacion!: string
+  celularCustodio!: string
 
   myForm!: FormGroup
 
@@ -389,7 +390,7 @@ export class AgregarPrestamoComponent implements OnInit {
         next: (center: pagCenter) => {
           console.log('centro ->', center.body)
           this.srvHorario.getHorarios(center.body[0].int_centro_id)
-
+          this.celularCustodio = center.body[0].str_centro_celular_custodio
           this.horario()
 
         },

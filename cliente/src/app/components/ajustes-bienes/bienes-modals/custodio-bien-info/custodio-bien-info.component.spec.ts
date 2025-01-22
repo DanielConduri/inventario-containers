@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustodioBienInfoComponent } from './custodio-bien-info.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('CustodioBienInfoComponent', () => {
   let component: CustodioBienInfoComponent;
@@ -8,7 +9,8 @@ describe('CustodioBienInfoComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CustodioBienInfoComponent ]
+      declarations: [ CustodioBienInfoComponent ],
+      imports: [ HttpClientModule]
     })
     .compileComponents();
 

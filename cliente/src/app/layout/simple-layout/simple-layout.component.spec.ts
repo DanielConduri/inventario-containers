@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SimpleLayoutComponent } from './simple-layout.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SimpleLayoutComponent', () => {
   let component: SimpleLayoutComponent;

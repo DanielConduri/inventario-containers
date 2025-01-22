@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MostrarBienesCustodioComponent } from './mostrar-bienes-custodio.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('MostrarBienesCustodioComponent', () => {
   let component: MostrarBienesCustodioComponent;
@@ -8,7 +9,8 @@ describe('MostrarBienesCustodioComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MostrarBienesCustodioComponent ]
+      declarations: [ MostrarBienesCustodioComponent ],
+      imports: [ HttpClientModule]
     })
     .compileComponents();
 

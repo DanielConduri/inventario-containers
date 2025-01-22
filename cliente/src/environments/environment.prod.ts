@@ -2,13 +2,14 @@ const baseUrl = '';
 export const environment = {
   production: true,
   baseUrl: baseUrl,
-  //url: 'https://inventario-espoch.rubenvn.com/' + baseUrl,
-  url: 'https://pruebasinventario.me/' + baseUrl,
-  //urlLogOut: 'https://inventario-espoch.rubenvn.com/' + baseUrl,
-  urlLogOut: 'https://pruebasinventario.me/' + baseUrl,
-  urlOneDriveService:
-    'https://pruebas.espoch.edu.ec:8181/WebCorreoInstitucional/ServiciosCorreos/TokenOneDrive',
-  //urlApi: 'https://api-inventario.rubenvn.com/',
-  urlApi: 'https://pruebasinventario.me/wsinventario/',
+  // url: 'https://inventarios.espoch.edu.ec/' + baseUrl,
+  // urlLogOut: 'https://inventarios.espoch.edu.ec/logout' + baseUrl,
+  urlOneDriveService: 'https://emailrelay.espoch.edu.ec/WebCorreoInstitucional/ServiciosCorreos/TokenOneDrive',
+  urlApi: 'https://apiinventarios.espoch.edu.ec/wsinventario/',  //Servicios web Produccion
   CodigoSistemaOneDrive: 'ARCHPOLI',
+
+
+  url: 'https://172.17.102.82/' + baseUrl,
+  urlLogOut: 'https://172.17.102.82/' + baseUrl,
+  
 };

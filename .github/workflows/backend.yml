@@ -8,10 +8,25 @@ on:
 
 jobs:
   start:
-    name: PULL
+    name: FRONTEND
     runs-on: self-hosted
+    strategy:
+      matrix:
+        node-version: [18.x]
+
     steps:
-      - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: |
+        cd cliente
+        npm ci
+        npm install
+        ng build --configuration production
+        sudo cp -rf dist/ /var/www/inventario
 
   env:
     name: SET ENV
@@ -19,13 +34,13 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: ENV BACK
-        working-directory: ./servidor
+        #working-directory: ./servidor
         run: |
-          touch ./server/src/.env
-          echo "${{secrets.ENV_INVENTARIO_CONTAINERS }}" > ./server/src/.env
+          touch ./server/.env
+          echo "${{secrets.ENV_INVENTARIO_CONTAINERS }}" > ./server/.env
 
   build:
-    name: DEPLOY
+    name: DEPLOY BACKEND
     needs: [env]
     runs-on: self-hosted
     steps:

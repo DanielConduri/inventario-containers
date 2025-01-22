@@ -100,6 +100,9 @@ export class AgregarCentrosComponent implements OnInit, OnDestroy {
   zoom: number = 6;
   mapTypeId: string = '';
 
+  aux!: boolean
+
+
   mapOptions: google.maps.MapOptions = {
     center: { lat: 0, lng: 0 },
     zoom: 0,
@@ -178,6 +181,8 @@ export class AgregarCentrosComponent implements OnInit, OnDestroy {
       codigo_dependencia: [0],
       dc_centro_coordenada_uno: [0],
       dc_centro_coordenada_dos: [0],
+      str_centro_celular_custodio: ['', Validators.required ,Validators.minLength(10)],
+
     });
 
     this.mapTypeId = 'hybrid';
@@ -587,6 +592,14 @@ export class AgregarCentrosComponent implements OnInit, OnDestroy {
         },
         complete: () => {},
       });
+  }
+
+  validarCelular(e: any) {
+    if (e.target.value.length < 10 || e.target.value.length > 10) {
+      this.aux = true
+    }else{
+      this.aux = false  
+    }
   }
 
   ngOnDestroy(): void {

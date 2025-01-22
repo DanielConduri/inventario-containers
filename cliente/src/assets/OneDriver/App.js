@@ -25,8 +25,10 @@ var fileToUpload;
 
 var tokenCliente = "";
 function getTokenGenerado(initToken) {
+  //window.alert("Token generado: " + initToken);
+  //console.log("Token generado: ", initToken);
   tokenCliente = initToken;
-
+  //console.log("Token cliente: ", tokenCliente);
   var isCallback = authContext.isCallback(window.location.hash);
   authContext.handleWindowCallback();
 
@@ -38,9 +40,9 @@ function getTokenGenerado(initToken) {
 
   var user = authContext.getCachedUser();
   if (user) {
-    console.log("Usuario logueado");
+    // console.log("Usuario logueado");
   } else {
-    console.log("Usuario no logueado");
+    // console.log("Usuario no logueado");
   }
 }
 
@@ -48,7 +50,7 @@ function cargarData(ruta, archivo) {
   return new Promise((resolve, reject) => {
     authContext.acquireToken(baseEndpoint, function (error, token) {
       if (error || !token) {
-        console.log("ADAL error: " + error);
+        // console.log("ADAL error: " + error);
         resolve(false);
       }
       fetch(baseEndpoint + `/v1.0/me/drive/root:/${ruta}/${archivo}`, {
@@ -86,7 +88,7 @@ async function onUpload(archivo, ruta, nombreArchivo) {
   try {
     var i = fileToUpload.name.lastIndexOf(".");
   } catch (error) {
-    console.log("Seleccione primero el archivo a subir.");
+    // console.log("Seleccione primero el archivo a subir.");
     return;
   }
   let fileType = fileToUpload.name.substring(i + 1);
@@ -104,7 +106,7 @@ function getUploadSession(fileType, name, ruta) {
     };
     authContext.acquireToken(baseEndpoint, function (error, token) {
       if (error || !token) {
-        console.log("ADAL error: " + error);
+        // console.log("ADAL error: " + error);
         return;
       }
       fetch(
@@ -129,9 +131,9 @@ function getUploadSession(fileType, name, ruta) {
           resolve(resp);
         })
         .catch((error) => {
-          console.log(
-            "No se pudo obtener la sesión de carga: " + response.responseText
-          );
+          // console.log(
+          //   "No se pudo obtener la sesión de carga: " + response.responseText
+          // );
           reject();
         });
     });
@@ -156,7 +158,7 @@ async function uploadChunks(file, uploadUrl) {
           break;
         }
       } catch (e) {
-        console.log("Bytes recibidos de readFragmentAsync: " + e);
+        // console.log("Bytes recibidos de readFragmentAsync: " + e);
         break;
       }
       try {
@@ -169,7 +171,7 @@ async function uploadChunks(file, uploadUrl) {
           position = Number(res.json.nextExpectedRanges[0].split("-")[0]);
         }
       } catch (e) {
-        console.log("Ocurrió un error al llamar a uploadChunk:" + e);
+        // console.log("Ocurrió un error al llamar a uploadChunk:" + e);
       }
     } catch (e) {
       continueRead = false;
@@ -211,16 +213,16 @@ function uploadChunk(chunk, uploadURL, position, totalLength) {
         processData: false,
       })
         .then(async (response) => {
-          console.log("\n\n=> ", response);
+          // console.log("\n\n=> ", response);
           results = {};
           results.status = response.status;
           results.json = await response.json();
-          console.log(results.json);
+          // console.log(results.json);
           resolve(results);
         })
         .catch((err) => {
-          console.log("No se pudo cargar el fragmento: " + err.responseText);
-          console.log("Content-Range header is : " + crHeader);
+          // console.log("No se pudo cargar el fragmento: " + err.responseText);
+          // console.log("Content-Range header is : " + crHeader);
         });
     } catch (e) {
       console.log("exception uploadChunk:  " + e);

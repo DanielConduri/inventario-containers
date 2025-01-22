@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ModificarEstadosComponent } from './modificar-estados.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('ModificarEstadosComponent', () => {
   let component: ModificarEstadosComponent;
@@ -8,7 +9,8 @@ describe('ModificarEstadosComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ModificarEstadosComponent ]
+      declarations: [ ModificarEstadosComponent ],
+      imports: [ HttpClientModule]
     })
     .compileComponents();
 

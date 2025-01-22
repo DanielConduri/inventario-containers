@@ -24,6 +24,7 @@ export interface dataCentros {
     str_centro_nombre_proceso: string, 
     str_centro_nombre_sede: string,
     str_centro_tipo_nombre: string
+    str_centro_celular_custodio: string,
 }
 
 export interface modCentrosModel {

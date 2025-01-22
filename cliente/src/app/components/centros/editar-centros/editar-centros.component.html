@@ -7,14 +7,8 @@
             <label class="lbl-info" for="nombre">Nombre del Centro:</label>
           </div>
           <div class="centerNambe-Input">
-            <input
-              class="inp-info"
-              type="text"
-              id="nombre"
-              placeholder="Nombre del Centro"
-              formControlName="centro_nombre"
-              required=""
-            />
+            <input class="inp-info" type="text" id="nombre" placeholder="Nombre del Centro"
+              formControlName="centro_nombre" required="" />
           </div>
         </div>
       </div>
@@ -42,11 +36,7 @@
           </div>
 
           <div class="search-BarBtn theselect">
-            <select
-              formControlName="centro_sede"
-              *ngIf="myForm.value.centro_tipo == 'ACADÉMICO'"
-              (change)="cambio()"
-            >
+            <select formControlName="centro_sede" *ngIf="myForm.value.centro_tipo == 'ACADÉMICO'" (change)="cambio()">
               <option *ngIf="!selec" [selected]="true" select disabled>
                 Seleccione una sede
               </option>
@@ -54,10 +44,7 @@
               <option>ESPOCH - SEDE MORONA SANTIAGO</option>
               <option>ESPOCH - SEDE ORELLANA</option>
             </select>
-            <select
-              formControlName="centro_sede"
-              *ngIf="myForm.value.centro_tipo == 'ADMINISTRATIVO'"
-            >
+            <select formControlName="centro_sede" *ngIf="myForm.value.centro_tipo == 'ADMINISTRATIVO'">
               <option *ngIf="!selec" [selected]="true" select disabled>
                 Seleccione una sede
               </option>
@@ -76,15 +63,12 @@
               <div>
                 <div class="search-Label">
                   <label for="text">Facultad</label>
-                  <div
-                    *ngIf="especial"
-                    style="
+                  <div *ngIf="especial" style="
                       display: flex;
                       align-items: center;
                       justify-content: center;
                       gap: 10px;
-                    "
-                  >
+                    ">
                     <label for="">Facultad Actual</label>
                     <h5>{{ ubicacionF }}</h5>
                   </div>
@@ -94,17 +78,11 @@
             <div>
               <div>
                 <div class="search-BarBtn theselect">
-                  <select
-                    formControlName="nombre_facultad"
-                    (change)="getF($event)"
-                  >
+                  <select formControlName="nombre_facultad" (change)="getF($event)">
                     <option [selected]="true" select disabled>
                       Seleccione una facultad
                     </option>
-                    <option
-                      *ngFor="let op of facultad.facult; let index = index"
-                      id="{{ facultad.cod[index] }}"
-                    >
+                    <option *ngFor="let op of facultad.facult; let index = index" id="{{ facultad.cod[index] }}">
                       {{ op }}
                     </option>
                   </select>
@@ -118,15 +96,12 @@
               <div>
                 <div class="search-Label">
                   <label for="text">Carrera</label>
-                  <div
-                    *ngIf="especial"
-                    style="
+                  <div *ngIf="especial" style="
                       display: flex;
                       align-items: center;
                       justify-content: center;
                       gap: 10px;
-                    "
-                  >
+                    ">
                     <label for="">Carrera Actual</label>
                     <h5>{{ carreraF }}</h5>
                   </div>
@@ -139,10 +114,7 @@
                 <option [selected]="true" select disabled>
                   Seleccione una carrera
                 </option>
-                <option
-                  *ngFor="let op of carrera.carrera; let index = index"
-                  id="{{ carrera.cod[index] }}"
-                >
+                <option *ngFor="let op of carrera.carrera; let index = index" id="{{ carrera.cod[index] }}">
                   {{ op }}
                 </option>
               </select>
@@ -162,15 +134,12 @@
               <div class="containerInfo">
                 <div class="search-Label">
                   <label for="text">Dependencia</label>
-                  <div
-                    *ngIf="especial"
-                    style="
+                  <div *ngIf="especial" style="
                       display: flex;
                       align-items: center;
                       justify-content: center;
                       gap: 10px;
-                    "
-                  >
+                    ">
                     <label for="">Dependencia Actual</label>
                     <h5>{{ dependenciaD }}</h5>
                   </div>
@@ -179,21 +148,12 @@
             </div>
             <div>
               <div>
-                <div
-                  class="search-BarBtn theselect"
-                  style="align-items: normal !important"
-                >
-                  <select
-                    formControlName="nombre_dependencia"
-                    (change)="depende($event)"
-                  >
+                <div class="search-BarBtn theselect" style="align-items: normal !important">
+                  <select formControlName="nombre_dependencia" (change)="depende($event)">
                     <option [selected]="true" select disabled>
                       Seleccione una Dependencia
                     </option>
-                    <option
-                      *ngFor="let op of dependencia.depen; let index = index"
-                      id="{{ dependencia.cod[index] }}"
-                    >
+                    <option *ngFor="let op of dependencia.depen; let index = index" id="{{ dependencia.cod[index] }}">
                       {{ op }}
                     </option>
                   </select>
@@ -206,15 +166,12 @@
               <div class="containerInfo">
                 <div class="search-Label">
                   <label for="text">Ubicación</label>
-                  <div
-                    *ngIf="especial"
-                    style="
+                  <div *ngIf="especial" style="
                       display: flex;
                       align-items: center;
                       justify-content: center;
                       gap: 10px;
-                    "
-                  >
+                    ">
                     <label for="">Ubicación Actual</label>
                     <h5>{{ ubicacionD }}</h5>
                   </div>
@@ -222,21 +179,12 @@
               </div>
             </div>
 
-            <div
-              class="search-BarBtn theselect"
-              style="align-items: normal !important"
-            >
-              <select
-                formControlName="nombre_ubicacion"
-                (change)="getUbi($event)"
-              >
+            <div class="search-BarBtn theselect" style="align-items: normal !important">
+              <select formControlName="nombre_ubicacion" (change)="getUbi($event)">
                 <option [selected]="true" select disabled>
                   Seleccione una Ubicación
                 </option>
-                <option
-                  *ngFor="let op of ubicacion.ubica; let index = index"
-                  id="{{ dependencia.cod[index] }}"
-                >
+                <option *ngFor="let op of ubicacion.ubica; let index = index" id="{{ dependencia.cod[index] }}">
                   {{ op }}
                 </option>
               </select>
@@ -246,69 +194,60 @@
       </div>
     </div>
 
+    <div class="containerItems" style="margin-bottom: 20px; ">
+      <div class="cont-Center_Name">
+        <div class="container-Name">
+          <div class="centerName-Text">
+            <label class="lbl-info" for="nombre">Número del técnico:</label>
+          </div>
+          <div class="centerNambe-Input">
+            <input class="inp-info" type="text" id="nombre" placeholder="0000000000" content="width=device-width"
+              formControlName="str_centro_celular_custodio" required="" oninput="this.value = this.value.replace(/[^0-9]/g, '')" (input)="validarCelular($event)" />
+          </div>
+          <div class="alert alert-danger mt-4 control-error" *ngIf="aux"
+            style="color: rgb(220, 38, 38); font-size: smaller;">
+            Dato incorrecto.
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="col-12 mt-4 my-google-map">
       <label class="form-label text-center">Coordenadas del Centro</label>
-      <google-map
-        [width]="null"
-        [height]="null"
-        [options]="mapOptions"
-        (mapClick)="moveMap($event)"
-      >
+      <google-map [width]="null" [height]="null" [options]="mapOptions" (mapClick)="moveMap($event)">
         <map-marker [position]="marker.position"></map-marker>
       </google-map>
     </div>
 
     <div class="col-3 pe-2 mt-4 contentenedor-control">
       <label class="form-label">Coordenada 1 (latitud)</label>
-      <input
-        type="text"
-        (input)="changeCordenada1($event)"
-        class="form-control"
-        formControlName="dc_centro_coordenada_uno"
-        value="{{ myForm.value.dc_centro_coordenada_uno }}"
-        placeholder="Ingrese la primera Coordenada"
-        pattern="-?\d+(,\d+)?"
-      />
+      <input type="text" (input)="changeCordenada1($event)" class="form-control"
+        formControlName="dc_centro_coordenada_uno" value="{{ myForm.value.dc_centro_coordenada_uno }}"
+        placeholder="Ingrese la primera Coordenada" pattern="-?\d+(,\d+)?" />
 
-      <div
-        class="alert alert-danger mt-4 control-error"
-        *ngIf="
+      <div class="alert alert-danger mt-4 control-error" *ngIf="
           myForm.get('dc_centro_coordenada_uno')?.hasError('required') &&
           myForm.get('dc_centro_coordenada_uno')!.touched
-        "
-      >
+        ">
         El campo es requerido.
       </div>
     </div>
 
     <div class="col-3 ps-2 mt-4 contentenedor-control">
       <label class="form-label">Coordenada 2 (longitud)</label>
-      <input
-        type="text"
-        (input)="changeCordenada2($event)"
-        class="form-control"
-        formControlName="dc_centro_coordenada_dos"
-        value="{{ myForm.value.dc_centro_coordenada_dos }}"
-        placeholder="Ingrese la segunda Coordenada"
-        pattern="-?\d+(,\d+)?"
-      />
-      <div
-        class="alert alert-danger mt-4 control-error"
-        *ngIf="
+      <input type="text" (input)="changeCordenada2($event)" class="form-control"
+        formControlName="dc_centro_coordenada_dos" value="{{ myForm.value.dc_centro_coordenada_dos }}"
+        placeholder="Ingrese la segunda Coordenada" pattern="-?\d+(,\d+)?" />
+      <div class="alert alert-danger mt-4 control-error" *ngIf="
           myForm.get('dc_centro_coordenada_dos')?.hasError('required') &&
           myForm.get('dc_centro_coordenada_dos')!.touched
-        "
-      >
+        ">
         El campo es requerido.
       </div>
     </div>
 
     <div class="container-Btns">
-      <button
-        class="btn-primary-add"
-        type="submit"
-        [disabled]="!selecTipo && !myForm.valid"
-      >
+      <button class="btn-primary-add" type="submit" [disabled]="!selecTipo && !myForm.valid">
         Guardar
       </button>
     </div>

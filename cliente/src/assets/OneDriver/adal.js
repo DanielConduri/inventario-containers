@@ -1097,7 +1097,7 @@ AuthenticationContext.prototype._addAdalFrame = function (iframeId) {
 
 AuthenticationContext.prototype._logstatus = function (msg) {
   if (console) {
-    console.log(msg);
+    // console.log(msg);
   }
 };
 

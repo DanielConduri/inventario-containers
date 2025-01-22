@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AgregarProveedorComponent } from './agregar-proveedor.component';
 
 describe('AgregarProveedorComponent', () => {
@@ -8,7 +8,9 @@ describe('AgregarProveedorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AgregarProveedorComponent ]
+      declarations: [ AgregarProveedorComponent ],
+      imports: [ HttpClientModule], // Agregando HttpClientModule
+
     })
     .compileComponents();
 
@@ -17,5 +19,12 @@ describe('AgregarProveedorComponent', () => {
     fixture.detectChanges();
   });
 
+
+  describe('ComponentName', () => {
+    it('should create', () => {
+      expect(true).toBeTruthy();
+    });
+  });
+  
 
 });

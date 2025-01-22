@@ -87,6 +87,8 @@ export class EditarCentrosComponent implements OnInit, OnDestroy {
 
   especial: boolean = false;
 
+  aux!: boolean
+
   // Google Maps declaracion data
 
   deshabilitar: boolean = true;
@@ -131,6 +133,7 @@ export class EditarCentrosComponent implements OnInit, OnDestroy {
       codigo_dependencia: [''],
       dc_centro_coordenada_uno: [''],
       dc_centro_coordenada_dos: [''],
+      str_centro_celular_custodio: ['', [Validators.required , Validators.pattern(/^[0-9]{10}$/) ]],
     });
 
     // Google Maps inicializacion
@@ -216,6 +219,7 @@ export class EditarCentrosComponent implements OnInit, OnDestroy {
             codigo_dependencia: [data.body.int_centro_id_dependencia],
             dc_centro_coordenada_uno: [data.body.dc_centro_coordenada_uno],
             dc_centro_coordenada_dos: [data.body.dc_centro_coordenada_dos],
+            str_centro_celular_custodio: [data.body.str_centro_celular_custodio, [Validators.required ,Validators.minLength(10)]],
           });
           console.log('formulario ->', this.myForm.value);
           if (this.myForm.value.str_centro_tipo_nombre) {
@@ -524,7 +528,7 @@ export class EditarCentrosComponent implements OnInit, OnDestroy {
       denyButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        // console.log('formulario ->', this.myForm.value);
+        console.log('formulario ->', this.myForm.value);
         this.srvCentros
           .editCentros(this.srvCentros.idModify, this.myForm.value)
           .pipe(takeUntil(this.destroy$))
@@ -597,6 +601,14 @@ export class EditarCentrosComponent implements OnInit, OnDestroy {
         },
         complete: () => {},
       });
+  }
+
+  validarCelular(e: any) {
+    if (e.target.value.length < 10 || e.target.value.length > 10) {
+      this.aux = true
+    }else{
+      this.aux = false  
+    }
   }
 
   ngOnDestroy(): void {

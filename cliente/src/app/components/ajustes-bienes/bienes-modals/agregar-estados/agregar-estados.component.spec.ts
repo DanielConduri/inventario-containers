@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AgregarEstadosComponent } from './agregar-estados.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AgregarEstadosComponent', () => {
   let component: AgregarEstadosComponent;
@@ -8,7 +9,8 @@ describe('AgregarEstadosComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AgregarEstadosComponent ]
+      declarations: [ AgregarEstadosComponent ],
+      imports: [ HttpClientModule]
     })
     .compileComponents();
 
@@ -20,4 +22,6 @@ describe('AgregarEstadosComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
+  
 });

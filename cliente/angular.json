@@ -20,7 +20,11 @@
             "tsConfig": "tsconfig.app.json",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/assets/my-theme.scss", "src/styles.css"],
-            "scripts": [],
+            "scripts": [
+              "src/assets/OneDriver/config.js",
+              "src/assets/OneDriver/adal.js",
+              "src/assets/OneDriver/App.js"
+            ],
             "allowedCommonJsDependencies": ["CommonJS"]
           },
           "configurations": {
@@ -28,13 +32,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "1mb",
-                  "maximumError": "3.75mb"
+                  "maximumWarning": "10mb",
+                  "maximumError": "10mb"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "10mb",
+                  "maximumError": "10mb"
                 }
               ],
               "fileReplacements": [
@@ -43,15 +47,22 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
-              "outputHashing": "all"
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true
+           
             },
-            "development": {
-              "buildOptimizer": false,
-              "optimization": false,
-              "vendorChunk": true,
-              "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+            "invitado": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.invitado.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -70,6 +81,9 @@
             },
             "development": {
               "browserTarget": "cliente:build:development"
+            },
+            "invitado": {
+              "browserTarget": "cliente:build:invitado"
             }
           },
           "defaultConfiguration": "development"

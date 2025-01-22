@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HistorialArchivosComponent } from './historial-archivos.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('HistorialArchivosComponent', () => {
   let component: HistorialArchivosComponent;
@@ -8,7 +8,8 @@ describe('HistorialArchivosComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HistorialArchivosComponent ]
+      declarations: [ HistorialArchivosComponent ],
+      imports: [ HttpClientModule]
     })
     .compileComponents();
 
@@ -19,5 +20,5 @@ describe('HistorialArchivosComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
+  }); 
 });

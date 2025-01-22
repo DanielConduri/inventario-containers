@@ -128,6 +128,7 @@ import { DetalleCargaComponent } from './bienes-modals/detalle-carga/detalle-car
     HistorialBienComponent,
     HistorialArchivosComponent,
     DetalleCargaComponent,
+
   ]
 })
 export class AjustesBienesModule { }

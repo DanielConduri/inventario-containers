@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AgregarMarcaComponent } from './agregar-marca.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AgregarMarcaComponent', () => {
   let component: AgregarMarcaComponent;
@@ -8,7 +8,8 @@ describe('AgregarMarcaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AgregarMarcaComponent ]
+      declarations: [ AgregarMarcaComponent ],
+      imports: [ HttpClientModule]
     })
     .compileComponents();
 
@@ -20,4 +21,10 @@ describe('AgregarMarcaComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  // describe('ComponentName', () => {
+  //   it('should create', () => {
+  //     expect(true).toBeTruthy();
+  //   });
+  // });
+  
 });

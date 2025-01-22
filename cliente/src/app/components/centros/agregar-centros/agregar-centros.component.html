@@ -176,12 +176,34 @@
                         </div>
                     </div>
                 </div>
-                <div class="container-Btns">
-                    <button class="btn-primary-add" type="submit" [disabled]="!myForm.valid">
-                        Guardar
-                    </button>
+            </div>
+        </div>
+
+        <div class="containerItems" style="margin-bottom: 20px; ">
+            <div class="cont-Center_Name">
+                <div class="container-Name">
+                    <div class="centerName-Text">
+                        <label class="lbl-info" for="nombre">Número del técnico:</label>
+                    </div>
+                    <div class="centerNambe-Input">
+                        <input class="inp-info" type="text" id="nombre" placeholder="0000000000"
+                            formControlName="str_centro_celular_custodio" required=""
+                            (input)="validarCelular($event)" />
+                    </div>
+                    <div class="alert alert-danger mt-4 control-error" *ngIf="aux"
+                        style="color: rgb(220, 38, 38); font-size: smaller;">
+                        Dato incorrecto.
+                    </div>
                 </div>
             </div>
+        </div>
+
+
+
+        <div class="container-Btns">
+            <button class="btn-primary-add" type="submit" [disabled]="!myForm.valid">
+                Guardar
+            </button>
         </div>
     </form>
 </div>
