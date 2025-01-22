@@ -35,8 +35,8 @@ jobs:
       - name: ENV BACK
         #working-directory: ./servidor
         run: |
-          touch ./server/.env
-          echo "${{secrets.ENV_INVENTARIO_CONTAINERS }}" > ./server/.env
+          touch ./servidor/.env
+          echo "${{secrets.ENV_INVENTARIO_CONTAINERS }}" > ./servidor/.env
 
   build:
     name: DEPLOY BACKEND
