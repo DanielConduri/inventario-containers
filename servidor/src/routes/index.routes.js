@@ -52,7 +52,7 @@ router.get(url + "/info", (req, res, next) => {
     status: 200,
     message: "OK",
     version: "1.2",
-    update_route: false
+    update_route: true
   });
 });
 
