@@ -46,8 +46,8 @@ jobs:
       - name: build
         run: |
           docker compose up --build -d
-          # cd cliente
-          # npm ci
-          # npm install
-          # ng build --configuration production
-          # sudo cp -rf dist/ /var/www/inventario
+          cd cliente
+          npm ci
+          npm install
+          ng build --configuration production
+          sudo cp -rf dist/ /var/www/inventario
