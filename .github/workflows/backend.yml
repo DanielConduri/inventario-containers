@@ -48,6 +48,6 @@ jobs:
           docker compose up --build -d
           #cd cliente
           # npm ci
-          # npm install
           # ng build --configuration production
-          sudo cp -rf ./cliente/dist/ /var/www/inventario
+          sudo cp -rf dist/ /var/www/inventario
+          sudo cp -rf ./cliente/dist/cliente /var/www/inventario
