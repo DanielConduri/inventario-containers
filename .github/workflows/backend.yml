@@ -49,5 +49,5 @@ jobs:
           #cd cliente
           # npm ci
           # ng build --configuration production
-          sudo cp -rf dist/ /var/www/inventario
+          #sudo cp -rf dist/ /var/www/inventario
           sudo cp -rf ./cliente/dist/cliente /var/www/inventario
