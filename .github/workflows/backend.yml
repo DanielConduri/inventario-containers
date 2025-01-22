@@ -10,9 +10,9 @@ jobs:
   start:
     name: FRONTEND
     runs-on: self-hosted
-    strategy:
-      matrix:
-        node-version: [18.x]
+    # strategy:
+    #   matrix:
+    #     node-version: [18.x]
 
     steps:
     - uses: actions/checkout@v4
