@@ -45,7 +45,7 @@ jobs:
     steps:
       - name: build
         run: |
-          docker-compose up --build -d
+          docker compose up --build -d
           # cd cliente
           # npm ci
           # npm install
