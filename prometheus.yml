@@ -1,0 +1,24 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['prometheus2.pruebasinventario.me']
+  - job_name: 'postgres-exporter'
+    static_configs:
+      - targets: ['postgresexporter.pruebasinventario.me']
+  - job_name: 'api'
+    #metrics_path: '/apiv3/metrics'
+    static_configs:
+      - targets: ['pruebasinventario.me']
+  # - job_name: 'grafana'
+  #   static_configs:
+  #     - targets: ['grafana2.pruebasinventario.me']
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor2.pruebasinventario.me']
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['nodexporter2.pruebasinventario.me']

@@ -1,6 +1,60 @@
 version: "3.9"
 
 services:
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:  
+      - 3000:3000
+    volumes:
+     - grafana_data:/var/lib/grafana
+    restart: always
+    networks:
+      - backend
+
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - grafana
+      - api
+    restart: always
+    networks:
+      - backend
+
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    ports:
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      #- portainer_data:/data
+    restart: always
+    networks:
+      - backend
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    privileged: true
+    devices:
+      - /dev/kmsg
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    ports: 
+      - "8080:8080"
+    restart: always
+
+
   api:
     image: img-node
     container_name: api-inventario
@@ -26,6 +80,15 @@ services:
     networks:
       - backend
 
+  node-exporter:
+    image: prom/node-exporter
+    container_name: node-exporter
+    ports:
+      - "9100:9100"
+    restart: always
+    networks:
+      - backend
+
 
   # nginx:
   #   image: nginx:latest
@@ -41,6 +104,7 @@ services:
 
 volumes:
   postgres_data:
+  grafana_data:
     driver: local
 
 networks:
